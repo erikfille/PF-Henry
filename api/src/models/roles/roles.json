@@ -1,0 +1,12 @@
+[{    
+"id": 1,    
+"rol": "admin"  
+},  
+{    
+"id": 2,    
+"rol": "customer"  
+},  
+{    
+"id": 3,    
+"rol": "manager"  
+}]
