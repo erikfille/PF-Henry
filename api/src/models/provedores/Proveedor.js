@@ -2,7 +2,7 @@ const {Schema, model} = require('mongoose')
 
 
 const ProveedorSchema = new Schema({
-    usuario_id: {type: Schema.Types.ObjectId, ref: "Usuario"}, 
+    usuarios: {type: Schema.Types.ObjectId, ref: "Usuario"}, 
     nombre: {
         type: String,
         required: true
@@ -15,7 +15,7 @@ const ProveedorSchema = new Schema({
         type: Boolean,
         required: true
     },
-    producto_id: {type: Schema.Types.ObjectId, ref: "Producto_servicio"},
+    productos: {type: Schema.Types.ObjectId, ref: "Producto_servicio"},
     rating: {
         type: Number
     },
