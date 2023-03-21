@@ -1,0 +1,37 @@
+[
+    {
+        "titulo":"afialdor de uñas",
+        "esProducto":true,
+        "esServicio":false,
+        "precio": 500,
+        "imgen":"url",
+        "rating":1,
+        "stock":30,
+        "activo":true,
+        "categoria": " ID DE LA CATEGORIA ",
+        "fecha de la creacion": "16/06/1996"
+    },
+    {
+        "titulo":"comedero",
+        "esProducto":true,
+        "esServicio":false,
+        "precio": 1000,
+        "imgen":"url",
+        "rating":3,
+        "stock":10,
+        "activo":true,
+        "categoria": " ID DE LA CATEGORIA ",
+        "fecha de la creacion": "17/07/1997"
+    },
+    {
+        "titulo":"corte de pelo",
+        "esProducto":false,
+        "esServicio":true,
+        "precio": 500,
+        "imgen":"url",
+        "rating":5,
+        "activo":true,
+        "categoria": " ID DE LA CATEGORIA ",
+        "fecha de la creacion": "18/08/1998"
+    }
+]
