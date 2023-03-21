@@ -1,0 +1,32 @@
+[
+    {
+      "id": 1,
+      "nombre": "ElTurco",
+      "vendeProductos": true,
+      "vendeServicios": false,
+      "productos": {
+        "id": "ACA ID DEL PRODUCTO"
+      },
+      "rating": 3
+    },
+    {
+      "id": 2,
+      "nombre": "ElVeterinaria",
+      "vendeProductos": false,
+      "vendeServicios": true,
+      "productos": {
+        "id": "ACA ID DEL PRODUCTO"
+      },
+      "rating": 10
+    },
+    {
+      "id": 3,
+      "nombre": "CartelDeJuarez",
+      "vendeProductos": true,
+      "vendeServicios": false,
+      "productos": {
+        "id": "ACA ID DEL PRODUCTO"
+      },
+      "rating": 0
+    }
+  ]
