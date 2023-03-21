@@ -7,4 +7,5 @@ mongoose.connect("mongodb://localhost/PetCare", {
     
 })
 .then(() => console.log("la base de datos esta conectada"))
-.catch(err => console.log(err))
+    .catch(err => console.log(err))
+    
