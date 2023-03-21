@@ -1,5 +1,5 @@
 import { useAuth0 } from "@auth0/auth0-react";
-import { Router, Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import Home from "./Views/Home/Home";
 import Footer from "./Views/Footer/Footer";
 import Faqs from "./Views/Faqs/Faqs";
@@ -12,7 +12,7 @@ function App() {
   return (
     <div className="App">
       <button onClick={() => loginWithRedirect()}>Login</button>
-      <Router>
+      <Routes>
         <Route path="" element={<Home />}></Route>
         <Route path="" element={<Footer />}></Route>
         <Route path="" element={<Faqs />}></Route>
