@@ -1,5 +1,6 @@
-const hapi = require("@hapi/hapi")
-require("./database.js")
+const hapi = require("@hapi/hapi");
+require("./database.js");
+
 
 const init = async () => {
     const server = new hapi.server({
