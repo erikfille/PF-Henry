@@ -13,17 +13,23 @@ import Faqs from "./Views/Faqs/Faqs";
 //? Styles
 import "./App.css";
 
+
 function App() {
   const { loginWithRedirect } = useAuth0();
   const location = useLocation()
 
+ 
+
   return (
+
+    //TODO especificar en que rutas se va a renderizar el footer
     <div className="App">
       {location.pathname !== "/loguin" && 
         <div>
           <Footer></Footer>
         </div>  
       }
+
 
       {location.pathname === "/loguin" && 
         <div>
