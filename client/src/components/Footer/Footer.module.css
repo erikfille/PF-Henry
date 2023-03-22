@@ -1,4 +1,25 @@
-.footerContainer{
+
+
+.container-fluid.fixed-bottom {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 1030; 
+    background-color: #fff; 
+    padding: 1px;
+  }
+  
+.contactLink{
+    color: #0CC5BA;
+    padding: 1px;
+}
+
+
+
+
+
+/* .footerContainer{
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
@@ -9,7 +30,9 @@
     justify-content: space-between;
     align-content: center;
     width: 100%;
-    background-color: #0cc5b91a; 
+    z-index: 99;
+    background-color: white; 
+    border-top: 2px solid #0cc5b982;
 }
 
 h1{
@@ -26,16 +49,16 @@ h1{
     align-content: center;
 }
 
-.redesLink{ 
+.redesLink{  */
     /* //TODO: ver tamaño */
-    color: black;
+    /* color: black;
     align-content: center;
     justify-content: space-between;
 }
 
-.containerLinks{
+.containerLinks{ */
     /* //TODO: sacar el color del link? */
-    display: inline-flex;
+    /* display: inline-flex;
     flex-direction: column;
     margin-top: 2%;
     margin-right: 2%;  
@@ -47,9 +70,6 @@ h1{
     align-items: center;
 }
 
-.contactLink{
-    color: #0CC5BA;
-    padding: 1px;
-}
 
 
+ */
