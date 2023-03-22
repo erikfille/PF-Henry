@@ -10,8 +10,6 @@ const init = async () => {
 
 
 
-
-
  await server.start();
   console.log(`el servidor esta corriendo en ${server.info.uri}`);
 }
