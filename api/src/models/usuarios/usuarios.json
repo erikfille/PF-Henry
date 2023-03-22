@@ -1,6 +1,6 @@
 [
     {
-      "id": 1,
+      
       "name": "John",
       "surname": "Doe",
       "email": "johndoe@example.com",
@@ -10,7 +10,7 @@
       "productsVisited": ["ProductA", "ProductB", "ProductC"]
     },
     {
-      "id": 2,
+      
       "name": "Jane",
       "surname": "Doe",
       "email": "janedoe@example.com",
@@ -20,7 +20,7 @@
       "productsVisited": ["ProductB", "ProductC", "ProductD"]
     },
     {
-      "id": 3,
+      
       "name": "Bob",
       "surname": "Smith",
       "email": "bobsmith@example.com",
