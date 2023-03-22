@@ -8,6 +8,6 @@ rol: {
   }
 });
 
-const Rol = mongoose.model('Rol', rolSchema);
+const Rol = mongoose.model('Rol', rolSchema,"rols");
 
 module.exports = Rol;
