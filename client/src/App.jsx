@@ -12,6 +12,7 @@ import Faqs from "./Views/Faqs/Faqs";
 
 //? Styles
 import "./App.css";
+import Tienda from "./Views/Tienda/Tienda";
 
 function App() {
   const { loginWithRedirect } = useAuth0();
@@ -35,6 +36,7 @@ function App() {
         <Route path="/inicio" element={<Home />}/>
         <Route path="/about" element={<About />}/>
         <Route path="/faqs" element={<Faqs />}/>
+        <Route path="/tienda" element={<Tienda />}/> 
       </Routes>
     </div>
   );
