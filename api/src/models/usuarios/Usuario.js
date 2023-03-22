@@ -16,10 +16,10 @@ const userSchema = new mongoose.Schema({
     required: true,
     unique: true
 },
-  rol: [{
+  rol: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Rol",
-}],
+},
   password: {
     type: String,
     required: true
@@ -29,11 +29,14 @@ const userSchema = new mongoose.Schema({
     required: true,
 },
   productsVisited: {
-    type: String,
-    required: true
-},
+    type: Array,
+    
+  },
+  pet: {
+    type:String
+  }
 });
 
-module.export = mongoose.model('User', userSchema);
+module.exports = mongoose.model('Usuario', userSchema);
 
 
