@@ -1,6 +1,5 @@
 [
   {
-    "id": 1,
     "estado": "pendiente",
     "comprador": "Juan Pérez",
     "productos": [
@@ -16,7 +15,6 @@
     "metodoPago": "tarjeta de crédito"
   },
   {
-    "id": 2,
     "estado": "enviado",
     "comprador": "María Gómez",
     "productos": [
@@ -32,7 +30,6 @@
     "metodoPago": "transferencia bancaria"
   },
   {
-    "id": 3,
     "estado": "entregado",
     "comprador": "Carlos López",
     "productos": [
