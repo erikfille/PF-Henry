@@ -37,6 +37,7 @@ function App() {
         </div>
       }
       
+      
       <Routes>
         <Route path="/inicio" element={<Home />}/>
         <Route path="/about" element={<About />}/>
