@@ -1,11 +1,11 @@
 [{    
    
-"rol": "admin"  
+"nombre": "admin"  
 },  
 {    
     
-"rol": "customer"  
+"nombre": "customer"  
 },  
 {    
-"rol": "manager"  
+"nombre": "manager"  
 }]
