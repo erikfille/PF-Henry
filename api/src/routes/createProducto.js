@@ -1,9 +1,19 @@
-// descomentar todo y no cambiar el nombre el de la variable; en notion estan que rutas hay que hacer para cada modelo
+const ProductoServicio = require("../models/productos_servicios/Producto_servicio");
 
+const createProductosRoutes = [
+  {
+    method: "POST",
+    path: "/crearProducto",
+    handler: async (request, h) => {
+      try {
+        const productoServicio = new ProductoServicio(request.payload);
+        await productoServicio.save();
+        return h.response(productoServicio).code(201);
+      } catch (error) {
+        return h.response(error).code(500);
+      }
+    },
+  },
+];
 
-// const createProductosRoutes = [{
-    
-
-
-// }]
-// module.exports=createProductosRoutes
+module.exports = createProductosRoutes;
