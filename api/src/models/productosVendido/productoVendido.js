@@ -1,22 +1,18 @@
 const mongoose = require('mongoose');
 
 const productoVendidoSchema = new mongoose.Schema({
-    id: {
-        type: String,
-        required: true
+   
+      id_producto: {//
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Producto_servicio",
     },
-      id_producto: {
-        type: String,
-        required: true,
+      id_usuario: {//
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Usuario'
     },
-      id_usuario: {
-        type: String,
-        required: true,
-        unique: true
-    },
-      id_proveedor: {
-        type: String,
-        required: true
+      id_proveedor: {//
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Proveedor'
     },
       precio: {
         type: Number,
