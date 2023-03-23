@@ -1,8 +1,12 @@
-import React from 'react'
-import styles from "./Login.module.css"
+import React from "react";
+import LoginWidget from "../../components/LoginWidget/LoginWidget";
+
+import styles from "./Login.module.css";
 
 export default function Login() {
   return (
-    <div>Login</div>
-  )
+    <div className="LoginContainer">
+      <LoginWidget />
+    </div>
+  );
 }

@@ -1,18 +1,15 @@
 [
   {
-    "id": 1,
     "direccionDestinatario": "Calle A 123",
     "direccionRemitente": "Calle B 456",
     "comprador": "Juan Pérez"
   },
   {
-    "id": 2,
     "direccionDestinatario": "Avenida C 789",
     "direccionRemitente": "Avenida D 012",
     "comprador": "María Gómez"
   },
   {
-    "id": 3,
     "direccionDestinatario": "Calle E 345",
     "direccionRemitente": "Calle F 678",
     "comprador": "Carlos López"

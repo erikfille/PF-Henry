@@ -1,35 +1,79 @@
-import React from 'react'
-import styles from "./Footer.module.css"
+//? React
+import React from "react";
+import { Link } from "react-router-dom";
+
+//? styles
+import styles from "./Footer.module.css";
+import { AiFillInstagram, AiFillFacebook, AiFillTwitterCircle } from "react-icons/ai";
+import { GoLocation, GoMail } from "react-icons/go";
+import { BsFillTelephoneFill } from "react-icons/bs";
 
 export default function Footer() {
-  return (
-    <div className={styles.footerContainer}>
-      <div>
-        <h1>PetsAmerica</h1>
-      </div>
+	return (
+		<div className={styles.footerContainer}>
+			<div>
+				<h1>PetsAmerica</h1>
+				<div className={styles.containerRedes}>
+					<Link to='' className={styles.redesLink}>
+						<AiFillInstagram />
+					</Link>
 
-      <div>
-        <h4>Menu</h4>
-        <span>Sobre Nosotros</span>
-        <span>Tienda</span>
-        <p>Servicios</p>
-        <p>Faqs</p>
-        <p>Contacto</p>
-      </div>
+					<Link to='' className={styles.redesLink}>
+						<AiFillFacebook />
+					</Link>
 
-      <div>
-        <h4>Politicas</h4>
-        <p>Términos</p>
-        <p>Condiciones</p>
-      </div>
-      
-      <div>
-        <h4>Nuestro Contacto</h4>
-        <p>Ubicación</p>
-        <p>Teléfono</p>
-        <p>info@petsamerica.com</p>
-      </div>  
-      
-    </div>
-  )
+					<Link to='' className={styles.redesLink}>
+						<AiFillTwitterCircle />
+					</Link>
+				</div>
+			</div>
+
+			{/* //Todo: definir las rutas a donde linkea todo */}
+
+			<div className={styles.containerLinks}>
+				<p>Menu</p>
+				<Link to='/about' className={styles.footerLink}>
+					Sobre Nosotros
+				</Link>
+				<Link to='' className={styles.footerLink}>
+					Tienda
+				</Link>
+				<Link to='' className={styles.footerLink}>
+					Servicios
+				</Link>
+				<Link to='/faqs' className={styles.footerLink}>
+					Faqs
+				</Link>
+				<Link to='' className={styles.footerLink}>
+					Contacto
+				</Link>
+			</div>
+
+			<div className={styles.containerLinks}>
+				<p>Politicas</p>
+				<Link to='' className={styles.footerLink}>
+					Terminos
+				</Link>
+				<Link to='' className={styles.footerLink}>
+					Condiciones
+				</Link>
+			</div>
+
+			<div className={styles.containerLinks}>
+				<p>Nuestro contacto</p>
+				<Link to='' className={styles.footerLink}>
+					<GoLocation className={styles.contactLink} />
+					Ubicación
+				</Link>
+				<Link to='' className={styles.footerLink}>
+					<BsFillTelephoneFill className={styles.contactLink} />
+					Telefono
+				</Link>
+				<Link to='' className={styles.footerLink}>
+					<GoMail className={styles.contactLink} />
+					info@petsamerica.com
+				</Link>
+			</div>
+		</div>
+	);
 }
