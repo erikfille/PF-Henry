@@ -1,24 +1,25 @@
 import ReactStars from 'react-stars';
-import { RiDeleteBin6Line } from 'react-icons/ri'
+import { RiDeleteBin6Line } from 'react-icons/ri';
+import style from './ProductCard.module.css'
 
 export default function ProductCart(props) {
 
    if(props.showAs === 'cart'){
       return (
          <>
-            <div className='product-cart col-12 d-flex gap-5 p-3'>
+            <div className={`${style.productCart} col-12 d-flex gap-5 p-3`}>
                <img src={props.image} alt={props.name} style={{ width: '100px', height: '100px'}} />
                <div className='d-flex flex-column gap-2'>
-                  <h5 className='title mb-0'>{props.name}</h5>
+                  <h5 className={`${style.title} mb-0`}>{props.name}</h5>
                   <p className='sku mb-0'>SKU-{props.sku}</p>
-                  <p className='price mb-0'>AR$ {props.price}</p>
+                  <p className={`${style.price} mb-0`}>AR$ {props.price}</p>
                </div>
                <div className='d-flex flex-column'>
                   <h5>Cant</h5>
-                  <input className='form-control cant' type="number" />
+                  <input className={`form-control ${style.cant}`} type="number" />
                </div>
                <div className='d-flex justify-content-center align-items-center'>
-                  <button className='button-delete'><RiDeleteBin6Line className='icon-delete'/></button>
+                  <button className={style.buttonDelete}><RiDeleteBin6Line className={style.iconDelete}/></button>
                </div>
             </div>
          </>
@@ -27,11 +28,11 @@ export default function ProductCart(props) {
 
    return (
          <>
-            <div className='product-card col-3,5 px-3 py-3' >
+            <div className={`${style.productCard} col-3,5 px-3 py-3`}>
                <div className='d-flex justify-content-end'>
                   <img style={{ width: '40px' }} src="images/logo-pet.png" alt="logo"></img>
                </div>
-               <div className='d-flex justify-content-center product'>
+               <div className='d-flex justify-content-center'>
                   <img src={props.image} alt="juguete para perro" style={{ width: '170px', height: '170px' }} />
                </div>
                <hr />

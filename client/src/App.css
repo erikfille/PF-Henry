@@ -23,19 +23,6 @@
 }
 
 
-/*** BreadCrump ***/
-
-.breadcrump {
-  border-top: 2px solid var(--color-0CC5BA);
-}
-
-.link-bc {
-  font-weight: 600;
-}
-
-/*** BreadCrump end ***/
-
-
 /*** Colores ***/
 
 :root {
@@ -48,127 +35,11 @@
 
 /*** Colores Fin ***/
 
+
+/** Fondo grisesito de las page **/
+
 .home-wrapper-2 {
   background-color: var(--color-fbfbfb);
 }
 
-/*********************** Product Card ***********************/
-
-.product-card {
-  width: 300px;
-  height: 370px;
-  border-radius: 10px;
-  background: url(images/logo-bg-product.png) no-repeat 10px;
-  background-color: #fff;
-}
-
-.product-card > h5 {
-  font-weight: 700;
-}
-
-.product-card > hr {
-  opacity: 1;
-  background-color: var(--color-0CC5BA);
-  height: 4px;
-  border: none;
-}
-
-.product-cart {
-  border: 1px solid black;
-}
-
-.product-cart h5 {
-  color: var(--color-131921);
-  line-height: 20px;
-  font-weight: 600;
-}
-
-.title {
-  font-weight: 600;
-}
-
-.price {
-  font-weight: 600;
-}
-
-.cant {
-  width: 60px;
-}
-
-.button-delete {
-  border: none;
-  background-color: transparent;
-}
-
-.icon-delete {
-  width: 30px;
-  height: 30px;
-  color: var(--color-0CC5BA);
-}
-/*********************** Product Card Termina aca ***********************/
-
-
-/*********************** Tienda  ***********************/
-
-.filter-card {
-  background-color: #fff;
-  border-radius: 10px;
-}
-
-.filter-sort-grid {
-  background-color: #fff;
-  border-radius: 10px;
-}
-
-.button-search {
-  border: none;
-  width: 70px;
-  height: 38px;
-  background-color: var(--color-0CC5BA);
-  border-radius: 5px;
-}
-
-/*********************** Tienda Termina aca ***********************/
-
-/*********************** Footer ***********************/
-
-.footer-wrapper {
-  background: url(images/logo-bg-product.png) no-repeat;
-  background-position: 75% 50%;
-} 
-
-.btn-rrss {
-  background-color: transparent;
-  border: none;
-}
-
-.icon-rrss {
-  width: 22px;
-  height: 22px;
-}
-
-.title {
-  margin-left: 25%;
-}
-
-.title h2 {
-  font-weight: 700;
-}
-
-.spans {
-  color: var(--color-131921)
-}
-
-.img-cat {
-  width: 300px;
-}
-
-.icon-contact {
-  width: 27px;
-  height: 27px;
-  color: var(--color-0CC5BA);
-  margin-right: 10px;
-}
-
-
-/*********************** Footer end ***********************/
+/** Fondo grisesito termina aqui **/
