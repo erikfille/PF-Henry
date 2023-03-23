@@ -61,12 +61,17 @@
   border-radius: 10px;
   background: url(images/logo-bg-product.png) no-repeat 10px;
   background-color: #fff;
+}
 
+.product-card > h5 {
+  font-weight: 700;
 }
 
 .product-card > hr {
+  opacity: 1;
   background-color: var(--color-0CC5BA);
-  height: 3px;
+  height: 4px;
+  border: none;
 }
 
 .product-cart {
