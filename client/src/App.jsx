@@ -1,5 +1,5 @@
 //? React
-import { useEffect, useState } from "react";
+import React from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
 import axios from "axios";
 
@@ -19,36 +19,15 @@ import Login from "./Views/Login/Login";
 
 //? Styles
 import "./App.css";
-import Tienda from "./Views/Tienda/Tienda";
 
 axios.defaults.baseURL = "http://localhost:3001";
 
 function App() {
-	const [user, setUser] = useState({});
 	const location = useLocation();
-
-	const clientID = "756465634743-0hd8ke48er3tkrt4siag4o30m7h73a8c.apps.googleusercontent.com";
-
-	useEffect(() => {
-		const start = () => {
-			gapi.auth2.init({
-				clientId: clientID,
-			});
-		};
-		gapi.load("client:auth2", start);
-	}, []);
-
-	const onSuccess = (response) => {
-		console.log(response);
-		setUser(response);
-	};
-
-	const onFailure = () => {
-		console.log("Something went wrong");
-	};
   
   return (
     <div className="App">
+      {location.pathname !== "/login" && <Header />}
       <Routes>
         <Route path="/inicio" element={<Home />} />
         <Route path="/about" element={<About />} />
