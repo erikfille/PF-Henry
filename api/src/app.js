@@ -2,7 +2,7 @@ const hapi = require("@hapi/hapi");
 require("./database.js");
 const usuariosRoutes = require("./routes/usuarios.js");
 const rolRoutes = require("./routes/roles");
-//const createProductosRoutes = require("./routes/createProducto")
+const createProductosRoutes = require("./routes/createProducto")
 //const categoriasRoutes = require("./routes/categorias")
 //const productoDetailRoutes = require("./routes/productoDetail.js")
 //const allProductosRoutes = require("./routes/allProductos.js")
@@ -17,7 +17,7 @@ const init = async () => {
 
   server.route(usuariosRoutes);
   server.route(rolRoutes);
-  // server.route(createProductosRoutes)
+  server.route(createProductosRoutes)
   // server.route(categoriasRoutes)
   // server.route(productoDetailRoutes)
   // server.route(allProductosRoutes)
