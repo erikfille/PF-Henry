@@ -1,20 +1,27 @@
 .logoContainer h3 {
 	font-size: 1.3rem;
 	margin-bottom: 0;
+	font-weight: 700;
 }
 
 nav {
 	height: 4rem;
+	background-color: #fff;
 }
 
 nav a {
 	color: black;
-	font-weight: 500;
+	font-size: 0.8rem;
+	font-weight: 600;
 	text-decoration: none;
 }
 
 nav a:hover {
 	color: #0cc5ba;
+}
+
+.buttonContainer svg {
+	font-size: 1.5rem;
 }
 
 .menuButton {
