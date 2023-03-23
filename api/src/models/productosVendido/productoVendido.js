@@ -2,17 +2,17 @@ const mongoose = require('mongoose');
 
 const productoVendidoSchema = new mongoose.Schema({
    
-      id_producto: {//
+      id_producto: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Producto_servicio",
     },
-      id_usuario: {//
+      id_usuario: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Usuario'
+        ref: 'Usuario',
     },
-      id_proveedor: {//
+      id_proveedor: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Proveedor'
+        ref: 'Proveedor',
     },
       precio: {
         type: Number,
