@@ -47,8 +47,6 @@ function App() {
 		console.log("Something went wrong");
 	};
   
-  const location = useLocation();
-
   return (
     <div className="App">
       <Routes>
