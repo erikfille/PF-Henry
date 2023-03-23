@@ -1,0 +1,41 @@
+.logoContainer h3 {
+	font-size: 1.3rem;
+	margin-bottom: 0;
+}
+
+nav {
+	height: 4rem;
+}
+
+nav a {
+	color: black;
+	font-weight: 500;
+	text-decoration: none;
+}
+
+nav a:hover {
+	color: #0cc5ba;
+}
+
+.menuButton {
+	font-size: 1.5rem;
+	display: none;
+}
+
+.logo {
+	width: 2rem;
+}
+
+/* Muestra boton burguer en responsive */
+@media screen and (max-width: 992px) {
+	.menuButton {
+		font-size: 1.5rem;
+		display: inline-block;
+	}
+}
+/* Oculta titulo en responsive */
+@media screen and (max-width: 700px) {
+	.logoContainer h3 {
+		display: none;
+	}
+}
