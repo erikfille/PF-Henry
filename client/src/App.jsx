@@ -14,6 +14,10 @@ import Footer from "./components/Footer/Footer";
 import Home from "./Views/Home/Home";
 import About from "./Views/About/About";
 import Faqs from "./Views/Faqs/Faqs";
+import Header from "./components/Header/Header";
+import Tienda from "./Views/Tienda/Tienda";
+import Servicios from "./Views/Servicios/Servicios";
+import Contacto from "./Views/Contacto/Contacto";
 
 //? Styles
 import "./App.css";
@@ -21,51 +25,54 @@ import "./App.css";
 axios.defaults.baseURL = "http://localhost:3001";
 
 function App() {
-  const [user, setUser] = useState({});
-  const location = useLocation();
+	const [user, setUser] = useState({});
+	const location = useLocation();
 
-  const clientID =
-    "756465634743-0hd8ke48er3tkrt4siag4o30m7h73a8c.apps.googleusercontent.com";
+	const clientID = "756465634743-0hd8ke48er3tkrt4siag4o30m7h73a8c.apps.googleusercontent.com";
 
-  useEffect(() => {
-    const start = () => {
-      gapi.auth2.init({
-        clientId: clientID,
-      });
-    };
-    gapi.load("client:auth2", start);
-  }, []);
+	useEffect(() => {
+		const start = () => {
+			gapi.auth2.init({
+				clientId: clientID,
+			});
+		};
+		gapi.load("client:auth2", start);
+	}, []);
 
-  const onSuccess = (response) => {
-    console.log(response);
-    setUser(response);
-  };
+	const onSuccess = (response) => {
+		console.log(response);
+		setUser(response);
+	};
 
-  const onFailure = () => {
-    console.log("Something went wrong");
-  };
+	const onFailure = () => {
+		console.log("Something went wrong");
+	};
 
-  return (
-    <div className="App">
-      {location.pathname === "/login" && (
-        <div className="btn">
-          <GoogleLogin
-            clientId={clientID}
-            onSuccess={onSuccess}
-            onFailure={onFailure}
-            cookiePolicy={"single_host_policy"}
-          />
-        </div>
-      )}
+	return (
+		<div className='App'>
+			{location.pathname === "/login" && (
+				<div className='btn'>
+					<GoogleLogin
+						clientId={clientID}
+						onSuccess={onSuccess}
+						onFailure={onFailure}
+						cookiePolicy={"single_host_policy"}
+					/>
+				</div>
+			)}
 
-      <Routes>
-        <Route path="/inicio" element={<Home />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/faqs" element={<Faqs />} />
-      </Routes>
-      {location.pathname !== "/login" && <Footer />}
-    </div>
-  );
+			{location.pathname !== "/login" && <Header />}
+			<Routes>
+				<Route path='/inicio' element={<Home />} />
+				<Route path='/about' element={<About />} />
+				<Route path='/tienda' element={<Tienda />} />
+				<Route path='/servicios' element={<Servicios />} />
+				<Route path='/contacto' element={<Contacto />} />
+				<Route path='/faqs' element={<Faqs />} />
+			</Routes>
+			{location.pathname !== "/login" && <Footer />}
+		</div>
+	);
 }
 
 export default App;
