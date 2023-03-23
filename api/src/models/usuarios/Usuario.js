@@ -34,6 +34,10 @@ const userSchema = new mongoose.Schema({
   },
   pet: {
     type:String
+  },
+  id_mascota:{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Mascota',
   }
 });
 
