@@ -1,7 +1,9 @@
 import ProductsContainer from '../../components/ProductsContainer/ProductsContainer';
 import Meta from '../../components/Meta/Meta';
 import BreadCrump from '../../components/BreadCrump/BreadCrump';
-import { BiSearchAlt2 } from 'react-icons/bi'
+import { BiSearchAlt2 } from 'react-icons/bi';
+import style from './Tienda.module.css';
+
 
 export default function Tienda() {
    return (
@@ -12,8 +14,8 @@ export default function Tienda() {
                <div className='container-xxl'>
                   <div className='row'>
                      <div className='col-3'>
-                        <div className='filter-card mb-3 p-3'>
-                           <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
+                        <div className={`${style.filterCard} mb-3 p-3`}>
+                           <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg">
                               <option selected>Categorias</option>
                               <option value="juguetes">Juguetes</option>
                               <option value="ropa">Ropa</option>
@@ -21,7 +23,7 @@ export default function Tienda() {
                               <option value="aseo">Aseo</option>
                               <option value="alimentos">Alimentos</option>
                            </select>
-                           <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
+                           <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg">
                               <option selected>Tipo</option>
                               <option value="juguetes">Perro</option>
                               <option value="ropa">Gato</option>
@@ -30,7 +32,7 @@ export default function Tienda() {
                         </div>
                      </div>
                      <div className='col-9'>
-                        <div className='filter-sort-grid mb-4 p-2'>
+                        <div className={`${style.filterSortGrid} mb-4 p-2`}>
                            <div className='d-flex justify-content-between align-items-center flex-wrap'>
                               <div className='d-flex align-items-center gap-10'>
                                  <p className='mb-0' style={{ width: "150px"}}>Ordenar por:</p>
@@ -43,7 +45,7 @@ export default function Tienda() {
                               <div className='d-flex align-items-center gap-10'>
                                  <p className='mb-0' style={{ width: "210px"}}>Buscar producto</p>
                                  <input className='form-control' type="search" name="" id="" />
-                                 <button className='button-search'><i><BiSearchAlt2/></i></button>
+                                 <button className={style.buttonSearch}><i><BiSearchAlt2 className={style.iconSearch}/></i></button>
                               </div>
                            </div>
                         </div>

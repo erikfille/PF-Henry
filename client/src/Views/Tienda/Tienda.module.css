@@ -1,0 +1,21 @@
+.filterCard {
+    background-color: #fff;
+    border-radius: 10px;
+}
+
+.filterSortGrid {
+    background-color: #fff;
+    border-radius: 10px;
+}
+
+.buttonSearch {
+    border: none;
+    width: 70px;
+    height: 38px;
+    background-color: var(--color-0CC5BA);
+    border-radius: 5px;
+}
+
+.iconSearch {
+    color: #fff;
+}
