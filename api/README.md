@@ -1,6 +1,4 @@
-# API
+MongoDb Atlas para conectar DB.
 
-## Funcionalidades
-
-
-## Rutas
+Usuario: PetCare
+pass: HenryVip
