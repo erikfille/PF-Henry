@@ -2,7 +2,7 @@ const { Schema, model, models } = require("mongoose")
 
 const categoriaSchema = new Schema({
     categoria: {
-        type: String,
+        type: Array,
         required:true
    }
 
