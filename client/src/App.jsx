@@ -14,6 +14,7 @@ import Login from "./Views/Login/Login";
 
 //? Styles
 import "./App.css";
+import Tienda from "./Views/Tienda/Tienda";
 
 axios.defaults.baseURL = "http://localhost:3001";
 
@@ -28,6 +29,7 @@ function App() {
         <Route path="/about" element={<About />} />
         <Route path="/faqs" element={<Faqs />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/tienda" element={<Tienda />}/> 
       </Routes>
       {location.pathname !== "/login" && <Footer />}
     </div>
