@@ -1,4 +1,4 @@
-import ProductCard from '../../components/ProductCard/ProductCart';
+import ProductsContainer from '../../components/ProductsContainer/ProductsContainer';
 import Meta from '../../components/Meta/Meta';
 import BreadCrump from '../../components/BreadCrump/BreadCrump';
 import { BiSearchAlt2 } from 'react-icons/bi'
@@ -49,12 +49,7 @@ export default function Tienda() {
                         </div>
                         <div className='product-list pb-5'>
                            <div className='d-flex flex-wrap gap-2'>
-                              <ProductCard showAs='Default' />
-                              <ProductCard showAs='Default' />
-                              <ProductCard showAs='Default' />
-                              <ProductCard showAs='Default' />
-                              <ProductCard showAs='Default' />
-                              <ProductCard showAs='Default' />
+                              <ProductsContainer />
                            </div>
                         </div>
                      </div>
