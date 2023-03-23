@@ -9,3 +9,11 @@ body {
 	-moz-osx-font-smoothing: grayscale;
 	-webkit-text-size-adjust: 100%;
 }
+
+a {
+	text-decoration: none;
+}
+
+#navbarNav .active {
+	color: #0cc5ba;
+}
