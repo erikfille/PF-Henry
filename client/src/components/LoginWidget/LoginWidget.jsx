@@ -7,13 +7,16 @@ import GoogleLogin from "react-google-login";
 // Validations
 import validation from "./validation";
 
+const logoImage = "../../../public/images/logo-pet.png";
+
 export default function LoginWidget() {
   // Google Auth Data
   const [user, setUser] = useState({});
 
   const [userData, setUserData] = useState({
-    username: "mailfalso123@gmail.com",
-    password: "ContraseñaFalsa123",
+    username: "",
+    password: "",
+    rol: "",
   });
 
   // Own Auth Data
@@ -77,13 +80,13 @@ export default function LoginWidget() {
   }
 
   return (
-    <div>
-      <div>
-        <img src="#" alt="logoApp" />
+    <div className="widgetContainer">
+      <div className="loginLogo">
+        <img src={logoImage} alt="logoApp" />
       </div>
-      <h1>¡Bienvenido a Pet App!</h1>
+      <h1 className="loginTitle">¡Bienvenido a Pet App!</h1>
       <hr />
-      <div>
+      <div className="loginFormContainer">
         <form onSubmit={handleSubmit}>
           <div>
             <label htmlFor="username">Username: </label>
@@ -97,7 +100,6 @@ export default function LoginWidget() {
             ></input>
             {errors.username && <p>{errors.username}</p>}
           </div>
-
           <div>
             <label htmlFor="password">Password: </label>
             <input
@@ -111,10 +113,10 @@ export default function LoginWidget() {
             {errors.password && <p>{errors.password}</p>}
           </div>
           <hr />
-          <button>Ingresar</button>
+          <button className="loginButton">Ingresar</button>
         </form>
       </div>
-      <div className="btn">
+      <div className="loginGoogleAuth">
         <GoogleLogin
           clientId={clientID}
           onSuccess={onSuccess}
@@ -122,7 +124,7 @@ export default function LoginWidget() {
           cookiePolicy={"single_host_policy"}
         />
       </div>
-      <div>
+      <div className="loginToSignup">
         <p>¿No tienes una cuenta?</p>
         <a href="/signup">
           <span>¡Crea una ahora mismo!</span>

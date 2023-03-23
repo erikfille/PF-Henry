@@ -15,7 +15,7 @@ import Tienda from "./Views/Tienda/Tienda";
 import Servicios from "./Views/Servicios/Servicios";
 import Contacto from "./Views/Contacto/Contacto";
 import Login from "./Views/Login/Login";
-
+import CreateProduct from "./components/CreateProduct/CreateProduct";
 
 //? Styles
 import "./App.css";
@@ -23,8 +23,8 @@ import "./App.css";
 axios.defaults.baseURL = "http://localhost:3001";
 
 function App() {
-	const location = useLocation();
-  
+  const location = useLocation();
+
   return (
     <div className="App">
       {location.pathname !== "/login" && <Header />}
@@ -33,9 +33,10 @@ function App() {
         <Route path="/about" element={<About />} />
         <Route path="/faqs" element={<Faqs />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/tienda" element={<Tienda />}/>
-        <Route path='/contacto' element={<Contacto />} />
-        <Route path='/servicios' element={<Servicios />} />
+        <Route path="/tienda" element={<Tienda />} />
+        <Route path="/contacto" element={<Contacto />} />
+        <Route path="/servicios" element={<Servicios />} />
+        <Route path="/crearProducto" element={<CreateProduct />} />
       </Routes>
       {location.pathname !== "/login" && <Footer />}
     </div>
