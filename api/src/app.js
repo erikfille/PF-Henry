@@ -2,8 +2,8 @@ const hapi = require("@hapi/hapi");
 require("./database.js");
 const usuariosRoutes = require("./routes/usuarios.js")
 const rolRoutes = require("./routes/roles")
-//const productsRoutes = require("./routes/products")
-
+//const productosRoutes = require("./routes/productos")
+//const categoriasRoutes = require("./routes/categorias")
 
 const init = async () => {
     const server = new hapi.Server({
@@ -13,7 +13,8 @@ const init = async () => {
 
     server.route(usuariosRoutes)
     server.route(rolRoutes)
-// server.route(productsRoutes)
+// server.route(productosRoutes)
+// server.route(categoriasRoutes)
 
 
 
