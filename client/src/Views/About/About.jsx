@@ -7,6 +7,8 @@ import santiagoImg from "../../assets/img/profileSanti.png"
 import agustinImg from "../../assets/img/profilePetri.png"
 import jhonImg from "../../assets/img/profileJhon.png"
 import erikImg from "../../assets/img/profileErik.png"
+import jonhaImg from "../../assets/img/profileJonha.png"
+import nachoImg from "../../assets/img/profileNacho.png"
 
 
 function Integrante({ nombre, pais, imagen}) {
@@ -49,9 +51,9 @@ export default function About() {
 
       <Row >
         <Integrante nombre="Erik Filleadeau" pais="Argentina" imagen={erikImg} />
-        <Integrante nombre="Jonhatan Molero" pais="Venezuela" />
+        <Integrante nombre="Jonhatan Molero" pais="Venezuela" imagen={jonhaImg}/>
         <Integrante nombre="Maximiliano Herr" pais="Argentina" />
-        <Integrante nombre="Ignacio Quirelli" pais="Argentina" />
+        <Integrante nombre="Ignacio Quirelli" pais="Argentina" imagen={nachoImg} />
       </Row>
     </Container>
   );
