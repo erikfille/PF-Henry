@@ -9,6 +9,7 @@ const allProductosRoutes = require("./routes/allProductos.js")
 const stockProductosRoutes = require("./routes/stockProductos.js")
 //const postProvedorRoutes = require("./routes/postProveedor.js")
 //const getProveedorRoutes = require("./routes/getProveedor.js")
+//const createMascotaRoutes = require("./routes/createMascota.js")
 
 const init = async () => {
   const server = new hapi.Server({
@@ -26,6 +27,7 @@ const init = async () => {
   server.route(stockProductosRoutes)
 //server.route(postProvedorRoutes)
 //server.route(getProveedorRoutes)
+//server.route(createMascotaRoutes)
 
   
   await server.start();
