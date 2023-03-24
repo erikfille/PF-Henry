@@ -6,7 +6,7 @@ const createProductosRoutes = require("./routes/createProducto")
 const categoriasRoutes = require("./routes/categorias")
 const productoDetailRoutes = require("./routes/productoDetail.js")
 const allProductosRoutes = require("./routes/allProductos.js")
-//const stockProductosRoutes = require("./routes/stockProductos.js")
+const stockProductosRoutes = require("./routes/stockProductos.js")
 
 
 const init = async () => {
@@ -21,7 +21,7 @@ const init = async () => {
   server.route(categoriasRoutes)
   server.route(productoDetailRoutes)
   server.route(allProductosRoutes)
-  // server.route(stockProductosRoutes)
+  server.route(stockProductosRoutes)
 
   await server.start();
   console.log(`el servidor esta corriendo en ${server.info.uri}`);
