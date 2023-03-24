@@ -1,23 +1,21 @@
-const Categoria = require('../models/categorias/Categoria')
-const productos_servicios = require('../models/productos_servicios/Producto_servicio')
-
+const Categoria = require("../models/categorias/Categoria");
 
 const categoriasRoutes = [
-    {
-    method: 'GET',
-    path: '/allCategories',
+  {
+    method: "GET",
+    path: "/categorias",
     handler: async (request, h) => {
-        try {
-            const categoriasProductos = await Categoria.find({ categoria: ['Productos'] }).populate(productos_servicios);
-            const categoriasServicios = await Categoria.find({ categoria: ['Servicios'] }).populate(productos_servicios);
+      try {
+        const categorias = await Categoria.find();
+        return { categorias };
+      } catch (error) {
+        console.error(error);
+        return h
+          .response({ message: "Error al obtener las categorias" })
+          .code(500);
+      }
+    },
+  },
+];
 
-            const AllCategorias = categoriasProductos.concat(categoriasServicios);
-    
-           return h.response(AllCategorias);
-        } catch (err) {
-            return h.response(err).code(500);
-        }
-    }
-    }
-]
-module.exports=categoriasRoutes
+module.exports = categoriasRoutes;
