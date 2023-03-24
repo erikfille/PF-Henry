@@ -12,6 +12,7 @@
   "dependencies": {
     "@hapi/hapi": "^21.3.0",
     "@hapi/joi": "^17.1.1",
+    "hapi-cors": "^1.0.3",
     "mongoose": "^7.0.2",
     "mongoose-populate": "^3.0.3"
   },
