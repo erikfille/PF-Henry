@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 
 import styles from "./About.module.css"
-import noeliaImg from "../../assets/img/profile-Noe.png"; // importar la imagen de Noelia
+import noeliaImg from "../../assets/img/profile-Noe.png"; //?  importa la imagen de Noelia
 
 function Integrante({ nombre, pais, imagen}) {
   const [bandera, setBandera] = useState('');
@@ -36,7 +36,7 @@ export default function About() {
       <h2 style={{ textAlign: 'center' }}>¡El equipo detrás de este hermoso proyecto!</h2>
 
       <Row >
-        <Integrante nombre="Noelia" pais="Argentina" imagen={noeliaImg}  /> {/* Usar la imagen importada */}
+        <Integrante nombre="Noe Lombardo" pais="Argentina" imagen={noeliaImg}  /> 
         <Integrante nombre="Jhon Tatto" pais="Colombia" />
         <Integrante nombre="Jonha" pais="Venezuela" />
         <Integrante nombre="Santi" pais="Argentina" />
