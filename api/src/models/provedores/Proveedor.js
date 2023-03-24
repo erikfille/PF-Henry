@@ -28,22 +28,20 @@ const ProveedorSchema = new Schema({
     required: true,
   },
   horarioAtencion: {
-    type: [
-      {
-        semana: [
-          { type: String }, // abre
-          { type: String }, // cierra
-        ],
-        sabado: [
-          { type: String }, // abre
-          { type: String }, // cierra
-        ],
-        domingo: [
-          { type: String }, // abre
-          { type: String }, // cierra
-        ],
-      },
-    ],
+    type: {
+      semana: [
+        { type: String }, // abre
+        { type: String }, // cierra
+      ],
+      sabado: [
+        { type: String }, // abre
+        { type: String }, // cierra
+      ],
+      domingo: [
+        { type: String }, // abre
+        { type: String }, // cierra
+      ],
+    },
     required: true,
   },
 });
