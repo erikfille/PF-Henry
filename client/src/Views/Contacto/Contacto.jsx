@@ -51,7 +51,6 @@ export default function Contacto() {
 								Enviar
 							</button>
 						</form>
-
 						<div
 							className='col-12 col-md-6 col-xxl-5 d-none d-md-block my-3
             '>
