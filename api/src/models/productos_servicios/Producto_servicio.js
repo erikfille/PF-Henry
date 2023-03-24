@@ -5,15 +5,11 @@ const productoServicioSchema = new Schema({
         type: String,
         required:true
     },
-    esProducto: {
-        type: Boolean,
-        required:true
+    tipo: {
+        type: String,
+        enum: ['Producto', 'Servicio'],
+        required: true
     },
-    esServicio:{
-        type: Boolean,
-        required:true
-    },
-
     precio: {
         type: Number,
         required:true
