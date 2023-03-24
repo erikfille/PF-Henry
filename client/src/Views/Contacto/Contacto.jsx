@@ -11,7 +11,7 @@ export default function Contacto() {
 			<div className={`container ${styles.contactoContainer}`}>
 				<div className='container my-5 '>
 					<div className='row '>
-						<form className='col-12 col-md-6 col-xxl-5 align-items-center'>
+						<form className='col-12 col-md-6 col-xxl-5 d-flex flex-column align-items-center'>
 							<div className='mb-3  col-12 col-md-9'>
 								<label for='formGroupExampleInput' className='form-label fw-bold'>
 									Nombre
@@ -45,13 +45,15 @@ export default function Contacto() {
 									style={{ resize: "none", height: "8rem" }}
 									placeholder='Dejanos tu mensaje'></textarea>
 							</div>
-							<button type='submit' className='btn btn-primary col-12 col-md-9'>
+							<button
+								type='submit'
+								className={`btn btn-primary col-12 col-md-9 fw-bold ${styles.button}`}>
 								Enviar
 							</button>
 						</form>
 
 						<div
-							className='col-12 col-md-6 col-xxl-5
+							className='col-12 col-md-6 col-xxl-5 d-none d-md-block my-3
             '>
 							<img
 								className='img-fluid object-fit-cover border rounded'
