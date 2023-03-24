@@ -46,7 +46,7 @@ export default function Contacto() {
 									placeholder='Dejanos tu mensaje'></textarea>
 							</div>
 							<button type='submit' className='btn btn-primary col-12 col-md-9'>
-								Submit
+								Enviar
 							</button>
 						</form>
 
