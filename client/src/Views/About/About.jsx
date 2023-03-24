@@ -24,9 +24,9 @@ function Integrante({ nombre, pais, imagen}) {
   }, [pais]);
 
   return (
-    <Col xs={6} sm={3} className="d-flex justify-content-center align-items-center ">
+    <Col xs={6} sm={3} className="d-flex justify-content-around align-items-center mb-3 ">
       <div className="text-center ">
-      <img src={imagen} alt="foto persona" className="rounded-circle mb-2 img-fluid w-55"></img>
+      <img src={imagen} alt="foto persona" className="rounded-circle mb-2 img-fluid w-50"></img>
         <h4>{nombre}</h4>
         <img src={bandera} alt="imagen bandera" className={styles.imgBandera}></img>
         <span className="text-center d-none">{pais}</span>
@@ -37,8 +37,8 @@ function Integrante({ nombre, pais, imagen}) {
 
 export default function About() {
   return (
-    <Container>
-      <h1 style={{ textAlign: 'center' }}>¡El equipo detrás de este hermoso proyecto!</h1>
+    <Container className={styles.aboutWrapper}>
+      <h1 style={{ textAlign: 'center' }} className="mb-5">¡El equipo detrás de este hermoso proyecto!</h1>
 
       <Row >
         <Integrante nombre="Noelia Lombardo" pais="Argentina" imagen={noeliaImg}  /> 
