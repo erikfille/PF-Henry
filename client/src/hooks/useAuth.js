@@ -1,52 +1,68 @@
 import { create } from "zustand";
 
-const useProduct = create((set) => ({
-  allProducts: [],
-  filteredProducts: [],
-  getProducts: async () => {
-    // revisar cuando esten las rutas
-    try {
-      let response = await axios.get("/products");
-      let allProducts = response.data.data;
-      set((state) => ({ allProducts: allProducts }));
-      set((state) => ({ filteredProducts: allProducts }));
-    } catch (err) {
-      console.log(err);
+const useLogin = create((set) => ({
+  user: [],
+  proveedor_id: [],
+  // getProveedor: async () => {
+  //   // revisar cuando esten las rutas
+  //   try {
+  //     let response = await axios.get("/proveedor");
+  //     let allProducts = response.data.data;
+  //     set((state) => ({ allProducts: allProducts }));
+  //     set((state) => ({ filteredProducts: allProducts }));
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // },
+  loginUser(userData) {
+    axios
+      .post("auth/login", userData)
+      .then((response) => {
+        const data = response.data;
+        if (!data.success) {
+          window.alert(data.error.message);
+        } else {
+          receiveToken(data);
+        }
+      })
+      .catch((err) => {
+        window.alert(err.response.data);
+      });
+  },
+  receiveToken(data) {
+    let user = {};
+    user = {
+      email: data.data.usuario,
+      id: data.data.id,
+      rol_id: data.data.rol_id,
+      id_odontologo: data.data.id_odontologo,
+      permisos: permisos,
+      acepto_condiciones: data.data.acepto_condiciones,
+    };
+    var token = data.data.token;
+    localStorage.setItem("token", token);
+    localStorage.setItem("user", JSON.stringify(user));
+    axios.defaults.headers.common["Authorization"] = "Bearer " + token;
+    dispatch("receiveLogin", user);
+  },
+  logoutUser() {
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+    document.cookie = "token=;expires=Thu, 01 Jan 1970 00:00:01 GMT;";
+    axios.defaults.headers.common["Authorization"] = "";
+    router.push("/login");
+  },
+  receiveLogin(user) {
+    if (user.rol_id == "admin") {
+      router.push("/home");
+    } else {
+      router.push("/home");
     }
   },
-}));
-
-const useUser = create((set) => ({
-  user: {},
-  getUserInfo: async () => {
-    set((state) => ({ user: state.bears + 1 }));
-  },
-  setUserInfo: async (userData) => {
-    let post = await axios.post("/user", userData);
+  requestLogin({ commit }) {
+    commit("LOGIN_REQUEST");
   },
 }));
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 /*
 loginUser({dispatch}, creds) {
