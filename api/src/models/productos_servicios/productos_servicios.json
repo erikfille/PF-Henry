@@ -1,37 +1,13 @@
 [
     {
-        "titulo":"afialdor de uñas",
-        "esProducto":true,
-        "esServicio":false,
-        "precio": 500,
-        "imagen":"url",
-        "rating":1,
-        "stock":30,
-        "activo":true,
-        "categoria": " ID DE LA CATEGORIA ",
-        "fechaDeCreacion": "16/06/1996"
-    },
-    {
-        "titulo":"comedero",
-        "esProducto":true,
-        "esServicio":false,
-        "precio": 1000,
-        "imagen":"url",
-        "rating":3,
-        "stock":10,
-        "activo":true,
-        "categoria": " ID DE LA CATEGORIA ",
-        "fechaDeCreacion": "17/07/1997"
-    },
-    {
-        "titulo":"corte de pelo",
-        "esProducto":false,
-        "esServicio":true,
-        "precio": 500,
-        "imagen":"url",
-        "rating":5,
-        "activo":true,
-        "categoria": " ID DE LA CATEGORIA ",
-        "fechaDeCreacion": "18/08/1998"
-    }
+        "titulo": "Nuevo producto",
+        "tipo": "Producto",
+        "precio": 10.99,
+        "imagen": "https://example.com/nueva-imagen.jpg",
+        "rating": 4.5,
+        "stock": 100,
+        "activo": true,
+        "categoria": ["615ac34a7362814e4cf31a3a", "615ac34a7362814e4cf31a3b"],
+        "proveedor": "615ac34a7362814e4cf31a3c"
+      }
 ]

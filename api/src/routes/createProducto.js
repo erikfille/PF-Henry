@@ -1,4 +1,4 @@
-const ProductoServicio = require("../models/productos_servicios/Producto_servicio");
+const ProductoServicio = require("../models/productos_servicios/Producto_servicio")
 
 const createProductosRoutes = [
   {
@@ -6,11 +6,22 @@ const createProductosRoutes = [
     path: "/crearProducto",
     handler: async (request, h) => {
       try {
-        const productoServicio = new ProductoServicio(request.payload);
-        await productoServicio.save();
-        return h.response(productoServicio).code(201);
+        const { titulo, tipo, precio, imagen, rating, stock, activo, categoria, proveedor } = request.payload;
+        const nuevoProductoServicio = new ProductoServicio({
+          titulo,
+          tipo,
+          precio,
+          imagen,
+          rating,
+          stock,
+          activo,
+          categoria,
+          proveedor,
+        });
+        const productoServicioGuardado = await nuevoProductoServicio.save();
+        return h.response(productoServicioGuardado).code(201);
       } catch (error) {
-        return h.response(error).code(500);
+        return h.response(error.message).code(500);
       }
     },
   },
