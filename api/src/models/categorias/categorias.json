@@ -1,13 +1,16 @@
 [
     
 {
+    "tipo": "Producto",
     "categoria":"Juguete"
 },
 
 {
+    "tipo": "Servicio",
     "categoria":"Alimento"
 },
 {
+    "tipo": "Producto",
     "categoria":"Peluqueria"
 }
 
