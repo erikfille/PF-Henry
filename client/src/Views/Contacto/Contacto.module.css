@@ -1,0 +1,15 @@
+.button {
+	background-color: #0cc5ba;
+	border: #0cc5ba solid 2px;
+	color: black;
+}
+
+.contactoContainer div {
+	margin: 0 auto;
+}
+
+.button:hover {
+	background-color: white;
+	border: #0cc5ba solid 2px;
+	color: #0cc5ba;
+}
