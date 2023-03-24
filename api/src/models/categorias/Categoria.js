@@ -1,14 +1,19 @@
-const { Schema, model} = require("mongoose")
+const { Schema, model } = require("mongoose");
 
 const categoriaSchema = new Schema({
-    categoria: {
-        type: Array,
-        required:true
-   },
-   producto_Servicio: {
-        ref: 'Producto_servicio',
-        type: Schema.Types.ObjectId
-   }
-})
+  tipo: {
+    type: String,
+    enum: ["Producto", "Servicio"],
+    required: true,
+  },
+  categoria: {
+    type: String,
+    enum: ["Consulta", "Paseo", "Baño", "Guarderia"],
+    required: true,
+  },
+});
 
-module.exports = model("Categoria", categoriaSchema)
+module.exports = model("Categoria", categoriaSchema);
+
+
+//UN ARRAY CON TODAS LAS CATEGORIAS DE PRODUCTOS, Y UN ARRAY CON TODAS LAS CATEGORIAS DE SERVICIOS
