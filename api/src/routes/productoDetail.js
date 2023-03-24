@@ -1,4 +1,4 @@
-const Productos_servicios = require('../models/productos_servicios');
+const Productos_servicios = require('../models/productos_servicios/Producto_servicio');
 
 
 const productoDetailRoutes = [
@@ -7,7 +7,9 @@ const productoDetailRoutes = [
         path: '/product-detail/{id}',
         handler: async (request, h) => {
             try {
-               const product = await Productos_servicios.findById(request.params.id).populate('Categoria');
+               const product = await Productos_servicios.findById(request.params.id)
+               // .populate('proveedor');
+               // .populat('categoria');
                return h.response(product);
             } catch (err) {
                 return h.response(err).code(500);
@@ -17,4 +19,4 @@ const productoDetailRoutes = [
 ]
 
 
-module.exports=productoDetailRoutes
+module.exports = productoDetailRoutes
