@@ -8,6 +8,7 @@ const productoDetailRoutes = [
         handler: async (request, h) => {
             try {
                const product = await Productos_servicios.findById(request.params.id)
+               // aca lo mismo. ver modelo para poder correr populate.
                // .populate('proveedor');
                // .populat('categoria');
                return h.response(product);
