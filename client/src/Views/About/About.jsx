@@ -2,7 +2,12 @@ import { useState, useEffect } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 
 import styles from "./About.module.css"
-import noeliaImg from "../../assets/img/profile-Noe.png"; //?  importa la imagen de Noelia
+import noeliaImg from "../../assets/img/profileNoe.png"; //?  importa la imagen de Noelia
+import santiagoImg from "../../assets/img/profileSanti.png"
+import agustinImg from "../../assets/img/profilePetri.png"
+import jhonImg from "../../assets/img/profileJhon.png"
+import erikImg from "../../assets/img/profileErik.png"
+
 
 function Integrante({ nombre, pais, imagen}) {
   const [bandera, setBandera] = useState('');
@@ -33,20 +38,20 @@ function Integrante({ nombre, pais, imagen}) {
 export default function About() {
   return (
     <Container>
-      <h2 style={{ textAlign: 'center' }}>¡El equipo detrás de este hermoso proyecto!</h2>
+      <h1 style={{ textAlign: 'center' }}>¡El equipo detrás de este hermoso proyecto!</h1>
 
       <Row >
-        <Integrante nombre="Noe Lombardo" pais="Argentina" imagen={noeliaImg}  /> 
-        <Integrante nombre="Jhon Tatto" pais="Colombia" />
-        <Integrante nombre="Jonha" pais="Venezuela" />
-        <Integrante nombre="Santi" pais="Argentina" />
+        <Integrante nombre="Noelia Lombardo" pais="Argentina" imagen={noeliaImg}  /> 
+        <Integrante nombre="Santiago Arguello" pais="Argentina" imagen={santiagoImg}/>
+        <Integrante nombre="Agustin petrini" pais="Argentina" imagen={agustinImg} />
+        <Integrante nombre="John Correa" pais="Colombia" imagen={jhonImg} />
       </Row>
 
       <Row >
-        <Integrante nombre="Integrante 5" pais="Chile" />
-        <Integrante nombre="Integrante 6" pais="México" />
-        <Integrante nombre="Integrante 7" pais="Perú" />
-        <Integrante nombre="Integrante 8" pais="Uruguay" />
+        <Integrante nombre="Erik Filleadeau" pais="Argentina" imagen={erikImg} />
+        <Integrante nombre="Jonhatan Molero" pais="Venezuela" />
+        <Integrante nombre="Maximiliano Herr" pais="Argentina" />
+        <Integrante nombre="Ignacio Quirelli" pais="Argentina" />
       </Row>
     </Container>
   );
