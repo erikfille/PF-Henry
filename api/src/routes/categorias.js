@@ -16,6 +16,33 @@ const categoriasRoutes = [
       }
     },
   },
+  {
+    method: "POST",
+    path: "/crearCategoria",
+    handler: async (request, h) => {
+      try {
+        const newCategoria = new Categoria(request.payload);
+        const savedCategoria = await newCategoria.save();
+        return h.response(savedCategoria).code(201);
+      } catch (error) {
+        return h.response(error.message).code(500);
+      }
+    },
+  },
+  {
+    method: 'PUT',
+    path: '/categoria/{id}',
+    handler: async (request, h) => {
+      try {
+        const id = request.params.id;
+        const update = request.payload;
+        const categoria = await Categoria.findByIdAndUpdate(id, update, { new: true });
+        return categoria;
+      } catch (error) {
+        return h.response(error).code(500);
+      }
+    }
+  }
 ];
 
 module.exports = categoriasRoutes;
