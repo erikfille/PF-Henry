@@ -30,10 +30,40 @@ const usuariosRoutes = [
           });
           await nuevoUsuario.save();
           return h.response(nuevoUsuario);
-          return h.response(nuevoUsuario);
         } catch (error) {
           return h.response({ error: "Error al crear el usuario" }).code(500);
         }
+      },
+    },
+  },
+  {
+    method: "POST",
+    path: "/users/login",
+    options: {
+      async handler(request, h) {
+        const { email, password } = request.payload;
+  
+        try {
+          // Buscar el usuario por su email y contraseña y hacer el populate del campo "rol"
+          const usuario = await Usuario.findOne({ email, password }).populate("rol");
+          
+          if (!usuario) {
+            return h.response({ error: "El correo electrónico o la contraseña no coinciden" }).code(401);
+          }
+  
+          // Si el usuario es proveedor, agregar la propiedad "proveedor_id"
+          // if (usuario.rol.nombre === "proveedor") {
+          //   usuario.proveedor_id = usuario._id;
+          // }
+  
+          return h.response(usuario);
+        } catch (error) {
+          return h.response({ error: "Error al obtener el usuario" }).code(500);
+        }
+      },
+      payload: {
+        allow: ["application/json"],
+        parse: true,
       },
     },
   },
