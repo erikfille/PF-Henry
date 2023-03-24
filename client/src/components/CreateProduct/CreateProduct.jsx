@@ -1,7 +1,9 @@
 import { useState, useEffect } from "react";
 import validation from "./validation";
-import CreatableSelect from 'react-select/creatable';
-import UploadWidget from "./UploadWidget"
+import CreatableSelect from "react-select/creatable";
+import Select from "react-select";
+import UploadWidget from "./UploadWidget";
+import axios from "axios";
 
 export default function CreateProduct() {
   const [productData, setProductData] = useState({
@@ -24,12 +26,31 @@ export default function CreateProduct() {
     stock: "",
   });
 
-  let productCategories = ["Juguete", "Alimento", "Golosina"];
-  let servicesCategories = ["Consulta", "Paseo", "Baño"];
+  let productCategories = [
+    { value: "categorias.a", label: "Juguete" },
+    { value: "categorias.b", label: "Alimento" },
+    { value: "categorias.c", label: "Golosinas" },
+  ];
+
+  let servicesCategories = [
+    { value: "categorias.a", label: "Consulta" },
+    { value: "categorias.b", label: "Paseo" },
+    { value: "categorias.c", label: "Baño" },
+    { value: "categorias.d", label: "Guarderia" },
+  ];
 
   useEffect(() => {
     // Trae todas las categorias de producto desde el back y guarda las de productos y las de servicios
   });
+
+  async function createProduct(data) {
+    try {
+      const response = await axios.post(`/crearProducto`, data);
+      console.log(response);
+    } catch (err) {
+      window.alert(err.error);
+    }
+  }
 
   function handleInputChange(e) {
     setProductData({
@@ -42,14 +63,36 @@ export default function CreateProduct() {
         [e.target.name]: e.target.value,
       })
     );
+    console.log(e.target.name, e.target.value);
   }
 
-  function handleSubmit(e) {
+  function handleSelectChange(e) {
+    console.log(productData.tipo);
+    let selected;
+    if (typeof e === "object" && e.length) {
+      selected = e.map((el) => ({ ...el, value: el.value.split(".")[0] }));
+      setProductData({
+        ...productData,
+        [selected[0].value]: selected.map((el) => el.label),
+      });
+    }
+    if (typeof e === "object" && !e.length) {
+      selected = { ...e, value: e.value.split(".")[0] };
+      setProductData({
+        ...productData,
+        [selected.value]: selected.label,
+      });
+    }
+    console.log(selected);
+  }
+
+  async function handleSubmit() {
     e.preventDefault();
+    // getProveedor()
+    console.log(productData);
+    await createProduct(productData);
     /*
     - Agrego la propiedad Proveedor, sacando el id de proveedor desde el token de localStorage
-    - Agrego la propiedad Imagen
-    - Guardado de la info
     - Posteo la info
     */
   }
@@ -83,20 +126,23 @@ export default function CreateProduct() {
               </span>
             )}
             <br />
-            <select
-              placeholder="Tipo de Producto"
-              type="number"
+            <Select
               name="tipo"
-              value={productData.tipo}
-              onChange={handleInputChange}
-              className={errors.tipo ? "danger" : "formInput"}
-            >
-              <option value="Producto">Producto</option>
-              <option value="Servicio">Servicio</option>
-            </select>
+              options={[
+                { value: "tipo.a", label: "Producto" },
+                { value: "tipo.b", label: "Servicio" },
+              ]}
+              className="basic-select"
+              placeholder="Tipo de Producto"
+              onChange={handleSelectChange}
+            />
             <br />
             <textarea
-              placeholder="Descripción del Producto"
+              placeholder={
+                productData.tipo === "Producto"
+                  ? "Descripción del Producto"
+                  : "Descripción del Servicio"
+              }
               type="text"
               name="descripcion"
               value={productData.descripcion}
@@ -119,7 +165,7 @@ export default function CreateProduct() {
               </span>
             )}
             <br />
-
+            <label htmlFor="precio">Precio</label>
             <input
               placeholder="Precio"
               type="number"
@@ -128,13 +174,17 @@ export default function CreateProduct() {
               onChange={handleInputChange}
             />
             <br />
-
-            {productData.tipo === "Servicio" ? (
+            {productData.tipo === "Producto" ? (
+              <label htmlFor="stock">Stock</label>
+            ) : (
+              ""
+            )}
+            {productData.tipo === "Producto" ? (
               <input
                 placeholder="Cantidad de Stock"
                 type="number"
-                name="precio"
-                value={productData.precio}
+                name="stock"
+                value={productData.stock}
                 onChange={handleInputChange}
               />
             ) : (
@@ -142,14 +192,19 @@ export default function CreateProduct() {
             )}
             <br />
 
-            <CreatableSelect
+            <Select
               isMulti
               isSearchable={true}
-            //   defaultValue={[colourOptions[2], colourOptions[3]]}
-              name="colors"
-              options={productData.tipo === "Productos" ? productCategories : servicesCategories}
+              isDisabled={productData.tipo ? false : true}
+              name="categorias"
+              options={
+                productData.tipo === "Producto"
+                  ? productCategories
+                  : servicesCategories
+              }
               className="basic-multi-select"
-              classNamePrefix="select"
+              placeholder="Categorías"
+              onChange={handleSelectChange}
             />
             <br />
           </div>
@@ -159,13 +214,13 @@ export default function CreateProduct() {
               <br />
               {productData.imagen && (
                 <div className="uploadedImage">
-                  <img src={productData.imagen} alt="Uploaded" width="1vw" />
+                  <img src={productData.imagen} alt="Uploaded" width="30%" />
                 </div>
               )}
             </div>
             {errors.state ? (
               <button className="disabledButton" disabled>
-                <span>Submit Recipe</span>
+                <span>Crear Producto</span>
               </button>
             ) : (
               <button className="submitButton">

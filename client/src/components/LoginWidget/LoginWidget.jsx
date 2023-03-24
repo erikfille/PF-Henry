@@ -46,7 +46,7 @@ export default function LoginWidget() {
     - Busca al usuario en la base de datos por el mail
         - Si existe el mail, trae la info, crea el token y lo sube al localStorage
         - Si no existe el mail, crea el usuario con la info de Google y lo pasa a otra pagina donde:
-            - Se le da a elegir si quiere comprar o quiere vender, para asignarle el rol de usuario.
+            - Se hace un get del usuario creado y se le da a elegir si quiere comprar o quiere vender, para asignarle el rol de usuario.
             - Se agrega la info de rol al estado, se hace un put agregandole el nuevo rol de usuario y se setea el nuevo token, pusheandolo al localStorage.
     */
   };
