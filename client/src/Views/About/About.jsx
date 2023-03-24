@@ -2,7 +2,14 @@ import { useState, useEffect } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 
 import styles from "./About.module.css"
-import noeliaImg from "../../assets/img/profile-Noe.png"; //?  importa la imagen de Noelia
+import noeliaImg from "../../assets/img/profileNoe.png"; //?  importa la imagen de Noelia
+import santiagoImg from "../../assets/img/profileSanti.png"
+import agustinImg from "../../assets/img/profilePetri.png"
+import jhonImg from "../../assets/img/profileJhon.png"
+import erikImg from "../../assets/img/profileErik.png"
+import jonhaImg from "../../assets/img/profileJonha.png"
+import nachoImg from "../../assets/img/profileNacho.png"
+
 
 function Integrante({ nombre, pais, imagen}) {
   const [bandera, setBandera] = useState('');
@@ -19,9 +26,9 @@ function Integrante({ nombre, pais, imagen}) {
   }, [pais]);
 
   return (
-    <Col xs={6} sm={3} className="d-flex justify-content-center align-items-center ">
+    <Col xs={6} sm={3} className="d-flex justify-content-around align-items-center mb-3 ">
       <div className="text-center ">
-      <img src={imagen} alt="foto persona" className="rounded-circle mb-2 img-fluid w-55"></img>
+      <img src={imagen} alt="foto persona" className="rounded-circle mb-2 img-fluid w-50"></img>
         <h4>{nombre}</h4>
         <img src={bandera} alt="imagen bandera" className={styles.imgBandera}></img>
         <span className="text-center d-none">{pais}</span>
@@ -32,21 +39,21 @@ function Integrante({ nombre, pais, imagen}) {
 
 export default function About() {
   return (
-    <Container>
-      <h2 style={{ textAlign: 'center' }}>¡El equipo detrás de este hermoso proyecto!</h2>
+    <Container className={styles.aboutWrapper}>
+      <h1 style={{ textAlign: 'center' }} className="mb-5">¡El equipo detrás de este hermoso proyecto!</h1>
 
       <Row >
-        <Integrante nombre="Noe Lombardo" pais="Argentina" imagen={noeliaImg}  /> 
-        <Integrante nombre="Jhon Tatto" pais="Colombia" />
-        <Integrante nombre="Jonha" pais="Venezuela" />
-        <Integrante nombre="Santi" pais="Argentina" />
+        <Integrante nombre="Noelia Lombardo" pais="Argentina" imagen={noeliaImg}  /> 
+        <Integrante nombre="Santiago Arguello" pais="Argentina" imagen={santiagoImg}/>
+        <Integrante nombre="Agustin petrini" pais="Argentina" imagen={agustinImg} />
+        <Integrante nombre="John Correa" pais="Colombia" imagen={jhonImg} />
       </Row>
 
       <Row >
-        <Integrante nombre="Integrante 5" pais="Chile" />
-        <Integrante nombre="Integrante 6" pais="México" />
-        <Integrante nombre="Integrante 7" pais="Perú" />
-        <Integrante nombre="Integrante 8" pais="Uruguay" />
+        <Integrante nombre="Erik Filleadeau" pais="Argentina" imagen={erikImg} />
+        <Integrante nombre="Jonhatan Molero" pais="Venezuela" imagen={jonhaImg}/>
+        <Integrante nombre="Maximiliano Herr" pais="Argentina" />
+        <Integrante nombre="Ignacio Quirelli" pais="Argentina" imagen={nachoImg} />
       </Row>
     </Container>
   );

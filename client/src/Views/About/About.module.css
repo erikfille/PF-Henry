@@ -6,6 +6,12 @@
     border-radius: 5px;
   }
 
+  .aboutWrapper {
+    background: url(images/logo-bg-product.png) ;
+    background-repeat: no-repeat;
+    background-position: top left, bottom right;
+    background-size: auto;
+}
 
   
   
