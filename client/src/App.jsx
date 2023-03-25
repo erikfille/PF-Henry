@@ -27,18 +27,21 @@ function App() {
 
   return (
     <div className="App">
-      {location.pathname !== "/login" && <Header />}
+      {location.pathname !== "/login" && <Header /> &&
+        location.pathname !== "/signup" && <Header />}
       <Routes>
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<Login />} />
         <Route path="/inicio" element={<Home />} />
         <Route path="/about" element={<About />} />
         <Route path="/faqs" element={<Faqs />} />
-        <Route path="/login" element={<Login />} />
         <Route path="/tienda" element={<Tienda />} />
         <Route path="/contacto" element={<Contacto />} />
         <Route path="/servicios" element={<Servicios />} />
         <Route path="/crearProducto" element={<CreateProduct />} />
       </Routes>
-      {location.pathname !== "/login" && <Footer />}
+      {location.pathname !== "/login" && <Footer /> &&
+        location.pathname !== "/signup" && <Footer />}
     </div>
   );
 }

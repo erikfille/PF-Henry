@@ -10,12 +10,16 @@ import validation from "./validation";
 
 const logoImage = "../../../public/images/logo-pet.png";
 
-export default function LoginWidget() {
+export default function LoginWidget(props) {
+  const { childProps } = props;
+
   // Google Auth Data
   const [user, setUser] = useState({});
 
   const [userData, setUserData] = useState({
-    mail: "",
+    name: "",
+    surname: "",
+    email: "",
     password: "",
     rol: "",
   });
@@ -54,7 +58,7 @@ export default function LoginWidget() {
     } catch (err) {
       const response = await axios.post(`/users/login`, user);
     }
-    
+
     /*
     - Busca al usuario en la base de datos por el mail
         - Si existe el mail, trae la info, crea el token y lo sube al localStorage
@@ -103,6 +107,35 @@ export default function LoginWidget() {
       <p>Ingrese sus datos para acceder</p>
       <div className="loginFormContainer">
         <form onSubmit={handleSubmit}>
+          {childProps.type === "signup" && (
+            <>
+              <div>
+                <input
+                  placeholder="Nombre"
+                  id="name"
+                  name="name"
+                  value={userData.user}
+                  onChange={handleInputChange}
+                  className={errors.name && "danger"}
+                  type="text"
+                ></input>
+                {errors.name && <p>{errors.name}</p>}
+              </div>
+              <div>
+                <input
+                  placeholder="Apellido"
+                  id="surname"
+                  surname="surname"
+                  value={userData.user}
+                  onChange={handleInputChange}
+                  classsurname={errors.surname && "danger"}
+                  type="text"
+                ></input>
+                {errors.surname && <p>{errors.surname}</p>}
+              </div>
+            </>
+          )}
+
           <div>
             <input
               placeholder="Email"
@@ -127,8 +160,19 @@ export default function LoginWidget() {
             ></input>
             {errors.password && <p>{errors.password}</p>}
           </div>
+          {childProps.type === "signup" && (
+            <div>
+              <select name="rol" id="rol">
+                <option value="" disabled selected>
+                  ¿Qué quieres hacer?
+                </option>
+                <option value="customer">Quiero Comprar</option>
+                <option value="proveedor">Quiero Vender</option>
+              </select>
+            </div>
+          )}
           <hr />
-          <button className="loginButton">Ingresar</button>
+          <button className="loginButton">{childProps.button}</button>
         </form>
       </div>
       <div className="loginGoogleAuth">
@@ -139,10 +183,10 @@ export default function LoginWidget() {
           cookiePolicy={"single_host_policy"}
         />
       </div>
-      <div className="loginToSignup">
-        <p>¿No tienes una cuenta?</p>
-        <a href="/signup">
-          <span>¡Crea una ahora mismo!</span>
+      <div className="loginOrSignup">
+        <p>{childProps.message}</p>
+        <a href={childProps.anchorPath}>
+          <span>{childProps.accountAnchor}</span>
         </a>
       </div>
     </div>
