@@ -11,5 +11,6 @@
     "semana": ["09:00", "18:00"],
     "sabado": ["10:00", "14:00"],
     "domingo": ["cerrado", "cerrado"]
-  }
 }
+}
+
