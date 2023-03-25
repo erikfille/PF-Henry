@@ -19,3 +19,16 @@
 .iconSearch {
     color: #fff;
 }
+
+.rangePrice > label {
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.rangePrice > input::-webkit-slider-thumb {
+    background-color: var(--color-0CC5BA);
+}
+
+.prices {
+    font-weight: 600;
+}

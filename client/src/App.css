@@ -29,7 +29,7 @@
   --color-131921: #131921;
   --color-3b4149: #3b4149;
   --color-0CC5BA: #0CC5BA;
-  --color-fbfbfb: #fbfbfb;
+  --color-f8f8f8: #f8f8f8;
   --color-777777: #777777;
 }
 
@@ -39,7 +39,7 @@
 /** Fondo grisesito de las page **/
 
 .home-wrapper-2 {
-  background-color: var(--color-fbfbfb);
+  background-color: var(--color-f8f8f8);
 }
 
 /** Fondo grisesito termina aqui **/

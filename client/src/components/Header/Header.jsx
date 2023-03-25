@@ -11,7 +11,7 @@ const Header = () => {
 	return (
 		<nav className='navbar navbar-expand-lg bg-body-tertiary'>
 			<div className='container-fluid'>
-				<div className={`d-flex align-items-center ms-3 ${styles.logoContainer}`}>
+				<div className={`d-flex align-items-center ms-3 gap-3 ${styles.logoContainer}`}>
 					<h3>PetsAmerica</h3>
 					<img src={Logo} alt='Logo' className={`align-text-top ms-2 ${styles.logo}`} />
 				</div>

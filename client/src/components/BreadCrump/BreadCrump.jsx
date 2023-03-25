@@ -6,7 +6,7 @@ const BreadCrump = (props) => {
 
    const { title } = props;
    return (
-      <div className={`${style.breadcrump} py-4 mb-0`}>
+      <div className={`${style.breadcrump} py-2`}>
          <div className='container-xxl'>
                <div className='row'>
                   <div className='col-12'>
