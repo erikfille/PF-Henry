@@ -18,13 +18,14 @@
 }
 
 .productCart {
-    border: 1px solid black;
+    border-bottom: 1px solid var(--color-0CC5BA);
 }
 
 .productCart h5 {
     color: var(--color-131921);
     line-height: 20px;
     font-weight: 600;
+    font-size: 12px;
 }
 
 .title {
@@ -33,6 +34,11 @@
 
 .price {
     font-weight: 600;
+    font-size: 12px;
+}
+
+.sku {
+    font-size: 1px;
 }
 
 .cant {
@@ -45,7 +51,7 @@
 }
 
 .iconDelete {
-    width: 30px;
-    height: 30px;
+    width: 20px;
+    height: 20px;
     color: var(--color-0CC5BA);
 }

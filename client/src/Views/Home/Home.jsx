@@ -1,4 +1,5 @@
 import style from "./Home.module.css";
+import Cart from "../../components/Cart/Cart";
 
 const Home = () => {
    return (
@@ -15,6 +16,7 @@ const Home = () => {
                <img src="images/pets-img.png" alt="pets" />
             </div>
          </div>
+         <Cart />
       </>
    )
 }

@@ -6,7 +6,8 @@ export let products = [
         "price": '3.500',
         "category": 'juguetes',
         "type": 'perro',
-        "image": "https://mascotaselmolino.com.ar/8836-thickbox_default/juguete-para-perro-20-cm.jpg"
+        "image": "https://mascotaselmolino.com.ar/8836-thickbox_default/juguete-para-perro-20-cm.jpg",
+        "qty": 3
     },
     {
         "id": 2,
@@ -15,7 +16,8 @@ export let products = [
         "price": '1.500',
         "category": 'accesorios',
         "type": 'gato',
-        "image": 'https://m.media-amazon.com/images/I/514NNA-WuXL._AC_SX466_.jpg'
+        "image": 'https://m.media-amazon.com/images/I/514NNA-WuXL._AC_SX466_.jpg',
+        "qty": 3
     },
     {
         "id": 3,
@@ -24,7 +26,8 @@ export let products = [
         "price": '2.500',
         "category": 'alimentos',
         "type": 'perro',
-        "image": 'https://itengoo.com/wp-content/uploads/2022/06/Cachorros-10-kg.jpg'
+        "image": 'https://itengoo.com/wp-content/uploads/2022/06/Cachorros-10-kg.jpg',
+        "qty": 3
     },
     {
         "id": 4,
@@ -33,7 +36,8 @@ export let products = [
         "price": '2.500',
         "category": 'alimentos',
         "type": 'gato',
-        "image": 'https://costazul.sigo.com.ve/images/thumbs/0012970_alimento-para-gatos-de-carne-whiskas-1-k_450.jpeg'
+        "image": 'https://costazul.sigo.com.ve/images/thumbs/0012970_alimento-para-gatos-de-carne-whiskas-1-k_450.jpeg',
+        "qty": 3
     },
 ]
 
