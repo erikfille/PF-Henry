@@ -1,4 +1,6 @@
 const Proveedor = require("../models/provedores/Proveedor");
+const Usuario = require("../models/usuarios/Usuario");
+const ProductoServicio = require("../models/productos_servicios/Producto_servicio");
 
 const getProveedorRoutes = [
   {
@@ -6,10 +8,20 @@ const getProveedorRoutes = [
     path: "/proveedores",
     handler: async (request, h) => {
       try {
-        const proveedores = await Proveedor.find({}, "-usuarios -productos");
+        const proveedores = await Proveedor.find({})
+          .populate("usuarios")
+          .populate({
+            path: "productos",
+            model: ProductoServicio,
+            populate: {
+              path: "proveedor",
+              model: Proveedor
+            }
+          })
+          
         return h.response(proveedores).code(200);
       } catch (error) {
-        console.error(error); // Opcional: imprimir el error en la consola para debug
+        console.error(error);
         return h
           .response({
             message:
