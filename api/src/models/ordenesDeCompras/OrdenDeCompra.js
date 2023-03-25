@@ -8,11 +8,11 @@ const ordenDeCompra = new Schema({
 
   productos: { type: Schema.Types.ObjectId, ref: "Producto", required: true },
 
-  envio: { type: String, required: true },
+  envio: { type: Schema.Types.ObjectId, ref: "Envio",required: true },
 
-  monto: { type: Number, required: true },
+  monto: { type: Number },
 
-  metodoPago: { type: String, required: true },
+  metodoPago: { type: String },
 });
 
 module.exports = mongoose.model("OrdenDeCompra", ordenDeCompra);
