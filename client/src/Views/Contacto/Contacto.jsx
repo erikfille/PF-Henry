@@ -8,10 +8,10 @@ export default function Contacto() {
 			<Meta title={"Contacto"} />
 			<BreadCrump title='Contacto' />
 			<div className={` home-wrapper-2 ${styles.contactoContainer}`}>
-				<h1 className='text-center fw-bold pt-5 pb-1'>
+				<h1 className='container-xl text-center fw-bold pt-5 pb-1'>
 					!Mantente siempre en contacto con nosotros!
 				</h1>
-				<div className='container my-5'>
+				<div className='container-xl my-5'>
 					<div className='row py-2'>
 						<form className='col-12 col-md-6 col-xxl-5 d-flex flex-column align-items-center bg-white py-4'>
 							<div className='mb-3  col-12 col-md-9'>
