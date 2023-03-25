@@ -41,6 +41,8 @@ export default function CreateProduct() {
 
   useEffect(() => {
     // Trae todas las categorias de producto desde el back y guarda las de productos y las de servicios
+    let response = axios.get("/categorias")
+    console.log('categorias: ', response)
   });
 
   async function createProduct(data) {
@@ -63,7 +65,6 @@ export default function CreateProduct() {
         [e.target.name]: e.target.value,
       })
     );
-    console.log(e.target.name, e.target.value);
   }
 
   function handleSelectChange(e) {
