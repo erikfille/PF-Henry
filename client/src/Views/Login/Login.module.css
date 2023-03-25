@@ -1,0 +1,37 @@
+/* .button {
+	background-color: #0cc5ba;
+	border: #0cc5ba solid 2px;
+	color: black;
+}
+
+.contactoContainer div {
+	margin: 0 auto;
+}
+
+.button:hover {
+	background-color: white;
+	border: #0cc5ba solid 2px;
+	color: #0cc5ba;
+} */
+
+/* form {
+	border-radius: 10px !important;
+} */
+
+.container {
+	height: 100%;
+}
+
+.imageContainer {
+	position: relative;
+	border: none;
+	object-fit: cover;
+}
+
+.image {
+	position: absolute;
+	margin: 0 auto;
+	width: 50vw;
+	height: 100vh;
+	object-fit: cover;
+}
