@@ -8,7 +8,7 @@ export default function Faqs() {
 			<Meta title={"Faqs"} />
 			<BreadCrump title='Faqs' />
 			<div
-				className='container accordion accordion-flush home-wrapper-2'
+				className='container accordion accordion-flush home-wrapper-2 p-5'
 				id='accordionFlushExample'>
 				<div className='accordion-item my-2'>
 					<h2 className='accordion-header'>
