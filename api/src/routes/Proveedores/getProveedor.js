@@ -1,6 +1,6 @@
-const Proveedor = require("../models/provedores/Proveedor");
-const Usuario = require("../models/usuarios/Usuario");
-const ProductoServicio = require("../models/productos_servicios/Producto_servicio");
+const Proveedor = require("../../models/provedores/Proveedor");
+const Usuario = require("../../models/usuarios/Usuario");
+const ProductoServicio = require("../../models/productos_servicios/Producto_servicio");
 
 const getProveedorRoutes = [
   {

@@ -1,4 +1,4 @@
-const ProductoServicio = require("../models/productos_servicios/Producto_servicio")
+const ProductoServicio = require("../../models/productos_servicios/Producto_servicio")
 
 const createProductosRoutes = [
   {

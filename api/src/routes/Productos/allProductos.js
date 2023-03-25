@@ -1,4 +1,4 @@
-const allProductos = require('../models/productos_servicios/Producto_servicio');
+const allProductos = require('../../models/productos_servicios/Producto_servicio');
 
 
 const allProductosRoutes = [

@@ -1,4 +1,4 @@
-const Proveedor = require("../models/provedores/Proveedor");
+const Proveedor = require("../../models/provedores/Proveedor");
 
 const createProveedorRoutes = [
   {

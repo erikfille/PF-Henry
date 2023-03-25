@@ -3,7 +3,7 @@
   "nombre": "Mi tienda de mascotas",
   "vendeProductos": true,
   "vendeServicios": true,
-  "productos": "6112865473a2f821cd3d0a2a",
+  "productos": ["6112865473a2f821cd3d0a2a"],
   "rating": 4.5,
   "direccion": "Calle Falsa 123",
   "subscripcion": "VIP",
