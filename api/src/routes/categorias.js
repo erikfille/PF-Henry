@@ -1,5 +1,4 @@
 const Categoria = require("../models/categorias/Categoria");
-const HapiCors = require("hapi-cors");
 
 const categoriasRoutes = [
   {
@@ -16,9 +15,6 @@ const categoriasRoutes = [
           .code(500);
       }
     },
-    options: {
-      cors: true, // Habilita las CORS para este endpoint
-    },
   },
   {
     method: "POST",
@@ -31,9 +27,6 @@ const categoriasRoutes = [
       } catch (error) {
         return h.response(error.message).code(500);
       }
-    },
-    options: {
-      cors: true, // Habilita las CORS para este endpoint
     },
   },
   {
@@ -50,9 +43,6 @@ const categoriasRoutes = [
       } catch (error) {
         return h.response(error).code(500);
       }
-    },
-    options: {
-      cors: true, // Habilita las CORS para este endpoint
     },
   },
 ];

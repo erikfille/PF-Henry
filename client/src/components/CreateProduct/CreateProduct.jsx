@@ -10,9 +10,9 @@ export default function CreateProduct() {
     titulo: "",
     tipo: "",
     descripcion: "",
-    precio: 0,
+    precio: "",
     imagen: "",
-    stock: 0,
+    stock: "",
     categorias: [],
     proveedor: "",
   });
@@ -39,11 +39,15 @@ export default function CreateProduct() {
     { value: "categorias.d", label: "Guarderia" },
   ];
 
+  async function getCategories() {
+    let response = await axios.get("/categorias");
+    console.log("categorias: ", response.data);
+  }
+
   useEffect(() => {
     // Trae todas las categorias de producto desde el back y guarda las de productos y las de servicios
-    let response = axios.get("/categorias")
-    console.log('categorias: ', response)
-  });
+    getCategories();
+  }, []);
 
   async function createProduct(data) {
     try {
