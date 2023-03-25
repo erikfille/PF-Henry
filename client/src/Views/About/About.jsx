@@ -51,7 +51,7 @@ export default function About() {
 
       <Row >
         <Integrante nombre="Erik Filleadeau" pais="Argentina" imagen={erikImg} />
-        <Integrante nombre="Jonhatan Molero" pais="Venezuela" imagen={jonhaImg}/>
+        <Integrante nombre="Jonathan Molero" pais="Venezuela" imagen={jonhaImg}/>
         <Integrante nombre="Maximiliano Herr" pais="Argentina" />
         <Integrante nombre="Ignacio Quirelli" pais="Argentina" imagen={nachoImg} />
       </Row>
