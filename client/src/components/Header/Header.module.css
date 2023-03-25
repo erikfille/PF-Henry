@@ -9,6 +9,7 @@ nav {
 	height: 5rem;
 	background-color: #fff;
 	transition: all 0.3s ease-in-out;
+	z-index: 100;
 }
 
 nav a {
