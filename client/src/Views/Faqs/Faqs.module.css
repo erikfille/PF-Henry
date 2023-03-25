@@ -7,9 +7,6 @@
 	background-color: white;
 }
 
-.button:not(.collapsed)::after {
-}
-
 .button:focus {
 	background-color: #0cc5ba;
 	color: white;
