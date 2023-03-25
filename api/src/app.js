@@ -3,13 +3,13 @@ const HapiCors = require("hapi-cors");
 require("./database.js");
 const usuariosRoutes = require("./routes/usuarios.js");
 const rolRoutes = require("./routes/roles");
-const createProductosRoutes = require("./routes/createProducto");
+const createProductosRoutes = require("./routes/Productos/createProducto");
 const categoriasRoutes = require("./routes/categorias");
-const productoDetailRoutes = require("./routes/productoDetail.js");
-const allProductosRoutes = require("./routes/allProductos.js");
-const stockProductosRoutes = require("./routes/stockProductos.js");
-const postProvedorRoutes = require("./routes/postProveedor.js");
-const getProveedorRoutes = require("./routes/getProveedor.js")
+const productoDetailRoutes = require("./routes/Productos/productoDetail.js");
+const allProductosRoutes = require("./routes/Productos/allProductos.js");
+const stockProductosRoutes = require("./routes/Productos/stockProductos.js");
+const postProvedorRoutes = require("./routes/Proveedores/postProveedor");
+const getProveedorRoutes = require("./routes/Proveedores/getProveedor.js")
 const createMascotaRoutes = require("./routes/createMascota.js");
 const ordenDecompraRoutes = require("./routes/ordenDeCompra.js");
 
