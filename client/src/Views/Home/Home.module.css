@@ -1,0 +1,27 @@
+.bgImage {
+    position: absolute;
+}
+
+.title {
+    position: relative;
+}
+
+.title > h1 {
+    font-size: 70px;
+    font-weight: 700;
+    line-height: 40px;
+    padding: 8% 0 0 20%;
+}
+
+.title > h2 {
+    font-size: 70px;
+    font-weight: 700;
+    color: var(--color-0CC5BA);
+    padding-left: 35%;
+    margin-bottom: 30px;
+}
+
+.imgPets {
+    position: relative;
+    padding-bottom: 80px;
+}
