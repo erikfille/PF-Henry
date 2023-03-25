@@ -35,6 +35,16 @@
 
 /*** Colores Fin ***/
 
+/*** Boton ***/
+
+.button {
+  border: none;
+  padding: 4px 15px;
+  font-size: 14px;
+  font-weight: 600;
+  background-color: var(--color-0CC5BA);
+  border-radius: 4px;
+}
 
 /** Fondo grisesito de las page **/
 
