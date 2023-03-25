@@ -1,0 +1,16 @@
+.button {
+	border: 2px solid #0cc5ba;
+}
+
+.button:not(.collapsed) {
+	color: black;
+	background-color: white;
+}
+
+.button:focus {
+	background-color: #0cc5ba;
+	color: white;
+	outline: none;
+	border: #0cc5ba 2px solid;
+	box-shadow: none;
+}
