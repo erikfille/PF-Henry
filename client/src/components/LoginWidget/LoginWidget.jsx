@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import axios from "axios";
 
 // Google Auth
 import { gapi } from "gapi-script";
@@ -14,7 +15,7 @@ export default function LoginWidget() {
   const [user, setUser] = useState({});
 
   const [userData, setUserData] = useState({
-    username: "",
+    mail: "",
     password: "",
     rol: "",
   });
@@ -38,10 +39,22 @@ export default function LoginWidget() {
     gapi.load("client:auth2", start);
   }, []);
 
-  const onSuccess = (response) => {
+  const onSuccess = async (response) => {
     console.log(response);
-    //Guarda la info del usuario
-    setUser(response);
+    let user = {
+      user: response.profileObj.email,
+      name: response.profileObj.givenName,
+      surname: response.profileObj.familyName,
+      id: response.profileObj.googleId,
+      image: response.profileObj.imageUrl,
+    };
+
+    try {
+      const response = await axios.post(`/users`, user);
+    } catch (err) {
+      const response = await axios.post(`/users/login`, user);
+    }
+    
     /*
     - Busca al usuario en la base de datos por el mail
         - Si existe el mail, trae la info, crea el token y lo sube al localStorage
@@ -72,6 +85,7 @@ export default function LoginWidget() {
 
   function handleSubmit(e) {
     e.preventDefault();
+
     /*
     - Guardado de la info
     - Trae la info del usuario
@@ -86,23 +100,24 @@ export default function LoginWidget() {
       </div>
       <h1 className="loginTitle">¡Bienvenido a Pet App!</h1>
       <hr />
+      <p>Ingrese sus datos para acceder</p>
       <div className="loginFormContainer">
         <form onSubmit={handleSubmit}>
           <div>
-            <label htmlFor="username">Username: </label>
             <input
-              id="username"
-              name="username"
+              placeholder="Email"
+              id="mail"
+              name="mail"
               value={userData.user}
               onChange={handleInputChange}
-              className={errors.username && "danger"}
+              className={errors.mail && "danger"}
               type="text"
             ></input>
-            {errors.username && <p>{errors.username}</p>}
+            {errors.mail && <p>{errors.mail}</p>}
           </div>
           <div>
-            <label htmlFor="password">Password: </label>
             <input
+              placeholder="Contraseña"
               id="password"
               name="password"
               value={userData.password}

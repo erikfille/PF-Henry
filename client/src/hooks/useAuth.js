@@ -1,8 +1,7 @@
 import { create } from "zustand";
+import axios from "axios";
 
 const useLogin = create((set) => ({
-  user: [],
-  proveedor_id: [],
   // getProveedor: async () => {
   //   // revisar cuando esten las rutas
   //   try {
@@ -30,7 +29,6 @@ const useLogin = create((set) => ({
       });
   },
   receiveToken(data) {
-    let user = {};
     user = {
       email: data.data.usuario,
       id: data.data.id,
@@ -43,7 +41,7 @@ const useLogin = create((set) => ({
     localStorage.setItem("token", token);
     localStorage.setItem("user", JSON.stringify(user));
     axios.defaults.headers.common["Authorization"] = "Bearer " + token;
-    dispatch("receiveLogin", user);
+    receiveLogin(user);
   },
   logoutUser() {
     localStorage.removeItem("token");
@@ -58,9 +56,6 @@ const useLogin = create((set) => ({
     } else {
       router.push("/home");
     }
-  },
-  requestLogin({ commit }) {
-    commit("LOGIN_REQUEST");
   },
 }));
 

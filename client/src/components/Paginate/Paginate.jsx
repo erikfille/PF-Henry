@@ -1,8 +1,7 @@
-import { useSelector } from "react-redux";
 import styles from './Paginate.module.css'
 
 export const Pagination = ({ page, setPage }) => {
-    const allProducts = useSelector((state) => state.products);
+    //... traer los productos del store
 
     let maxPage = Math.ceil(allProducts.length / 15);
 
