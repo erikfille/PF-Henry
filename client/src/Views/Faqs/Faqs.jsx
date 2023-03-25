@@ -7,24 +7,25 @@ export default function Faqs() {
 		<div>
 			<Meta title={"Faqs"} />
 			<BreadCrump title='Faqs' />
-			<div className='container accordion' id='faqs'>
-				<div className='accordion-item'>
-					<h2 className='accordion-header fw-bold' id='headingOne'>
+			<div
+				className='container accordion accordion-flush home-wrapper-2'
+				id='accordionFlushExample'>
+				<div className='accordion-item my-2'>
+					<h2 className='accordion-header'>
 						<button
-							className={`accordion-button fw-bold ${styles.button}`}
+							className={`accordion-button collapsed fw-bold ${styles.button}`}
 							type='button'
 							data-bs-toggle='collapse'
-							data-bs-target='#collapseOne'
-							aria-expanded='true'
-							aria-controls='collapseOne'>
+							data-bs-target='#flush-collapseOne'
+							aria-expanded='false'
+							aria-controls='flush-collapseOne'>
 							¿Tienen en venta productos para perros y gatos?
 						</button>
 					</h2>
 					<div
-						id='collapseOne'
-						className='accordion-collapse collapse show'
-						aria-labelledby='headingOne'
-						data-bs-parent='#accordionExample'>
+						id='flush-collapseOne'
+						className='accordion-collapse collapse'
+						data-bs-parent='#accordionFlushExample'>
 						<div className='accordion-body'>
 							¡Por supuesto! Tenemos una amplia variedad de productos para mascotas, tanto para
 							perros como para gatos. Desde alimentos de alta calidad hasta juguetes y accesorios,
@@ -32,23 +33,22 @@ export default function Faqs() {
 						</div>
 					</div>
 				</div>
-				<div className='accordion-item'>
-					<h2 className='accordion-header' id='headingTwo'>
+				<div className='accordion-item my-2'>
+					<h2 className='accordion-header'>
 						<button
-							className={`accordion-button collapsed  fw-bold ${styles.button}`}
+							className={`accordion-button collapsed fw-bold ${styles.button}`}
 							type='button'
 							data-bs-toggle='collapse'
-							data-bs-target='#collapseTwo'
+							data-bs-target='#flush-collapseTwo'
 							aria-expanded='false'
-							aria-controls='collapseTwo'>
+							aria-controls='flush-collapseTwo'>
 							¿Cuál es el mejor alimento para mi perro?
 						</button>
 					</h2>
 					<div
-						id='collapseTwo'
+						id='flush-collapseTwo'
 						className='accordion-collapse collapse'
-						aria-labelledby='headingTwo'
-						data-bs-parent='#accordionExample'>
+						data-bs-parent='#accordionFlushExample'>
 						<div className='accordion-body'>
 							La mejor opción de alimento para su perro dependerá de muchos factores, como la edad,
 							el tamaño, la raza y el nivel de actividad. Nuestro equipo de expertos en nutrición
@@ -58,23 +58,22 @@ export default function Faqs() {
 						</div>
 					</div>
 				</div>
-				<div className='accordion-item'>
-					<h2 className='accordion-header' id='headingThree'>
+				<div className='accordion-item my-2'>
+					<h2 className='accordion-header'>
 						<button
-							className={`accordion-button collapsed  fw-bold ${styles.button}`}
+							className={`accordion-button collapsed fw-bold ${styles.button}`}
 							type='button'
 							data-bs-toggle='collapse'
-							data-bs-target='#collapseThree'
+							data-bs-target='#flush-collapseThree'
 							aria-expanded='false'
-							aria-controls='collapseThree'>
+							aria-controls='flush-collapseThree'>
 							¿Venden productos para mascotas exóticas?
 						</button>
 					</h2>
 					<div
-						id='collapseThree'
+						id='flush-collapseThree'
 						className='accordion-collapse collapse'
-						aria-labelledby='headingThree'
-						data-bs-parent='#accordionExample'>
+						data-bs-parent='#accordionFlushExample'>
 						<div className='accordion-body'>
 							Sí, vendemos productos para mascotas exóticas, como pájaros, reptiles y roedores.
 							Tenemos una amplia variedad de alimentos, juguetes y accesorios para satisfacer las
@@ -82,28 +81,50 @@ export default function Faqs() {
 						</div>
 					</div>
 				</div>
-				<div className='accordion-item'>
-					<h2 className='accordion-header' id='headingThree'>
+				<div className='accordion-item my-2'>
+					<h2 className='accordion-header'>
 						<button
 							className={`accordion-button collapsed fw-bold ${styles.button}`}
 							type='button'
 							data-bs-toggle='collapse'
-							data-bs-target='#collapseThree'
+							data-bs-target='#flush-collapseFour'
 							aria-expanded='false'
-							aria-controls='collapseThree'>
-							¿Tienen servicios de entrenamiento para perros?
+							aria-controls='flush-collapseFour'>
+							¿Venden camas para mascotas?
 						</button>
 					</h2>
 					<div
-						id='collapseThree'
+						id='flush-collapseFour'
 						className='accordion-collapse collapse'
-						aria-labelledby='headingThree'
-						data-bs-parent='#accordionExample'>
+						data-bs-parent='#accordionFlushExample'>
 						<div className='accordion-body'>
-							Sí, ofrecemos servicios de entrenamiento para perros. Nuestros entrenadores de perros
-							altamente capacitados pueden ayudarlo a entrenar a su perro en obediencia básica,
-							trucos divertidos y más. Puede comunicarse con nosotros por correo electrónico o por
-							teléfono para programar una sesión de entrenamiento.
+							Sí, tenemos una amplia variedad de camas para mascotas disponibles. Desde camas para
+							perros pequeños hasta camas para perros grandes y acolchonadas, ¡seguro que encontrará
+							la cama perfecta para su mascota en nuestro sitio web!
+						</div>
+					</div>
+				</div>
+				<div className='accordion-item my-2'>
+					<h2 className='accordion-header'>
+						<button
+							className={`accordion-button collapsed fw-bold ${styles.button}`}
+							type='button'
+							data-bs-toggle='collapse'
+							data-bs-target='#flush-collapseFive'
+							aria-expanded='false'
+							aria-controls='flush-collapseFive'>
+							¿Ofrecen servicios de cuidado de mascotas?
+						</button>
+					</h2>
+					<div
+						id='flush-collapseFive'
+						className='accordion-collapse collapse'
+						data-bs-parent='#accordionFlushExample'>
+						<div className='accordion-body'>
+							Sí, ofrecemos servicios de cuidado de mascotas. Si necesita un cuidador para su
+							mascota mientras está fuera de casa, nuestro equipo puede ayudarlo a encontrar a
+							alguien confiable y calificado para cuidar de su mascota. Comuníquese con nosotros
+							para obtener más información.
 						</div>
 					</div>
 				</div>
