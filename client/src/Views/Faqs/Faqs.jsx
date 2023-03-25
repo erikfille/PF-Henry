@@ -8,11 +8,11 @@ export default function Faqs() {
 			<Meta title={"Faqs"} />
 			<BreadCrump title='Faqs' />
 			<div className='home-wrapper-2'>
-				<h1 className='text-center fw-bold py-5'>
+				<h1 className='container-xl text-center fw-bold py-5'>
 					Ayuda y preguntas frecuentes para cuidar a tu mascota
 				</h1>
 				<div
-					className='container accordion accordion-flushp-5 rounded-3 py-4 px-5 bg-white'
+					className='container-xl accordion accordion-flushp-5 rounded-3 py-4 px-5 bg-white'
 					id='accordionFlushExample'>
 					<div className={`accordion-item my-4 ${styles.questionContainer}`}>
 						<h2 className='accordion-header'>
