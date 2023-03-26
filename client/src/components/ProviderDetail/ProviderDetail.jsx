@@ -1,8 +1,8 @@
 import React from 'react'
-import styles from "./ProductDetail.module.css"
+import styles from "./ProviderDetail.module.css"
 
 export default function ProductDetail() {
   return (
-    <div>ProductDetail</div>
+    <div>ProviderDetail</div>
   )
 }
