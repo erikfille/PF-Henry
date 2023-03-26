@@ -16,6 +16,7 @@ import Servicios from "./Views/Servicios/Servicios";
 import Contacto from "./Views/Contacto/Contacto";
 import Login from "./Views/Login/Login";
 import CreateProduct from "./components/CreateProduct/CreateProduct";
+import Detail from "./Views/Detail/Detail"
 
 //? Styles
 import "./App.css";
@@ -38,6 +39,7 @@ function App() {
         <Route path="/tienda" element={<Tienda />} />
         <Route path="/contacto" element={<Contacto />} />
         <Route path="/servicios" element={<Servicios />} />
+        <Route path="/productos/:productId" element={<Detail />} />
         <Route path="/crearProducto" element={<CreateProduct />} />
       </Routes>
       {location.pathname !== "/login" && <Footer /> &&
