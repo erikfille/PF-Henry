@@ -11,12 +11,12 @@ export default function ProductCart(props) {
                <img src={props.imagen} alt={props.titulo} style={{ width: '50px', height: '50px'}} className='me-3' />
                <div className='d-flex flex-column gap-1'>
                   <h5 className={`${style.title} mb-0`}>{props.titulo}</h5>
-                  <p className={`${style.sku}sku mb-0`}>SKU-{props.sku}</p>
+                  <p className={`${style.sku}sku mb-0`}>SKU-{props.stock}</p>
                   <p className={`${style.price} mb-0`}>AR$ {props.precio}</p>
                </div>
                <div className='d-flex flex-column me-3'>
                   <h5>Cant</h5>
-                  <input className={`form-control ${style.cant}`} type="number" value={props.qty} />
+                  <input className={`form-control ${style.cant}`} type="number" value={props.stock} />
                </div>
                <div className='d-flex justify-content-center align-items-center'>
                   <button className={style.buttonDelete}><RiDeleteBin6Line className={style.iconDelete}/></button>

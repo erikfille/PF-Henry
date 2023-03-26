@@ -6,8 +6,7 @@ export let products = [
     precio: "3.500",
     categoria: "juguetes",
     animal: "perro",
-    imagen:
-      "https://mascotaselmolino.com.ar/8836-thickbox_default/juguete-para-perro-20-cm.jpg",
+    imagen: "https://mascotaselmolino.com.ar/8836-thickbox_default/juguete-para-perro-20-cm.jpg",
     stock: 3,
   },
   {
