@@ -43,9 +43,9 @@ export default function ProductReviews(props) {
       puntuaciones.push(review.puntuacion);
     }
 
-    let promedioPuntuaciones = puntuaciones
-      .reduce((acc, curr) => acc + curr)
-      .toFixed(1);
+    let sumaPuntuaciones = puntuaciones.reduce((acc, curr) => acc + curr);
+
+    let promedioPuntuaciones = (sumaPuntuaciones / reviews.length).toFixed(1);
 
     setAverageReviews(promedioPuntuaciones);
   }
@@ -77,6 +77,7 @@ export default function ProductReviews(props) {
             edit={true}
             activeColor="#ffd700"
           />
+          <span>Basadas en {reviews.length} usuarios</span>
           <h3>Reseña</h3>
           <textarea
             placeholder="Escribe aquí tu reseña"

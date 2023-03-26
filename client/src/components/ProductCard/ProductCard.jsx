@@ -8,11 +8,11 @@ export default function ProductCart(props) {
       return (
          <>
             <div className={`${style.productCart} col-12 d-flex gap-4 p-3 align-items-center justify-content-center`}>
-               <img src={props.image} alt={props.name} style={{ width: '50px', height: '50px'}} className='me-3' />
+               <img src={props.imagen} alt={props.titulo} style={{ width: '50px', height: '50px'}} className='me-3' />
                <div className='d-flex flex-column gap-1'>
-                  <h5 className={`${style.title} mb-0`}>{props.name}</h5>
+                  <h5 className={`${style.title} mb-0`}>{props.titulo}</h5>
                   <p className={`${style.sku}sku mb-0`}>SKU-{props.sku}</p>
-                  <p className={`${style.price} mb-0`}>AR$ {props.price}</p>
+                  <p className={`${style.price} mb-0`}>AR$ {props.precio}</p>
                </div>
                <div className='d-flex flex-column me-3'>
                   <h5>Cant</h5>
@@ -33,10 +33,10 @@ export default function ProductCart(props) {
                   <img style={{ width: '40px' }} src="images/logo-pet.png" alt="logo"></img>
                </div>
                <div className='d-flex justify-content-center'>
-                  <img src={props.image} alt="juguete para perro" style={{ width: '170px', height: '170px' }} />
+                  <img src={props.imagen} alt="juguete para perro" style={{ width: '170px', height: '170px' }} />
                </div>
                <hr />
-               <h5>{props.name}</h5>
+               <h5>{props.titulo}</h5>
                <div className='d-flex align-items-center gap-2 mb-0'>
                   <ReactStars
                      count={5}
@@ -47,7 +47,7 @@ export default function ProductCart(props) {
                   />
                   <p className='mb-0'>( {props.rating} )</p>
                </div>
-               <h5>AR$ {props.price}</h5>
+               <h5>AR$ {props.precio}</h5>
             </div>
          </>
       )
