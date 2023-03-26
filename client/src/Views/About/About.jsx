@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 
+import BreadCrump from '../../components/BreadCrump/BreadCrump';
+
 import styles from "./About.module.css"
 import noeliaImg from "../../assets/img/profileNoe.png"; //?  importa la imagen de Noelia
 import santiagoImg from "../../assets/img/profileSanti.png"
@@ -9,6 +11,7 @@ import jhonImg from "../../assets/img/profileJhon.png"
 import erikImg from "../../assets/img/profileErik.png"
 import jonhaImg from "../../assets/img/profileJonha.png"
 import nachoImg from "../../assets/img/profileNacho.png"
+import maxImg from "../../assets/img/profileMax.png"
 
 
 function Integrante({ nombre, pais, imagen}) {
@@ -39,7 +42,10 @@ function Integrante({ nombre, pais, imagen}) {
 
 export default function About() {
   return (
+    <>
+    <BreadCrump title='Sobre Nosotros' />
     <Container className={styles.aboutWrapper}>
+    
       <h1 style={{ textAlign: 'center' }} className="mb-5">¡El equipo detrás de este hermoso proyecto!</h1>
 
       <Row >
@@ -52,10 +58,11 @@ export default function About() {
       <Row >
         <Integrante nombre="Erik Filleadeau" pais="Argentina" imagen={erikImg} />
         <Integrante nombre="Jonathan Molero" pais="Venezuela" imagen={jonhaImg}/>
-        <Integrante nombre="Maximiliano Herr" pais="Argentina" />
+        <Integrante nombre="Maximiliano Herr" pais="Argentina" imagen={maxImg}/>
         <Integrante nombre="Ignacio Quirelli" pais="Argentina" imagen={nachoImg} />
       </Row>
     </Container>
+    </>
   );
 }
 
