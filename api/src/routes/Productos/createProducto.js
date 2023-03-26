@@ -6,12 +6,13 @@ const createProductosRoutes = [
     path: "/crearProducto",
     handler: async (request, h) => {
       try {
-        const { titulo, tipo, precio, imagen, rating, stock, activo, categoria, proveedor } = request.payload;
+        const { titulo, tipo, precio, imagen, descripcion, rating, stock, activo, categoria, proveedor } = request.payload;
         const nuevoProductoServicio = new ProductoServicio({
           titulo,
           tipo,
           precio,
           imagen,
+          descripcion,
           rating,
           stock,
           activo,

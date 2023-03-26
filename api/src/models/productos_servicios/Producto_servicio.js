@@ -7,7 +7,7 @@ const productoServicioSchema = new Schema({
   },
   tipo: {
     type: String,
-    enum: ['producto', 'servicio'],
+    enum: ['Producto', 'Servicio'],
     required: true,
   },
   precio: {
@@ -39,11 +39,9 @@ const productoServicioSchema = new Schema({
     default: true,
   },
   categoria: {
-    type: [{
-      type: Schema.Types.ObjectId,
-      ref: "Categoria",
-    }],
-  },
+    type: Schema.Types.ObjectId,
+    ref: "Categoria",
+},
   proveedor: {
     type: Schema.Types.ObjectId,
     ref: "Proveedor",
