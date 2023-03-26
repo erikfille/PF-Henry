@@ -11,7 +11,9 @@ const searchProductosRoutes = [{
           throw new Error("El parámetro 'titulo' debe ser una cadena");
         }
   
-        const productos = await ProductoServicio.find({ titulo: { $regex: titulo, $options: 'i' } });
+        const productos = await ProductoServicio.find({ titulo: { $regex: titulo, $options: 'i' } })
+        .populate('categoria')
+        .populate('proveedor',"nombre");
         return h.response(productos);
       } catch (error) {
         console.error(error);

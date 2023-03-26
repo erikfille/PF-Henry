@@ -51,11 +51,6 @@ const usuariosRoutes = [
             return h.response({ error: "El correo electrónico o la contraseña no coinciden" }).code(401);
           }
   
-          // Si el usuario es proveedor, agregar la propiedad "proveedor_id"
-          // if (usuario.rol.nombre === "proveedor") {
-          //   usuario.proveedor_id = usuario._id;
-          // }
-  
           return h.response(usuario);
         } catch (error) {
           return h.response({ error: "Error al obtener el usuario" }).code(500);
