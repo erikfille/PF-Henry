@@ -97,12 +97,11 @@ export default function LoginWidget(props) {
 	}
 
 	return (
-		<div className='col-12 col-md-6 d-flex flex-column align-items-center'>
-			<h1 className=''>¡Bienvenido a Pet App!</h1>
-			<hr />
-			<p>Ingrese sus datos para acceder</p>
+		<div className='container d-flex flex-column align-items-center'>
+			<h1 className='fs-3 fw-bold'>¡Bienvenido!</h1>
+			<p className='fs-6 fw-light'>La mejor forma de cuidar a tu mascota</p>
 			<div className=''>
-				<form onSubmit={handleSubmit}>
+				<form className='d-flex flex-column align-items-center' onSubmit={handleSubmit}>
 					{childProps.type === "signup" && (
 						<>
 							<div>
@@ -112,7 +111,8 @@ export default function LoginWidget(props) {
 									name='name'
 									value={userData.user}
 									onChange={handleInputChange}
-									className={errors.name && "danger"}
+									// className={errors.name && "danger"}
+									className='form-control'
 									type='text'></input>
 								{errors.name && <p>{errors.name}</p>}
 							</div>
@@ -130,26 +130,39 @@ export default function LoginWidget(props) {
 						</>
 					)}
 
-					<div>
+					<div className='mb-3'>
+						<label for='exampleInputEmail1' class='form-label fw-bold'>
+							Email
+						</label>
 						<input
-							placeholder='Email'
+							placeholder='Ingresa tu email'
 							id='mail'
+							className={`form-control ${errors.mail && "danger"}`}
 							name='mail'
 							value={userData.user}
 							onChange={handleInputChange}
-							className={errors.mail && "danger"}
-							type='text'></input>
+							type='email'
+							aria-describedby='emailHelp'
+						/>
 						{errors.mail && <p>{errors.mail}</p>}
 					</div>
+
 					<div>
-						<input
-							placeholder='Contraseña'
-							id='password'
-							name='password'
-							value={userData.password}
-							onChange={handleInputChange}
-							className={errors.password && "danger"}
-							type='password'></input>
+						<div class='mb-3'>
+							<label for='exampleInputPassword1' class='form-label fw-bold'>
+								Password
+							</label>
+							<input
+								placeholder='Ingresa tu contraseña'
+								id='password'
+								name='password'
+								type='password'
+								value={userData.password}
+								onChange={handleInputChange}
+								className={`form-control ${errors.password && "danger"}`}
+								class='form-control'
+							/>
+						</div>
 						{errors.password && <p>{errors.password}</p>}
 					</div>
 					{childProps.type === "signup" && (
@@ -163,17 +176,17 @@ export default function LoginWidget(props) {
 							</select>
 						</div>
 					)}
-					<hr />
-					<button className={`button ${styles.button}`}>{childProps.button}</button>
+					<button className='button w-100 mb-3'>{childProps.button}</button>
+					<div className='w-100'>
+						<GoogleLogin
+							className={`mb-3 ${styles.buttonGoogle}`}
+							clientId={clientID}
+							onSuccess={onSuccess}
+							onFailure={onFailure}
+							cookiePolicy={"single_host_policy"}
+						/>
+					</div>
 				</form>
-			</div>
-			<div className=''>
-				<GoogleLogin
-					clientId={clientID}
-					onSuccess={onSuccess}
-					onFailure={onFailure}
-					cookiePolicy={"single_host_policy"}
-				/>
 			</div>
 			<div className=''>
 				<p>{childProps.message}</p>
