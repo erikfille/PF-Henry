@@ -6,14 +6,16 @@ const categoriaSchema = new Schema({
     enum: ["Producto", "Servicio"],
     required: true,
   },
-  categoria: {
+  servicios: {
     type: String,
     enum: ["Consulta", "Paseo", "Baño", "Guarderia"],
-    required: true,
+  },
+  productos: {
+    type: String,
+    enum: ["Juguete", "Alimentos", "Golosinas"],
   },
 });
 
 module.exports = model("Categoria", categoriaSchema);
-
 
 //UN ARRAY CON TODAS LAS CATEGORIAS DE PRODUCTOS, Y UN ARRAY CON TODAS LAS CATEGORIAS DE SERVICIOS

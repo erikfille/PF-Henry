@@ -22,10 +22,21 @@ const categoriasRoutes = [
     handler: async (request, h) => {
       try {
         const newCategoria = new Categoria(request.payload);
+
+        if (newCategoria.tipo === "Producto") {
+          delete newCategoria.servicios;
+        }
+        if (newCategoria.tipo === "Servicio") {
+          delete newCategoria.productos;
+        }
         const savedCategoria = await newCategoria.save();
         return h.response(savedCategoria).code(201);
       } catch (error) {
-        return h.response(error.message).code(500);
+        return h
+          .response({
+            error: "No se pudo crear la categoría, revisar datos ingresados.",
+          })
+          .code(500);
       }
     },
   },
