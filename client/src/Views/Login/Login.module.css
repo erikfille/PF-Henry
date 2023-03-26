@@ -1,13 +1,9 @@
-.loginContainer,
-.formContainer {
+.formContainer,
+.loginContainer {
+	overflow: hidden;
 	height: 100vh;
 }
 
-.image {
-	position: absolute;
-	margin: 0 auto;
-	width: 50vw;
+.imgContainer {
 	height: 100vh;
-	object-fit: cover;
-	overflow: hidden;
 }

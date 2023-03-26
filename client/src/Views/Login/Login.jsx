@@ -41,11 +41,16 @@ export default function Login() {
 		<div className={styles.loginContainer}>
 			<div className='row'>
 				<div
-					className={`col-12 col-md-8 d-flex justify-content-center align-items-center ${styles.formContainer}`}>
+					className={`col-12 col-md-6 col-xl-7 d-flex justify-content-center align-items-center ${styles.formContainer}`}>
 					<LoginWidget childProps={childProps} />
 				</div>
-				<div className='col-md-4 d-flex justify-content-center d-none d-md-inline'>
-					<img className={styles.image} src={loginDog} alt='' />
+				<div
+					className={`col-6 col-md-6 col-xl-5 d-none d-sm-flex position-relative ${styles.imgContainer}`}>
+					<img
+						className={`position-absolute top-50 start-50 translate-middle w-100 ${styles.image}`}
+						src={loginDog}
+						alt=''
+					/>
 				</div>
 			</div>
 		</div>
