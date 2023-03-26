@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 
+import BreadCrump from '../../components/BreadCrump/BreadCrump';
+
 import styles from "./About.module.css"
 import noeliaImg from "../../assets/img/profileNoe.png"; //?  importa la imagen de Noelia
 import santiagoImg from "../../assets/img/profileSanti.png"
@@ -40,7 +42,10 @@ function Integrante({ nombre, pais, imagen}) {
 
 export default function About() {
   return (
+    <>
+    <BreadCrump title='Sobre Nosotros' />
     <Container className={styles.aboutWrapper}>
+    
       <h1 style={{ textAlign: 'center' }} className="mb-5">¡El equipo detrás de este hermoso proyecto!</h1>
 
       <Row >
@@ -57,6 +62,7 @@ export default function About() {
         <Integrante nombre="Ignacio Quirelli" pais="Argentina" imagen={nachoImg} />
       </Row>
     </Container>
+    </>
   );
 }
 
