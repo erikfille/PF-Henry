@@ -1,6 +1,7 @@
 import React from "react";
 import LoginWidget from "../../components/LoginWidget/LoginWidget";
 import { useLocation } from "react-router-dom";
+import loginDog from "../../../public/images/login-dog.jpeg";
 
 import styles from "./Login.module.css";
 
@@ -33,18 +34,18 @@ export default function Login() {
 		};
 	}
 
+	// TO DO: depende si entra en login, sign up o forgot password
+	// deberia cambiar la img
+
 	return (
-		<div className={styles.container}>
+		<div className={styles.loginContainer}>
 			<div className='row'>
-				<div className='col-6'>
+				<div
+					className={`col-12 col-md-8 d-flex justify-content-center align-items-center ${styles.formContainer}`}>
 					<LoginWidget childProps={childProps} />
 				</div>
-				<div className='col-6 d-flex justify-content-center d-none d-md-inline'>
-					<img
-						className={styles.image}
-						src='https://s3-alpha-sig.figma.com/img/82a7/9700/fabe12b980b487480fe1006bf606bfaf?Expires=1680480000&Signature=PuHKX0yoTQhR-gCDKgDcf4Ef29MSBhfLZbKbQl2Cg4bJpDKFhNTcJzRK3uepdS0tCMhEKVP1mfl9CYUQnedRJ2kSK3tOWlt8C8liKwp5iF2wY6~IjWpkFCy5HgE5iVEk7x3ZaoZGm2ZswtEBKCQR9etXza0YUTfUxwMe-gR07b~y7ZIhYvL56Um47eJcqmSgXAS5NBFEuHA-sYMWvIN5mezOuSZaMZ9YLZjkC1EjU~M9TTvQDb3FfuX~HrTN3a~ebId7U34mJFZ2ddCnpC9pCu0MTeEZ9d227nGgkTVFO-CvLXVhHHe94aTEK5JqH9w5r-zrSr~SHvJ4kp0XtiMgxw__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4'
-						alt=''
-					/>
+				<div className='col-md-4 d-flex justify-content-center d-none d-md-inline'>
+					<img className={styles.image} src={loginDog} alt='' />
 				</div>
 			</div>
 		</div>
