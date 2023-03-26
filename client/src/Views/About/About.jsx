@@ -9,6 +9,7 @@ import jhonImg from "../../assets/img/profileJhon.png"
 import erikImg from "../../assets/img/profileErik.png"
 import jonhaImg from "../../assets/img/profileJonha.png"
 import nachoImg from "../../assets/img/profileNacho.png"
+import maxImg from "../../assets/img/profileMax.png"
 
 
 function Integrante({ nombre, pais, imagen}) {
@@ -52,7 +53,7 @@ export default function About() {
       <Row >
         <Integrante nombre="Erik Filleadeau" pais="Argentina" imagen={erikImg} />
         <Integrante nombre="Jonathan Molero" pais="Venezuela" imagen={jonhaImg}/>
-        <Integrante nombre="Maximiliano Herr" pais="Argentina" />
+        <Integrante nombre="Maximiliano Herr" pais="Argentina" imagen={maxImg}/>
         <Integrante nombre="Ignacio Quirelli" pais="Argentina" imagen={nachoImg} />
       </Row>
     </Container>
