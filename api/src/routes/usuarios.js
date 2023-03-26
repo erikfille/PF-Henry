@@ -67,23 +67,18 @@ const usuariosRoutes = [
       },
     },
   },
- {
+  {
     method: "GET",
     path: "/users/{email}",
     options: {
       async handler(request, h) {
         const { email } = request.params;
-
+  
         try {
-          // Buscar el usuario por su id y hacer el populate del campo "rol"
           const usuario = await Usuario.findOne({ email }).populate("rol");
-          
-          // Si el usuario es proveedor, agregar la propiedad "proveedor_id"
-      // if (usuario.rol.nombre === "proveedor") {
-      //   usuario.proveedor_id = usuario._id;
-      // }
-
-          return h.response(usuario);
+          const usuarioSinPassword = usuario.toObject(); // convertir el objeto Mongoose a objeto JS
+          delete usuarioSinPassword.password; // eliminar la propiedad password
+          return h.response(usuarioSinPassword);
         } catch (error) {
           return h.response({ error: "Error al obtener el usuario" }).code(500);
         }
@@ -92,7 +87,7 @@ const usuariosRoutes = [
   },
   {
     method: "PUT",
-    path: "/users/{id}",
+    path: "/users/{id}/role",
     handler: async (request, h) => {
       const { id } = request.params;
     const { rol } = request.payload;

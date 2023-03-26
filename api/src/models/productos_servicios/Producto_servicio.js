@@ -7,7 +7,7 @@ const productoServicioSchema = new Schema({
   },
   tipo: {
     type: String,
-    enum: ['Producto', 'Servicio'],
+    enum: ['producto', 'servicio'],
     required: true,
   },
   precio: {
@@ -15,6 +15,9 @@ const productoServicioSchema = new Schema({
     required: true,
   },
   imagen: {
+    type: String,
+  },
+  descripcion: {
     type: String,
   },
   rating: {
