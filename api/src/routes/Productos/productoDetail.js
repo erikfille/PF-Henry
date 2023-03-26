@@ -1,4 +1,4 @@
-const Productos_servicios = require('../../models/productos_servicios/Producto_servicio');
+const ProductoServicio = require('../../models/productos_servicios/Producto_servicio');
 
 
 const productoDetailRoutes = [
@@ -7,10 +7,10 @@ const productoDetailRoutes = [
         path: '/product-detail/{id}',
         handler: async (request, h) => {
             try {
-               const product = await Productos_servicios.findById(request.params.id)
+               const product = await ProductoServicio.findById(request.params.id)
                // aca lo mismo. ver modelo para poder correr populate.
-               // .populate('proveedor');
-               // .populat('categoria');
+                .populate('proveedor',"nombre")
+                .populate('categoria')
                return h.response(product);
             } catch (err) {
                 return h.response(err).code(500);
