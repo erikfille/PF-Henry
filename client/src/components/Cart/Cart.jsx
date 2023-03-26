@@ -45,11 +45,10 @@ export default function Cart() {
                         products.map((product) => // Aca se mapea los items de cart del store.
                            <ProductCard // y por cada item renderiza una card con el estilo para el carrito.
                               key= {product.id}
-                              name = {product.name}
-                              sku = {product.id}
-                              price = {product.price}
-                              image = {product.image}
-                              qty = {product.qty}
+                              titulo = {product.titulo}
+                              price = {product.precio}
+                              imagen = {product.imagen}
+                              stock = {product.stock}
                               showAs = 'cart'
                            />
                         )
