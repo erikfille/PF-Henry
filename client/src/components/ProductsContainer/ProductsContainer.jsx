@@ -7,20 +7,24 @@ const ProductsContainer = () => {
 
   return (
     <>
-      {filteredProducts.map((product) => {
-        return (
-          <ProductCard
-            sku={product.id}
-            titulo={product.titulo}
-            rating={product.rating}
-            precio={product.precio}
-            categoria={product.categoria}
-            animal={product.animal}
-            imagen={product.imagen}
-            showAs="Default"
-          />
-        );
-      })}
+      {(typeof filteredProducts === "object" && filteredProducts.length) ? (
+        filteredProducts.map((product) => {
+          return (
+            <ProductCard
+              sku={product.id}
+              titulo={product.titulo}
+              rating={product.rating}
+              precio={product.precio}
+              categoria={product.categoria}
+              animal={product.animal}
+              imagen={product.imagen}
+              showAs="Default"
+            />
+          );
+        })
+      ) : (
+        <p>Lo sentimos, no hay productos con esas características</p>
+      )}
     </>
   );
 };
