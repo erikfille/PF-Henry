@@ -17,6 +17,7 @@ import Contacto from "./Views/Contacto/Contacto";
 import Login from "./Views/Login/Login";
 import CreateProduct from "./components/CreateProduct/CreateProduct";
 import Detail from "./Views/Detail/Detail"
+import UserProfile from "./Views/UserProfile/UserProfile";
 
 //? Styles
 import "./App.css";
@@ -41,6 +42,7 @@ function App() {
         <Route path="/servicios" element={<Servicios />} />
         <Route path="/productos/:productId" element={<Detail />} />
         <Route path="/crearProducto" element={<CreateProduct />} />
+        <Route path="/perfil" element={<UserProfile />} />
       </Routes>
       {location.pathname !== "/login" && <Footer /> &&
         location.pathname !== "/signup" && <Footer />}
