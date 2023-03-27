@@ -100,7 +100,7 @@ export default function LoginWidget(props) {
 		<div className='container d-flex flex-column align-items-center'>
 			<h1 className='fs-3 fw-bold'>¡Bienvenido!</h1>
 			<p className='fs-6 fw-light'>La mejor forma de cuidar a tu mascota</p>
-			<div className='col-8 col-sm-9 col-md-7 col-xl-5'>
+			<div className='col-10 col-sm-8 col-md-8 col-xl-5'>
 				<form className='d-flex flex-column align-items-center' onSubmit={handleSubmit}>
 					{childProps.type === "signup" && (
 						<>
