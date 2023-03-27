@@ -11,7 +11,7 @@ export default function Contacto() {
 				<h1 className='container-xl text-center fw-bold pt-5 pb-1'>
 					!Mantente siempre en contacto con nosotros!
 				</h1>
-				<div className='container-xl my-5'>
+				<div className='container-xl mt-5'>
 					<div className='row py-2'>
 						<form className='col-12 col-md-6 col-xxl-5 d-flex flex-column align-items-center bg-white py-4'>
 							<div className='mb-3  col-12 col-md-9'>
