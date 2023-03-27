@@ -1,0 +1,9 @@
+.formContainer,
+.loginContainer {
+	overflow: hidden;
+	height: 100vh;
+}
+
+.imgContainer {
+	height: 100vh;
+}
