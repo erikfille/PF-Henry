@@ -23,6 +23,8 @@ export default function Tienda() {
     ordered,
     searchProduct,
     setFilter,
+    categories,
+    getCategories,
   ] = useProduct((state) => [
     state.getProducts,
     state.allProducts,
@@ -31,18 +33,27 @@ export default function Tienda() {
     state.ordered,
     state.searchProduct,
     state.setFilter,
+    state.categories,
+    state.getCategories,
   ]);
 
   useEffect(() => {
-    getProducts()
-  }, [])
+    getProducts();
+    getCategories();
+  }, []);
 
   useEffect(() => {
     const { categoria, animal } = filterBy;
+
     let filtered = allProducts;
 
+    console.log(filtered)
+
+    console.log("categoria: ", categoria)
+    console.log("animal: ", animal)
+
     if (categoria !== "all") {
-      filtered = filtered.filter((p) => p.categoria === categoria);
+      filtered = filtered.filter((p) => p.categoria.nombre.toLowerCase() === categoria);
     }
     if (animal !== "all") {
       filtered = filtered.filter((p) => p.animal === animal);
@@ -105,11 +116,8 @@ export default function Tienda() {
                       Categorías
                     </option>
                     <option value="all">Todas</option>
-                    <option value="juguetes">Juguetes</option>
-                    <option value="ropa">Ropa</option>
-                    <option value="accesorios">Accesorios</option>
-                    <option value="aseo">Aseo</option>
-                    <option value="alimentos">Alimentos</option>
+                    {categories.length &&
+                      categories.map((c) => <option value={c.nombre.toLowerCase()}>{c.nombre}</option>)}
                   </select>
                 </div>
                 <div className={`${style.rangePrice} mb-4`}>

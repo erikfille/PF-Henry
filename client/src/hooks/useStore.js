@@ -5,6 +5,7 @@ export const useProduct = create((set, get) => ({
   allProducts: [],
   filteredProducts: [],
   filteredProductsWOSearch: [],
+  categories: [],
   cartState: false,
   cartProducts: [],
   getProducts: async () => {
@@ -13,6 +14,16 @@ export const useProduct = create((set, get) => ({
       let products = response.data;
       set((state) => ({ allProducts: products }));
       set((state) => ({ filteredProducts: products }));
+    } catch (err) {
+      console.log(err);
+    }
+  },
+  getCategories: async () => {
+    try {
+      let response = await axios.get("/categorias");
+      let categorias = response.data.categorias;
+      console.log("getCategories: ", categorias);
+      set((state) => ({ categories: categorias }));
     } catch (err) {
       console.log(err);
     }
@@ -60,7 +71,7 @@ export const useProduct = create((set, get) => ({
       .get(`/product-detail/${productId}`)
       .catch((error) => window.alert("Algo salio mal, intentalo nuevamente"));
 
-    product.quantity = quantity
+    product.quantity = quantity;
     set((state) => ({ cartProducts: [...state.cartProducts, cartProduct] }));
   },
   setCartRemove: (productId) => {
@@ -69,9 +80,9 @@ export const useProduct = create((set, get) => ({
     }));
   },
   setActiveCart: () => {
-    const {cartState} = get()
+    const { cartState } = get();
     set((state) => ({ cartState: state.cartState ? false : true }));
-    console.log(cartState)
+    console.log(cartState);
   },
 }));
 
