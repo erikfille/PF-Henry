@@ -12,7 +12,7 @@ const categoriaSchema = new Schema({
   },
   productos: {
     type: String,
-    enum: ["Juguete", "Alimentos", "Golosinas"],
+    enum: ["Juguete", "Alimentos", "Golosinas","Higiene"],
   },
 });
 

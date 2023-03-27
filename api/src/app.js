@@ -14,6 +14,7 @@ const createMascotaRoutes = require("./routes/createMascota.js");
 const ordenDecompraRoutes = require("./routes/ordenDeCompra.js");
 const modifyingProductosRoutes = require("./routes/Productos/modifyingProducto.js")
 const searchProductosRoutes = require("./routes/Productos/searchProducto.js")
+const modifyingProveedorRoutes = require("./routes/Proveedores/putProveedor")
 
 const init = async () => {
   const server = new hapi.Server({
@@ -41,6 +42,7 @@ const init = async () => {
   server.route(ordenDecompraRoutes);
   server.route(modifyingProductosRoutes);
   server.route(searchProductosRoutes);
+  server.route(modifyingProveedorRoutes);
 
   await server.start();
   console.log(`el servidor esta corriendo en ${server.info.uri}`);
