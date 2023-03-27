@@ -1,4 +1,5 @@
 import ProductCard from "../ProductCard/ProductCard";
+import { Link } from "react-router-dom";
 // import { products } from "../../Views/Tienda/helper"
 import { useProduct } from "../../hooks/useStore";
 
@@ -7,19 +8,21 @@ const ProductsContainer = () => {
 
   return (
     <>
-      {(typeof filteredProducts === "object" && filteredProducts.length) ? (
+      {typeof filteredProducts === "object" && filteredProducts.length ? (
         filteredProducts.map((product) => {
           return (
-            <ProductCard
-              sku={product.id}
-              titulo={product.titulo}
-              rating={product.rating}
-              precio={product.precio}
-              categoria={product.categoria}
-              animal={product.animal}
-              imagen={product.imagen}
-              showAs="Default"
-            />
+            <Link to={`/productos/${product._id}`}>
+              <ProductCard
+                sku={product._id}
+                titulo={product.titulo}
+                rating={product.rating}
+                precio={product.precio}
+                categoria={product.categoria}
+                animal={product.animal}
+                imagen={product.imagen}
+                showAs="Default"
+              />
+            </Link>
           );
         })
       ) : (

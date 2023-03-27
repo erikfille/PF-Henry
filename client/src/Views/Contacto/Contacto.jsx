@@ -41,7 +41,7 @@ export default function Contacto() {
 									Dejanos tu mensaje
 								</label>
 								<textarea
-									class='form-control'
+									className='form-control'
 									id='exampleFormControlTextarea1'
 									rows='3'
 									style={{ resize: "none", height: "8rem" }}

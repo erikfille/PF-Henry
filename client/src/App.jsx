@@ -5,6 +5,7 @@ import axios from "axios";
 
 //? Components
 import Footer from "./components/Footer/Footer";
+import Cart from "../src/components/Cart/Cart"
 
 //? Views
 import Home from "./Views/Home/Home";
@@ -16,8 +17,9 @@ import Servicios from "./Views/Servicios/Servicios";
 import Contacto from "./Views/Contacto/Contacto";
 import Login from "./Views/Login/Login";
 import CreateProduct from "./components/CreateProduct/CreateProduct";
-import Detail from "./Views/Detail/Detail"
+import Detail from "./Views/Detail/Detail";
 import UserProfile from "./Views/UserProfile/UserProfile";
+
 
 //? Styles
 import "./App.css";
@@ -44,6 +46,7 @@ function App() {
         <Route path="/crearProducto" element={<CreateProduct />} />
         <Route path="/perfil" element={<UserProfile />} />
       </Routes>
+      <Cart />
       {location.pathname !== "/login" && <Footer /> &&
         location.pathname !== "/signup" && <Footer />}
     </div>

@@ -1,7 +1,7 @@
 import React from "react";
 import LoginWidget from "../../components/LoginWidget/LoginWidget";
 import { useLocation } from "react-router-dom";
-import loginDog from "../../../public/images/login-dog.jpeg";
+import loginDog from "../../assets/img/login/login-dog.jpeg";
 
 import styles from "./Login.module.css";
 

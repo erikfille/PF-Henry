@@ -1,60 +1,18 @@
 import { create } from "zustand";
-import { filterByAnimal } from "../Views/Tienda/helper";
+import axios from "axios";
 
 export const useProduct = create((set, get) => ({
-  allProducts: [
-    {
-      id: 1,
-      titulo: "Juguete para perros",
-      rating: 4.5,
-      precio: "3.500",
-      categoria: "juguetes",
-      animal: "perro",
-      imagen:
-        "https://mascotaselmolino.com.ar/8836-thickbox_default/juguete-para-perro-20-cm.jpg",
-      stock: 3,
-    },
-    {
-      id: 2,
-      titulo: "Rascador para gatos",
-      rating: 4,
-      precio: "1.500",
-      categoria: "accesorios",
-      animal: "gato",
-      imagen: "https://m.media-amazon.com/images/I/514NNA-WuXL._AC_SX466_.jpg",
-      stock: 3,
-    },
-    {
-      id: 3,
-      titulo: "Alimento para perros",
-      rating: 3,
-      precio: "2.500",
-      categoria: "alimentos",
-      animal: "perro",
-      imagen:
-        "https://itengoo.com/wp-content/uploads/2022/06/Cachorros-10-kg.jpg",
-      stock: 3,
-    },
-    {
-      id: 4,
-      titulo: "Alimento para gatos",
-      rating: 2,
-      precio: "2.500",
-      categoria: "alimentos",
-      animal: "gato",
-      imagen:
-        "https://costazul.sigo.com.ve/images/thumbs/0012970_alimento-para-gatos-de-carne-whiskas-1-k_450.jpeg",
-      stock: 3,
-    },
-  ],
+  allProducts: [],
   filteredProducts: [],
   filteredProductsWOSearch: [],
+  cartState: false,
+  cartProducts: [],
   getProducts: async () => {
-    // revisar cuando esten las rutas
     try {
-      let response = await axios.get("/products");
-      let products = response.data.data;
+      let response = await axios.get("/allProductos");
+      let products = response.data;
       set((state) => ({ allProducts: products }));
+      set((state) => ({ filteredProducts: products }));
     } catch (err) {
       console.log(err);
     }
@@ -96,6 +54,24 @@ export const useProduct = create((set, get) => ({
     if (typeof productos === "object" && productos.length) {
       set((state) => ({ filteredProducts: productos }));
     }
+  },
+  setCartAdd: (productId, quantity) => {
+    let product = axios
+      .get(`/product-detail/${productId}`)
+      .catch((error) => window.alert("Algo salio mal, intentalo nuevamente"));
+
+    product.quantity = quantity
+    set((state) => ({ cartProducts: [...state.cartProducts, cartProduct] }));
+  },
+  setCartRemove: (productId) => {
+    set((state) => ({
+      cartProducts: state.cartProducts.filter((p) => p._id !== productId),
+    }));
+  },
+  setActiveCart: () => {
+    const {cartState} = get()
+    set((state) => ({ cartState: state.cartState ? false : true }));
+    console.log(cartState)
   },
 }));
 
