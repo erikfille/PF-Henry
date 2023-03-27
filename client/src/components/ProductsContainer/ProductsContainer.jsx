@@ -11,9 +11,9 @@ const ProductsContainer = () => {
       {typeof filteredProducts === "object" && filteredProducts.length ? (
         filteredProducts.map((product) => {
           return (
-            <Link to={`/productos/${product.id}`}>
+            <Link to={`/productos/${product._id}`}>
               <ProductCard
-                sku={product.id}
+                sku={product._id}
                 titulo={product.titulo}
                 rating={product.rating}
                 precio={product.precio}

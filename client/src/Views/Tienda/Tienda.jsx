@@ -16,6 +16,7 @@ export default function Tienda() {
   });
 
   const [
+    getProducts,
     allProducts,
     filteredProducts,
     filteredProductsWOSearch,
@@ -23,6 +24,7 @@ export default function Tienda() {
     searchProduct,
     setFilter,
   ] = useProduct((state) => [
+    state.getProducts,
     state.allProducts,
     state.filteredProducts,
     state.filteredProductsWOSearch,
@@ -30,6 +32,10 @@ export default function Tienda() {
     state.searchProduct,
     state.setFilter,
   ]);
+
+  useEffect(() => {
+    getProducts()
+  }, [])
 
   useEffect(() => {
     const { categoria, animal } = filterBy;
@@ -76,12 +82,6 @@ export default function Tienda() {
   const handlerInput = (e) => {
     setInputSearch(e.target.value);
     searchProduct(inputSearch);
-  };
-
-  const handlerSearchSubmit = (e) => {
-    e.preventDefault();
-    inputSearch && searchProduct(inputSearch);
-    setInputSearch(" ");
   };
 
   return (
