@@ -45,7 +45,7 @@ export default function Login() {
 					<LoginWidget childProps={childProps} />
 				</div>
 				<div
-					className={`col-6 col-md-6 col-xl-5 d-none d-sm-flex position-relative ${styles.imgContainer}`}>
+					className={`col-6 col-md-6 col-xl-5 d-none d-md-flex position-relative ${styles.imgContainer}`}>
 					<img
 						className={`position-absolute top-50 start-50 translate-middle w-100 ${styles.image}`}
 						src={loginDog}
