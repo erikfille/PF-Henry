@@ -100,7 +100,7 @@ export default function LoginWidget(props) {
 		<div className='container d-flex flex-column align-items-center'>
 			<h1 className='fs-3 fw-bold'>¡Bienvenido!</h1>
 			<p className='fs-6 fw-light'>La mejor forma de cuidar a tu mascota</p>
-			<div className=''>
+			<div className='col-8 col-sm-9 col-md-7 col-xl-5'>
 				<form className='d-flex flex-column align-items-center' onSubmit={handleSubmit}>
 					{childProps.type === "signup" && (
 						<>
@@ -130,7 +130,7 @@ export default function LoginWidget(props) {
 						</>
 					)}
 
-					<div className='mb-3'>
+					<div className='mb-3 w-100'>
 						<label for='exampleInputEmail1' class='form-label fw-bold'>
 							Email
 						</label>
@@ -147,26 +147,25 @@ export default function LoginWidget(props) {
 						{errors.mail && <p>{errors.mail}</p>}
 					</div>
 
-					<div>
-						<div class='mb-3'>
-							<label for='exampleInputPassword1' class='form-label fw-bold'>
-								Password
-							</label>
-							<input
-								placeholder='Ingresa tu contraseña'
-								id='password'
-								name='password'
-								type='password'
-								value={userData.password}
-								onChange={handleInputChange}
-								className={`form-control ${errors.password && "danger"}`}
-								class='form-control'
-							/>
-						</div>
+					<div class='mb-3 w-100'>
+						<label for='exampleInputPassword1' class='form-label fw-bold'>
+							Password
+						</label>
+						<input
+							placeholder='Ingresa tu contraseña'
+							id='password'
+							name='password'
+							type='password'
+							value={userData.password}
+							onChange={handleInputChange}
+							className={`form-control ${errors.password && "danger"}`}
+							class='form-control'
+						/>
 						{errors.password && <p>{errors.password}</p>}
 					</div>
+
 					{childProps.type === "signup" && (
-						<div>
+						<div className=' w-100'>
 							<select name='rol' id='rol'>
 								<option value='' disabled selected>
 									¿Qué quieres hacer?
@@ -179,7 +178,7 @@ export default function LoginWidget(props) {
 					<button className='button w-100 mb-3'>{childProps.button}</button>
 					<div className='w-100'>
 						<GoogleLogin
-							className={`mb-3 ${styles.buttonGoogle}`}
+							className={`mb-3 w-100 ${styles.buttonGoogle}`}
 							clientId={clientID}
 							onSuccess={onSuccess}
 							onFailure={onFailure}
@@ -188,7 +187,7 @@ export default function LoginWidget(props) {
 					</div>
 				</form>
 			</div>
-			<div className=''>
+			<div className='text-center'>
 				<p>{childProps.message}</p>
 				<a href={childProps.anchorPath}>
 					<span>{childProps.accountAnchor}</span>
