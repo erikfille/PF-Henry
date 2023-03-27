@@ -67,7 +67,7 @@ export default function ProductDetail(props) {
             <span className="fw-bold me-3 fs-5">Categoría:</span>
             {categoria ? (
               <span className={`fw-bold ${styles.span}`}>
-                {categoria.productos}
+                {categoria.nombre}
               </span>
             ) : (
               <span className={`fw-bold ${styles.span}`}>
