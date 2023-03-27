@@ -45,6 +45,7 @@ export default function Login() {
 					<h1 className='fw-bold position-absolute top-0 start-0 m-4'>PetsAmerica</h1>
 					<LoginWidget childProps={childProps} />
 				</div>
+
 				<div
 					className={`col-6 col-md-6 col-xl-5 d-none d-md-flex position-relative ${styles.imgContainer}`}>
 					<img
