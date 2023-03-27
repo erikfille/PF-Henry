@@ -16,16 +16,19 @@ export default function ProductDetail(props) {
     proveedor,
   } = props.productDetail;
 
-  const [quantity, setQuantity] = useState(0);
+  const [quantity, setQuantity] = useState(1);
 
   function handleInputChange(e) {
     setQuantity(e.target.value);
   }
 
+  console.log(quantity);
+
   function addToCart() {
-    setCart(_id, quantity);
-    setActiveCart();
-    // Envia el estado quantity y el id del producto al carrito
+    if (quantity > 0) {
+      setCart(_id, quantity);
+      setActiveCart();
+    } else window.alert("Necesitas indicar una cantidad");
   }
 
   return (
@@ -62,11 +65,15 @@ export default function ProductDetail(props) {
           <hr />
           <div className="mb-3">
             <span className="fw-bold me-3 fs-5">Categoría:</span>
-            <span className={`fw-bold ${styles.span}`}>{categoria}</span>
-          </div>
-          <div className="mb-3">
-            <span className="fw-bold me-3 fs-5">Tipo:</span>
-            <span className={`fw-bold ${styles.span}`}>{animal}</span>
+            {categoria ? (
+              <span className={`fw-bold ${styles.span}`}>
+                {categoria.productos}
+              </span>
+            ) : (
+              <span className={`fw-bold ${styles.span}`}>
+                Sin información de Categoría
+              </span>
+            )}
           </div>
           <div className="mb-3">
             <span className="fw-bold me-3 fs-5">Disponibilidad:</span>
@@ -78,6 +85,8 @@ export default function ProductDetail(props) {
               <input
                 placeholder="Cantidad"
                 type="number"
+                min="0"
+                max={stock}
                 name="cantidad"
                 value={quantity}
                 onChange={handleInputChange}
@@ -85,9 +94,15 @@ export default function ProductDetail(props) {
               />
             </div>
             <div>
-              <button className="button" onClick={() => addToCart}>
-                Agregar al Carrito
-              </button>
+              {Number(quantity) > 0 ? (
+                <button className="button" onClick={() => addToCart()}>
+                  Agregar al Carrito
+                </button>
+              ) : (
+                <button className="button" disabled>
+                  Agregar al Carrito
+                </button>
+              )}
             </div>
           </div>
         </div>
