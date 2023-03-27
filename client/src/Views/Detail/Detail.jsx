@@ -11,38 +11,38 @@ import axios from "axios";
 import styles from "./Detail.module.css";
 
 export default function Detail() {
-  const [productDetail, setProductDetail] = useState({});
-  const [providerDetail, setProviderDetail] = useState({});
+	const [productDetail, setProductDetail] = useState({});
+	const [providerDetail, setProviderDetail] = useState({});
 
-  const { productId } = useParams();
+	const { productId } = useParams();
 
-  const [allProducts] = useProduct((state) => [state.allProducts]);
+	const [allProducts] = useProduct((state) => [state.allProducts]);
 
-  useEffect(() => {
-    console.log(allProducts);
-    console.log(productId);
+	useEffect(() => {
+		console.log(allProducts);
+		console.log(productId);
 
-    let product = allProducts.find((p) => p.id == productId);
-    console.log(product);
-    setProductDetail(product);
-    // axios
-    //   .get(`/product-detail/${productId}`)
-    //   .then((data) => {
-    //     console.log(data.data);
-    //     setProductDetail(data.data);
-    //   })
-    //   .catch((error) => window.alert("Algo salio mal, intentalo nuevamente"));
+		let product = allProducts.find((p) => p.id == productId);
+		console.log(product);
+		setProductDetail(product);
+		// axios
+		//   .get(`/product-detail/${productId}`)
+		//   .then((data) => {
+		//     console.log(data.data);
+		//     setProductDetail(data.data);
+		//   })
+		//   .catch((error) => window.alert("Algo salio mal, intentalo nuevamente"));
 
-    return () => setProductDetail({});
-  }, [productId]);
+		return () => setProductDetail({});
+	}, [productId]);
 
-  return (
-    <div>
-      <Meta title={"Detalle"} />
-      <BreadCrump title="Detalle de Producto" />
-      <ProductDetail productDetail={productDetail} />
-      <ProviderDetail providerDetail={providerDetail} />
-      <ProductReviews productId={productId} id="reseñar"/>
-    </div>
-  );
+	return (
+		<div className='home-wrapper-2 '>
+			<Meta title={"Detalle"} />
+			<BreadCrump title='Detalle de Producto' />
+			<ProductDetail productDetail={productDetail} />
+			<ProviderDetail providerDetail={providerDetail} />
+			<ProductReviews productId={productId} id='reseñar' />
+		</div>
+	);
 }
