@@ -76,7 +76,7 @@ export default function ProductReviews(props) {
 	}
 
 	return (
-		<div className='container-xl'>
+		<div>
 			<h1 className='ms-3 ms-sm-5 fw-bold'>Reseñas</h1>
 			<div className='container-md bg-white mt-5'>
 				<h1 className='fw-bold'>Reseñas de Clientes</h1>
@@ -109,7 +109,7 @@ export default function ProductReviews(props) {
 				</div>
 				<div className='mt-5'>
 					{reviews.map((r) => (
-						<div className='container-xl mt-5'>
+						<div className='mt-5'>
 							<div className='d-sm-flex align-items-end mt-0'>
 								<h1 className='fw-bold fs-3 me-3'>{r.usuario}</h1>
 								<ReactStars
