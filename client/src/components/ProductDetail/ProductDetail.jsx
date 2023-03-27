@@ -17,6 +17,8 @@ export default function ProductDetail(props) {
 
   const [quantity, setQuantity] = useState(0);
 
+
+
   function handleInputChange(e) {
     setQuantity(e.target.value);
   }
@@ -24,6 +26,7 @@ export default function ProductDetail(props) {
   function addToCart() {
     // Envia el estado quantity y el id del producto al carrito
   }
+
 
   return (
     <div className="productDetailContainer">
@@ -37,7 +40,7 @@ export default function ProductDetail(props) {
         <ReactStars
           count={5}
           size={20}
-          value={props.rating}
+          value={rating}
           edit={false}
           activeColor="#ffd700"
         />
@@ -48,11 +51,7 @@ export default function ProductDetail(props) {
         <hr />
         <h2>Categoría:</h2>
         <span>
-          {categoria.map((c) => (
-            <p>
-              <b>{c}</b>
-            </p>
-          ))}
+          <b>{categoria}</b>
         </span>
         <h2>Cantidad: </h2>
         <input

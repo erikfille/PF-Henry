@@ -1,16 +1,35 @@
 import React, { useState, useEffect } from "react";
 import ReactStars from "react-stars";
 
-import React from "react";
-
 export default function ProductReviews(props) {
   const { productId } = props;
 
-  const [reviews, setReviews] = useState({});
-  const [averageReviews, setAverageReviews] = useState({});
+  const [reviews, setReviews] = useState([
+    {
+      usuario: "Jorge Vega",
+      rating: 4,
+      fecha: "27/03/2023",
+      comentario:
+        "A mi mascota le encanta este juguete, le parece muy divertido y pasamos mucho tiempo juntos jugando con el.",
+    },
+    {
+      usuario: "Martina Scomazzon",
+      rating: 5,
+      fecha: "20/03/2023",
+      comentario:
+        "¡Esta fantástico este juguete! Con mi gata lo usamos juntas mientras charlamos en ingles",
+    },
+    {
+      usuario: "Franco Etcheverri",
+      rating: 2,
+      fecha: "16/02/2023",
+      comentario:
+        "El juguete esta bien, pero no veo como esto afecta a la puntuacion de Ferro en el torneo",
+    },
+  ]);
+  const [averageReviews, setAverageReviews] = useState(0);
   const [qualify, setQualify] = useState(0);
   const [review, setReview] = useState("");
-
   /*
 
   propiedades de reviews:
@@ -21,20 +40,20 @@ export default function ProductReviews(props) {
 
   */
 
-  useEffect(() => {
-    axios
-      .get(`/reviews/${productId}`)
-      .then((data) => {
-        console.log(data.data);
-        setReviews(data.data);
-      })
-      .then(() => {
-        reviewsAverage();
-      })
-      .catch((error) => window.alert("Algo salio mal, intentalo nuevamente"));
+  // useEffect(() => {
+  //   // axios
+  //   //   .get(`/reviews/${productId}`)
+  //   //   .then((data) => {
+  //   //     console.log(data.data);
+  //   //     setReviews(data.data);
+  //   //   })
+  //   //   .then(() => {
+  //   //     reviewsAverage();
+  //   //   })
+  //   //   .catch((error) => window.alert("Algo salio mal, intentalo nuevamente"));
 
-    return () => setReviews({});
-  }, [productId]);
+  //   return () => setReviews({});
+  // }, [productId]);
 
   function reviewsAverage() {
     let puntuaciones = [];
@@ -46,6 +65,8 @@ export default function ProductReviews(props) {
     let sumaPuntuaciones = puntuaciones.reduce((acc, curr) => acc + curr);
 
     let promedioPuntuaciones = (sumaPuntuaciones / reviews.length).toFixed(1);
+
+    console.log(promedioPuntuaciones);
 
     setAverageReviews(promedioPuntuaciones);
   }
@@ -77,7 +98,7 @@ export default function ProductReviews(props) {
             edit={true}
             activeColor="#ffd700"
           />
-          <span>Basadas en {reviews.length} usuarios</span>
+          <span>Basada en {reviews.length} usuarios</span>
           <h3>Reseña</h3>
           <textarea
             placeholder="Escribe aquí tu reseña"
@@ -94,7 +115,7 @@ export default function ProductReviews(props) {
               <ReactStars
                 count={5}
                 size={20}
-                value={r.puntuacion}
+                value={r.rating}
                 edit={false}
                 activeColor="#ffd700"
               />

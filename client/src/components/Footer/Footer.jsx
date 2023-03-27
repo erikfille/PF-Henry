@@ -26,8 +26,7 @@ export default function Footer() {
 						<div className="col-3 py-5 text-center">
 							<div className="policy d-flex flex-column justify-content-center gap-30">
 								<h4>Políticas</h4>
-								<Link to=""><span className={style.spans}>Términos</span></Link>
-								<Link to=""><span className={style.spans}>Condiciones</span></Link>
+								<Link to=""><span className={style.spans}>Términos y Condiciones</span></Link>
 							</div>
 						</div>
 						<div className="col-3 py-5">

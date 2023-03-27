@@ -1,5 +1,4 @@
 import { create } from "zustand";
-import { filterByAnimal } from "../Views/Tienda/helper";
 
 export const useProduct = create((set, get) => ({
   allProducts: [
