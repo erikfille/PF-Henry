@@ -17,12 +17,12 @@ export default function ProductDetail(props) {
 	}
 
 	return (
-		<div className='container bg-black mb-5'>
+		<div className='container mb-5'>
 			<div className='row mt-3 gx-5'>
-				<div className='col-12 col-md-6 bg-white'>
+				<div className='col-12 col-md-6 bg-white py-4 rounded-3 d-flex align-items-center'>
 					<img src={imagen} alt='productImage' className='img-fluid' />
 				</div>
-				<div className='container col-12 col-md-6 bg-white'>
+				<div className='container col-12 col-md-6 bg-white py-4 rounded-3'>
 					<h1 className='fw-bold'>{titulo}</h1>
 					<hr />
 					<h3 className='fw-bold fs-5'>AR$ {precio}</h3>
@@ -31,7 +31,7 @@ export default function ProductDetail(props) {
 						Escribe una reseña
 					</a>
 					<hr />
-					<h3 className='fw-bold fs-6'>Descripción:</h3>
+					<h3 className='fw-bold fs-5'>Descripción:</h3>
 					<p className='fw-light'>
 						<small>{descripcion}</small>
 					</p>

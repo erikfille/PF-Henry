@@ -78,7 +78,7 @@ export default function ProductReviews(props) {
 	return (
 		<div>
 			<h1 className='ms-3 ms-sm-5 fw-bold'>Reseñas</h1>
-			<div className='container-md bg-white mt-5'>
+			<div className='container-md bg-white px-3 py-4 rounded-3'>
 				<h1 className='fw-bold'>Reseñas de Clientes</h1>
 				<div className='d-flex align-items-center'>
 					<ReactStars
