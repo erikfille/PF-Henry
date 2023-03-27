@@ -1,33 +1,64 @@
 import ProductsContainer from "../../components/ProductsContainer/ProductsContainer";
 import Meta from "../../components/Meta/Meta";
 import BreadCrump from "../../components/BreadCrump/BreadCrump";
-import { BiSearchAlt2 } from "react-icons/bi";
+// import { BiSearchAlt2 } from "react-icons/bi";
 import style from "./Tienda.module.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useProduct } from "../../hooks/useStore";
 
 export default function Tienda() {
   const [order, setOrder] = useState("");
   const [inputSearch, setInputSearch] = useState("");
-  const [filterCategory, setFilterCategory] = useState("");
-  const [filterAnimal, setFilterAnimal] = useState("");
   const [value, setValue] = useState(0);
+  const [filterBy, setFilterBy] = useState({
+    categoria: "all",
+    animal: "all",
+  });
 
-  const [ordered, filterByCategory, filterByAnimal, searchProduct, setFilter] =
-    useProduct((state) => [
-      state.ordered,
-      state.filterByCategory,
-      state.filterByAnimal,
-      state.searchProduct,
-      state.setFilter,
-    ]);
+  const [
+    allProducts,
+    filteredProducts,
+    filteredProductsWOSearch,
+    ordered,
+    searchProduct,
+    setFilter,
+  ] = useProduct((state) => [
+    state.allProducts,
+    state.filteredProducts,
+    state.filteredProductsWOSearch,
+    state.ordered,
+    state.searchProduct,
+    state.setFilter,
+  ]);
+
+  useEffect(() => {
+    const { categoria, animal } = filterBy;
+    let filtered = allProducts;
+
+    if (categoria !== "all") {
+      filtered = filtered.filter((p) => p.categoria === categoria);
+    }
+    if (animal !== "all") {
+      filtered = filtered.filter((p) => p.animal === animal);
+    }
+    setFilter(filtered);
+  }, [filterBy]);
+
+  useEffect(() => {
+    if (inputSearch.length > 0) {
+      let result = [];
+      filteredProducts.forEach((p) => {
+        p.titulo.toLowerCase().includes(inputSearch.toLowerCase()) &&
+          result.push(p);
+      });
+      searchProduct(result);
+    } else if (inputSearch.length <= 0) {
+      searchProduct(filteredProductsWOSearch);
+    }
+  }, [inputSearch]);
 
   const handleOnChange = (e) => {
     setValue(e.target.value);
-  };
-
-  const handlerInput = (e) => {
-    setInputSearch(e.target.value);
   };
 
   const handlerOrder = (e) => {
@@ -36,18 +67,15 @@ export default function Tienda() {
     setOrder(e.target.value);
   };
 
-  const handlerFilterByCategory = (e) => {
-    e.target.value && filterByCategory(e.target.value);
-    setFilterCategory(e.target.value);
-    setFilter("categoria", e.target.value);
-    console.log(e.target.value);
+  const handlerFilter = (e) => {
+    if (e.target.value) {
+      setFilterBy({ ...filterBy, [e.target.name]: e.target.value });
+    }
   };
 
-  const handlerfilterByAnimal = (e) => {
-    e.target.value && filterByAnimal(e.target.value);
-    setFilterAnimal(e.target.value);
-    setFilter("animal", e.target.value);
-    console.log(e.target.value);
+  const handlerInput = (e) => {
+    setInputSearch(e.target.value);
+    searchProduct(inputSearch);
   };
 
   const handlerSearchSubmit = (e) => {
@@ -67,8 +95,9 @@ export default function Tienda() {
               <div className={`${style.filterCard} mb-3 p-3`}>
                 <div className="Category-filter mb-4">
                   <select
-                    value={filterCategory}
-                    onChange={(e) => handlerFilterByCategory(e)}
+                    name="categoria"
+                    value={filterBy.categoria}
+                    onChange={(e) => handlerFilter(e)}
                     className="form-select form-select-lg mb-3"
                     aria-label=".form-select-lg"
                   >
@@ -112,8 +141,9 @@ export default function Tienda() {
                 </div>
                 <div className="Type-filter">
                   <select
-                    value={filterAnimal}
-                    onChange={(e) => handlerfilterByAnimal(e)}
+                    name="animal"
+                    value={filterBy.animal}
+                    onChange={(e) => handlerFilter(e)}
                     className="form-select form-select-lg mb-3"
                     aria-label=".form-select-lg"
                   >
@@ -166,14 +196,14 @@ export default function Tienda() {
                       name=""
                       id=""
                     />
-                    <button
+                    {/* <button
                       className={style.buttonSearch}
                       onClick={(e) => handlerSearchSubmit(e)}
                     >
                       <i>
                         <BiSearchAlt2 className={style.iconSearch} />
                       </i>
-                    </button>
+                    </button> */}
                   </div>
                 </div>
               </div>
