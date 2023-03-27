@@ -1,0 +1,18 @@
+hr {
+	color: #0cc5ba;
+}
+
+a,
+.span {
+	color: #777777;
+}
+
+.textReview {
+	resize: none;
+	height: 6rem;
+	border-color: #0cc5ba;
+}
+
+.stars span {
+	font-size: 2rem !important;
+}
