@@ -1,35 +1,53 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+//? React
+import React from "react";
+import { Routes, Route, useLocation } from "react-router-dom";
+import axios from "axios";
+
+//? Components
+import Footer from "./components/Footer/Footer";
+
+//? Views
+import Home from "./Views/Home/Home";
+import About from "./Views/About/About";
+import Faqs from "./Views/Faqs/Faqs";
+import Header from "./components/Header/Header";
+import Tienda from "./Views/Tienda/Tienda";
+import Servicios from "./Views/Servicios/Servicios";
+import Contacto from "./Views/Contacto/Contacto";
+import Login from "./Views/Login/Login";
+import CreateProduct from "./components/CreateProduct/CreateProduct";
+import Detail from "./Views/Detail/Detail"
+import UserProfile from "./Views/UserProfile/UserProfile";
+
+//? Styles
+import "./App.css";
+
+axios.defaults.baseURL = "http://localhost:3000";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const location = useLocation();
 
   return (
     <div className="App">
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://reactjs.org" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      {location.pathname !== "/login" && <Header /> &&
+        location.pathname !== "/signup" && <Header />}
+      <Routes>
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<Login />} />
+        <Route path="/inicio" element={<Home />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/faqs" element={<Faqs />} />
+        <Route path="/tienda" element={<Tienda />} />
+        <Route path="/contacto" element={<Contacto />} />
+        <Route path="/servicios" element={<Servicios />} />
+        <Route path="/productos/:productId" element={<Detail />} />
+        <Route path="/crearProducto" element={<CreateProduct />} />
+        <Route path="/perfil" element={<UserProfile />} />
+      </Routes>
+      {location.pathname !== "/login" && <Footer /> &&
+        location.pathname !== "/signup" && <Footer />}
     </div>
-  )
+  );
 }
 
-export default App
+export default App;

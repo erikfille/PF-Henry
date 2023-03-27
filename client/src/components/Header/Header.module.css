@@ -1,0 +1,73 @@
+.logoContainer h3 {
+	font-size: 1.7rem;
+	margin-bottom: 0;
+	font-weight: 700;
+	cursor: default;
+}
+
+nav {
+	height: 5rem;
+	background-color: #fff;
+	transition: all 0.3s ease-in-out;
+}
+
+nav a {
+	color: black;
+	font-size: 1.1rem;
+	font-weight: 600;
+	text-decoration: none;
+	transition: all 0.3s ease-in-out;
+}
+
+nav a:hover {
+	color: #0cc5ba;
+}
+
+.buttonContainer svg {
+	font-size: 2.4rem;
+}
+
+.buttonContainer a:last-child svg {
+	font-size: 1.6rem;
+	text-align: center;
+}
+
+.buttonContainer a:last-child {
+	color: #fff;
+	background-color: #0cc5ba;
+	border-radius: 50%;
+	padding: 3px 5px;
+	transition: all 0.3s ease-in-out;
+}
+
+.buttonContainer a:last-child:hover {
+	color: #0cc5ba;
+	background-color: transparent;
+	transition: all 0.3s ease-in-out;
+}
+
+.menuButton {
+	font-size: 1.5rem;
+	display: none;
+}
+
+.logo {
+	width: 3.6rem;
+}
+
+/* Muestra boton burguer en responsive */
+@media screen and (max-width: 992px) {
+	.menuButton {
+		font-size: 1.5rem;
+		display: inline-block;
+	}
+}
+/* Oculta titulo en responsive */
+@media screen and (max-width: 700px) {
+	.logoContainer h3 {
+		display: none;
+	}
+	.logoContainer {
+		margin-left: 0 !important;
+	}
+}

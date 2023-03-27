@@ -1,0 +1,41 @@
+.footerWrapper {
+    background: url(images/logo-bg-product.png) no-repeat;
+    background-position: 75% 50%;
+}
+
+.btnRrss {
+    background-color: transparent;
+    border: none;
+}
+
+.iconRrss {
+    width: 22px;
+    height: 22px;
+}
+
+.title {
+    margin-left: 25%;
+}
+
+.title h2 {
+    font-weight: 700;
+}
+
+.spans {
+    color: var(--color-131921);
+}
+
+.spans:hover {
+    color: var(--color-0CC5BA);
+}
+
+.imgCat {
+    width: 300px;
+}
+
+.iconContact {
+    width: 27px;
+    height: 27px;
+    color: var(--color-0CC5BA);
+    margin-right: 10px;
+}

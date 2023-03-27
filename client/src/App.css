@@ -1,42 +1,59 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Raleway', sans-serif;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+.app {
+  width: 100%;
+  height: 100vh;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.gap-10 {
+  gap: 10px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+.gap-15 {
+  gap: 15px;
 }
 
-.card {
-  padding: 2em;
+.gap-30 {
+  gap: 30px;
 }
 
-.read-the-docs {
-  color: #888;
+.gap-80 {
+  gap: 80px;
 }
+
+
+/*** Colores ***/
+
+:root {
+  --color-131921: #131921;
+  --color-3b4149: #3b4149;
+  --color-0CC5BA: #0CC5BA;
+  --color-f8f8f8: #f8f8f8;
+  --color-777777: #777777;
+}
+
+/*** Colores Fin ***/
+
+/*** Boton ***/
+
+.button {
+  border: none;
+  padding: 4px 15px;
+  font-size: 14px;
+  font-weight: 600;
+  background-color: var(--color-0CC5BA);
+  border-radius: 4px;
+}
+
+/** Fondo grisesito de las page **/
+
+.home-wrapper-2 {
+  background-color: var(--color-f8f8f8);
+}
+
+/** Fondo grisesito termina aqui **/

@@ -1,0 +1,7 @@
+.breadcrump {
+    border-top: 2px solid var(--color-0CC5BA);
+}
+
+.link {
+    font-weight: 600;
+}
