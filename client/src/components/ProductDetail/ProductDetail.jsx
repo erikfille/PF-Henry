@@ -3,7 +3,7 @@ import ReactStars from "react-stars";
 import styles from "./ProductDetail.module.css";
 
 export default function ProductDetail(props) {
-	const { titulo, descripcion, tipo, precio, imagen, rating, stock, categoria, proveedor } =
+	const { titulo, descripcion, animal, precio, imagen, rating, stock, categoria, proveedor } =
 		props.productDetail;
 
 	const [quantity, setQuantity] = useState(0);
@@ -22,7 +22,7 @@ export default function ProductDetail(props) {
 				<div className='col-12 col-md-6 bg-white'>
 					<img src={imagen} alt='productImage' className='img-fluid' />
 				</div>
-				<div className='col-12 col-md-6 bg-white'>
+				<div className='container col-12 col-md-6 bg-white'>
 					<h1 className='fw-bold'>{titulo}</h1>
 					<hr />
 					<h3 className='fw-bold fs-5'>AR$ {precio}</h3>
@@ -33,11 +33,7 @@ export default function ProductDetail(props) {
 					<hr />
 					<h3 className='fw-bold fs-6'>Descripción:</h3>
 					<p className='fw-light'>
-						{/* <small>{descripcion}</small> */}
-						<small>
-							Esta es una breve descripcion del producto para poder ver que se parezca a lo que hay
-							en figma
-						</small>
+						<small>{descripcion}</small>
 					</p>
 					<hr />
 					<div className='mb-3'>
@@ -46,7 +42,7 @@ export default function ProductDetail(props) {
 					</div>
 					<div className='mb-3'>
 						<span className='fw-bold me-3 fs-5'>Tipo:</span>
-						<span className={`fw-bold ${styles.span}`}>{tipo}</span>
+						<span className={`fw-bold ${styles.span}`}>{animal}</span>
 					</div>
 					<div className='mb-3'>
 						<span className='fw-bold me-3 fs-5'>Disponibilidad:</span>
