@@ -1,13 +1,21 @@
 import ProductCard from '../ProductCard/ProductCard';
-import { products } from '../../Views/Tienda/helper';
+// import { products } from '../../Views/Tienda/helper';
 import style from "./Cart.module.css";
 import { useState } from 'react';
+import { useProduct } from "../../hooks/useStore";
+
 
 
 export default function Cart() {
 
    const [ isOpen, setIsOpen ] = useState(true);  // El boton de CART del header debe modificar este estado. inicalmente debe estar en False.
 
+
+   const [
+      allProducts,
+    ] = useProduct((state) => [
+      state.allProducts
+    ]);
 
    const handlerOnClose = () => { // Esta funcion debe setear el estado en el store a falso.
       setIsOpen(false);
@@ -32,7 +40,7 @@ export default function Cart() {
             </div>
 
             {
-               products.length === 0 
+               allProducts.length === 0 
                ? <>
                   <div className={`${style.cartEmpty} d-flex flex-column align-items-center py-5`}>
                      <p>Tu carrito esta vacio</p>
@@ -42,7 +50,7 @@ export default function Cart() {
                : <>
                   <div className={style.products}>
                      {
-                        products.map((product) => // Aca se mapea los items de cart del store.
+                        allProducts.map((product) => // Aca se mapea los items de cart del store.
                            <ProductCard // y por cada item renderiza una card con el estilo para el carrito.
                               key= {product.id}
                               titulo = {product.titulo}
