@@ -1,7 +1,7 @@
 import ProductCard from "../ProductCard/ProductCard";
 // import { products } from '../../Views/Tienda/helper';
 import style from "./Cart.module.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useProduct } from "../../hooks/useStore";
 
 export default function Cart() {
@@ -21,7 +21,7 @@ export default function Cart() {
     <>
       <div
         className={style.shoppingCart}
-        style={{ display: cartState ? "block" : "none" }}
+        style={{ display: isOpen ? "block" : "none" }}
       >
         <div className="d-flex justify-content-end">
           <button onClick={() => setActiveCart()} className="button">
