@@ -42,6 +42,7 @@ export default function Login() {
 			<div className='row'>
 				<div
 					className={`col-12 col-md-6 col-xl-7 d-flex justify-content-center align-items-center ${styles.formContainer}`}>
+					<h1 className='fw-bold position-absolute top-0 start-0 m-4'>PetsAmerica</h1>
 					<LoginWidget childProps={childProps} />
 				</div>
 				<div
