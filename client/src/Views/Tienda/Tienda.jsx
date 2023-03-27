@@ -117,7 +117,7 @@ export default function Tienda() {
                     </option>
                     <option value="all">Todas</option>
                     {categories.length &&
-                      categories.map((c) => <option value={c.nombre.toLowerCase()}>{c.nombre}</option>)}
+                      categories.map((c) => c.tipo === "Producto" && <option value={c.nombre.toLowerCase()}>{c.nombre}</option>)}
                   </select>
                 </div>
                 <div className={`${style.rangePrice} mb-4`}>
