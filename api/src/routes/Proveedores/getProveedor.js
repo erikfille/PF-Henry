@@ -9,15 +9,8 @@ const getProveedorRoutes = [
     handler: async (request, h) => {
       try {
         const proveedores = await Proveedor.find({})
-          .populate("usuarios")
-          .populate({
-            path: "productos",
-            model: ProductoServicio,
-            populate: {
-              path: "proveedor",
-              model: Proveedor
-            }
-          })
+          .populate("usuarios","id")
+          .populate("productos","id")
           
         return h.response(proveedores).code(200);
       } catch (error) {

@@ -14,7 +14,7 @@ const ProveedorSchema = new Schema({
     type: Boolean,
     required: true,
   },
-  productos: [{ type: Schema.Types.ObjectId, ref: "Producto_servicio" }],
+  productos: [{ type: Schema.Types.ObjectId, ref: "ProductoServicio" }],
   rating: {
     type: Number,
   },
