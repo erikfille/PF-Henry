@@ -76,7 +76,7 @@ export default function ProductReviews(props) {
 	}
 
 	return (
-		<div className=''>
+		<div className='container-xl'>
 			<h1 className='ms-3 ms-sm-5 fw-bold'>Reseñas</h1>
 			<div className='container-md bg-white mt-5'>
 				<h1 className='fw-bold'>Reseñas de Clientes</h1>
