@@ -129,10 +129,28 @@ export default function CreateProduct() {
           <div className='row py-2'>
             <form onSubmit={handleSubmit} classname= "col-12 col-md-6 col-xxl-5 d-flex flex-column align-items-center ">
                 <div className="mb-3  col-12 col-md-9">
+                
+                  <div>
+                    <label for='formGroupExampleInput' className='form-label fw-bold'>
+                      Indicá si es un producto o servicio
+                    </label>
+                    <Select
+                      name="tipo"
+                      placeholder="Seleccioná producto o servicio"
+                      className="basic-select"
+                      options={[
+                        { value: "tipo.a", label: "Producto" },
+                        { value: "tipo.b", label: "Servicio" },
+                      ]}
+                      onChange={handleSelectChange}
+                    />
+                  </div>
+                  
+                  <br/>
                   
                   <div>
                     <label for='formGroupExampleInput' className='form-label fw-bold'>
-									    Nombre del Producto/Servicio
+									    Nombre de tu {productData.tipo === "Producto" ? "producto" : "servicio"}
 								    </label>
                     <input 
                       type="text"
@@ -150,24 +168,6 @@ export default function CreateProduct() {
                       )}
                   </div>
         
-                  <br />
-                  
-                  <div>
-                    <label for='formGroupExampleInput' className='form-label fw-bold'>
-									    Indicá si es un producto o servicio
-								    </label>
-                    <Select
-                      name="tipo"
-                      placeholder="Seleccioná producto o servicio"
-                      className="basic-select"
-                      options={[
-                        { value: "tipo.a", label: "Producto" },
-                        { value: "tipo.b", label: "Servicio" },
-                      ]}
-                      onChange={handleSelectChange}
-                    />
-                  </div>
-                  
                   <br />
                     
                   <div>
@@ -205,7 +205,7 @@ export default function CreateProduct() {
 
                   <div>
                     <label for='exampleFormControlTextarea1' class='form-label fw-bold'>
-									    Precio
+									    Indicá el precio del {productData.tipo === "Producto" ? "producto" : "servicio"}
 								    </label>
                     <input
                       placeholder="Precio"
@@ -245,8 +245,8 @@ export default function CreateProduct() {
                   <br />
 
                   <div>
-                    <label for='exampleFormControlTextarea1' class='form-label fw-bold'>
-                      Seleccioná las categorías en las que querés que se publique tu 
+                    <label for='exampleFormControlTextarea1' className='form-label fw-bold'>
+                      Seleccioná las categorías en las que querés que se publique tu {productData.tipo === "Producto" ? "producto" : "servicio"}
                     </label>
                     <Select
                       isMulti
@@ -254,25 +254,24 @@ export default function CreateProduct() {
                       isDisabled={productData.tipo ? false : true}
                       name="categorias"
                       options={
-                        productData.tipo === "Producto"
-                          ? productCategories
-                          : servicesCategories
+                        productData.tipo === "tipo.a"
+                        ? productCategories
+                        : servicesCategories
                       }
                       className="basic-multi-select"
                       placeholder="Categorías"
                       onChange={handleSelectChange}
                     />
-                  </div>      
+                  </div>  
             
-                <br />
+                  <br />
                 </div>
 
                 <div className="imgContainer ">
                   <div className="widgetButton">
-                    <label for='exampleFormControlTextarea1' class='form-label fw-bold'>
-                      Agregá una imagen de tu 
+                    <label for='exampleFormControlTextarea1' className='form-label fw-bold'>
+                      Agregá una imagen de tu {productData.tipo === "Producto" ? "producto" : "servicio"}
                     </label>
-              
                     <UploadWidget onUpload={onUpload} />
                     <br />
                       {productData.imagen && (
@@ -286,13 +285,17 @@ export default function CreateProduct() {
                 <div>
                   {errors.state ? (
                     <button className="disabledButton" disabled>
-                      <span>Crear </span>
+                      <span>
+                        Crear {productData.tipo === "tipo.a" ? "producto" : "servicio"}
+                      </span>
                     </button>
-                  ) : (
+                    ) : (
                     <button className="submitButton">
-                      <span>Crear </span>
+                      <span>
+                        Crear {productData.tipo === "tipo.a" ? "producto" : "servicio"}
+                      </span>
                     </button>
-                  )}
+                    )}
                 </div>
 
                 <div className="floatClear"></div>
