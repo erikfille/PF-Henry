@@ -1,17 +1,18 @@
 .imgBandera {
-    display: block; /* ? Para centrar la imagen horizontalmente */
-    max-width: 20%; /* ? Para hacer que la imagen sea responsiva */
-    height: auto; /* ? Para mantener la relación de aspecto */
-    margin: 0 auto 0.5rem; /* ? Para centrar verticalmente y agregar un pequeño margen inferior */
-    border-radius: 5px;
-  }
+  display: block; /* ? Para centrar la imagen horizontalmente */
+  max-width: 20%; /* ? Para hacer que la imagen sea responsiva */
+  height: auto; /* ? Para mantener la relación de aspecto */
+  margin: 0 auto 0.5rem; /* ? Para centrar verticalmente y agregar un pequeño margen inferior */
+  border-radius: 5px;
+}
 
-  .aboutWrapper {
-    background: url(images/logo-bg-product.png) ;
-    background-repeat: no-repeat;
-    background-position: top left, bottom right;
-    background-size: auto;
-    background-color: #F5F5F7;
+.aboutContainer {
+  margin: 0 auto;
+  
+}
+
+.imgPerfil{
+  box-shadow: 5px 1px 10px rgba(0, 0, 0, 0.458);
 }
 
   

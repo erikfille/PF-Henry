@@ -9,7 +9,7 @@ export default function Contacto() {
 			<BreadCrump title='Contacto' />
 			<div className={` home-wrapper-2 ${styles.contactoContainer}`}>
 				<h1 className='container-xl text-center fw-bold pt-5 pb-1'>
-					!Mantente siempre en contacto con nosotros!
+					¡Mantente siempre en contacto con nosotros!
 				</h1>
 				<div className='container-xl mt-5'>
 					<div className='row py-2'>
