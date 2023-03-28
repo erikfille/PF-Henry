@@ -2,9 +2,10 @@ import Meta from "../../components/Meta/Meta";
 import BreadCrump from "../../components/BreadCrump/BreadCrump";
 import { BiSearchAlt2 } from "react-icons/bi";
 import { Children, useState } from "react";
-import { filterByLocation, filterByService, ordered, searchService } from "./helperService";
 import ServiceContainer from "../../components/ServiceContainer/ServiceContainer";
 import style from "./Servicios.module.css";
+import { useServices } from "../../hooks/useStore";
+import { useEffect } from "react";
 
 export default function Servicios() {
 	const [order, setOrder] = useState("");
@@ -12,15 +13,25 @@ export default function Servicios() {
 	const [filterService, setFilterService] = useState("");
 	const [filterLocation, setFilterLocation] = useState("");
 
-	const handlerInput = (e) => {
-		setInputSearch(e.target.value);
-	};
+	// Hooks store
+	const [allServices, filteredServices, filteredServicesWOSearch, ordered, getServices] =
+		useServices((state) => [
+			state.allServices,
+			state.filteredServices,
+			state.filteredServicesWOSearch,
+			state.ordered,
+			state.getServices,
+		]);
 
-	const handlerSearchSubmit = (e) => {
-		e.preventDefault();
-		inputSearch && searchService(inputSearch);
-		setInputSearch(" ");
-	};
+	// const handlerInput = (e) => {
+	// 	setInputSearch(e.target.value);
+	// };
+
+	// const handlerSearchSubmit = (e) => {
+	// 	e.preventDefault();
+	// 	inputSearch && searchService(inputSearch);
+	// 	setInputSearch(" ");
+	// };
 
 	const handlerOrder = (e) => {
 		e.preventDefault();
@@ -28,16 +39,27 @@ export default function Servicios() {
 		setOrder(e.target.value);
 	};
 
-	const handlerFilterByService = (e) => {
-		e.target.value && filterByService(e.target.value);
-		setFilterService(e.target.value);
-	};
+	// const handlerFilterByService = (e) => {
+	// 	e.target.value && filterByService(e.target.value);
+	// 	setFilterService(e.target.value);
+	// };
 
-	const handlerFilterByLocation = (e) => {
-		console.log(e.target.value);
-		e.target.value && filterByLocation(e.target.value);
-		setFilterLocation(e.target.value);
-	};
+	// const handlerFilterByLocation = (e) => {
+	// 	console.log(e.target.value);
+	// 	e.target.value && filterByLocation(e.target.value);
+	// 	setFilterLocation(e.target.value);
+	// };
+
+	// Cuando monta hace el pedido a la api
+	// useEffect(() => {
+	// 	getServices();
+	// }, []);
+
+	// Usar useEffect para rednderizar cuando cambie el filtrado por un boton
+	// Usar useEffect para rednderizar cuando cambie el filtrado por busqueda
+
+	// El onchange cambia el state local, y el useEffect mira ese estado local
+	// y renderiza con los cambios
 
 	return (
 		<>
@@ -114,7 +136,7 @@ export default function Servicios() {
 							</div>
 							<div className='product-list pb-5'>
 								<div className='d-flex flex-column gap-5'>
-									<ServiceContainer />
+									<ServiceContainer allServices={allServices} />
 								</div>
 							</div>
 						</div>

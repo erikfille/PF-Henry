@@ -1,10 +1,10 @@
-import { services } from "../../Views/Servicios/helperService";
+// import { services } from "../../Views/Servicios/helperService";
 import ServiceCard from "../ServiceCard/ServiceCard";
 
-const ServiceContainer = ({ services }) => {
+const ServiceContainer = ({ allServices }) => {
 	return (
 		<>
-			{services.map((service) => {
+			{allServices.map((service) => {
 				return (
 					<ServiceCard
 						nombre={service.nombre}

@@ -10,8 +10,8 @@ export let services = [
 		productos: [],
 		rating: 4.5,
 		image: "images/service-img.jpg",
-		direccion: "12 de Octubre 345, Santiago",
-		pais: "Chile",
+		direccion: "12 de Octubre 345, Caracas",
+		pais: "Venenzuela",
 		tipo: "Clinica", //Hogar, Spa
 		descripcion:
 			"Somos una clínica veterinaria con más de 20 años de experiencia en el cuidado de animales domésticos. Ofrecemos servicios de consultas, cirugías, vacunaciones, peluquería y venta de alimentos y accesorios para mascotas.",
@@ -37,11 +37,11 @@ export let services = [
 		productos: [],
 		rating: 4.5,
 		image: "images/service-img.jpg",
-		direccion: "Av. de las Américas 1234, Buenos Aires",
+		direccion: "Av. América 1234, Buenos Aires",
 		pais: "Argentina",
 		tipo: "Tienda", //Hogar, Spa
 		descripcion:
-			"Somos una tienda especializada en la venta de productos para animales domésticos. Contamos con una amplia variedad de alimentos, juguetes, accesorios y productos de higiene para perros, gatos, aves, peces y roedores.",
+			"Tienda especializada en la venta de productos para animales domésticos. Contamos con una amplia variedad de alimentos, juguetes, accesorios y productos de higiene para perros, gatos, aves, peces y roedores.",
 		mail: "ventas@petworld.com.ar",
 		telefono: "++54 11 4567 8901",
 		subscripcion: "VIP",
@@ -91,8 +91,8 @@ export let services = [
 		productos: [],
 		rating: 4.5,
 		image: "images/service-img.jpg",
-		direccion: "Av. San Miguel 123, Mendoza",
-		pais: "Argentina",
+		direccion: "Av. San Miguel 123, Bogota",
+		pais: "Colombia",
 		tipo: "Clinica", //Hogar, Spa
 		descripcion:
 			"Servicios médicos para perros y gatos, incluyendo cirugía, vacunación y consulta general.",
@@ -145,8 +145,8 @@ export let services = [
 		productos: [],
 		rating: 5,
 		image: "images/service-img.jpg",
-		direccion: "Belgrano 456, Rosario, Santa Fe",
-		pais: "Argentina",
+		direccion: "Belgrano 456, Rosario, Caracas",
+		pais: "Venenzuela",
 		tipo: "Clinica", //Hogar, Spa
 		descripcion:
 			"Ofrece servicios médicos para animales, incluyendo radiología, ultrasonido y análisis clínicos.",
@@ -172,8 +172,8 @@ export let services = [
 		productos: [],
 		rating: 4.5,
 		image: "images/service-img.jpg",
-		direccion: "Av. del Perro 456, Buenos Aires",
-		pais: "Argentina",
+		direccion: "Av. del Perro 456, Medellin",
+		pais: "Colombia",
 		tipo: "Tienda", //Hogar, Spa
 		descripcion: "Especializados en la venta de alimentos orgánicos y naturales para mascotas.",
 		mail: "info@lacasadelosanimales.com.ar",
@@ -215,25 +215,6 @@ export let services = [
 		__v: 0,
 	},
 ];
-
-export const ordered = (order) => {
-	if (order === "alfabetico-ascendente") {
-		services.sort((a, b) => {
-			if (a.title > b.title) return 1;
-			if (a.title < b.title) return -1;
-			return 0;
-		});
-	}
-
-	if (order === "alfabetico-descendente") {
-		services.sort((a, b) => {
-			if (a.title < b.title) return 1;
-			if (a.title > b.title) return -1;
-			return 0;
-		});
-	}
-	return services;
-};
 
 export const filterByService = (service) => {
 	const newFilter = services.filter((s) => s.service === service);

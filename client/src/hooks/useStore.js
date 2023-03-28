@@ -104,7 +104,6 @@ export const useServices = create((set, get) => ({
 	// filteredServices: [],
 	allServices: services,
 	filteredServices: services,
-
 	filteredServicesWOSearch: [],
 	// getServices: async () => {
 	// 	try {
