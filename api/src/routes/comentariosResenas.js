@@ -1,4 +1,5 @@
 const ComentarioResena = require("../models/comentarios_resenas/Comentario_resena");
+const ProductoServicio = require("../models/productos_servicios/Producto_servicio")
 
 const createComentarioResenaRoute = [
   {
@@ -13,6 +14,14 @@ const createComentarioResenaRoute = [
           usuario: request.payload.usuario,
         });
         await comentarioResena.save();
+
+        // Aca se va a actualizar el campo "comentario" del producto al que se le hace la reseña.
+        await ProductoServicio.findByIdAndUpdate(
+          request.payload.producto,
+          { comentario: comentarioResena._id },
+          { new: true }
+        );
+
         return h.response(comentarioResena).code(201);
       } catch (error) {
         console.error(error); // Imprimir el error en la consola para depuración
