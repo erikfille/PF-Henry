@@ -10,3 +10,13 @@ a,
 .inputNumber {
 	width: 3rem;
 }
+
+.resena {
+	color: #0cc5ba;
+	font-weight: 600;
+}
+
+.resena:hover {
+	color: #0cc5ba;
+	font-weight: 700;
+}

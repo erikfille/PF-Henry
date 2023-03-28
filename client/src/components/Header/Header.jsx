@@ -1,14 +1,18 @@
-import React from "react";
+import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 import { useProduct } from "../../hooks/useStore";
 import Logo from "../../assets/logo.png";
 import { BiMenu } from "react-icons/bi";
 import { HiOutlineUserCircle } from "react-icons/hi";
 import { MdOutlineShoppingCart } from "react-icons/md";
+import { Link } from "react-router-dom";
 // styles
 import styles from "./Header.module.css";
 
 const Header = () => {
+  
+  const [ userLogged, setUserLogged ] = useState(false); // estado hardcodeado solo para trabajar lo que muestra el boton de User.
+
   const [setActiveCart] = useProduct((state) => [state.setActiveCart]);
 
   return (
@@ -57,11 +61,33 @@ const Header = () => {
               Faqs
             </NavLink>
             <div
-              className={`d-flex align-items-center ${styles.buttonContainer}`}
+              className={`d-flex flex-column flex-lg-row align-items-center justify-content-center ${styles.buttonContainer}`}
             >
-              <NavLink to="/user" className="nav-item me-3" id="userButton">
+              {/* <NavLink to="/user" className="nav-item me-3" id="userButton">
                 <HiOutlineUserCircle />
-              </NavLink>
+              </NavLink> */}
+              <div class="dropdown">
+                <span className={`${styles.buttonCart} dropdown-toggle`} role="button" data-bs-toggle="dropdown" >
+                  <HiOutlineUserCircle />
+                </span>
+                {
+                  userLogged
+                  ?
+                  <>
+                    <ul className="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuLink">
+                      <li><Link to="/login" className={`${styles.li} dropdown-item`}>Iniciar Sesión</Link></li>
+                      <li><Link to="/signup" className={`${styles.li} dropdown-item`}>Registrarte</Link></li>
+                    </ul>
+                  </>
+                  :
+                  <>
+                    <ul className={`${styles.dropDownMenu} dropdown-menu dropdown-menu-end`} aria-labelledby="dropdownMenuLink">
+                      <li><Link to="/perfil" className={`${styles.li} dropdown-item`}>Ver perfil</Link></li>
+                      <li><Link to="" className={`${styles.li} dropdown-item`}>Cerrar sesión</Link></li>
+                    </ul>
+                  </>
+                }
+              </div>
               <NavLink
                 // to="/cart"
                 className="nav-item me-3"
