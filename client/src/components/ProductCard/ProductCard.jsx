@@ -62,7 +62,7 @@ export default function ProductCart(props) {
           />
         </div>
         <hr />
-        <h5>{props.titulo}</h5>
+        <p className={style.p}>{props.titulo}</p>
         <div className="d-flex align-items-center gap-2 mb-0">
           <ReactStars
             count={5}
@@ -73,7 +73,7 @@ export default function ProductCart(props) {
           />
           <p className="mb-0">( {props.rating} )</p>
         </div>
-        <h5>AR$ {props.precio}</h5>
+        <p className={style.p}>AR$ {props.precio}</p>
       </div>
     </>
   );
