@@ -20,6 +20,9 @@ const productoServicioSchema = new Schema({
   descripcion: {
     type: String,
   },
+  animal: {
+    type:String
+  },
   rating: {
     type: Number,
     min: 0,
@@ -50,6 +53,10 @@ const productoServicioSchema = new Schema({
     type: Date,
     default: Date.now,
   },
+  comentario: {
+    type: Schema.Types.ObjectId,
+    ref: "ComentarioResena"
+  }
 });
 
 module.exports = model("ProductoServicio", productoServicioSchema);
