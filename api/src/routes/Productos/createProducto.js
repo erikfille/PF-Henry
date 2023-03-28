@@ -9,6 +9,7 @@ const createProductosRoutes = [
       try {
         const {
           titulo,
+          animal,
           tipo,
           precio,
           imagen,
@@ -17,18 +18,20 @@ const createProductosRoutes = [
           stock,
           activo,
           categoria,
-          proveedor
+          proveedor,
+          comentario
         } = request.payload;
 
         // Buscar la categoría por su nombre
-        const categoriaEncontrada = await Categoria.findOne({ tipo: categoria[0], [categoria[0].toLowerCase() + 's']: categoria[1]});
+        const categoriaEncontrada = await Categoria.findOne({ tipo: tipo, nombre: categoria });
 
         if (!categoriaEncontrada) {
-          return h.response(`La categoría ${categoria[0]} - ${categoria[1]} no existe`).code(400);
+          return h.response(`La categoría ${categoria} no existe`).code(400);
         }
 
         const nuevoProductoServicio = new ProductoServicio({
           titulo,
+          animal,
           tipo,
           precio,
           imagen,
@@ -37,7 +40,8 @@ const createProductosRoutes = [
           stock,
           activo,
           categoria: categoriaEncontrada._id,
-          proveedor
+          proveedor,
+          comentario
         });
 
         const productoServicioGuardado = await nuevoProductoServicio.save();
