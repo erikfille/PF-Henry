@@ -11,7 +11,7 @@ const stockProductosRoutes = require("./routes/Productos/stockProductos.js");
 const postProvedorRoutes = require("./routes/Proveedores/postProveedor");
 const getProveedorRoutes = require("./routes/Proveedores/getProveedor.js")
 const createMascotaRoutes = require("./routes/createMascota.js");
-const ordenDecompraRoutes = require("./routes/ordenDeCompra.js");
+const compraDetailRoutes = require("./routes/ordenDeCompra.js");
 const modifyingProductosRoutes = require("./routes/Productos/modifyingProducto.js")
 const searchProductosRoutes = require("./routes/Productos/searchProducto.js")
 const modifyingProveedorRoutes = require("./routes/Proveedores/putProveedor")
@@ -40,7 +40,7 @@ const init = async () => {
   server.route(postProvedorRoutes);
   server.route(getProveedorRoutes);
   server.route(createMascotaRoutes);
-  server.route(ordenDecompraRoutes);
+  server.route(compraDetailRoutes);
   server.route(modifyingProductosRoutes);
   server.route(searchProductosRoutes);
   server.route(modifyingProveedorRoutes);

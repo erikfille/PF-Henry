@@ -1,18 +1,17 @@
-const mongoose = require("mongoose");
-const Schema = mongoose.Schema;
+const {Schema,model} = require("mongoose");
 
 const ordenDeCompra = new Schema({
-  estado: { type: String, required: true },
+  estado: { type: String },
 
-  comprador: { type: String, required: true },
+  comprador: { type: Schema.Types.ObjectId, ref: "Usuario" },
 
-  productos: { type: Schema.Types.ObjectId, ref: "Producto", required: true },
+  productos: { type: Schema.Types.ObjectId, ref: "ProductoServicio" },
 
-  envio: { type: Schema.Types.ObjectId, ref: "Envio",required: true },
+  envio: { type: Schema.Types.ObjectId, ref: "Envio"},
 
   monto: { type: Number },
 
   metodoPago: { type: String },
 });
 
-module.exports = mongoose.model("OrdenDeCompra", ordenDeCompra);
+module.exports = model("OrdenDeCompra", ordenDeCompra);
