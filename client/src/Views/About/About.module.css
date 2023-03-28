@@ -7,14 +7,16 @@
 }
 
 .aboutContainer {
-  margin: 0 auto;
-  
+  border-radius: 10px;
 }
 
 .imgPerfil{
+  max-width: 80%;
   box-shadow: 5px 1px 10px rgba(0, 0, 0, 0.458);
 }
 
-  
+.name {
+  font-weight: 700;
+}
   
   

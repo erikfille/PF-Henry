@@ -7,7 +7,7 @@ export default function Contacto() {
 		<div>
 			<Meta title={"Contacto"} />
 			<BreadCrump title='Contacto' />
-			<div className={` home-wrapper-2 ${styles.contactoContainer}`}>
+			<div className={`home-wrapper-2 ${styles.contactoContainer} pb-5`}>
 				<h1 className='container-xl text-center fw-bold pt-5 pb-1'>
 					¡Mantente siempre en contacto con nosotros!
 				</h1>
