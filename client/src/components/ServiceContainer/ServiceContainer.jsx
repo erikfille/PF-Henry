@@ -3,7 +3,10 @@ import { useServices } from "../../hooks/useStore";
 import ServiceCard from "../ServiceCard/ServiceCard";
 
 const ServiceContainer = () => {
-	const [filteredServices] = useServices((state) => [state.filteredServices]);
+	const [filteredServices, allServices] = useServices((state) => [
+		state.filteredServices,
+		state.allServices,
+	]);
 
 	return (
 		<>
@@ -32,3 +35,20 @@ const ServiceContainer = () => {
 };
 
 export default ServiceContainer;
+
+// : allServices.map((service) => {
+// 		return (
+// 			<ServiceCard
+// 				nombre={service.nombre}
+// 				tipo={service.tipo}
+// 				pais={service.pais}
+// 				direccion={service.direccion}
+// 				image={service.image}
+// 				mail={service.mail}
+// 				telefono={service.telefono}
+// 				descripcion={service.descripcion}
+// 				rating={service.rating}
+// 				horarioAtencion={service.horarioAtencion}
+// 			/>
+// 		);
+//   })

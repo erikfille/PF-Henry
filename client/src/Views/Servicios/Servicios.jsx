@@ -46,8 +46,7 @@ export default function Servicios() {
 
 	useEffect(() => {
 		let filtered = allServices;
-		console.log(filtered);
-		console.log(filterLocation);
+
 		if (filterLocation !== "all") {
 			filtered = filtered.filter((s) => s.pais === filterLocation);
 			setFilter(filtered);
@@ -99,6 +98,9 @@ export default function Servicios() {
 									</select>
 								</div> */}
 								<div className='location-filter'>
+									<p className='mb-2' style={{ width: "150px" }}>
+										Filtrar por pais:
+									</p>
 									<select
 										value={filterLocation}
 										onChange={(e) => handlerFilterByLocation(e)}
@@ -127,7 +129,9 @@ export default function Servicios() {
 											className='form-control form-select'
 											name='ordenar_por'
 											id='ordenar_por'>
-											<option>Select</option>
+											<option value='all' defaultValue>
+												Defecto
+											</option>
 											<option value='alfabetico-ascendente'>Alfabeticamente A-Z</option>
 											<option value='alfabetico-descendente'>Alfabeticamente Z-A</option>
 										</select>
