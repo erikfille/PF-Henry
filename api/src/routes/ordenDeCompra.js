@@ -13,10 +13,6 @@ const compraDetailRoutes = [
           })
           .populate("productos", "titulo")
           .populate("envio")
-        
-        
-        
-        
         return h.response(compra);
       } catch (err) {
         return h.response(err).code(500);

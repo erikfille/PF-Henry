@@ -27,6 +27,21 @@ const ProveedorSchema = new Schema({
     enum: ["VIP", "Normal", "Gratuito"],
     required: true,
   },
+  pais:{
+     type:String
+  },
+  tipo: {
+    type:String
+  },
+  descripcion: {
+    type:String
+  },
+  email: {
+    type:String
+  },
+  telefono: {
+    type:String
+  },
   horarioAtencion: {
     type: {
       semana: [
