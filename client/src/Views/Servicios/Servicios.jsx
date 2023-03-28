@@ -11,16 +11,17 @@ export default function Servicios() {
 	const [order, setOrder] = useState("");
 	const [inputSearch, setInputSearch] = useState("");
 	const [filterService, setFilterService] = useState("");
-	const [filterLocation, setFilterLocation] = useState("");
+	const [filterLocation, setFilterLocation] = useState("All");
 
 	// Hooks store
-	const [allServices, filteredServices, filteredServicesWOSearch, ordered, getServices] =
+	const [allServices, filteredServices, filteredServicesWOSearch, ordered, getServices, setFilter] =
 		useServices((state) => [
 			state.allServices,
 			state.filteredServices,
 			state.filteredServicesWOSearch,
 			state.ordered,
 			state.getServices,
+			state.setFilter,
 		]);
 
 	// const handlerInput = (e) => {
@@ -39,6 +40,22 @@ export default function Servicios() {
 		setOrder(e.target.value);
 	};
 
+	const handlerFilterByLocation = (e) => {
+		if (e.target.value) setFilterLocation(e.target.value);
+	};
+
+	useEffect(() => {
+		let filtered = allServices;
+		console.log(filtered);
+		console.log(filterLocation);
+		if (filterLocation !== "all") {
+			filtered = filtered.filter((s) => s.pais === filterLocation);
+			setFilter(filtered);
+		} else {
+			setFilter(allServices);
+		}
+	}, [filterLocation]);
+
 	// const handlerFilterByService = (e) => {
 	// 	e.target.value && filterByService(e.target.value);
 	// 	setFilterService(e.target.value);
@@ -55,8 +72,7 @@ export default function Servicios() {
 	// 	getServices();
 	// }, []);
 
-	// Usar useEffect para rednderizar cuando cambie el filtrado por un boton
-	// Usar useEffect para rednderizar cuando cambie el filtrado por busqueda
+	// Usar useEffect para rednderizar cuando cambie el filtrado por pais
 
 	// El onchange cambia el state local, y el useEffect mira ese estado local
 	// y renderiza con los cambios
@@ -70,25 +86,27 @@ export default function Servicios() {
 					<div className='row'>
 						<div className='col-3'>
 							<div className={`${style.filterCard} mb-3 p-3`}>
-								<div className='service-filter mb-4'>
+								{/* <div className='service-filter mb-4'>
 									<select
 										value={filterService}
-										onChange={(e) => handlerFilterByService(e)}
+										// onChange={(e) => handlerFilterByService(e)}
 										className='form-select form-select-lg mb-3'
 										aria-label='.form-select-lg'>
-										<option selected>Tipo de Servicios</option>
+										<option defaultValue>Tipo de Servicios</option>
 										<option value='Clinica'>Clínicas</option>
 										<option value='Spa'>Spa</option>
 										<option value='Hogar'>Hogar / Cuidado</option>
 									</select>
-								</div>
+								</div> */}
 								<div className='location-filter'>
 									<select
 										value={filterLocation}
 										onChange={(e) => handlerFilterByLocation(e)}
 										className='form-select form-select-lg mb-3'
 										aria-label='.form-select-lg'>
-										<option defaultValue>Localidad</option>
+										<option value='all' defaultValue>
+											Todos
+										</option>
 										<option value='Argentina'>Argentina</option>
 										<option value='Venezuela'>Venezuela</option>
 										<option value='Colombia'>Colombia</option>
@@ -114,7 +132,7 @@ export default function Servicios() {
 											<option value='alfabetico-descendente'>Alfabeticamente Z-A</option>
 										</select>
 									</div>
-									<div className='d-flex align-items-center gap-10'>
+									{/* <div className='d-flex align-items-center gap-10'>
 										<p className='mb-0' style={{ width: "200px" }}>
 											Buscar Servicio
 										</p>
@@ -131,12 +149,12 @@ export default function Servicios() {
 												<BiSearchAlt2 className={style.iconSearch} />
 											</i>
 										</button>
-									</div>
+									</div> */}
 								</div>
 							</div>
 							<div className='product-list pb-5'>
 								<div className='d-flex flex-column gap-5'>
-									<ServiceContainer allServices={allServices} />
+									<ServiceContainer />
 								</div>
 							</div>
 						</div>

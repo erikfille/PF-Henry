@@ -11,7 +11,7 @@ export let services = [
 		rating: 4.5,
 		image: "images/service-img.jpg",
 		direccion: "12 de Octubre 345, Caracas",
-		pais: "Venenzuela",
+		pais: "Venezuela",
 		tipo: "Clinica", //Hogar, Spa
 		descripcion:
 			"Somos una clínica veterinaria con más de 20 años de experiencia en el cuidado de animales domésticos. Ofrecemos servicios de consultas, cirugías, vacunaciones, peluquería y venta de alimentos y accesorios para mascotas.",
@@ -146,7 +146,7 @@ export let services = [
 		rating: 5,
 		image: "images/service-img.jpg",
 		direccion: "Belgrano 456, Rosario, Caracas",
-		pais: "Venenzuela",
+		pais: "Venezuela",
 		tipo: "Clinica", //Hogar, Spa
 		descripcion:
 			"Ofrece servicios médicos para animales, incluyendo radiología, ultrasonido y análisis clínicos.",

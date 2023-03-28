@@ -104,7 +104,7 @@ export const useServices = create((set, get) => ({
 	// filteredServices: [],
 	allServices: services,
 	filteredServices: services,
-	filteredServicesWOSearch: [],
+	filteredServicesWOSearch: services,
 	// getServices: async () => {
 	// 	try {
 	// 		let response = await axios.get("/proveedores");
@@ -134,5 +134,9 @@ export const useServices = create((set, get) => ({
 				}),
 			}));
 		}
+	},
+	setFilter: (services) => {
+		set((state) => ({ filteredServices: services }));
+		set((state) => ({ filteredServicesWOSearch: services }));
 	},
 }));
