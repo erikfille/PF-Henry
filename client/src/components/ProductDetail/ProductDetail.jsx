@@ -48,7 +48,7 @@ export default function ProductDetail(props) {
             edit={false}
             activeColor="#ffd700"
           />
-          <a href="#reseñar" className="fw-bold">
+          <a href="#reseñar" className={styles.resena}>
             Escribe una reseña
           </a>
           <hr />
