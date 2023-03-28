@@ -13,3 +13,8 @@
 h1 {
 	font-size: 1.5rem;
 }
+
+.containerFaq {
+	border-radius: 10px;
+	background-color: #fff;
+}
