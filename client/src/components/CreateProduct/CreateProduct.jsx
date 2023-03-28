@@ -5,6 +5,10 @@ import Select from "react-select";
 import UploadWidget from "./UploadWidget";
 import axios from "axios";
 
+import Meta from "../Meta/Meta";
+import BreadCrump from "../BreadCrump/BreadCrump";
+import styles from "./CreateProducto.module.css"
+
 export default function CreateProduct() {
   const [productData, setProductData] = useState({
     titulo: "",
@@ -91,7 +95,7 @@ export default function CreateProduct() {
     console.log(selected);
   }
 
-  async function handleSubmit() {
+  async function handleSubmit(e) {
     e.preventDefault();
     // getProveedor()
     console.log(productData);
@@ -112,129 +116,189 @@ export default function CreateProduct() {
 
   return (
     <div className="formContainer">
-      <h1>Creación de Producto / Servicio</h1>
-      <div className="form">
-        <form onSubmit={handleSubmit}>
-          <div className="productDataContainer">
-            <input
-              placeholder="Nombre del Producto"
-              type="text"
-              name="titulo"
-              value={productData.titulo}
-              onChange={handleInputChange}
-              className={errors.titulo ? "danger" : "formInput"}
-            />
-            {errors.titulo && (
-              <span className="errorSpan">
-                {errors.titulo}
-                <br />
-              </span>
-            )}
-            <br />
-            <Select
-              name="tipo"
-              options={[
-                { value: "tipo.a", label: "Producto" },
-                { value: "tipo.b", label: "Servicio" },
-              ]}
-              className="basic-select"
-              placeholder="Tipo de Producto"
-              onChange={handleSelectChange}
-            />
-            <br />
-            <textarea
-              placeholder={
-                productData.tipo === "Producto"
-                  ? "Descripción del Producto"
-                  : "Descripción del Servicio"
-              }
-              type="text"
-              name="descripcion"
-              value={productData.descripcion}
-              onChange={handleInputChange}
-              className={
-                errors.descripcion && errors.state ? "danger" : "formInput"
-              }
-            />
-            {errors.descripcion && (
-              <span
-                className={
-                  productData.descripcion.length < 1 ||
-                  productData.descripcion.length >= 140
-                    ? "errorSpan"
-                    : "charactersLeft"
-                }
-              >
-                {errors.descripcion}
-                <br />
-              </span>
-            )}
-            <br />
-            <label htmlFor="precio">Precio</label>
-            <input
-              placeholder="Precio"
-              type="number"
-              name="precio"
-              value={productData.precio}
-              onChange={handleInputChange}
-            />
-            <br />
-            {productData.tipo === "Producto" ? (
-              <label htmlFor="stock">Stock</label>
-            ) : (
-              ""
-            )}
-            {productData.tipo === "Producto" ? (
-              <input
-                placeholder="Cantidad de Stock"
-                type="number"
-                name="stock"
-                value={productData.stock}
-                onChange={handleInputChange}
-              />
-            ) : (
-              ""
-            )}
-            <br />
 
-            <Select
-              isMulti
-              isSearchable={true}
-              isDisabled={productData.tipo ? false : true}
-              name="categorias"
-              options={
-                productData.tipo === "Producto"
-                  ? productCategories
-                  : servicesCategories
-              }
-              className="basic-multi-select"
-              placeholder="Categorías"
-              onChange={handleSelectChange}
-            />
-            <br />
-          </div>
-          <div className="imgContainer">
-            <div className="widgetButton">
-              <UploadWidget onUpload={onUpload} />
-              <br />
-              {productData.imagen && (
-                <div className="uploadedImage">
-                  <img src={productData.imagen} alt="Uploaded" width="30%" />
+      <Meta title={"Contacto"} />
+      <BreadCrump title='Crear producto' />
+        
+      <div className={` home-wrapper-2 ${styles.creaateProductContainer}`}>
+        <h1 className=' text-center fw-bold pt-5 pb-1'>
+          ¡Registrá aquí tu producto o servicio y crece de la mano de PetsAmerica!
+        </h1>
+        
+        <div className= "container-xl mt-5 bg-white py-4">
+          <div className='row py-2'>
+            <form onSubmit={handleSubmit} classname= "col-12 col-md-6 col-xxl-5 d-flex flex-column align-items-center ">
+                <div className="mb-3  col-12 col-md-9">
+                  
+                  <div>
+                    <label for='formGroupExampleInput' className='form-label fw-bold'>
+									    Nombre del Producto/Servicio
+								    </label>
+                    <input 
+                      type="text"
+                      name="titulo"
+                      value={productData.titulo}
+                      onChange={handleInputChange}
+                      className={`${errors.titulo ? "danger" : "formInput"} form-control`}
+                      placeholder="Ingresa aquí el nombre de tu producto o servicio"
+                    />
+                    {errors.titulo && (
+                      <span className="errorSpan">
+                        {errors.titulo}
+                        <br />
+                      </span>
+                      )}
+                  </div>
+        
+                  <br />
+                  
+                  <div>
+                    <label for='formGroupExampleInput' className='form-label fw-bold'>
+									    Indicá si es un producto o servicio
+								    </label>
+                    <Select
+                      name="tipo"
+                      placeholder="Seleccioná producto o servicio"
+                      className="basic-select"
+                      options={[
+                        { value: "tipo.a", label: "Producto" },
+                        { value: "tipo.b", label: "Servicio" },
+                      ]}
+                      onChange={handleSelectChange}
+                    />
+                  </div>
+                  
+                  <br />
+                    
+                  <div>
+                    <label for='formGroupExampleInput' className='form-label fw-bold'>
+									    Descripción
+								    </label>
+                    <textarea
+                      placeholder={
+                      productData.tipo === "Producto"
+                        ? "Descripción del Producto"
+                        : "Descripción del Servicio"
+                      }
+                      type="text"
+                      name="descripcion"
+                      value={productData.descripcion}
+                      onChange={handleInputChange}
+                      className={`${ errors.descripcion && errors.state ? "danger" : "formInput"} form-control `}
+                    />
+                    {errors.descripcion && (
+                      <span
+                        className={
+                          productData.descripcion.length < 1 ||
+                          productData.descripcion.length >= 140
+                            ? "errorSpan"
+                            : "charactersLeft"
+                        }
+                        >
+                        {errors.descripcion}
+                          <br />
+                      </span>
+                    )}
+                  </div>
+                  
+                  <br />
+
+                  <div>
+                    <label for='exampleFormControlTextarea1' class='form-label fw-bold'>
+									    Precio
+								    </label>
+                    <input
+                      placeholder="Precio"
+                      type="number"
+                      name="precio"
+                      value={productData.precio}
+                      onChange={handleInputChange}
+                      className= "form-control"
+                    />
+                  </div>
+                  
+                  <br />
+
+                  <div>
+                    {productData.tipo === "Producto" ? (
+                      <label for='exampleFormControlTextarea1' class='form-label fw-bold'>
+                        Stock disponible
+                      </label>
+                    ) : (
+                      ""
+                    )}
+            
+                    {productData.tipo === "Producto" ? (
+                      <input
+                        placeholder="Cantidad de Stock"
+                        type="number"
+                        name="stock"
+                        value={productData.stock}
+                        onChange={handleInputChange}
+                        className= "form-control"
+                      />
+                    ) : (
+                    ""
+                    )}
+                  </div>
+             
+                  <br />
+
+                  <div>
+                    <label for='exampleFormControlTextarea1' class='form-label fw-bold'>
+                      Seleccioná las categorías en las que querés que se publique tu 
+                    </label>
+                    <Select
+                      isMulti
+                      isSearchable={true}
+                      isDisabled={productData.tipo ? false : true}
+                      name="categorias"
+                      options={
+                        productData.tipo === "Producto"
+                          ? productCategories
+                          : servicesCategories
+                      }
+                      className="basic-multi-select"
+                      placeholder="Categorías"
+                      onChange={handleSelectChange}
+                    />
+                  </div>      
+            
+                <br />
                 </div>
-              )}
-            </div>
-            {errors.state ? (
-              <button className="disabledButton" disabled>
-                <span>Crear Producto</span>
-              </button>
-            ) : (
-              <button className="submitButton">
-                <span>Crear Producto</span>
-              </button>
-            )}
+
+                <div className="imgContainer ">
+                  <div className="widgetButton">
+                    <label for='exampleFormControlTextarea1' class='form-label fw-bold'>
+                      Agregá una imagen de tu 
+                    </label>
+              
+                    <UploadWidget onUpload={onUpload} />
+                    <br />
+                      {productData.imagen && (
+                        <div className="uploadedImage">
+                          <img src={productData.imagen} alt="Uploaded" width="30%" />
+                        </div>
+                      )}
+                  </div>
+                </div>
+
+                <div>
+                  {errors.state ? (
+                    <button className="disabledButton" disabled>
+                      <span>Crear </span>
+                    </button>
+                  ) : (
+                    <button className="submitButton">
+                      <span>Crear </span>
+                    </button>
+                  )}
+                </div>
+
+                <div className="floatClear"></div>
+            </form>
           </div>
-          <div className="floatClear"></div>
-        </form>
+        </div>
       </div>
     </div>
   );
