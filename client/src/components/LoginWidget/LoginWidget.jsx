@@ -103,8 +103,8 @@ export default function LoginWidget(props) {
 			<div className='col-10 col-sm-8 col-md-8 col-xl-5'>
 				<form className='d-flex flex-column align-items-center' onSubmit={handleSubmit}>
 					{childProps.type === "signup" && (
-						<div className='d-flex'>
-							<div className='mb-3 w-100 me-3'>
+						<>
+							<div className='mb-3 w-100'>
 								<label htmlFor='exampleInputEmail1' className='form-label fw-bold'>
 									Nombre
 								</label>
@@ -132,7 +132,7 @@ export default function LoginWidget(props) {
 									type='text'></input>
 								{errors.surname && <p>{errors.surname}</p>}
 							</div>
-						</div>
+						</>
 					)}
 
 					<div className='mb-3 w-100'>
