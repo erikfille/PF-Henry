@@ -21,7 +21,7 @@ export default function UploadWidget(props) {
 
   return (
     <div className="widgetContainer">
-      <a onClick={() => widgetRef.current.open()} className="link-opacity-100" href="agregar img">Seleccionar Imagen</a>
+      <a onClick={() => widgetRef.current.open()} className="link-opacity-100-hover">Seleccionar Imagen</a>
     </div>
   );
 }

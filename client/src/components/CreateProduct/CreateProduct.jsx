@@ -122,13 +122,13 @@ export default function CreateProduct() {
         
       <div className={` home-wrapper-2 ${styles.creaateProductContainer}`}>
         <h1 className=' text-center fw-bold pt-5 pb-1'>
-          ¡Registrá aquí tu producto o servicio y crece de la mano de PetsAmerica!
+          ¡Registrá aquí tu producto o servicio y crecé de la mano de PetsAmerica!
         </h1>
         
-        <div className= "container-xl mt-5 bg-white py-4">
+        <div className= "container mt-5 bg-white py-4 d-flex justify-content-center mt-auto">
           <div className='row py-2'>
-            <form onSubmit={handleSubmit} classname= "col-12 col-md-6 col-xxl-5 d-flex flex-column align-items-center ">
-                <div className="mb-3  col-12 col-md-9">
+            <form onSubmit={handleSubmit} classname= "d-flex flex-column align-items-center justify-content-center">
+                <div className="mb-3 ">
                 
                   <div>
                     <label for='formGroupExampleInput' className='form-label fw-bold'>
@@ -137,7 +137,7 @@ export default function CreateProduct() {
                     <Select
                       name="tipo"
                       placeholder="Seleccioná producto o servicio"
-                      className="basic-select"
+                      className={`accordion-item my-4 ${styles.selectContainer}`}
                       options={[
                         { value: "tipo.a", label: "Producto" },
                         { value: "tipo.b", label: "Servicio" },
@@ -158,7 +158,7 @@ export default function CreateProduct() {
                       value={productData.titulo}
                       onChange={handleInputChange}
                       className={`${errors.titulo ? "danger" : "formInput"} form-control`}
-                      placeholder="Ingresa aquí el nombre de tu producto o servicio"
+                      placeholder={`Ingresa aquí el nombre de tu ${productData.tipo === "Producto" ? "producto" : "servicio"}`}
                     />
                     {errors.titulo && (
                       <span className="errorSpan">
@@ -258,7 +258,7 @@ export default function CreateProduct() {
                         ? productCategories
                         : servicesCategories
                       }
-                      className="basic-multi-select"
+                      className={`accordion-item my-4 ${styles.questionContainer}`}
                       placeholder="Categorías"
                       onChange={handleSelectChange}
                     />
@@ -286,13 +286,13 @@ export default function CreateProduct() {
                   {errors.state ? (
                     <button className="disabledButton" disabled>
                       <span>
-                        Crear {productData.tipo === "tipo.a" ? "producto" : "servicio"}
+                        Crear {productData.tipo === "Producto" ? "producto" : "servicio"}
                       </span>
                     </button>
                     ) : (
                     <button className="submitButton">
                       <span>
-                        Crear {productData.tipo === "tipo.a" ? "producto" : "servicio"}
+                        Crear {productData.tipo === "Producto" ? "producto" : "servicio"}
                       </span>
                     </button>
                     )}

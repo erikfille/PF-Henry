@@ -1,3 +1,5 @@
+
+
 .button {
 	background-color: #0cc5ba;
 	border: #0cc5ba solid 2px;
@@ -9,3 +11,15 @@
 	border: #0cc5ba solid 2px;
 	color: #0cc5ba;
 }
+
+.selectContainer {
+	border: 2px solid #0cc5ba !important;
+	border-top: 2px solid #0cc5ba;
+	border-radius: 10px !important;
+}
+
+
+h1 {
+	font-size: 1.5rem;
+}
+
