@@ -2,6 +2,7 @@ import React from "react";
 import LoginWidget from "../../components/LoginWidget/LoginWidget";
 import { useLocation } from "react-router-dom";
 import loginDog from "../../assets/img/login/login-dog.jpeg";
+import signUpCat from "../../assets/img/login/signUp-cat.jpeg";
 
 import styles from "./Login.module.css";
 
@@ -34,9 +35,6 @@ export default function Login() {
 		};
 	}
 
-	// TO DO: depende si entra en login, sign up o forgot password
-	// deberia cambiar la img
-
 	return (
 		<div className={styles.loginContainer}>
 			<div className='row'>
@@ -50,7 +48,7 @@ export default function Login() {
 					className={`col-6 col-md-6 col-xl-5 d-none d-md-flex position-relative ${styles.imgContainer}`}>
 					<img
 						className={`position-absolute top-50 start-50 translate-middle w-100 ${styles.image}`}
-						src={loginDog}
+						src={actualLocation === "/login" ? loginDog : signUpCat}
 						alt=''
 					/>
 				</div>
