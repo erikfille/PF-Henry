@@ -16,10 +16,6 @@ export default function ServiceCard(props) {
 						<div className={`${style.contactContainer} col-5`}>
 							<h5>CONTACTANOS</h5>
 							<hr />
-							<p>
-								Las mascotas con problemas dietéticos también pueden ser atendidas con receta médica
-								u otros productos veterinarios.
-							</p>
 							<p className={`${style.subtitle} mt-3`}>Horarios de atención</p>
 							<span>
 								Lunes a Viernes {props.horarioAtencion.semana[0]} -{" "}
@@ -27,26 +23,25 @@ export default function ServiceCard(props) {
 							</span>
 							<br />
 							<span>
-								Sabados (previa cita) {props.horarioAtencion.sabado[0]} -{" "}
-								{props.horarioAtencion.sabado[1]}
+								Sabados {props.horarioAtencion.sabado[0]} - {props.horarioAtencion.sabado[1]}
 							</span>
 							<br />
 							<span>Domingo y Festivos {props.horarioAtencion.domingo[0]}</span>
 							<p className='mt-4'>
-								Contáctenos a <b>{props.mail}</b> o a los teléfonos <b>{props.telefono}</b> para
-								agendar una cita.
+								Contáctenos a <b>{props.mail}</b> o al teléfono <b>{props.telefono}</b> para agendar
+								una cita.
 							</p>
 							<div className='d-flex align-items-center gap-2 my-4'>
 								<h5 className='mb-0'>Tipo de servicio:</h5>
 								<span>{props.tipo}</span>
 							</div>
 							<div className='d-flex align-items-center gap-2 mb-4'>
-								<h5 className='mb-0'>Localidad:</h5>
-								<span>{props.pais}</span>
-							</div>
-							<div className='d-flex align-items-center gap-2 mb-4'>
 								<h5 className='mb-0'>Dirección:</h5>
 								<span>{props.direccion}</span>
+							</div>
+							<div className='d-flex align-items-center gap-2 mb-4'>
+								<h5 className='mb-0'>Pais:</h5>
+								<span>{props.pais}</span>
 							</div>
 						</div>
 					</div>
