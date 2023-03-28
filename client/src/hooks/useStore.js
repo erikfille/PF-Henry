@@ -6,6 +6,7 @@ export const useProduct = create((set, get) => ({
   filteredProducts: [],
   filteredProductsWOSearch: [],
   categories: [],
+  species: [],
   cartState: false,
   cartProducts: [],
   getProducts: async () => {
@@ -22,8 +23,17 @@ export const useProduct = create((set, get) => ({
     try {
       let response = await axios.get("/categorias");
       let categorias = response.data.categorias;
-      console.log("getCategories: ", categorias);
       set((state) => ({ categories: categorias }));
+    } catch (err) {
+      console.log(err);
+    }
+  },
+  getSpecies: async () => {
+    try {
+      let response = await axios.get("/especies");
+      let especies = response.data;
+      console.log(especies);
+      set((state) => ({ species: especies }));
     } catch (err) {
       console.log(err);
     }
@@ -66,31 +76,44 @@ export const useProduct = create((set, get) => ({
       set((state) => ({ filteredProducts: productos }));
     }
   },
-  setCartAdd: (productId, quantity) => {
-    let product = axios
+  setCartAdd: async (productId, quantity) => {
+    const { cartProducts, setCartRemove } = get();
+
+    let response = await axios
       .get(`/product-detail/${productId}`)
       .catch((error) => window.alert("Algo salio mal, intentalo nuevamente"));
 
-    product.quantity = quantity;
-    set((state) => ({ cartProducts: [...state.cartProducts, cartProduct] }));
+    let product = response.data;
+    product.quantity = Number(quantity);
+
+    let repeatedProduct = cartProducts.find((p) => p._id === productId);
+
+    if (repeatedProduct !== undefined) {
+      let totalQuantity = [repeatedProduct.quantity];
+      totalQuantity.push(quantity);
+      product.quantity = totalQuantity.reduce(
+        (acc, curr) => Number(acc) + Number(curr)
+      );
+      setCartRemove(productId);
+    }
+    set((state) => ({ cartProducts: [...state.cartProducts, product] }));
   },
   setCartRemove: (productId) => {
+    const { cartProducts } = get();
+    let filteredProducts = cartProducts.filter((p) => p._id !== productId);
     set((state) => ({
-      cartProducts: state.cartProducts.filter((p) => p._id !== productId),
+      cartProducts: filteredProducts,
     }));
   },
   setActiveCart: () => {
     const { cartState } = get();
     set((state) => ({ cartState: state.cartState ? false : true }));
-    console.log(cartState);
   },
 }));
 
 const useUser = create((set) => ({
   user: {},
-  getUserInfo: async () => {
-    set((state) => ({ user: state.bears + 1 }));
-  },
+  getUserInfo: async () => {},
   setUserInfo: async (userData) => {
     let post = await axios.post("/user", userData);
   },
