@@ -5,7 +5,7 @@ import axios from "axios";
 
 //? Components
 import Footer from "./components/Footer/Footer";
-import Cart from "../src/components/Cart/Cart"
+import Cart from "../src/components/Cart/Cart";
 
 //? Views
 import Home from "./Views/Home/Home";
@@ -19,7 +19,6 @@ import Login from "./Views/Login/Login";
 import CreateProduct from "./components/CreateProduct/CreateProduct";
 import Detail from "./Views/Detail/Detail";
 import UserProfile from "./Views/UserProfile/UserProfile";
-
 
 //? Styles
 import "./App.css";

@@ -9,10 +9,10 @@ import { useProduct } from "../../hooks/useStore";
 export default function Tienda() {
   const [order, setOrder] = useState("");
   const [inputSearch, setInputSearch] = useState("");
-  const [value, setValue] = useState(0);
   const [filterBy, setFilterBy] = useState({
     categoria: "all",
     animal: "all",
+    price: 300,
   });
 
   const [
@@ -25,6 +25,8 @@ export default function Tienda() {
     setFilter,
     categories,
     getCategories,
+    species,
+    getSpecies,
   ] = useProduct((state) => [
     state.getProducts,
     state.allProducts,
@@ -35,31 +37,35 @@ export default function Tienda() {
     state.setFilter,
     state.categories,
     state.getCategories,
+    state.species,
+    state.getSpecies,
   ]);
 
   useEffect(() => {
     getProducts();
     getCategories();
+    getSpecies()
   }, []);
 
   useEffect(() => {
-    const { categoria, animal } = filterBy;
+    const { categoria, animal, price } = filterBy;
 
     let filtered = allProducts;
-
-    console.log(filtered)
-
-    console.log("categoria: ", categoria)
-    console.log("animal: ", animal)
-
     if (categoria !== "all") {
-      filtered = filtered.filter((p) => p.categoria.nombre.toLowerCase() === categoria);
+      filtered = filtered.filter(
+        (p) => p.categoria.nombre.toLowerCase() === categoria
+      );
     }
     if (animal !== "all") {
-      filtered = filtered.filter((p) => p.animal === animal);
+      filtered = filtered.filter((p) => {
+        if(p.animal) return p.animal.toLowerCase() == animal;
+      });
+    }
+    if (price < "300") {
+      filtered = filtered.filter((p) => p.precio < Number(price));
     }
     setFilter(filtered);
-  }, [filterBy]);
+  }, [filterBy, allProducts]);
 
   useEffect(() => {
     if (inputSearch.length > 0) {
@@ -117,7 +123,14 @@ export default function Tienda() {
                     </option>
                     <option value="all">Todas</option>
                     {categories.length &&
-                      categories.map((c) => c.tipo === "Producto" && <option value={c.nombre.toLowerCase()}>{c.nombre}</option>)}
+                      categories.map(
+                        (c) =>
+                          c.tipo === "Producto" && (
+                            <option value={c.nombre.toLowerCase()}>
+                              {c.nombre}
+                            </option>
+                          )
+                      )}
                   </select>
                 </div>
                 <div className={`${style.rangePrice} mb-4`}>
@@ -128,22 +141,23 @@ export default function Tienda() {
                     <div className="d-flex flex-column gap-10 justify-content-center">
                       <div className="d-flex gap-2">
                         <span className={style.prices}>Desde:</span>
-                        <span>AR$ 0</span>
+                        <span>0 U$D</span>
                       </div>
                       <div className="d-flex gap-2">
                         <span className={style.prices}>Hasta:</span>
-                        <span>AR$ {value}</span>
+                        <span>{filterBy.price} U$D</span>
                       </div>
                     </div>
                   </div>
                   <input
                     type="range"
                     className="form-range"
-                    value={value}
-                    onChange={(e) => handleOnChange(e)}
+                    name="price"
+                    value={filterBy.price}
+                    onChange={(e) => handlerFilter(e)}
                     min={0}
-                    max={10000}
-                    step={500}
+                    max={300}
+                    step={5}
                     id="customRange3"
                   />
                 </div>
@@ -159,9 +173,7 @@ export default function Tienda() {
                       Especie
                     </option>
                     <option value="all">Todos</option>
-                    <option value="perro">Perro</option>
-                    <option value="gato">Gato</option>
-                    <option value="hamster">Hamster</option>
+                    {species.map(s => <option value={s.animal.toLowerCase()}>{s.animal}</option>)}
                   </select>
                 </div>
               </div>
@@ -204,14 +216,6 @@ export default function Tienda() {
                       name=""
                       id=""
                     />
-                    {/* <button
-                      className={style.buttonSearch}
-                      onClick={(e) => handlerSearchSubmit(e)}
-                    >
-                      <i>
-                        <BiSearchAlt2 className={style.iconSearch} />
-                      </i>
-                    </button> */}
                   </div>
                 </div>
               </div>

@@ -6,16 +6,26 @@ import { useProduct } from "../../hooks/useStore";
 
 export default function Cart() {
   const [isOpen, setIsOpen] = useState(false); // El boton de CART del header debe modificar este estado. inicalmente debe estar en False.
+  const [total, setTotal] = useState(0);
 
-  const [cartProducts, cartState, setActiveCart] = useProduct((state) => [
-    state.cartProducts,
-    state.cartState,
-    state.setActiveCart,
-  ]);
+  const [cartProducts, cartState, setActiveCart, setCartRemove] = useProduct(
+    (state) => [
+      state.cartProducts,
+      state.cartState,
+      state.setActiveCart,
+      state.setCartRemove,
+    ]
+  );
 
   useEffect(() => {
-   setIsOpen(cartState)
-  }, [cartState])
+    setIsOpen(cartState);
+  }, [cartState]);
+
+  useEffect(() => {
+    let totalBuy = 0;
+    cartProducts.forEach((p) => (totalBuy += (p.precio * p.quantity)));
+    setTotal(totalBuy.toFixed(2));
+  }, [cartProducts]);
 
   return (
     <>
@@ -48,7 +58,7 @@ export default function Cart() {
           />
         </div>
 
-        {cartProducts.length === 0 ? (
+        {!cartProducts.length ? (
           <>
             <div
               className={`${style.cartEmpty} d-flex flex-column align-items-center py-5`}
@@ -66,6 +76,7 @@ export default function Cart() {
                 ) => (
                   <ProductCard // y por cada item renderiza una card con el estilo para el carrito.
                     key={product._id}
+                    id={product._id}
                     titulo={product.titulo}
                     price={product.precio}
                     imagen={product.imagen}
@@ -80,8 +91,8 @@ export default function Cart() {
                 <div
                   className={`${style.total} d-flex justify-content-between mb-2`}
                 >
-                  <h6>Total (AR$)</h6>
-                  <h6>30.000</h6>
+                  <h6>Total (U$D)</h6>
+                  <h6>{total}</h6>
                 </div>
               </div>
               <div className="d-flex justify-content-center">
