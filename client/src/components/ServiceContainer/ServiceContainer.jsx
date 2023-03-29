@@ -36,21 +36,3 @@ const ServiceContainer = () => {
 };
 
 export default ServiceContainer;
-
-// allServices.map((service) => {
-//   return (
-//     <ServiceCard
-//       key={service._id}
-//       nombre={service.nombre}
-//       tipo={service.tipo}
-//       pais={service.pais}
-//       direccion={service.direccion}
-//       image={service.image}
-//       mail={service.mail}
-//       telefono={service.telefono}
-//       descripcion={service.descripcion}
-//       rating={service.rating}
-//       horarioAtencion={service.horarioAtencion}
-//     />
-//   );
-// })
