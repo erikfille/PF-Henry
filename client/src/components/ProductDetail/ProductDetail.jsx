@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import ReactStars from "react-stars";
+import { useProduct } from "../../hooks/useStore";
 import styles from "./ProductDetail.module.css";
 
 export default function ProductDetail(props) {
@@ -18,15 +19,15 @@ export default function ProductDetail(props) {
 
   const [quantity, setQuantity] = useState(1);
 
+  const [ setCartAdd, setActiveCart ] = useProduct((state) => [state.setCartAdd, state.setActiveCart ]);
+
   function handleInputChange(e) {
     setQuantity(e.target.value);
   }
 
-  console.log(quantity);
-
   function addToCart() {
     if (quantity > 0) {
-      setCart(_id, quantity);
+      setCartAdd(_id, quantity);
       setActiveCart();
     } else window.alert("Necesitas indicar una cantidad");
   }

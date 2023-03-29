@@ -1,0 +1,35 @@
+[
+    {
+        "animal":"Perro"
+    },
+    {
+        "animal":"Gato"
+    },
+    {
+        "animal":"Pajaro"
+    },
+    {
+        "animal":"Tortuga"
+    },
+    {
+        "animal":"Roedor"
+    },
+    {
+        "animal":"Pez"
+    },
+    {
+        "animal":"Reptil"
+    },
+    {
+        "animal":"Caballo"
+    },
+    {
+        "animal":"Aracnido"
+    },
+    {
+        "animal":""
+    },
+    {
+        "animal":""
+    }
+]

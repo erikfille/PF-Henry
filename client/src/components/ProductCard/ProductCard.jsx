@@ -20,21 +20,17 @@ export default function ProductCart(props) {
           />
           <div className="d-flex flex-column gap-1">
             <h5 className={`${style.title} mb-0`}>{props.titulo}</h5>
-            <p className={`${style.sku}sku mb-0`}>SKU-{props.stock}</p>
-            <p className={`${style.price} mb-0`}>AR$ {props.precio}</p>
+            {/* <p className={`${style.sku}sku mb-0`}>SKU-{props.stock}</p> */}
+            <p className={`${style.price} mb-0`}>{props.price} U$D</p>
           </div>
           <div className="d-flex flex-column me-3">
             <h5>Cant</h5>
-            <input
-              className={`form-control ${style.cant}`}
-              type="number"
-              value={props.cant}
-            />
+            <h5>{props.cant}</h5>
           </div>
           <div className="d-flex justify-content-center align-items-center">
             <button
               className={style.buttonDelete}
-              onClick={() => setCartRemove()}
+              onClick={() => setCartRemove(props.id)}
             >
               <RiDeleteBin6Line className={style.iconDelete} />
             </button>
@@ -68,12 +64,12 @@ export default function ProductCart(props) {
             count={5}
             size={20}
             value={props.rating}
-            edit={true}
+            edit={false}
             activeColor="#ffd700"
           />
           <p className="mb-0">( {props.rating} )</p>
         </div>
-        <p className={style.p}>AR$ {props.precio}</p>
+        <p className={style.p}>{props.precio} U$D</p>
       </div>
     </>
   );

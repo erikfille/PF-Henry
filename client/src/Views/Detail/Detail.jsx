@@ -19,7 +19,6 @@ export default function Detail() {
     axios
       .get(`/product-detail/${productId}`)
       .then((data) => {
-        console.log("Detail: ", data.data);
         setProductDetail(data.data);
       })
       .catch((error) => window.alert("Algo salio mal, intentalo nuevamente"));
