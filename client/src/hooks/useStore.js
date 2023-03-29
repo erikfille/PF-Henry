@@ -78,7 +78,7 @@ export const useProduct = create((set, get) => ({
     }
   },
   setCartAdd: async (productId, quantity, stock) => {
-    const { cartProducts, setCartRemove } = get();
+    const { cartProducts, saveCartToStorage } = get();
 
     let repeatedProduct = cartProducts.find((p) => p._id === productId);
 
@@ -94,18 +94,29 @@ export const useProduct = create((set, get) => ({
 
       set((state) => ({ cartProducts: [...state.cartProducts, product] }));
     }
+    saveCartToStorage()
   },
   setCartRemove: (productId) => {
-    const { cartProducts } = get();
+    const { cartProducts, saveCartToStorage } = get();
     let filteredProducts = cartProducts.filter((p) => p._id !== productId);
     set((state) => ({
       cartProducts: filteredProducts,
     }));
+    saveCartToStorage()
   },
   setActiveCart: () => {
     const { cartState } = get();
+
+    if (cartState === false) {
+      let recoveredCart = JSON.parse(window.sessionStorage.getItem("cart"));
+      recoveredCart && set((state) => ({ cartProducts: recoveredCart }));
+    }
     set((state) => ({ cartState: state.cartState ? false : true }));
   },
+  saveCartToStorage: () => {
+    const { cartProducts } = get();
+    window.sessionStorage.setItem("cart", JSON.stringify(cartProducts))
+  }
 }));
 
 export const useModal = create((set) => ({
@@ -130,48 +141,48 @@ const useUser = create((set) => ({
 }));
 
 export const useServices = create((set, get) => ({
-	// allServices: [],
-	// filteredServices: [],
-	allServices: services,
-	filteredServices: services,
-	filteredServicesWOSearch: [],
-	// getServices: async () => {
-	// 	try {
-	// 		let response = await axios.get("/proveedores");
-	// 		let services = response.data;
-	// 		set((state) => ({ allServices: services }));
-	// 		set((state) => ({ filteredServices: services }));
-	// 	} catch (err) {
-	// 		console.log(err);
-	// 	}
-	// },
-	ordered: (order) => {
-		if (order === "alfabetico-ascendente") {
-			set((state) => ({
-				filteredServices: state.filteredServices.sort((a, b) => {
-					if (a.nombre > b.nombre) return 1;
-					if (a.nombre < b.nombre) return -1;
-					return 0;
-				}),
-			}));
-		}
-		if (order === "alfabetico-descendente") {
-			set((state) => ({
-				filteredServices: state.filteredServices.sort((a, b) => {
-					if (a.nombre < b.nombre) return 1;
-					if (a.nombre > b.nombre) return -1;
-					return 0;
-				}),
-			}));
-		}
-	},
-	setFilter: (service) => {
-		set((state) => ({ filteredServices: service }));
-		set((state) => ({ filteredServicesWOSearch: service }));
-	},
+  // allServices: [],
+  // filteredServices: [],
+  allServices: services,
+  filteredServices: services,
+  filteredServicesWOSearch: [],
+  // getServices: async () => {
+  // 	try {
+  // 		let response = await axios.get("/proveedores");
+  // 		let services = response.data;
+  // 		set((state) => ({ allServices: services }));
+  // 		set((state) => ({ filteredServices: services }));
+  // 	} catch (err) {
+  // 		console.log(err);
+  // 	}
+  // },
+  ordered: (order) => {
+    if (order === "alfabetico-ascendente") {
+      set((state) => ({
+        filteredServices: state.filteredServices.sort((a, b) => {
+          if (a.nombre > b.nombre) return 1;
+          if (a.nombre < b.nombre) return -1;
+          return 0;
+        }),
+      }));
+    }
+    if (order === "alfabetico-descendente") {
+      set((state) => ({
+        filteredServices: state.filteredServices.sort((a, b) => {
+          if (a.nombre < b.nombre) return 1;
+          if (a.nombre > b.nombre) return -1;
+          return 0;
+        }),
+      }));
+    }
+  },
+  setFilter: (service) => {
+    set((state) => ({ filteredServices: service }));
+    set((state) => ({ filteredServicesWOSearch: service }));
+  },
   searchServices: (service) => {
-		if (typeof service === "object" && service.length) {
-			set((state) => ({ filteredServices: service }));
-		}
-	},
+    if (typeof service === "object" && service.length) {
+      set((state) => ({ filteredServices: service }));
+    }
+  },
 }));

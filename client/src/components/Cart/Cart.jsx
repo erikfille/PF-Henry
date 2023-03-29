@@ -103,6 +103,12 @@ export default function Cart() {
                 <button className="button">Confirmar pedido</button>
               </div>
             </div>
+            <a
+              href="/tienda"
+              className={`d-flex flex-column align-items-center py-2`}
+            >
+              <p>Seguir Comprando</p>
+            </a>
           </>
         )}
       </div>
