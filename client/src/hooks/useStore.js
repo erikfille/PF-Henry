@@ -77,27 +77,23 @@ export const useProduct = create((set, get) => ({
       set((state) => ({ filteredProducts: productos }));
     }
   },
-  setCartAdd: async (productId, quantity) => {
+  setCartAdd: async (productId, quantity, stock) => {
     const { cartProducts, setCartRemove } = get();
-
-    let response = await axios
-      .get(`/product-detail/${productId}`)
-      .catch((error) => window.alert("Algo salio mal, intentalo nuevamente"));
-
-    let product = response.data;
-    product.quantity = Number(quantity);
 
     let repeatedProduct = cartProducts.find((p) => p._id === productId);
 
     if (repeatedProduct !== undefined) {
-      let totalQuantity = [repeatedProduct.quantity];
-      totalQuantity.push(quantity);
-      product.quantity = totalQuantity.reduce(
-        (acc, curr) => Number(acc) + Number(curr)
-      );
-      setCartRemove(productId);
+      repeatedProduct.quantity = quantity;
+    } else {
+      let response = await axios
+        .get(`/product-detail/${productId}`)
+        .catch((error) => window.alert("Algo salio mal, intentalo nuevamente"));
+
+      let product = response.data;
+      product.quantity = Number(quantity);
+
+      set((state) => ({ cartProducts: [...state.cartProducts, product] }));
     }
-    set((state) => ({ cartProducts: [...state.cartProducts, product] }));
   },
   setCartRemove: (productId) => {
     const { cartProducts } = get();
@@ -109,6 +105,19 @@ export const useProduct = create((set, get) => ({
   setActiveCart: () => {
     const { cartState } = get();
     set((state) => ({ cartState: state.cartState ? false : true }));
+  },
+}));
+
+export const useModal = create((set) => ({
+  modalState: false,
+  modalProps: {},
+  actionArgs: {},
+  setModal: (title, text, action, args) => {
+    if (title && text && action)
+      set((state) => ({ modalProps: { title, text, action } }));
+    if (args) set((state) => ({ actionArgs: args }));
+
+    set((state) => ({ modalState: state.modalState ? false : true }));
   },
 }));
 

@@ -22,9 +22,11 @@ export default function Cart() {
   }, [cartState]);
 
   useEffect(() => {
-    let totalBuy = 0;
-    cartProducts.forEach((p) => (totalBuy += (p.precio * p.quantity)));
-    setTotal(totalBuy.toFixed(2));
+    if (typeof cartProducts === "object" && cartProducts.length) {
+      let totalBuy = 0;
+      cartProducts.forEach((p) => (totalBuy += p.precio * p.quantity));
+      setTotal(totalBuy.toFixed(2));
+    }
   }, [cartProducts]);
 
   return (
@@ -64,27 +66,29 @@ export default function Cart() {
               className={`${style.cartEmpty} d-flex flex-column align-items-center py-5`}
             >
               <p>Tu carrito esta vacio</p>
-              <a href="#tienda">Ir a la tienda</a>
+              <a href="/tienda">Ir a la tienda</a>
             </div>
           </>
         ) : (
           <>
             <div className={style.products}>
-              {cartProducts.map(
-                (
-                  product // Aca se mapea los items de cart del store.
-                ) => (
-                  <ProductCard // y por cada item renderiza una card con el estilo para el carrito.
-                    key={product._id}
-                    id={product._id}
-                    titulo={product.titulo}
-                    price={product.precio}
-                    imagen={product.imagen}
-                    cant={product.quantity}
-                    showAs="cart"
-                  />
-                )
-              )}
+              {typeof cartProducts === "object" &&
+                cartProducts.length &&
+                cartProducts.map(
+                  (
+                    product // Aca se mapea los items de cart del store.
+                  ) => (
+                    <ProductCard // y por cada item renderiza una card con el estilo para el carrito.
+                      key={product._id}
+                      id={product._id}
+                      titulo={product.titulo}
+                      price={product.precio}
+                      imagen={product.imagen}
+                      cant={product.quantity}
+                      showAs="cart"
+                    />
+                  )
+                )}
             </div>
             <div className={style.container}>
               <div className={`${style.totalContainer} mb-5`}>

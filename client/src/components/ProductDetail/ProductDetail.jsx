@@ -27,7 +27,7 @@ export default function ProductDetail(props) {
 
   function addToCart() {
     if (quantity > 0) {
-      setCartAdd(_id, quantity);
+      setCartAdd(_id, quantity, stock);
       setActiveCart();
     } else window.alert("Necesitas indicar una cantidad");
   }

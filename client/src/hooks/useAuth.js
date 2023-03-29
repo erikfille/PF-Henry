@@ -2,17 +2,6 @@ import { create } from "zustand";
 import axios from "axios";
 
 const useLogin = create((set) => ({
-  // getProveedor: async () => {
-  //   // revisar cuando esten las rutas
-  //   try {
-  //     let response = await axios.get("/proveedor");
-  //     let allProducts = response.data.data;
-  //     set((state) => ({ allProducts: allProducts }));
-  //     set((state) => ({ filteredProducts: allProducts }));
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // },
   loginUser(userData) {
     axios
       .post("auth/login", userData)
@@ -32,10 +21,7 @@ const useLogin = create((set) => ({
     user = {
       email: data.data.usuario,
       id: data.data.id,
-      rol_id: data.data.rol_id,
-      id_odontologo: data.data.id_odontologo,
-      permisos: permisos,
-      acepto_condiciones: data.data.acepto_condiciones,
+      rol: data.data.rol_id,
     };
     var token = data.data.token;
     localStorage.setItem("token", token);
@@ -125,5 +111,4 @@ loginUser({dispatch}, creds) {
   requestLogin({commit}) {
       commit('LOGIN_REQUEST');
   }
-
 */

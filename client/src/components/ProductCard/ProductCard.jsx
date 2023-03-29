@@ -1,10 +1,13 @@
 import ReactStars from "react-stars";
 import { RiDeleteBin6Line } from "react-icons/ri";
+import { Link } from "react-router-dom";
 import { useProduct } from "../../hooks/useStore";
+import { useModal } from "../../hooks/useStore";
 import style from "./ProductCard.module.css";
 
 export default function ProductCart(props) {
   const [setCartRemove] = useProduct((state) => [state.setCartRemove]);
+  const [setModal] = useModal((state) => [state.setModal]);
 
   if (props.showAs === "cart") {
     return (
@@ -12,17 +15,19 @@ export default function ProductCart(props) {
         <div
           className={`${style.productCart} col-12 d-flex gap-4 p-3 align-items-center justify-content-center`}
         >
-          <img
-            src={props.imagen}
-            alt={props.titulo}
-            style={{ width: "50px", height: "50px" }}
-            className="me-3"
-          />
-          <div className="d-flex flex-column gap-1">
-            <h5 className={`${style.title} mb-0`}>{props.titulo}</h5>
-            {/* <p className={`${style.sku}sku mb-0`}>SKU-{props.stock}</p> */}
-            <p className={`${style.price} mb-0`}>{props.price} U$D</p>
-          </div>
+          <Link to={`/productos/${props.id}`}>
+            <img
+              src={props.imagen}
+              alt={props.titulo}
+              style={{ width: "50px", height: "50px" }}
+              className="me-3"
+            />
+            <div className="d-flex flex-column gap-1">
+              <h5 className={`${style.title} mb-0`}>{props.titulo}</h5>
+              {/* <p className={`${style.sku}sku mb-0`}>SKU-{props.stock}</p> */}
+              <p className={`${style.price} mb-0`}>{props.price} U$D</p>
+            </div>
+          </Link>
           <div className="d-flex flex-column me-3">
             <h5>Cant</h5>
             <h5>{props.cant}</h5>
@@ -30,7 +35,14 @@ export default function ProductCart(props) {
           <div className="d-flex justify-content-center align-items-center">
             <button
               className={style.buttonDelete}
-              onClick={() => setCartRemove(props.id)}
+              onClick={() =>
+                setModal(
+                  "Eliminar Producto",
+                  "¿Deseas eliminar este producto?",
+                  setCartRemove,
+                  [props.id]
+                )
+              }
             >
               <RiDeleteBin6Line className={style.iconDelete} />
             </button>
