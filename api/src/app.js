@@ -36,19 +36,19 @@ const init = async () => {
     },
   });
 
-  await server.register(HapiJwt);
+  // await server.register(HapiJwt);
 
-  server.auth.strategy('jwt', 'jwt', {
-    key: process.env.JWT_SECRET,
-    validate: async (decoded, request, h) => {
-      // Aquí puedes realizar la validación del token decodificado
-      // Para un ejemplo básico, simplemente se devuelve true
-      return { isValid: true };
-    },
-    verifyOptions: { algorithms: ['HS256'] },
-  });
+  // server.auth.strategy('jwt', 'jwt', {
+  //   key: process.env.JWT_SECRET,
+  //   validate: async (decoded, request, h) => {
+  //     // Aquí puedes realizar la validación del token decodificado
+  //     // Para un ejemplo básico, simplemente se devuelve true
+  //     return { isValid: true };
+  //   },
+  //   verifyOptions: { algorithms: ['HS256'] },
+  // });
 
-  server.auth.default('jwt');
+  // server.auth.default('jwt');
 
   const oAuth2Client = new OAuth2Client(
     process.env.CLIENT_ID,
