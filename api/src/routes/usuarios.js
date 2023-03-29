@@ -1,39 +1,55 @@
 const Usuario = require("../models/usuarios/Usuario");
 const Rol = require("../models/roles/Rol");
+const nodemailer = require('nodemailer');
+// const smtpTransport = require('nodemailer-smtp-transport');
+// const transporter = require("../nodemailerConfig")
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
+require("dotenv").config();
+const accountTransport = require('../account_transport.json');
 
 const usuariosRoutes = [
   {
-    method: "POST",
-    path: "/users",
+    method: 'POST',
+    path: '/users',
     options: {
-      async handler(request, h) {
-        const { name, surname, email, rol, password, address } = request.payload;
-        try {
-          let rolEncontrado = null;
-          // Buscar el rol por su nombre si se especifica
-          if (rol) {
-            rolEncontrado = await Rol.findOne({ nombre: rol });
-            // Si el rol no existe, devolver un error
-            if (!rolEncontrado) {
-              return h.response({ error: "El rol especificado no existe" }).code(400);
-            }
-          }
-          // Crear un nuevo usuario con el rol encontrado o sin rol
-          const nuevoUsuario = new Usuario({
-            name,
-            surname,
-            email,
-            rol: rolEncontrado ? rolEncontrado._id : null,
-            password,
-            address,
-            productsVisited: [],
-          });
-          await nuevoUsuario.save();
-          return h.response(nuevoUsuario);
-        } catch (error) {
-          return h.response({ error: "Error al crear el usuario" }).code(500);
+      auth: false,
+    },
+    handler: async (request, h) => {
+      try {
+        const { name, surname, email, password } = request.payload;
+  
+        // Verificar si el usuario ya existe
+        const existingUser = await Usuario.findOne({ email });
+        if (existingUser) {
+          return h.response({ error: 'El correo electrónico ya está registrado' }).code(409);
         }
-      },
+  
+        // Crear un nuevo usuario
+        const hashedPassword = await bcrypt.hash(password, 10);
+        const user = new Usuario({ name, surname, email, password: hashedPassword });
+        await user.save();
+  
+        // Crear un token JWT
+        const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET);
+  
+        // Enviar un correo electrónico de bienvenida al usuario
+        const transporter = nodemailer.createTransport(accountTransport);
+        
+        const mailOptions = {
+          from: process.env.EMAIL_ADDRESS,
+          to: email,
+          subject: '¡Bienvenido a nuestra aplicación!',
+          text: `¡Hola ${name}, bienvenido a nuestra aplicación!`,
+        };
+  
+        await transporter.sendMail(mailOptions);
+  
+        return { token };
+      } catch (error) {
+        console.log(error);
+        return h.response({ error: 'Error al crear el usuario' }).code(500);
+      }
     },
   },
   {
