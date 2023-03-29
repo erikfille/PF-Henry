@@ -1,27 +1,38 @@
-import styles from './Paginate.module.css'
+import { useProduct } from "../../hooks/useStore";
+import styles from "./Paginate.module.css";
 
-export const Pagination = ({ page, setPage }) => {
-    //... traer los productos del store
+export default function Paginate () {
+  //... traer los productos del store
+  const [storePage, storeMaxPage, handlerNext, handlerPrevious] = useProduct(
+    (state) => [
+      state.storePage,
+      state.storeMaxPage,
+      state.handlerNext,
+      state.handlerPrevious,
+    ]
+  );
 
-    let maxPage = Math.ceil(allProducts.length / 15);
+  console.log(storePage)
 
-    const handlerNext = () => {
-        setPage(page + 1);
-    };
-
-    const handlerPreview = () => {
-        if (page > 1) setPage(page - 1);
-    };
-
-    return (        
-        <div >
-            <button onClick={() => { handlerPreview() }} >
-                PREVIUS
-            </button>
-            <p>{page} of {maxPage}</p>
-            <button onClick={() => { handlerNext() }} >
-                NEXT
-            </button>
-        </div>
-    );
+  return (
+    <div>
+      <button
+        onClick={() => {
+          handlerPrevious();
+        }}
+      >
+        Anterior
+      </button>
+      <p>
+        {storePage} of {storeMaxPage}
+      </p>
+      <button
+        onClick={() => {
+          handlerNext();
+        }}
+      >
+        Siguiente
+      </button>
+    </div>
+  );
 };

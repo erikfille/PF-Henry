@@ -10,12 +10,17 @@ export const useProduct = create((set, get) => ({
   species: [],
   cartState: false,
   cartProducts: [],
+  storePage: 1,
+  storeMaxPage: 1,
   getProducts: async () => {
+    const { maxPage } = get();
+
     try {
       let response = await axios.get("/allProductos");
       let products = response.data;
       set((state) => ({ allProducts: products }));
       set((state) => ({ filteredProducts: products }));
+      maxPage();
     } catch (err) {
       console.log(err);
     }
@@ -94,7 +99,7 @@ export const useProduct = create((set, get) => ({
 
       set((state) => ({ cartProducts: [...state.cartProducts, product] }));
     }
-    saveCartToStorage()
+    saveCartToStorage();
   },
   setCartRemove: (productId) => {
     const { cartProducts, saveCartToStorage } = get();
@@ -102,7 +107,7 @@ export const useProduct = create((set, get) => ({
     set((state) => ({
       cartProducts: filteredProducts,
     }));
-    saveCartToStorage()
+    saveCartToStorage();
   },
   setActiveCart: () => {
     const { cartState } = get();
@@ -115,8 +120,21 @@ export const useProduct = create((set, get) => ({
   },
   saveCartToStorage: () => {
     const { cartProducts } = get();
-    window.sessionStorage.setItem("cart", JSON.stringify(cartProducts))
-  }
+    window.sessionStorage.setItem("cart", JSON.stringify(cartProducts));
+  },
+  maxPage: () => {
+    const { allProducts } = get();
+    let max = Math.ceil(allProducts.length / 25);
+    set((state) => ({ storeMaxPage: max }));
+  },
+  handlerNext: () => {
+    const {storeMaxPage, storePage} = get()
+    if(storeMaxPage === storePage + 1)set((state) => ({ storePage: state.page + 1 }));
+  },
+  handlerPrevious: () => {
+    const { page } = get();
+    if (page > 1) set((state) => ({ storePage: state.page - 1 }));
+  },
 }));
 
 export const useModal = create((set) => ({
@@ -129,14 +147,6 @@ export const useModal = create((set) => ({
     if (args) set((state) => ({ actionArgs: args }));
 
     set((state) => ({ modalState: state.modalState ? false : true }));
-  },
-}));
-
-const useUser = create((set) => ({
-  user: {},
-  getUserInfo: async () => {},
-  setUserInfo: async (userData) => {
-    let post = await axios.post("/user", userData);
   },
 }));
 
