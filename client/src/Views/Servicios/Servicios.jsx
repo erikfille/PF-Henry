@@ -15,33 +15,35 @@ export default function Servicios() {
   })
 
 	// Hooks store
-	const [allServices, filteredServices, filteredServicesWOSearch, ordered, getServices, setFilter] =
-		useServices((state) => [
-			state.allServices,
-			state.filteredServices,
-			state.filteredServicesWOSearch,
-			state.ordered,
-			state.getServices,
-			state.setFilter,
-		]);
+	const [allServices, filteredServices, filteredServicesWOSearch, ordered, setFilter] =
+  useServices((state) => [
+    state.allServices,
+    state.filteredServices,
+    state.filteredServicesWOSearch,
+    state.ordered,
+    // state.getServices,
+    state.setFilter,
+  ]);
 
-    // Filters
-    useEffect(() => {
-      const {locacion, tipo} = filterBy;
-      let filtered = allServices;
-      console.log(locacion);
-      console.log('filtered' ,filtered);
+  // useEffect(() => {
+  //   getServices();
+  // }, []);
 
-      if (locacion !== "All") {
-        filtered = filtered.filter((s) => s.pais == locacion);
-      }
-      console.log(filtered);
-      // if (tipo !== "All") {
-      //   filtered = filteredServices.filter((s) => s.tipo === tipo);
-      // }
+  // Filters
+  useEffect(() => {
+    const {locacion, tipo} = filterBy;
+    let filtered = allServices;
 
-      setFilter(filtered);
-    }, [filterBy.locacion]);
+    if (locacion !== "All") {
+      filtered = filtered.filter((s) => s.pais == locacion);
+    }
+    if (tipo !== "All") {
+      filtered = filtered.filter((s) => s.tipo === tipo);
+    }
+
+    setFilter(filtered);
+  }, [filterBy]);
+
 
 	// const handlerInput = (e) => {
 	// 	setInputSearch(e.target.value);
@@ -59,31 +61,14 @@ export default function Servicios() {
 		setOrder(e.target.value);
 	};
 
-	const handlerFilterByLocation = (e) => {
+	const handlerFilter = (e) => {
 		if (e.target.value) setFilterBy({...filterBy, [e.target.name] : e.target.value});
 	};
-
-
-	// const handlerFilterByService = (e) => {
-	// 	e.target.value && filterByService(e.target.value);
-	// 	setFilterService(e.target.value);
-	// };
-
-	// const handlerFilterByLocation = (e) => {
-	// 	console.log(e.target.value);
-	// 	e.target.value && filterByLocation(e.target.value);
-	// 	setFilterLocation(e.target.value);
-	// };
 
 	// Cuando monta hace el pedido a la api
 	// useEffect(() => {
 	// 	getServices();
 	// }, []);
-
-	// Usar useEffect para rednderizar cuando cambie el filtrado por pais
-
-	// El onchange cambia el state local, y el useEffect mira ese estado local
-	// y renderiza con los cambios
 
 	return (
 		<>
@@ -94,18 +79,23 @@ export default function Servicios() {
 					<div className='row'>
 						<div className='col-3'>
 							<div className={`${style.filterCard} mb-3 p-3`}>
-								{/* <div className='service-filter mb-4'>
+								<div className='service-filter mb-4'>
+                <p className='mb-2' style={{ width: "150px" }}>
+										Filtrar por tipo:
+									</p>
 									<select
-										value={filterService}
-										// onChange={(e) => handlerFilterByService(e)}
+                    name="tipo"
+										value={filterBy.tipo}
+										onChange={(e) => handlerFilter(e)}
 										className='form-select form-select-lg mb-3'
 										aria-label='.form-select-lg'>
-										<option defaultValue>Tipo de Servicios</option>
+										<option value='All'defaultValue>Todos</option>
 										<option value='Clinica'>Clínicas</option>
+										<option value='Tienda'>Tienda</option>
 										<option value='Spa'>Spa</option>
 										<option value='Hogar'>Hogar / Cuidado</option>
 									</select>
-								</div> */}
+								</div>
 								<div className='location-filter'>
 									<p className='mb-2' style={{ width: "150px" }}>
 										Filtrar por pais:
@@ -113,7 +103,7 @@ export default function Servicios() {
 									<select
                     name="locacion"
 										value={filterBy.locacion}
-										onChange={(e) => handlerFilterByLocation(e)}
+										onChange={(e) => handlerFilter(e)}
 										className='form-select form-select-lg mb-3'
 										aria-label='.form-select-lg'>
 										<option value='All' defaultValue>
