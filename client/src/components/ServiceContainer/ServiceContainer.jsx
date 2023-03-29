@@ -29,7 +29,7 @@ const ServiceContainer = () => {
 					);
 				})
 			) : (
-				<p>No se encontro nada</p>
+				<p>Lo sentimos, no hay servicios con esas características</p>
 			)}
 		</>
 	);
