@@ -67,39 +67,38 @@ export default function Tienda() {
     setFilter(filtered);
   }, [filterBy, allProducts]);
 
-  useEffect(() => {
-    if (inputSearch.length > 0) {
-      let result = [];
-      filteredProducts.forEach((p) => {
-        p.titulo.toLowerCase().includes(inputSearch.toLowerCase()) &&
-          result.push(p);
-      });
-      searchProduct(result);
-    } else if (inputSearch.length <= 0) {
-      searchProduct(filteredProductsWOSearch);
-    }
-  }, [inputSearch]);
+	useEffect(() => {
+		if (inputSearch.length > 0) {
+			let result = [];
+			filteredProducts.forEach((p) => {
+				p.titulo.toLowerCase().includes(inputSearch.toLowerCase()) && result.push(p);
+			});
+			searchProduct(result);
+		} else if (inputSearch.length <= 0) {
+			searchProduct(filteredProductsWOSearch);
+		}
+	}, [inputSearch]);
 
-  const handleOnChange = (e) => {
-    setValue(e.target.value);
-  };
+	const handleOnChange = (e) => {
+		setValue(e.target.value);
+	};
 
-  const handlerOrder = (e) => {
-    e.preventDefault();
-    if (e.target.value) ordered(e.target.value);
-    setOrder(e.target.value);
-  };
+	const handlerOrder = (e) => {
+		e.preventDefault();
+		if (e.target.value) ordered(e.target.value);
+		setOrder(e.target.value);
+	};
 
-  const handlerFilter = (e) => {
-    if (e.target.value) {
-      setFilterBy({ ...filterBy, [e.target.name]: e.target.value });
-    }
-  };
+	const handlerFilter = (e) => {
+		if (e.target.value) {
+			setFilterBy({ ...filterBy, [e.target.name]: e.target.value });
+		}
+	};
 
-  const handlerInput = (e) => {
-    setInputSearch(e.target.value);
-    searchProduct(inputSearch);
-  };
+	const handlerInput = (e) => {
+		setInputSearch(e.target.value);
+		searchProduct(inputSearch);
+	};
 
   return (
     <>
