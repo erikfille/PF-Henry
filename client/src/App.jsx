@@ -5,7 +5,8 @@ import axios from "axios";
 
 //? Components
 import Footer from "./components/Footer/Footer";
-import Cart from "../src/components/Cart/Cart";
+import Cart from "./components/Cart/Cart";
+import ModalConsultaGenerico from "./components/ModalGenerico/ModalConsultaGenerico";
 
 //? Views
 import Home from "./Views/Home/Home";
@@ -46,6 +47,7 @@ function App() {
         <Route path="/perfil" element={<UserProfile />} />
       </Routes>
       <Cart />
+      <ModalConsultaGenerico />
       {location.pathname !== "/login" && <Footer /> &&
         location.pathname !== "/signup" && <Footer />}
     </div>
