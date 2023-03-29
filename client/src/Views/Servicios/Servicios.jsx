@@ -8,14 +8,14 @@ import { useEffect } from "react";
 
 export default function Servicios() {
 	const [order, setOrder] = useState("");
-	// const [inputSearch, setInputSearch] = useState("");
+	const [inputSearch, setInputSearch] = useState("");
   const [filterBy, setFilterBy] = useState({
     locacion: 'All',
     tipo: 'All'
   })
 
 	// Hooks store
-	const [allServices, filteredServices, filteredServicesWOSearch, ordered, setFilter] =
+	const [allServices, filteredServices, filteredServicesWOSearch, ordered, setFilter, searchServices] =
   useServices((state) => [
     state.allServices,
     state.filteredServices,
@@ -23,6 +23,7 @@ export default function Servicios() {
     state.ordered,
     // state.getServices,
     state.setFilter,
+    state.searchServices
   ]);
 
   // useEffect(() => {
@@ -44,10 +45,23 @@ export default function Servicios() {
     setFilter(filtered);
   }, [filterBy]);
 
+  // Busqueda
+  useEffect(() => {
+		if (inputSearch.length > 0) {
+			let result = [];
+			filteredServices.forEach((s) => {
+				s.nombre.toLowerCase().includes(inputSearch.toLowerCase()) && result.push(s);
+			});
+			searchServices(result);
+		} else if (inputSearch.length <= 0) {
+			searchServices(filteredServicesWOSearch);
+		}
+	}, [inputSearch]);
 
-	// const handlerInput = (e) => {
-	// 	setInputSearch(e.target.value);
-	// };
+	const handlerInput = (e) => {
+		setInputSearch(e.target.value);
+	};
+
 
 	// const handlerSearchSubmit = (e) => {
 	// 	e.preventDefault();
@@ -136,7 +150,7 @@ export default function Servicios() {
 											<option value='alfabetico-descendente'>Alfabeticamente Z-A</option>
 										</select>
 									</div>
-									{/* <div className='d-flex align-items-center gap-10'>
+									<div className='d-flex align-items-center gap-10'>
 										<p className='mb-0' style={{ width: "200px" }}>
 											Buscar Servicio
 										</p>
@@ -148,12 +162,12 @@ export default function Servicios() {
 											name=''
 											id=''
 										/>
-										<button className={style.buttonSearch} onClick={(e) => handlerSearchSubmit(e)}>
+										{/* <button className={style.buttonSearch} onClick={(e) => handlerSearchSubmit(e)}>
 											<i>
 												<BiSearchAlt2 className={style.iconSearch} />
 											</i>
-										</button>
-									</div> */}
+										</button> */}
+									</div>
 								</div>
 							</div>
 							<div className='pb-5'>

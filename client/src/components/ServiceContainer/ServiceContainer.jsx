@@ -1,4 +1,3 @@
-// import { services } from "../../Views/Servicios/helperService";
 import { useServices } from "../../hooks/useStore";
 import ServiceCard from "../ServiceCard/ServiceCard";
 
@@ -10,7 +9,7 @@ const ServiceContainer = () => {
 
 	return (
 		<>
-			{filteredServices.length ? (
+			{filteredServices.length && typeof filteredServices === 'object' ? (
 				filteredServices.map((service) => {
 					return (
 						<ServiceCard

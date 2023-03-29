@@ -137,4 +137,9 @@ export const useServices = create((set, get) => ({
 		set((state) => ({ filteredServices: service }));
 		set((state) => ({ filteredServicesWOSearch: service }));
 	},
+  searchServices: (service) => {
+		if (typeof service === "object" && service.length) {
+			set((state) => ({ filteredServices: service }));
+		}
+	},
 }));
