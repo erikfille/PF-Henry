@@ -69,7 +69,7 @@ export default function Tienda() {
       });
     }
     if (price < "300") {
-      filtered = filtered.filter((p) => p.precio < Number(price));
+      filtered = filtered.filter((p) => p.precio < Number(price).toFixed(2));
     }
     setFilter(filtered);
   }, [filterBy, allProducts]);
@@ -164,7 +164,7 @@ export default function Tienda() {
                     onChange={(e) => handlerFilter(e)}
                     min={0}
                     max={300}
-                    step={5}
+                    step={10}
                     id="customRange3"
                   />
                 </div>
