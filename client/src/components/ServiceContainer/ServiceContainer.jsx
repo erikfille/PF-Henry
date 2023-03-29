@@ -14,6 +14,7 @@ const ServiceContainer = () => {
 				filteredServices.map((service) => {
 					return (
 						<ServiceCard
+							key={service._id}
 							nombre={service.nombre}
 							tipo={service.tipo}
 							pais={service.pais}
@@ -28,7 +29,7 @@ const ServiceContainer = () => {
 					);
 				})
 			) : (
-				<p>Lo sentimos, no hay servicios con esas características</p>
+				<p>No se encontro nada</p>
 			)}
 		</>
 	);
@@ -36,19 +37,20 @@ const ServiceContainer = () => {
 
 export default ServiceContainer;
 
-// : allServices.map((service) => {
-// 		return (
-// 			<ServiceCard
-// 				nombre={service.nombre}
-// 				tipo={service.tipo}
-// 				pais={service.pais}
-// 				direccion={service.direccion}
-// 				image={service.image}
-// 				mail={service.mail}
-// 				telefono={service.telefono}
-// 				descripcion={service.descripcion}
-// 				rating={service.rating}
-// 				horarioAtencion={service.horarioAtencion}
-// 			/>
-// 		);
-//   })
+// allServices.map((service) => {
+//   return (
+//     <ServiceCard
+//       key={service._id}
+//       nombre={service.nombre}
+//       tipo={service.tipo}
+//       pais={service.pais}
+//       direccion={service.direccion}
+//       image={service.image}
+//       mail={service.mail}
+//       telefono={service.telefono}
+//       descripcion={service.descripcion}
+//       rating={service.rating}
+//       horarioAtencion={service.horarioAtencion}
+//     />
+//   );
+// })

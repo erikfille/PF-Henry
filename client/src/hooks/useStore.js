@@ -1,7 +1,5 @@
 import { create } from "zustand";
 import axios from "axios";
-
-// IMPORT PROVISIONAL
 import { services } from "../Views/Servicios/helperService";
 
 export const useProduct = create((set, get) => ({
@@ -104,7 +102,7 @@ export const useServices = create((set, get) => ({
 	// filteredServices: [],
 	allServices: services,
 	filteredServices: services,
-	filteredServicesWOSearch: services,
+	filteredServicesWOSearch: [],
 	// getServices: async () => {
 	// 	try {
 	// 		let response = await axios.get("/proveedores");
@@ -135,8 +133,8 @@ export const useServices = create((set, get) => ({
 			}));
 		}
 	},
-	setFilter: (services) => {
-		set((state) => ({ filteredServices: services }));
-		set((state) => ({ filteredServicesWOSearch: services }));
+	setFilter: (service) => {
+		set((state) => ({ filteredServices: service }));
+		set((state) => ({ filteredServicesWOSearch: service }));
 	},
 }));

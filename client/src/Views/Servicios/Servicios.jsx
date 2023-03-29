@@ -1,7 +1,6 @@
 import Meta from "../../components/Meta/Meta";
 import BreadCrump from "../../components/BreadCrump/BreadCrump";
-import { BiSearchAlt2 } from "react-icons/bi";
-import { Children, useState } from "react";
+import { useState } from "react";
 import ServiceContainer from "../../components/ServiceContainer/ServiceContainer";
 import style from "./Servicios.module.css";
 import { useServices } from "../../hooks/useStore";
@@ -9,9 +8,11 @@ import { useEffect } from "react";
 
 export default function Servicios() {
 	const [order, setOrder] = useState("");
-	const [inputSearch, setInputSearch] = useState("");
-	const [filterService, setFilterService] = useState("");
-	const [filterLocation, setFilterLocation] = useState("All");
+	// const [inputSearch, setInputSearch] = useState("");
+  const [filterBy, setFilterBy] = useState({
+    locacion: 'All',
+    tipo: 'All'
+  })
 
 	// Hooks store
 	const [allServices, filteredServices, filteredServicesWOSearch, ordered, getServices, setFilter] =
@@ -23,6 +24,24 @@ export default function Servicios() {
 			state.getServices,
 			state.setFilter,
 		]);
+
+    // Filters
+    useEffect(() => {
+      const {locacion, tipo} = filterBy;
+      let filtered = allServices;
+      console.log(locacion);
+      console.log('filtered' ,filtered);
+
+      if (locacion !== "All") {
+        filtered = filtered.filter((s) => s.pais == locacion);
+      }
+      console.log(filtered);
+      // if (tipo !== "All") {
+      //   filtered = filteredServices.filter((s) => s.tipo === tipo);
+      // }
+
+      setFilter(filtered);
+    }, [filterBy.locacion]);
 
 	// const handlerInput = (e) => {
 	// 	setInputSearch(e.target.value);
@@ -41,19 +60,9 @@ export default function Servicios() {
 	};
 
 	const handlerFilterByLocation = (e) => {
-		if (e.target.value) setFilterLocation(e.target.value);
+		if (e.target.value) setFilterBy({...filterBy, [e.target.name] : e.target.value});
 	};
 
-	useEffect(() => {
-		let filtered = allServices;
-
-		if (filterLocation !== "all") {
-			filtered = filtered.filter((s) => s.pais === filterLocation);
-			setFilter(filtered);
-		} else {
-			setFilter(allServices);
-		}
-	}, [filterLocation]);
 
 	// const handlerFilterByService = (e) => {
 	// 	e.target.value && filterByService(e.target.value);
@@ -102,11 +111,12 @@ export default function Servicios() {
 										Filtrar por pais:
 									</p>
 									<select
-										value={filterLocation}
+                    name="locacion"
+										value={filterBy.locacion}
 										onChange={(e) => handlerFilterByLocation(e)}
 										className='form-select form-select-lg mb-3'
 										aria-label='.form-select-lg'>
-										<option value='all' defaultValue>
+										<option value='All' defaultValue>
 											Todos
 										</option>
 										<option value='Argentina'>Argentina</option>
@@ -156,9 +166,9 @@ export default function Servicios() {
 									</div> */}
 								</div>
 							</div>
-							<div className='product-list pb-5'>
+							<div className='pb-5'>
 								<div className='d-flex flex-column gap-5'>
-									<ServiceContainer />
+									<ServiceContainer/>
 								</div>
 							</div>
 						</div>

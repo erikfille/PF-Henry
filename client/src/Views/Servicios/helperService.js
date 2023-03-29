@@ -43,7 +43,7 @@ export let services = [
 		descripcion:
 			"Tienda especializada en la venta de productos para animales domésticos. Contamos con una amplia variedad de alimentos, juguetes, accesorios y productos de higiene para perros, gatos, aves, peces y roedores.",
 		mail: "ventas@petworld.com.ar",
-		telefono: "++54 11 4567 8901",
+		telefono: "+541145678901",
 		subscripcion: "VIP",
 		horarioAtencion: {
 			semana: ["09:00", "18:00"],
@@ -66,7 +66,7 @@ export let services = [
 		image: "images/service-img.jpg",
 		direccion: "José Antonio 567, Buenos Aires",
 		pais: "Argentina",
-		tipo: "Clinica", //Hogar, Spa
+		tipo: "Clinica",
 		descripcion:
 			"Somos una clínica veterinaria con un equipo de profesionales altamente capacitados en el cuidado y tratamiento de animales domésticos.",
 		mail: "clinica@santalucia.com.ar",
