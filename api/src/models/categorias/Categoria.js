@@ -12,9 +12,9 @@ const categoriaSchema = new Schema({
     validate: {
       validator: function (v) {
         if (this.tipo === "Producto") {
-          return ["Juguete", "Alimentos", "Golosinas", "Higiene"].includes(v);
+          return ["Juguete", "Alimentos", "Golosinas", "Higiene","Acuarios","Terrarios","Equitacion"].includes(v);
         } else if (this.tipo === "Servicio") {
-          return ["Consulta", "Paseo", "Baño", "Guarderia"].includes(v);
+          return ["Consulta", "Paseo", "Baño", "Guarderia","Equitacion"].includes(v);
         } else {
           return false;
         }
