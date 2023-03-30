@@ -12,25 +12,22 @@ export default function ProductCart(props) {
   if (props.showAs === "cart") {
     return (
       <>
-        <div
-          className={`${style.productCart} col-12 d-flex gap-4 p-3 align-items-center justify-content-center`}
-        >
-          <Link to={`/productos/${props.id}`}>
+        <div className={`${style.productCart} col-12 d-flex gap-4 p-3 align-items-center justify-content-center`}>
+          {/* <Link to={`/productos/${props.id}`}> */}
             <img
               src={props.imagen}
               alt={props.titulo}
               style={{ width: "50px", height: "50px" }}
-              className="me-3"
             />
             <div className="d-flex flex-column gap-1">
               <h5 className={`${style.title} mb-0`}>{props.titulo}</h5>
               {/* <p className={`${style.sku}sku mb-0`}>SKU-{props.stock}</p> */}
               <p className={`${style.price} mb-0`}>{props.price} U$D</p>
             </div>
-          </Link>
-          <div className="d-flex flex-column me-3">
-            <h5>Cant</h5>
-            <h5>{props.cant}</h5>
+          {/* </Link> */}
+          <div className="d-flex flex-column justify-content-center align-items-center mb-0">
+            <h5 className="mb-0">Cant</h5>
+            <h5 className="mb-0">{props.cant}</h5>
           </div>
           <div className="d-flex justify-content-center align-items-center">
             <button
