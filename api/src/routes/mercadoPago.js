@@ -2,6 +2,12 @@ const Hapi = require('hapi');
 const mongoose = require('mongoose');
 const { Order } = require("../models/orders/order");
 
+
+// VER, TODO ESTE CODIGO ES UNA TRADUCCIÓN DEL VIDEO
+// ACCESS_TOKEN, AGREGADO AL .ENV, PERO SIN ID ASIGNADO, YA QUE NO QUEDA CLARO QUE VA
+// REVISAR EN FUNCIÓN DE LO QUE NOS HACE FALTA.
+
+
 // SDK de Mercado Pago
 const mercadoPago = require('mercadopago');
 
