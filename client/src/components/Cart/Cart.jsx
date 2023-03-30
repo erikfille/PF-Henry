@@ -72,7 +72,7 @@ export default function Cart() {
           </>
         ) : (
           <>
-            <div className={style.products}>
+            <div className={`${style.products} d-flex flex-column align-items-center`}>
               {typeof cartProducts === "object" &&
                 cartProducts.length &&
                 cartProducts.map(
@@ -96,7 +96,7 @@ export default function Cart() {
                 <div
                   className={`${style.total} d-flex justify-content-between mb-2`}
                 >
-                  <h6>Total (U$D)</h6>
+                  <h6>Total ($ USD)</h6>
                   <h6>{total}</h6>
                 </div>
               </div>
