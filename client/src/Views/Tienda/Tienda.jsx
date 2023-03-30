@@ -141,16 +141,16 @@ export default function Tienda() {
                   </select>
                 </div>
                 <div className={`${style.rangePrice} mb-4`}>
-                  <label htmlFor="customRange3" className="form-label">
+                  <label htmlFor="customRange3" className="form-label d-lg-block d-none">
                     Rango de precio
                   </label>
                   <div className="ranges">
                     <div className="d-flex flex-column gap-10 justify-content-center">
-                      <div className="d-flex gap-2">
+                      <div className="d-flex gap-2 flex-column flex-lg-row">
                         <span className={style.prices}>Desde:</span>
                         <span>0 U$D</span>
                       </div>
-                      <div className="d-flex gap-2">
+                      <div className="d-flex gap-2 flex-column flex-lg-row">
                         <span className={style.prices}>Hasta:</span>
                         <span>{filterBy.price} U$D</span>
                       </div>

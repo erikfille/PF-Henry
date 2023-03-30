@@ -39,3 +39,15 @@
     color: var(--color-0CC5BA);
     margin-right: 10px;
 }
+
+@media screen and (max-width: 700px) {
+    .footerWrapper {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 992px) {
+    .footerWrapper {
+        display: none;
+    }
+}
