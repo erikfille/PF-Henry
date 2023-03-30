@@ -15,20 +15,20 @@ export default function Servicios() {
   })
 
 	// Hooks store
-	const [allServices, filteredServices, filteredServicesWOSearch, ordered, setFilter, searchServices] =
+	const [allServices, filteredServices, filteredServicesWOSearch, ordered, getServices, setFilter, searchServices] =
   useServices((state) => [
     state.allServices,
     state.filteredServices,
     state.filteredServicesWOSearch,
     state.ordered,
-    // state.getServices,
+    state.getServices,
     state.setFilter,
     state.searchServices
   ]);
 
-  // useEffect(() => {
-  //   getServices();
-  // }, []);
+  useEffect(() => {
+    getServices();
+  }, []);
 
   // Filters
   useEffect(() => {

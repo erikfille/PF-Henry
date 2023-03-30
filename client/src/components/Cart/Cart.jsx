@@ -5,6 +5,7 @@ import { useState, useEffect } from "react";
 import { useProduct } from "../../hooks/useStore";
 import { NavLink } from "react-router-dom";
 
+
 export default function Cart() {
   const [isOpen, setIsOpen] = useState(false); // El boton de CART del header debe modificar este estado. inicalmente debe estar en False.
   const [total, setTotal] = useState(0);
@@ -100,9 +101,12 @@ export default function Cart() {
                   <h6>{total}</h6>
                 </div>
               </div>
-              <div className="d-flex flex-column gap-2 justify-content-center align-items-center">
-                <button className="button">Confirmar pedido</button>
-                <NavLink className={style.navlink} onClick={() => setActiveCart()} to="/tienda">Seguir comprando</NavLink>
+              <div className="d-flex justify-content-center">
+                <button className="button" onClick={()=> setActiveCart(false)}>
+                  <NavLink to='/checkout'>
+                    Confirmar pedido
+                  </NavLink>
+                  </button>
               </div>
             </div>
           </>
