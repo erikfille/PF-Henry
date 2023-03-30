@@ -20,6 +20,7 @@
 
 .cartEmpty > a,
 .navlink {
+    font-size: 14px;    
     font-weight: 600;
     color: var(--color-0CC5BA);
     position: relative;
