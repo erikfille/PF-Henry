@@ -1,5 +1,6 @@
 .shoppingCart {
     position: fixed;
+    z-index: 1000;
     right: 0;
     top: 0%;
     background-color: #fff;
@@ -17,10 +18,17 @@
     font-weight: 700;
 }
 
-.cartEmpty > a {
+.cartEmpty > a,
+.navlink {
     font-weight: 600;
     color: var(--color-0CC5BA);
     position: relative;
+}
+
+.cartEmpty > a:hover,
+.navlink:hover {
+    font-weight: 700;
+    color: var(--color-0CC5BA);
 }
 
 .totalContainer {

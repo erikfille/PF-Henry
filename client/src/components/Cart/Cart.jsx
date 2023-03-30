@@ -3,6 +3,7 @@ import ProductCard from "../ProductCard/ProductCard";
 import style from "./Cart.module.css";
 import { useState, useEffect } from "react";
 import { useProduct } from "../../hooks/useStore";
+import { NavLink } from "react-router-dom";
 
 export default function Cart() {
   const [isOpen, setIsOpen] = useState(false); // El boton de CART del header debe modificar este estado. inicalmente debe estar en False.
@@ -37,7 +38,7 @@ export default function Cart() {
       >
         <div className="d-flex justify-content-end">
           <button onClick={() => setActiveCart()} className="button">
-            Close
+            Cerrar
           </button>
         </div>
 
@@ -66,7 +67,7 @@ export default function Cart() {
               className={`${style.cartEmpty} d-flex flex-column align-items-center py-5`}
             >
               <p>Tu carrito esta vacio</p>
-              <a href="/tienda">Ir a la tienda</a>
+              <NavLink onClick={() => setActiveCart()} to="/tienda">Ir a la tienda</NavLink>
             </div>
           </>
         ) : (
@@ -99,16 +100,11 @@ export default function Cart() {
                   <h6>{total}</h6>
                 </div>
               </div>
-              <div className="d-flex justify-content-center">
+              <div className="d-flex flex-column gap-2 justify-content-center align-items-center">
                 <button className="button">Confirmar pedido</button>
+                <NavLink className={style.navlink} onClick={() => setActiveCart()} to="/tienda">Seguir comprando</NavLink>
               </div>
             </div>
-            <a
-              href="/tienda"
-              className={`d-flex flex-column align-items-center py-2`}
-            >
-              <p>Seguir Comprando</p>
-            </a>
           </>
         )}
       </div>
