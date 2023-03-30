@@ -20,6 +20,7 @@ import Login from "./Views/Login/Login";
 import CreateProduct from "./components/CreateProduct/CreateProduct";
 import Detail from "./Views/Detail/Detail";
 import UserProfile from "./Views/UserProfile/UserProfile";
+import CheckOut from "./Views/Checkout/Checkout";
 
 //? Styles
 import "./App.css";
@@ -45,6 +46,7 @@ function App() {
         <Route path="/productos/:productId" element={<Detail />} />
         <Route path="/crearProducto" element={<CreateProduct />} />
         <Route path="/perfil" element={<UserProfile />} />
+        <Route path="/checkout" element={<CheckOut />} />
       </Routes>
       <Cart />
       <ModalConsultaGenerico />

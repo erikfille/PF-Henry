@@ -1,6 +1,6 @@
 import { create } from "zustand";
 import axios from "axios";
-import { services } from "../Views/Servicios/helperService";
+
 
 export const useProduct = create((set, get) => ({
   allProducts: [],
@@ -153,21 +153,19 @@ export const useModal = create((set) => ({
 }));
 
 export const useServices = create((set, get) => ({
-  // allServices: [],
-  // filteredServices: [],
-  allServices: services,
-  filteredServices: services,
+  allServices: [],
+  filteredServices: [],
   filteredServicesWOSearch: [],
-  // getServices: async () => {
-  // 	try {
-  // 		let response = await axios.get("/proveedores");
-  // 		let services = response.data;
-  // 		set((state) => ({ allServices: services }));
-  // 		set((state) => ({ filteredServices: services }));
-  // 	} catch (err) {
-  // 		console.log(err);
-  // 	}
-  // },
+  getServices: async () => {
+    try {
+      let response = await axios.get("/proveedores");
+  	  let services = response.data;
+  	  set((state) => ({ allServices: services }));
+  		set((state) => ({ filteredServices: services }));
+  	} catch (err) {
+  	  console.log(err);
+  	}
+  },
   ordered: (order) => {
     if (order === "alfabetico-ascendente") {
       set((state) => ({
