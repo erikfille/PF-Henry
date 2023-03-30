@@ -124,18 +124,20 @@ export const useProduct = create((set, get) => ({
   },
   maxPage: () => {
     const { allProducts } = get();
-    let max = Math.ceil(allProducts.length / 25);
+    let max = Math.ceil(allProducts.length / 10);
     set((state) => ({ storeMaxPage: max }));
   },
   handlerNext: () => {
-    const {storeMaxPage, storePage} = get()
-    if(storeMaxPage === storePage + 1)set((state) => ({ storePage: state.page + 1 }));
+    const { storeMaxPage, storePage } = get();
+    if (storeMaxPage > storePage) set((state) => ({ storePage: state.storePage + 1 }));
   },
   handlerPrevious: () => {
-    const { page } = get();
-    if (page > 1) set((state) => ({ storePage: state.page - 1 }));
+    const { storePage } = get();
+    if (storePage > 1) set((state) => ({ storePage: state.storePage - 1 }));
   },
+  
 }));
+
 
 export const useModal = create((set) => ({
   modalState: false,

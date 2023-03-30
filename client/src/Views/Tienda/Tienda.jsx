@@ -232,13 +232,16 @@ export default function Tienda() {
                 <Loader />
               ) : (
                 <div className="product-list pb-5">
-                  <Paginate />
+      
                   <div className="d-flex flex-wrap gap-2">
                     <ProductsContainer />{" "}
                   </div>{" "}
                 </div>
               )}
             </div>
+          </div>
+          <div>
+            <Paginate/>
           </div>
         </div>
       </div>
