@@ -26,6 +26,8 @@
 }
 
 .info {
+    border: none;
+    background-color: transparent;
     color: var(--color-0CC5BA);
     font-weight: 600;
 }

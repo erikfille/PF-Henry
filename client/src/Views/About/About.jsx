@@ -45,7 +45,6 @@ export default function About() {
       <>
          <Meta title={"Contacto"} />
          <BreadCrump title='Sobre Nosotros' />
-         {/* <div className={` home-wrapper-2 ${styles.aboutContainer}`}> */}
          <div className='home-wrapper-2 col-12 d-flex flex-column align-items-center'>
 				<h1 className='fw-bold py-5'>
                ¡El equipo detrás de este hermoso proyecto!
@@ -68,24 +67,3 @@ export default function About() {
       </>
    );
 }
-
-/*
-
-<div className= "container bg-white rounded-3 py-4 mt-3 mb-3 ">
-   <Row >
-      <Integrante nombre="Noelia Lombardo" pais="Argentina" imagen={noeliaImg} /> 
-      <Integrante nombre="Santiago Arguello" pais="Argentina" imagen={santiagoImg}/>
-      <Integrante nombre="Agustin petrini" pais="Argentina" imagen={agustinImg} />
-      <Integrante nombre="John Correa" pais="Colombia" imagen={jhonImg} />
-   </Row>
-
-   <Row >
-      <Integrante nombre="Erik Filleadeau" pais="Argentina" imagen={erikImg} />
-      <Integrante nombre="Jonathan Molero" pais="Venezuela" imagen={jonhaImg}/>
-      <Integrante nombre="Maximiliano Herr" pais="Argentina" imagen={maxImg}/>
-      <Integrante nombre="Ignacio Quirelli" pais="Argentina" imagen={nachoImg} />
-   </Row>
-</div>
-
-*/
-

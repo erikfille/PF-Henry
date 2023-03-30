@@ -6,7 +6,8 @@ import { user } from "./userHelp";
 import { FaUserAlt } from 'react-icons/fa';
 import PetsContainer from "../../components/PetsContainer/PetsContainer";
 
-// objetos hardcodeados
+// objetos hardcodeados solo para saber si los array tienen algo o estan vacios
+// Esto para el renderizado condicional.
 import { pets, compras } from "../../components/PetData/petHelp";
 
 
@@ -85,7 +86,6 @@ export default function UserProfile() {
                         :
                         <>
                            <div className={`${style.pets} d-flex flex-wrap gap-5 py-5`}>
-                              <PetsContainer />
                               {/* renderizar las compras hechas por el cliente */}
                            </div>
                         </>
