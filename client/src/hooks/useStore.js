@@ -1,5 +1,9 @@
 import { create } from "zustand";
 import axios from "axios";
+<<<<<<< HEAD
+=======
+
+>>>>>>> 7a6e08f (Add checkout route and navlink)
 
 export const useProduct = create((set, get) => ({
 	allProducts: [],
@@ -154,6 +158,7 @@ export const useModal = create((set) => ({
 }));
 
 export const useServices = create((set, get) => ({
+<<<<<<< HEAD
 	allServices: [],
 	filteredServices: [],
 	filteredServicesWOSearch: [],
@@ -196,4 +201,48 @@ export const useServices = create((set, get) => ({
 			set((state) => ({ filteredServices: service }));
 		}
 	},
+=======
+  allServices: [],
+  filteredServices: [],
+  filteredServicesWOSearch: [],
+  getServices: async () => {
+    try {
+      let response = await axios.get("/proveedores");
+  	  let services = response.data;
+  	  set((state) => ({ allServices: services }));
+  		set((state) => ({ filteredServices: services }));
+  	} catch (err) {
+  	  console.log(err);
+  	}
+  },
+  ordered: (order) => {
+    if (order === "alfabetico-ascendente") {
+      set((state) => ({
+        filteredServices: state.filteredServices.sort((a, b) => {
+          if (a.nombre > b.nombre) return 1;
+          if (a.nombre < b.nombre) return -1;
+          return 0;
+        }),
+      }));
+    }
+    if (order === "alfabetico-descendente") {
+      set((state) => ({
+        filteredServices: state.filteredServices.sort((a, b) => {
+          if (a.nombre < b.nombre) return 1;
+          if (a.nombre > b.nombre) return -1;
+          return 0;
+        }),
+      }));
+    }
+  },
+  setFilter: (service) => {
+    set((state) => ({ filteredServices: service }));
+    set((state) => ({ filteredServicesWOSearch: service }));
+  },
+  searchServices: (service) => {
+    if (typeof service === "object" && service.length) {
+      set((state) => ({ filteredServices: service }));
+    }
+  },
+>>>>>>> 7a6e08f (Add checkout route and navlink)
 }));
