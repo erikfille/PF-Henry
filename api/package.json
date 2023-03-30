@@ -19,6 +19,7 @@
     "hapi-auth-jwt2": "^10.4.0",
     "hapi-cors": "^1.0.3",
     "jsonwebtoken": "^9.0.0",
+    "mercadopago": "^1.5.15",
     "mongoose": "^7.0.2",
     "mongoose-populate": "^3.0.3",
     "nodemailer": "^6.9.1",
