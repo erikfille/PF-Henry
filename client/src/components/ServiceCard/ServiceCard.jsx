@@ -4,17 +4,17 @@ import style from "./ServiceCard.module.css";
 export default function ServiceCard(props) {
 	return (
 		<>
-			<div className={`${style.serviceCard} py-4 px-3`}>
+			<div className={`${style.serviceCard} py-0 py-md-4 px-3`}>
 				<div className='container-xxl'>
 					<div className='row'>
-						<div className={`${style.titleContainer} col-6 me-5`}>
+						<div className={`${style.titleContainer} col-md-6 me-5 col-12 text-center text-md-start`}>
 							<h5>{props.nombre}</h5>
 							<hr />
 							<img src={props.image} className='img-fluid' alt='' />
 							<p className={`${style.subtitle} mt-3`}>{props.descripcion}</p>
 						</div>
-						<div className={`${style.contactContainer} col-5`}>
-							<h5>CONTACTANOS</h5>
+						<div className={`${style.contactContainer} col-12 col-md-5 `}>
+							<h5 className="text-center">CONTACTANOS</h5>
 							<hr />
 							<p className={`${style.subtitle} mt-3`}>Horarios de atención</p>
 							<span>

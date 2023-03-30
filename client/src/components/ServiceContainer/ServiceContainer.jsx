@@ -1,6 +1,6 @@
 import { useServices } from "../../hooks/useStore";
 import ServiceCard from "../ServiceCard/ServiceCard";
-
+import servicesImage from '../../../public/images/service-img.jpg'
 const ServiceContainer = () => {
 	const [filteredServices, allServices] = useServices((state) => [
 		state.filteredServices,
@@ -18,7 +18,7 @@ const ServiceContainer = () => {
 							tipo={service.tipo}
 							pais={service.pais}
 							direccion={service.direccion}
-							image={service.image}
+							image={servicesImage}
 							mail={service.mail}
 							telefono={service.telefono}
 							descripcion={service.descripcion}
