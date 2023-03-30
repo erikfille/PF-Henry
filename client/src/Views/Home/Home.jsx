@@ -7,7 +7,7 @@ const Home = () => {
             <div className={style.bgImage}>
                <img src="images/bg-paw.png" alt="logo=patas" />
             </div>
-            <div className={style.title}>
+            <div className={`${style.title} text-center`}>
                <h1 className={style.title1}>Una comunidad de</h1>
                <h2 className={style.title2}>AMOR Y CUIDADO</h2>
             </div>

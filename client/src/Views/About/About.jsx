@@ -46,7 +46,7 @@ export default function About() {
          <Meta title={"Contacto"} />
          <BreadCrump title='Sobre Nosotros' />
          <div className='home-wrapper-2 col-12 d-flex flex-column align-items-center'>
-				<h1 className='fw-bold py-5'>
+				<h1 className='fw-bold py-5 text-center'>
                ¡El equipo detrás de este hermoso proyecto!
 				</h1>
 				<div className={`${styles.aboutContainer} col-10 bg-white mb-5 p-5 d-flex flex-column gap-30`}>

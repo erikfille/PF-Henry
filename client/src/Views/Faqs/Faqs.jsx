@@ -8,7 +8,7 @@ export default function Faqs() {
 			<Meta title={"Faqs"} />
 			<BreadCrump title='Faqs' />
 			<div className='home-wrapper-2 col-12 d-flex flex-column align-items-center'>
-				<h1 className='fw-bold py-5'>
+				<h1 className='fw-bold py-5 text-center mx-5'>
 					Ayuda y preguntas frecuentes para cuidar a tu mascota
 				</h1>
 				<div className={`${styles.containerFaq} col-10 bg-white mb-5 p-5`}>
