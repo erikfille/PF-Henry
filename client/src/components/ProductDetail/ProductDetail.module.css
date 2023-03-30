@@ -1,3 +1,11 @@
+.container {
+	border-radius: 10px;
+}
+
+.container > img {
+	border-radius: 35px;
+}
+
 hr {
 	color: #0cc5ba;
 }
@@ -19,4 +27,18 @@ a,
 .resena:hover {
 	color: #0cc5ba;
 	font-weight: 700;
+}
+
+@media screen and (max-width: 700px) {
+	.container > img {
+		margin: 20px 0;
+		border-radius: 5px;
+	}
+}
+
+@media screen and (max-width: 992px) {
+	.container > img {
+		margin: 20px 0;
+		border-radius: 5px;
+	}
 }

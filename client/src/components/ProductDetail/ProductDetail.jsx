@@ -34,11 +34,11 @@ export default function ProductDetail(props) {
 
   return (
     <div className="container mb-5">
-      <div className="row mt-3 gx-5">
-        <div className="col-12 col-md-6 bg-white py-4 rounded-3 d-flex align-items-center">
-          <img src={imagen} alt="productImage" className="img-fluid" />
+      <div className="row gx-5">
+        <div className={`${styles.container} col-12 col-md-6 bg-white d-flex justify-content-center mt-5`}>
+          <img src={imagen} alt="productImage" className="img-fluid p-lg-4" />
         </div>
-        <div className="container col-12 col-md-6 bg-white py-4 rounded-3">
+        <div className={`${styles.container} container col-12 col-md-6 bg-white py-4 mt-5`}>
           <h1 className="fw-bold">{titulo}</h1>
           <hr />
           <h3 className="fw-bold fs-5">AR$ {precio}</h3>

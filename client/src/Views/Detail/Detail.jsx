@@ -31,18 +31,20 @@ export default function Detail() {
   }, [productId]);
 
   return (
-    <div className="home-wrapper-2 ">
-      <Meta title={"Detalle"} />
-      <BreadCrump title="Detalle de Producto" />
-      {loading ? (
-        <Loader />
-      ) : (
-        <div>
-          <ProductDetail productDetail={productDetail} />
-          {/* <ProviderDetail providerDetail={providerDetail} /> */}
-          <ProductReviews productDetail={productDetail} id="reseñar" />
-        </div>
-      )}
-    </div>
+    <>
+        <Meta title={"Detalle"} />
+        <BreadCrump title="Detalle de Producto" />
+        <div className="home-wrapper-2 px-5">
+          {loading ? (
+            <Loader />
+          ) : (
+            <div>
+              <ProductDetail productDetail={productDetail} />
+              {/* <ProviderDetail providerDetail={providerDetail} /> */}
+              <ProductReviews productDetail={productDetail} id="reseñar" />
+            </div>
+          )}
+      </div>
+    </>
   );
 }

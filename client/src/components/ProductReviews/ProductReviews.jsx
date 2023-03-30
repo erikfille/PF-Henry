@@ -73,62 +73,66 @@ export default function ProductReviews(props) {
 
   return (
     <div>
-      <h1 className="ms-3 ms-sm-5 fw-bold">Reseñas</h1>
-      <div className="container-md bg-white px-3 py-4 rounded-3">
-        <h1 className="fw-bold">Reseñas de Clientes</h1>
-        <ReactStars
-          count={5}
-          size={20}
-          value={rating}
-          edit={false}
-          activeColor="#ffd700"
-          className={`d-inline-flex me-3 ${styles.stars}`}
-        />
-        <span className={`${styles.span} fw-bold`}>
-          Basada en {reviews.length} usuarios
-        </span>
+      {/* <h1 className="fw-bold mb-5">Reseñas</h1> */}
+      <div className="container-xxl">
+        <div className="row">
+          <div className={`${styles.containerReview} col-12 container-md bg-white mb-5 p-5`}>
+            <h1 className="fw-bold">Reseñas de Clientes</h1>
+            <ReactStars
+              count={5}
+              size={20}
+              value={rating}
+              edit={false}
+              activeColor="#ffd700"
+              className={`d-inline-flex me-3 ${styles.stars}`}
+            />
+            <span className={`${styles.span} fw-bold`}>
+              Basada en {reviews.length} usuarios
+            </span>
 
-        <hr />
-        <div className="">
-          <h3 className="fw-bold fs-5">Escribe una reseña</h3>
-          <p className={`${styles.span} fw-bold mb-1`}>Calificación</p>
-          <ReactStars
-            count={5}
-            size={20}
-            value={qualify}
-            edit={true}
-            activeColor="#ffd700"
-          />
-          <p className={`${styles.span} fw-bold mt-2`}>Reseña</p>
-          <textarea
-            className={`form-control ${styles.textReview}`}
-            placeholder="Escribe aquí tu reseña"
-            type="text"
-            name="review"
-            value={review}
-            onChange={handleInputChange}
-          />
-        </div>
-        <div className="mt-5">
-          {reviews.map((r) => (
-            <div className="mt-5">
-              <div className="d-sm-flex align-items-end mt-0">
-                <h1 className="fw-bold fs-3 me-3">{r.usuario}</h1>
-                <ReactStars
-                  count={5}
-                  size={20}
-                  value={r.rating}
-                  edit={false}
-                  activeColor="#ffd700"
-                  className={styles.stars}
-                />
-              </div>
-              <div>
-                <span className={`${styles.span}`}>{r.fecha}</span>
-                <p className={`${styles.span} pt-3`}>{r.comentario}</p>
-              </div>
+            <hr />
+            <div className="">
+              <h3 className="fw-bold fs-5">Escribe una reseña</h3>
+              <p className={`${styles.span} fw-bold mb-1`}>Calificación</p>
+              <ReactStars
+                count={5}
+                size={20}
+                value={qualify}
+                edit={true}
+                activeColor="#ffd700"
+              />
+              <p className={`${styles.span} fw-bold mt-2`}>Reseña</p>
+              <textarea
+                className={`form-control ${styles.textReview}`}
+                placeholder="Escribe aquí tu reseña"
+                type="text"
+                name="review"
+                value={review}
+                onChange={handleInputChange}
+              />
             </div>
-          ))}
+            <div className="mt-5">
+              {reviews.map((r) => (
+                <div className="mt-5">
+                  <div className="d-sm-flex align-items-end mt-0">
+                    <h1 className="fw-bold fs-3 me-3">{r.usuario}</h1>
+                    <ReactStars
+                      count={5}
+                      size={20}
+                      value={r.rating}
+                      edit={false}
+                      activeColor="#ffd700"
+                      className={styles.stars}
+                    />
+                  </div>
+                  <div>
+                    <span className={`${styles.span}`}>{r.fecha}</span>
+                    <p className={`${styles.span} pt-3`}>{r.comentario}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
       </div>
     </div>
