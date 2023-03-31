@@ -5,7 +5,6 @@ import { useState, useEffect } from "react";
 import { useProduct } from "../../hooks/useStore";
 import { NavLink } from "react-router-dom";
 
-
 export default function Cart() {
 	const [isOpen, setIsOpen] = useState(false); // El boton de CART del header debe modificar este estado. inicalmente debe estar en False.
 
@@ -69,6 +68,9 @@ export default function Cart() {
 				</div>
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 2fd0e5f (Agregado boton fin compra, totalPrice al store)
 				{!cartProducts.length ? (
 					<>
 						<div
@@ -124,6 +126,7 @@ export default function Cart() {
 			</div>
 		</>
 	);
+<<<<<<< HEAD
 =======
         {!cartProducts.length ? (
           <>
@@ -178,4 +181,6 @@ export default function Cart() {
     </>
   );
 >>>>>>> 7a6e08f (Add checkout route and navlink)
+=======
+>>>>>>> 2fd0e5f (Agregado boton fin compra, totalPrice al store)
 }
