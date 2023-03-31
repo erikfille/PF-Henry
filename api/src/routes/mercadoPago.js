@@ -16,6 +16,7 @@ const carrito = [
   {title: "Producto 3", quantity: 6, price: 200},
 ];
 
+// Convertir el carrito de compras en un arreglo de items de MercadoPago
 const item_ml = carrito.map(i => ({
   title: i.title,
   unit_price: i.price,
@@ -26,11 +27,11 @@ const mercadoPagoRoutes = [
   {
     method: 'GET',
     path: '/',
-    handler: (request, h) => {
+    handler: async (request, h) => {
       const id_orden = 1;
   
       let preference = {
-        items: items_ml,
+        items: item_ml,
         external_reference: `${id_orden}`,
         payment_methods: {
           excluded_payment_types: [
@@ -42,50 +43,44 @@ const mercadoPagoRoutes = [
         },
         back_urls: {
           success: 'http://localhost:3000/mercadopago/pagos',
-          failuire: 'http://localhost:3000/mercadopago/pagos',
+          failure: 'http://localhost:3000/mercadopago/pagos',
           pending: 'http://localhost:3000/mercadopago/pagos'
         },
       };
   
-      mercadoPago.preferences.create(preference)
-      .then(function(response){
+      try {
+        const response = await mercadoPago.preferences.create(preference);
         global.id = response.body.id;
-        console.log(response.body)
+        console.log(response.body);
         return h.response({id: global.id}).code(200);
-      })
-      .catch(function (error){
+      } catch (error) {
         console.log(error);
         return h.response(error).code(500);
-      });
+      }
     }
   },
   {
     method: 'GET',
     path: '/pagos',
-    handler: (request, h) => {
+    handler: async (request, h) => {
       const payment_id = request.query.payment_id;
       const payment_status = request.query.status;
       const external_reference = request.query.external_reference;
       const merchant_order_id = request.query.merchant_order_id;
   
-      Order.findOneAndUpdate({ _id: external_reference }, {
-        payment_id: payment_id,
-        payment_status: payment_status,
-        merchant_order_id: merchant_order_id,
-        status: "completed",
-      })
-      .then((order) => {
+      try {
+        const order = await Order.findOneAndUpdate({ _id: external_reference }, {
+          payment_id: payment_id,
+          payment_status: payment_status,
+          merchant_order_id: merchant_order_id,
+          status: "completed",
+        });
         console.info('Salvando order');
         return h.redirect("http://localhost:3000").code(302);
-      })
-      .catch((err) => {
+      } catch (err) {
         console.error('error al salvar', err);
         return h.redirect(`http://localhost:3000/?error=${err}&where=al+salvar`).code(500);
-      })
-      .catch((err) => {
-          console.error('error al buscar', err);
-          return h.redirect(`http://localhost:3000/?error=${err}&where=al+buscar`).code(500);
-        })
+      }
     },
   },
   {
