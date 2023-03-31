@@ -27,22 +27,25 @@ export default function CheckOut() {
 								<table className="table table-hover align-middle table-borderless">
 									<thead>
 										<tr>
-											<th scope="col" className="align-middle text-center">
+											<th scope="col" className="align-middle text-center fs-5">
 												Imagen
 											</th>
-											<th scope="col" className="align-middle text-center">
+											<th scope="col" className="align-middle text-center fs-5">
 												Producto
 											</th>
-											<th scope="col" className="align-middle text-center">
+											<th scope="col" className="align-middle text-center fs-5">
 												Precio
 											</th>
-											<th scope="col" className="align-middle text-center">
+											<th scope="col" className="align-middle text-center fs-5">
 												Cantidad
 											</th>
-											<th scope="col" className="align-middle text-center">
+											<th scope="col" className="align-middle text-center fs-5">
 												Subtotal
 											</th>
-											<th scope="col" className="align-middle text-center" width="5"></th>
+											<th
+												scope="col"
+												className="align-middle text-center  fs-5"
+												width="5"></th>
 										</tr>
 									</thead>
 									<tbody>
@@ -60,10 +63,10 @@ export default function CheckOut() {
 														alt="logo-producto"
 													/>
 												</td>
-												<td className="align-middle text-center">{p.titulo}</td>
-												<td className="align-middle text-center">$ {p.precio}</td>
-												<td className="align-middle text-center">{p.quantity}</td>
-												<td className="align-middle text-center">
+												<td className="align-middle text-center fw-bold">{p.titulo}</td>
+												<td className="align-middle text-center fw-bold">$ {p.precio}</td>
+												<td className="align-middle text-center fw-bold">{p.quantity}</td>
+												<td className="align-middle text-center fw-bold">
 													{(p.quantity * p.precio).toFixed(2)}
 												</td>
 												<td className={`align-middle text-center ${styles.buttonDelete}`}>
