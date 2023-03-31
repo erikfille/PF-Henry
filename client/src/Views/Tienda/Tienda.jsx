@@ -84,10 +84,6 @@ export default function Tienda() {
 		}
 	}, [inputSearch]);
 
-	const handleOnChange = (e) => {
-		setValue(e.target.value);
-	};
-
 	const handlerOrder = (e) => {
 		e.preventDefault();
 		if (e.target.value) ordered(e.target.value);
