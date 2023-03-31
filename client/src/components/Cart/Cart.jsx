@@ -7,7 +7,6 @@ import { NavLink } from "react-router-dom";
 
 export default function Cart() {
 	const [isOpen, setIsOpen] = useState(false); // El boton de CART del header debe modificar este estado. inicalmente debe estar en False.
-
 	const [
 		cartProducts,
 		cartState,
@@ -40,7 +39,7 @@ export default function Cart() {
 
 	return (
 		<>
-			<div className={style.shoppingCart} style={{ display: isOpen ? "block" : "none" }}>
+			<div className={`${style.shoppingCart} ${isOpen ? style.show : style.hidden}`}>
 				<div className="d-flex justify-content-end">
 					<button onClick={() => setActiveCart()} className="button">
 						Cerrar
