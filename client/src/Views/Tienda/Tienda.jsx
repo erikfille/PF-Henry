@@ -1,10 +1,10 @@
-import ProductsContainer from "../../components/ProductsContainer/ProductsContainer";
+iimport ProductsContainer from "../../components/ProductsContainer/ProductsContainer";
 import Meta from "../../components/Meta/Meta";
 import BreadCrump from "../../components/BreadCrump/BreadCrump";
 import { useState, useEffect } from "react";
 import { useProduct } from "../../hooks/useStore";
 import Loader from "../../components/Loader/Loader";
-import Paginate from "../../components/Paginate/Paginate";
+
 import style from "./Tienda.module.css";
 
 export default function Tienda() {
@@ -16,7 +16,7 @@ export default function Tienda() {
     animal: "all",
     price: 300,
   });
-
+ 
   const [
     getProducts,
     allProducts,
@@ -107,6 +107,37 @@ export default function Tienda() {
     setInputSearch(e.target.value);
     searchProduct(inputSearch);
   };
+
+  
+  
+const products = useProduct(state => state.filteredProducts);
+
+
+const [currentPage, setCurrentPage] = useState(1);
+
+const productsPerPage = 5
+const pagesToShow = 3;
+
+const indexOfLastProduct = currentPage * productsPerPage;
+const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
+
+const currentProducts = products
+  .slice(indexOfFirstProduct, indexOfLastProduct);
+ 
+
+const totalPages = Math.ceil(products.length / productsPerPage) 
+const maxPages = Math.min(currentPage + Math.floor(pagesToShow/2), totalPages) 
+const minPages = Math.max(currentPage - Math.floor(pagesToShow/2), 1)
+const pages = [...Array(maxPages - minPages + 1).keys()].map(i => minPages + i) 
+
+const handlePrevPage = () => {
+  if (currentPage > 1) setCurrentPage(currentPage - 1);
+};
+
+const handleNextPage = () => {
+  if (currentPage < totalPages) setCurrentPage(currentPage + 1);
+};
+
 
   return (
     <>
@@ -232,16 +263,37 @@ export default function Tienda() {
                 <Loader />
               ) : (
                 <div className="product-list pb-5">
-      
+
                   <div className="d-flex flex-wrap gap-2">
-                    <ProductsContainer />{" "}
+                    <ProductsContainer product={currentProducts} />{" "}
                   </div>{" "}
                 </div>
               )}
             </div>
           </div>
-          <div>
-            <Paginate/>
+          <div className="row">
+            <div className="col">
+              <div aria-label="Page navigation">
+                <ul className="pagination justify-content-center">
+                  <li className={`page-item ${currentPage === 1 ? "disabled" : ""}`}>
+                    <button className="page-link" onClick={handlePrevPage} style={{border: "none", backgroundColor: "transparent", color: "#0CC5BA", fontWeight: "bold"}}>Anterior</button>
+                  </li>
+                    {pages.map(page => (
+                      <button
+                        key={page}
+                        className={`btn btn-outline-secondary mx-1 ${page === currentPage ? "active" : ""}`}
+                        onClick={() => setCurrentPage(page)}
+                        style={{border: "none", backgroundColor: "transparent", color: page === currentPage ? "#0CC5BA" : "black", outline: "none", fontWeight: "bold"}}
+                      >
+                        {page}
+                      </button>
+                    ))}
+                  <li className={`page-item ${currentPage === totalPages ? "disabled" : ""}`}>
+                    <button className="page-link" onClick={handleNextPage} style={{border: "none", backgroundColor: "transparent", color: "#0CC5BA", fontWeight: "bold"}}>Siguiente</button>
+                  </li>
+                </ul>
+              </div>
+            </div>
           </div>
         </div>
       </div>
