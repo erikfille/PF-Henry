@@ -22,6 +22,7 @@ const modifyingProveedorRoutes = require("./routes/Proveedores/putProveedor")
 const createComentarioResenaRoute = require("./routes/comentariosResenas")
 const especieRoutes = require("./routes/especies")
 const nodeMailerRoutes = require("./routes/nodeMailerRoute")
+const mercadoPagoRoutes = require ("./routes/mercadoPago")
 
 const init = async () => {
   const server = new hapi.Server({
@@ -113,6 +114,7 @@ const init = async () => {
   server.route(createComentarioResenaRoute);
   server.route(especieRoutes)
   server.route(nodeMailerRoutes)
+  server.route(mercadoPagoRoutes)
 
   await server.start();
   console.log(`el servidor esta corriendo en ${server.info.uri}`);
