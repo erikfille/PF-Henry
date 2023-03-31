@@ -40,9 +40,7 @@ export default function Cart() {
 
 	return (
 		<>
-			<div
-				className={style.shoppingCart}
-				style={{ display: isOpen ? "block" : "none" }}>
+			<div className={style.shoppingCart} style={{ display: isOpen ? "block" : "none" }}>
 				<div className="d-flex justify-content-end">
 					<button onClick={() => setActiveCart()} className="button">
 						Cerrar
@@ -66,11 +64,6 @@ export default function Cart() {
 						style={{ width: "430px" }}
 					/>
 				</div>
-
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 2fd0e5f (Agregado boton fin compra, totalPrice al store)
 				{!cartProducts.length ? (
 					<>
 						<div
@@ -83,8 +76,7 @@ export default function Cart() {
 					</>
 				) : (
 					<>
-						<div
-							className={`${style.products} d-flex flex-column align-items-center`}>
+						<div className={`${style.products} d-flex flex-column align-items-center`}>
 							{typeof cartProducts === "object" &&
 								cartProducts.length &&
 								cartProducts.map(
@@ -105,17 +97,14 @@ export default function Cart() {
 						</div>
 						<div className={style.container}>
 							<div className={`${style.totalContainer} mb-5`}>
-								<div
-									className={`${style.total} d-flex justify-content-between mb-2`}>
+								<div className={`${style.total} d-flex justify-content-between mb-2`}>
 									<h6>Total ($ USD)</h6>
 									<h6>{totalPrice}</h6>
 								</div>
 							</div>
 							<div className="d-flex justify-content-center">
 								<NavLink to="/checkout">
-									<button
-										className="button"
-										onClick={() => setActiveCart(false)}>
+									<button className="button" onClick={() => setActiveCart(false)}>
 										Confirmar pedido
 									</button>
 								</NavLink>
@@ -126,61 +115,4 @@ export default function Cart() {
 			</div>
 		</>
 	);
-<<<<<<< HEAD
-=======
-        {!cartProducts.length ? (
-          <>
-            <div
-              className={`${style.cartEmpty} d-flex flex-column align-items-center py-5`}
-            >
-              <p>Tu carrito esta vacio</p>
-              <NavLink onClick={() => setActiveCart()} to="/tienda">Ir a la tienda</NavLink>
-            </div>
-          </>
-        ) : (
-          <>
-            <div className={`${style.products} d-flex flex-column align-items-center`}>
-              {typeof cartProducts === "object" &&
-                cartProducts.length &&
-                cartProducts.map(
-                  (
-                    product // Aca se mapea los items de cart del store.
-                  ) => (
-                    <ProductCard // y por cada item renderiza una card con el estilo para el carrito.
-                      key={product._id}
-                      id={product._id}
-                      titulo={product.titulo}
-                      price={product.precio}
-                      imagen={product.imagen}
-                      cant={product.quantity}
-                      showAs="cart"
-                    />
-                  )
-                )}
-            </div>
-            <div className={style.container}>
-              <div className={`${style.totalContainer} mb-5`}>
-                <div
-                  className={`${style.total} d-flex justify-content-between mb-2`}
-                >
-                  <h6>Total ($ USD)</h6>
-                  <h6>{total}</h6>
-                </div>
-              </div>
-              <div className="d-flex justify-content-center">
-                <button className="button" onClick={()=> setActiveCart(false)}>
-                  <NavLink to='/checkout'>
-                    Confirmar pedido
-                  </NavLink>
-                  </button>
-              </div>
-            </div>
-          </>
-        )}
-      </div>
-    </>
-  );
->>>>>>> 7a6e08f (Add checkout route and navlink)
-=======
->>>>>>> 2fd0e5f (Agregado boton fin compra, totalPrice al store)
 }
