@@ -64,6 +64,7 @@ export default function Cart() {
 						style={{ width: "430px" }}
 					/>
 				</div>
+
 				{!cartProducts.length ? (
 					<>
 						<div
