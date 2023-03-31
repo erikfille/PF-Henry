@@ -122,19 +122,19 @@ export const useProduct = create((set, get) => ({
     const { cartProducts } = get();
     window.sessionStorage.setItem("cart", JSON.stringify(cartProducts));
   },
-  maxPage: () => {
-    const { allProducts } = get();
-    let max = Math.ceil(allProducts.length / 10);
-    set((state) => ({ storeMaxPage: max }));
-  },
-  handlerNext: () => {
-    const { storeMaxPage, storePage } = get();
-    if (storeMaxPage > storePage) set((state) => ({ storePage: state.storePage + 1 }));
-  },
-  handlerPrevious: () => {
-    const { storePage } = get();
-    if (storePage > 1) set((state) => ({ storePage: state.storePage - 1 }));
-  },
+  // maxPage: () => {
+  //   const { allProducts } = get();
+  //   let max = Math.ceil(allProducts.length / 10);
+  //   set((state) => ({ storeMaxPage: max }));
+  // },
+  // handlerNext: () => {
+  //   const { storeMaxPage, storePage } = get();
+  //   if (storeMaxPage > storePage) set((state) => ({ storePage: state.storePage + 1 }));
+  // },
+  // handlerPrevious: () => {
+  //   const { storePage } = get();
+  //   if (storePage > 1) set((state) => ({ storePage: state.storePage - 1 }));
+  // },
   
 }));
 
