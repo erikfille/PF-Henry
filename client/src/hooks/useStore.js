@@ -112,14 +112,14 @@ export const useProduct = create((set, get) => ({
 		const { cartState } = get();
 
 		if (cartState === false) {
-			let recoveredCart = JSON.parse(window.sessionStorage.getItem("cart"));
+			let recoveredCart = JSON.parse(window.localStorage.getItem("cart"));
 			recoveredCart && set((state) => ({ cartProducts: recoveredCart }));
 		}
 		set((state) => ({ cartState: state.cartState ? false : true }));
 	},
 	saveCartToStorage: () => {
 		const { cartProducts } = get();
-		window.sessionStorage.setItem("cart", JSON.stringify(cartProducts));
+		window.localStorage.setItem("cart", JSON.stringify(cartProducts));
 	},
 	maxPage: () => {
 		const { allProducts } = get();
