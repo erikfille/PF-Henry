@@ -1,4 +1,4 @@
-const { Order } = require("../models/orders/order");
+const  Order  = require("../models/orders/order");
 const mercadoPago = require('mercadopago');
 const { ACCESS_TOKEN } = process.env;
 
@@ -10,36 +10,36 @@ mercadoPago.configure({
   access_token: ACCESS_TOKEN
 });
 
-const carrito = [
-  {title: "Producto 1", quantity: 5, price: 10.52},
-  {title: "Producto 2", quantity: 15, price: 100.52},
-  {title: "Producto 3", quantity: 6, price: 200},
-];
+// const carrito = [
+//   {title: "Producto 1", quantity: 5, price: 10.52},
+//   {title: "Producto 2", quantity: 15, price: 100.52},
+//   {title: "Producto 3", quantity: 6, price: 200},
+// ];
 
-// Convertir el carrito de compras en un arreglo de items de MercadoPago
-const item_ml = carrito.map(i => ({
-  title: i.title,
-  unit_price: i.price,
-  quantity: i.quantity,
-}));
+// // Convertir el carrito de compras en un arreglo de items de MercadoPago
+// const item_ml = carrito.map(i => ({
+//   title: i.title,
+//   unit_price: i.price,
+//   quantity: i.quantity,
+// }));
 
 const mercadoPagoRoutes = [
   {
-    method: 'GET',
+    method: 'POST',
     path: '/',
     handler: async (request, h) => {
-      const id_orden = 1;
-  
+      const {id, items, installments } = request.payload;
+    
       let preference = {
-        items: item_ml,
-        external_reference: `${id_orden}`,
+        items: items,
+        external_reference: id,
         payment_methods: {
           excluded_payment_types: [
             {
               id: "atm"
             }
           ],
-          installments: 3
+          installments: installments
         },
         back_urls: {
           success: 'http://localhost:3000/mercadopago/pagos',
@@ -47,10 +47,12 @@ const mercadoPagoRoutes = [
           pending: 'http://localhost:3000/mercadopago/pagos'
         },
       };
-  
+
+     
+    
       try {
         const response = await mercadoPago.preferences.create(preference);
-        global.id = response.body.id;
+        global.id = response.body.sandbox_init_point;
         console.log(response.body);
         return h.response({id: global.id}).code(200);
       } catch (error) {
