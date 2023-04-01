@@ -7,6 +7,8 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 require("dotenv").config();
 const accountTransport = require('../account_transport.json');
+const {validateNewUser, validateUser, validate} = require('../libs/validateFunction');
+const Boom = require('@hapi/boom');
 
 const usuariosRoutes = [
   {
@@ -19,6 +21,9 @@ const usuariosRoutes = [
       try {
         const { name, surname, email, password } = request.payload;
   
+        // Verifico credenciales con Joi
+        await validateUser(request.payload);
+
         // Verificar si el usuario ya existe
         const existingUser = await Usuario.findOne({ email });
         if (existingUser) {
@@ -31,7 +36,9 @@ const usuariosRoutes = [
         await user.save();
   
         // Crear un token JWT
-        const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET);
+        const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, {
+          expiresIn: 60 * 60 * 72 // 72 horas
+        });
   
         // Enviar un correo electrónico de bienvenida al usuario
         const transporter = nodemailer.createTransport(accountTransport);
@@ -45,9 +52,10 @@ const usuariosRoutes = [
   
         await transporter.sendMail(mailOptions);
   
-        return { token };
+        return h.response({email: user.email, name: user.name, token: token});
+
       } catch (error) {
-        console.log(error);
+        console.log(error)
         return h.response({ error: 'Error al crear el usuario' }).code(500);
       }
     },
@@ -62,7 +70,7 @@ const usuariosRoutes = [
         try {
           // Buscar el usuario por su email y contraseña y hacer el populate del campo "rol"
           const usuario = await Usuario.findOne({ email, password }).populate("rol");
-          
+          console.log(usuario)
           if (!usuario) {
             return h.response({ error: "El correo electrónico o la contraseña no coinciden" }).code(401);
           }
