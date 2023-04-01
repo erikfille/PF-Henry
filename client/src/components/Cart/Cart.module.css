@@ -3,13 +3,13 @@
 	z-index: 1000;
 	right: 0;
 	top: 0%;
-	background-color: #fff;
+	background-color: var(--body_background);
 	width: 450px;
 	height: 100vh;
 	overflow: auto;
 	padding: 25px;
 	box-sizing: border-box;
-	box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+	box-shadow: var(--body_boxshadow);
 	display: flex;
 	flex-direction: column;
 	transition: 0.5s all ease-in-out;
@@ -27,6 +27,7 @@
 
 .titleCart > h2 {
 	font-weight: 700;
+	color: var(--body_color)
 }
 
 .cartEmpty > a,
@@ -35,6 +36,10 @@
 	font-weight: 600;
 	color: var(--color-0CC5BA);
 	position: relative;
+}
+
+.cartEmpty > p {
+	color: var(--body_color)
 }
 
 .cartEmpty > a:hover,
@@ -50,6 +55,7 @@
 
 .total > h6 {
 	font-weight: 700;
+	color: var(--body_color);
 }
 
 .products {

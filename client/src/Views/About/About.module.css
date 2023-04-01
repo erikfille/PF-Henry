@@ -8,15 +8,19 @@
 
 .aboutContainer {
   border-radius: 10px;
+  background-color: var(--body_background);
 }
 
 .imgPerfil{
   max-width: 80%;
-  box-shadow: 5px 1px 10px rgba(0, 0, 0, 0.458);
+  box-shadow: var(--body_boxshadow);
+}
+
+.title {
+  color: var(--body_color);
 }
 
 .name {
   font-weight: 700;
+  color: var(--body_color);
 }
-  
-  

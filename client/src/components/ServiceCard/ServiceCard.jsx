@@ -31,15 +31,15 @@ export default function ServiceCard(props) {
 								Contáctenos a <b>{props.mail}</b> o al teléfono <b>{props.telefono}</b> para agendar
 								una cita.
 							</p>
-							<div className='d-flex align-items-center gap-2 my-4'>
+							<div className={`${style.desc} d-flex align-items-center gap-2 my-4`}>
 								<h5 className='mb-0'>Tipo de servicio:</h5>
 								<span>{props.tipo}</span>
 							</div>
-							<div className='d-flex align-items-center gap-2 mb-4'>
+							<div className={`${style.desc} d-flex align-items-center gap-2 mb-4`}>
 								<h5 className='mb-0'>Dirección:</h5>
 								<span>{props.direccion}</span>
 							</div>
-							<div className='d-flex align-items-center gap-2 mb-4'>
+							<div className={`${style.desc} d-flex align-items-center gap-2 mb-4`}>
 								<h5 className='mb-0'>Pais:</h5>
 								<span>{props.pais}</span>
 							</div>

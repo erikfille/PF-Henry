@@ -94,11 +94,11 @@ export default function Servicios() {
 						<div className='col-12 col-lg-3'>
 							<div className={`${style.filterCard} mb-3 p-3 d-flex flex-lg-column`}>
 								<div className='col-6 col-lg-12 service-filter mb-md-4 me-md-3'>
-                <p className='mb-2' style={{ width: "150px" }}>
+                					<p className={`${style.p} mb-2`} style={{ width: "150px" }}>
 										Filtrar por tipo:
 									</p>
 									<select
-                    name="tipo"
+                    					name="tipo"
 										value={filterBy.tipo}
 										onChange={(e) => handlerFilter(e)}
 										className='form-select form-select-lg mb-3'
@@ -111,7 +111,7 @@ export default function Servicios() {
 									</select>
 								</div>
 								<div className='col-6 col-lg-12 location-filter'>
-									<p className='mb-2' style={{ width: "150px" }}>
+									<p className={`${style.p} mb-2`} style={{ width: "150px" }}>
 										Filtrar por pais:
 									</p>
 									<select
@@ -134,7 +134,7 @@ export default function Servicios() {
 							<div className={`${style.filterSortGrid} mb-4 p-0 p-md-2`}>
 								<div className='d-flex justify-content-between align-items-center flex-column flex-md-row'>
 									<div className='d-flex align-items-center gap-10 mb-2 px-3 mb-md-0'>
-										<p className='mb-0' style={{ width: "150px" }}>
+										<p className={`${style.p} mb-0`} style={{ width: "150px" }}>
 											Ordenar por:
 										</p>
 										<select
@@ -151,7 +151,7 @@ export default function Servicios() {
 										</select>
 									</div>
 									<div className='d-flex align-items-center gap-10'>
-										<p className='mb-0' style={{ width: "200px" }}>
+										<p className={`${style.p} mb-0`} style={{ width: "200px" }}>
 											Buscar Servicio
 										</p>
 										<input
