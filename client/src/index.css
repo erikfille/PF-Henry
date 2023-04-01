@@ -1,10 +1,23 @@
 @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@100;200;300;400;500;600;700;800;900&display=swap');
 
+:root {
+	--body_background: white;
+	--wrapper_background: #f8f8f8;
+	--body_color: #131921;
+	--body_boxshadow: 5px 1px 10px rgba(0, 0, 0, 0.458);
+}
+
+[data-theme="dark"] {
+	--body_background: rgb(32,32,44);
+	--body_color: white;
+	--wrapper_background: rgb(28, 28, 38);
+	--body_boxshadow: 0 -2px 10px rgba(0, 0, 0, 1);
+}
 
 body {
 	--bs-body-font-family: raleway, sans-serif;
 	font-weight: 400;
-  background-color: #ffffff;
+	background-color: var(--body_background);
 	font-synthesis: none;
 	text-rendering: optimizeLegibility;
 	-webkit-font-smoothing: antialiased;

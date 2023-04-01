@@ -25,13 +25,13 @@ export default function Footer() {
 						</div>
 						<div className="col-3 py-5 text-center">
 							<div className="policy d-flex flex-column justify-content-center gap-30">
-								<h4>Políticas</h4>
+								<h4 className={style.h4}>Políticas</h4>
 								<Link to=""><span className={style.spans}>Términos y Condiciones</span></Link>
 							</div>
 						</div>
 						<div className="col-3 py-5">
 							<div className="contact d-flex flex-column justify-content-center gap-30">
-								<h4>Nuestro Contacto</h4>
+								<h4 className={style.h4}>Nuestro Contacto</h4>
 								<Link to=""><span className={style.spans}> <HiOutlineLocationMarker className={style.iconContact}/> Ubicacion</span></Link>
 								<a className={style.spans} href='tel:584146482412'><BsTelephone className={style.iconContact} /> +58 4146482412</a>
 								<a className={style.spans} href='mailto:info@petsamerica.com'><HiOutlineMail className={style.iconContact} /> info@petsamerica.com</a>

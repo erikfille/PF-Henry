@@ -163,11 +163,11 @@ export default function Tienda() {
 										<div className="d-flex flex-column gap-10 justify-content-center">
 											<div className="d-flex gap-2 flex-column flex-lg-row">
 												<span className={style.prices}>Desde:</span>
-												<span>0 U$D</span>
+												<span className={style.num}>0 U$D</span>
 											</div>
 											<div className="d-flex gap-2 flex-column flex-lg-row">
 												<span className={style.prices}>Hasta:</span>
-												<span>{filterBy.price} U$D</span>
+												<span className={style.num}>{filterBy.price} U$D</span>
 											</div>
 										</div>
 									</div>
@@ -205,7 +205,7 @@ export default function Tienda() {
 							<div className={`${style.filterSortGrid} mb-4 p-2`}>
 								<div className="d-flex justify-content-between align-items-center flex-wrap">
 									<div className="d-flex align-items-center gap-10">
-										<p className="mb-0" style={{ width: "150px" }}>
+										<p className={`${style.p} mb-0`} style={{ width: "150px" }}>
 											Ordenar por:
 										</p>
 										<select
@@ -222,8 +222,8 @@ export default function Tienda() {
 											<option value="popularidad">Popularidad</option>
 										</select>
 									</div>
-									<div className="d-flex align-items-center gap-10">
-										<p className="mb-0" style={{ width: "210px" }}>
+									<div className={`${style.search} d-flex align-items-center gap-10`}>
+										<p className={`${style.p} mb-0`} style={{ width: "210px" }}>
 											Buscar producto
 										</p>
 										<input

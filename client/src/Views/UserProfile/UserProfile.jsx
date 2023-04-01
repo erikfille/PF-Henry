@@ -21,7 +21,7 @@ export default function UserProfile() {
          <div className="userProfile-wrapper home-wrapper-2 py-5">
             <div className="container-xxl">
                <div className="row d-flex flex-column align-items-center">
-                  <div className={`${style.userContainer} col-10 bg-white p-5 my-5`}>
+                  <div className={`${style.userContainer} col-10 p-5 my-5`}>
                   <div className="d-flex justify-content-end">
                      <Link to="" className={style.linkEdit}>Editar perfil</Link>
                   </div>
@@ -37,15 +37,15 @@ export default function UserProfile() {
                            </div>
                            <div className="col-7">
                               <div className={style.nameContainer}>
-                              <p className={style.name}>{u.name} {u.surname}</p>
+                                 <p className={style.name}>{u.name} {u.surname}</p>
                               </div>
-                              <div className='d-flex align-items-center gap-2 mb-4'>
-                              <h4 className='mb-0'>Email:</h4>
-                              <span>{u.email}</span>
+                              <div className={`${style.fColor} d-flex align-items-center gap-2 mb-4`}>
+                                 <h4 className='mb-0'>Email:</h4>
+                                 <span>{u.email}</span>
                               </div>
-                              <div className='d-flex align-items-center gap-2 mb-4'>
-                              <h4 className='mb-0'>Dirección:</h4>
-                              <span>{u.address}</span>
+                              <div className={`${style.fColor} d-flex align-items-center gap-2 mb-4`}>
+                                 <h4 className='mb-0'>Dirección:</h4>
+                                 <span>{u.address}</span>
                               </div>
                            </div>
                         </>
@@ -54,14 +54,14 @@ export default function UserProfile() {
                   </div>
                   </div>
                   <button className="button" style={{width: "150px"}}>Agregar Mascota</button>
-                  <div className={`${style.petsContainer} col-10 bg-white p-5 my-5`}>
+                  <div className={`${style.petsContainer} col-10 p-5 my-5`}>
                      <h4>Mis Mascotas:</h4>
                      {
                         pets.length === 0
                         ? 
                         <>
                            <div className='d-flex justify-content-center align-items-center my-5'>
-                              <h6>No tienes mascotas agregadas</h6>
+                              <h6 className={style.fColor}>No tienes mascotas agregadas</h6>
                            </div>
                         </>
                         :
@@ -72,7 +72,7 @@ export default function UserProfile() {
                         </>
                      }
                   </div>
-                  <div className={`${style.comprasContainer} col-10 bg-white p-5 my-5`}>
+                  <div className={`${style.comprasContainer} col-10 p-5 my-5`}>
                      <h4>Mis Compras:</h4>
                      {
                         compras.length === 0

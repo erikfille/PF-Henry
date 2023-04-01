@@ -3,7 +3,7 @@
     height: 370px;
     border-radius: 10px;
     background: url(images/logo-bg-product.png) no-repeat 10px;
-    background-color: #fff;
+    background-color: var(--body_background);
 }
 
 .productCard > h5 {
@@ -22,7 +22,7 @@
 }
 
 .productCart h5 {
-    color: var(--color-131921);
+    color: var(--body_color);
     line-height: 20px;
     font-weight: 600;
     font-size: 12px;
@@ -35,10 +35,11 @@
 .price {
     font-weight: 600;
     font-size: 12px;
+    color: var(--body_color);
 }
 
-.sku {
-    font-size: 1px;
+.cant {
+    color: var(--body_color);
 }
 
 .cant {
@@ -59,5 +60,9 @@
 .p {
     font-size: 16px;
     font-weight: 700;
-    color: black;
+    color: var(--body_color);
+}
+
+.rating {
+    color: var(--body_color);
 }

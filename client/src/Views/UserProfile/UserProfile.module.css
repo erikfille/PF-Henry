@@ -2,6 +2,7 @@
 .petsContainer,
 .comprasContainer {
     border-radius: 10px;
+    background-color: var(--body_background);
 }
 
 .circle {
@@ -9,7 +10,7 @@
     height: 250px;
     width: 250px;
     border-radius: 50%;
-    box-shadow: 10px 1px 10px rgba(0, 0, 0, 0.458);
+    box-shadow: var(--body_boxshadow);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -39,6 +40,7 @@
 .name {
     font-size: 38px;
     font-weight: 800;
+    color: var(--body_color);
 }
 
 .circlePet {
@@ -64,4 +66,12 @@
 .link:hover {
     font-weight: 800;
     color: var(--color-0CC5BA);
+}
+
+.fColor > h4,
+.fColor > span,
+.petsContainer > h4,
+.comprasContainer, h4,
+.fColor {
+    color: var(--body_color);
 }

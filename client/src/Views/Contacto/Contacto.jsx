@@ -13,9 +13,9 @@ export default function Contacto() {
 				</h1>
 				<div className='container-xl mt-5'>
 					<div className='row py-2'>
-						<form className='col-12 col-md-6 col-xxl-5 d-flex flex-column align-items-center bg-white py-4'>
+						<form className={`${styles.contact} col-12 col-md-6 col-xxl-5 d-flex flex-column align-items-center py-4`}>
 							<div className='mb-3  col-12 col-md-9'>
-								<label for='formGroupExampleInput' className='form-label fw-bold'>
+								<label for='formGroupExampleInput' className={`${styles.label} form-label fw-bold`}>
 									Nombre
 								</label>
 								<input
@@ -26,7 +26,7 @@ export default function Contacto() {
 								/>
 							</div>
 							<div className='mb-3 col-12 col-md-9 '>
-								<label for='formGroupExampleInput' className='form-label fw-bold'>
+								<label for='formGroupExampleInput' className={`${styles.label} form-label fw-bold`}>
 									Telefono
 								</label>
 								<input
@@ -37,7 +37,7 @@ export default function Contacto() {
 								/>
 							</div>
 							<div class='mb-3 col-12 col-md-9'>
-								<label for='exampleFormControlTextarea1' class='form-label fw-bold'>
+								<label for='exampleFormControlTextarea1' class={`${styles.label} form-label fw-bold`}>
 									Dejanos tu mensaje
 								</label>
 								<textarea
