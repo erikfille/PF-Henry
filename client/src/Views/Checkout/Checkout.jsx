@@ -3,6 +3,10 @@ import Meta from "../../components/Meta/Meta";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import styles from "./Checkout.module.css";
 import { useModal, useProduct } from "../../hooks/useStore";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import Comprar from "../Comprar"
+
 
 export default function CheckOut() {
 	const [totalPrice, setCartRemove, cartProducts] = useProduct((state) => [
@@ -12,6 +16,20 @@ export default function CheckOut() {
 	]);
 
 	const [setModal] = useModal((state) => [state.setModal]);
+	
+
+	//? pasarela de pago
+
+	const [datos, setDatos] = useState("")
+  
+	useEffect(()=>{
+	  axios
+	  .get(`http://localhost:3001/mercadopago`)
+	  .then((data)=>{
+		setDatos(data.data)
+		console.info('Contenido de data:', data)
+	  }).catch(err => console.error(err)) 
+	},[])
 
 	return (
 		<>
@@ -93,8 +111,13 @@ export default function CheckOut() {
 						<div>
 							<h1 className="fw-bold text-end m-3">Total $ {totalPrice}</h1>
 						</div>
+							
 					</div>
-				</div>
+					<div>
+						<Comprar data={datos}/>
+					</div>
+					</div>
+			
 			</div>
 		</>
 	);
