@@ -8,123 +8,134 @@ import Loader from "../../components/Loader/Loader";
 import style from "./Tienda.module.css";
 
 export default function Tienda() {
-	const [loading, setLoading] = useState(true);
-	const [order, setOrder] = useState("");
-	const [inputSearch, setInputSearch] = useState("");
-	const [filterBy, setFilterBy] = useState({
-		categoria: "all",
-		animal: "all",
-		price: 300,
-	});
+  const [loading, setLoading] = useState(true);
+  const [order, setOrder] = useState("");
+  const [inputSearch, setInputSearch] = useState("");
+  const [filterBy, setFilterBy] = useState({
+    categoria: "all",
+    animal: "all",
+    price: 300,
+  });
 
-	const [
-		getProducts,
-		allProducts,
-		filteredProducts,
-		filteredProductsWOSearch,
-		ordered,
-		searchProduct,
-		setFilter,
-		categories,
-		getCategories,
-		species,
-		getSpecies,
-	] = useProduct((state) => [
-		state.getProducts,
-		state.allProducts,
-		state.filteredProducts,
-		state.filteredProductsWOSearch,
-		state.ordered,
-		state.searchProduct,
-		state.setFilter,
-		state.categories,
-		state.getCategories,
-		state.species,
-		state.getSpecies,
-	]);
+  const [
+    getProducts,
+    allProducts,
+    filteredProducts,
+    filteredProductsWOSearch,
+    ordered,
+    searchProduct,
+    setFilter,
+    categories,
+    getCategories,
+    species,
+    getSpecies,
+  ] = useProduct((state) => [
+    state.getProducts,
+    state.allProducts,
+    state.filteredProducts,
+    state.filteredProductsWOSearch,
+    state.ordered,
+    state.searchProduct,
+    state.setFilter,
+    state.categories,
+    state.getCategories,
+    state.species,
+    state.getSpecies,
+  ]);
 
-	useEffect(() => {
-		setLoading(true);
-		if (allProducts.length) setLoading(false);
-	}, [allProducts]);
+  useEffect(() => {
+    setLoading(true);
+    if (allProducts.length) setLoading(false);
+  }, [allProducts]);
 
-	useEffect(() => {
-		getProducts();
-		getCategories();
-		getSpecies();
-	}, []);
+  useEffect(() => {
+    getProducts();
+    getCategories();
+    getSpecies();
+  }, []);
 
-	useEffect(() => {
-		const { categoria, animal, price } = filterBy;
+  useEffect(() => {
+    const { categoria, animal, price } = filterBy;
 
-		let filtered = allProducts;
-		if (categoria !== "all") {
-			filtered = filtered.filter((p) => p.categoria.nombre.toLowerCase() === categoria);
-		}
-		if (animal !== "all") {
-			filtered = filtered.filter((p) => {
-				if (p.animal) return p.animal.toLowerCase() == animal;
-			});
-		}
-		if (price < "300") {
-			filtered = filtered.filter((p) => p.precio < Number(price).toFixed(2));
-		}
-		setFilter(filtered);
-	}, [filterBy, allProducts]);
+    let filtered = allProducts;
+    if (categoria !== "all") {
+      filtered = filtered.filter(
+        (p) => p.categoria.nombre.toLowerCase() === categoria
+      );
+    }
+    if (animal !== "all") {
+      filtered = filtered.filter((p) => {
+        if (p.animal) return p.animal.toLowerCase() == animal;
+      });
+    }
+    if (price < "300") {
+      filtered = filtered.filter((p) => p.precio < Number(price).toFixed(2));
+    }
+    setFilter(filtered);
+  }, [filterBy, allProducts]);
 
-	useEffect(() => {
-		if (inputSearch.length > 0) {
-			let result = [];
-			filteredProducts.forEach((p) => {
-				p.titulo.toLowerCase().includes(inputSearch.toLowerCase()) && result.push(p);
-			});
-			searchProduct(result);
-		} else if (inputSearch.length <= 0) {
-			searchProduct(filteredProductsWOSearch);
-		}
-	}, [inputSearch]);
+  useEffect(() => {
+    if (inputSearch.length > 0) {
+      let result = [];
+      filteredProducts.forEach((p) => {
+        p.titulo.toLowerCase().includes(inputSearch.toLowerCase()) &&
+          result.push(p);
+      });
+      searchProduct(result);
+    } else if (inputSearch.length <= 0) {
+      searchProduct(filteredProductsWOSearch);
+    }
+  }, [inputSearch]);
 
-	const handlerOrder = (e) => {
-		e.preventDefault();
-		if (e.target.value) ordered(e.target.value);
-		setOrder(e.target.value);
-	};
+  const handlerOrder = (e) => {
+    e.preventDefault();
+    if (e.target.value) ordered(e.target.value);
+    setOrder(e.target.value);
+  };
 
-	const handlerFilter = (e) => {
-		if (e.target.value) {
-			setFilterBy({ ...filterBy, [e.target.name]: e.target.value });
-		}
-	};
+  const handlerFilter = (e) => {
+    if (e.target.value) {
+      setFilterBy({ ...filterBy, [e.target.name]: e.target.value });
+    }
+  };
 
-	const handlerInput = (e) => {
-		setInputSearch(e.target.value);
-		searchProduct(inputSearch);
-	};
+  const handlerInput = (e) => {
+    setInputSearch(e.target.value);
+    searchProduct(inputSearch);
+  };
 
-	const products = useProduct((state) => state.filteredProducts);
+  const products = useProduct((state) => state.filteredProducts);
 
-	const [currentPage, setCurrentPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState(1);
 
-	const productsPerPage = 5;
-	const pagesToShow = 3;
+  const productsPerPage = 5;
+  const pagesToShow = 3;
 
-	const indexOfLastProduct = currentPage * productsPerPage;
-	const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
+  const indexOfLastProduct = currentPage * productsPerPage;
+  const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
 
-	const currentProducts = products.slice(indexOfFirstProduct, indexOfLastProduct);
+  const currentProducts = products.slice(
+    indexOfFirstProduct,
+    indexOfLastProduct
+  );
 
-	const totalPages = Math.ceil(products.length / productsPerPage);
-	const maxPages = Math.min(currentPage + Math.floor(pagesToShow / 2), totalPages);
-	const minPages = Math.max(currentPage - Math.floor(pagesToShow / 2), 1);
-	const pages = [...Array(maxPages - minPages + 1).keys()].map((i) => minPages + i);
+  const totalPages = Math.ceil(products.length / productsPerPage);
+  const maxPages = Math.min(
+    currentPage + Math.floor(pagesToShow / 2),
+    totalPages
+  );
+  const minPages = Math.max(currentPage - Math.floor(pagesToShow / 2), 1);
+  const pages = [...Array(maxPages - minPages + 1).keys()].map(
+    (i) => minPages + i
+  );
 
-	const handlePrevPage = () => {
-		if (currentPage > 1) setCurrentPage(currentPage - 1);
-	};
+  const handlePrevPage = () => {
+    if (currentPage > 1) setCurrentPage(currentPage - 1);
+  };
 
-	const handleNextPage = () => {
-		if (currentPage < totalPages) setCurrentPage(currentPage + 1);
-	};
+  const handleNextPage = () => {
+    if (currentPage < totalPages) setCurrentPage(currentPage + 1);
+  };
 
 	return (
 		<>
