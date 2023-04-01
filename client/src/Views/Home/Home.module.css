@@ -10,7 +10,8 @@
     font-size: 70px;
     font-weight: 700;
     padding-top: 5%;
-    margin-bottom: 0;   
+    margin-bottom: 0;
+    color: var(--body_color);
 }
 
 .title > h2 {

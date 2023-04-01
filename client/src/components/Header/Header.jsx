@@ -38,7 +38,7 @@ const Header = () => {
           className={styles.menuButton}
         />
         <div
-          className="collapse navbar-collapse justify-content-end me-4 bg-white"
+          className="collapse navbar-collapse justify-content-end me-4"
           id="navbarNav"
         >
           <div className="navbar-nav align-items-center">
@@ -68,7 +68,7 @@ const Header = () => {
               </NavLink> */}
               <div className="dropdown">
                 <span className={`${styles.buttonCart} dropdown-toggle`} role="button" data-bs-toggle="dropdown" >
-                  <HiOutlineUserCircle />
+                  <HiOutlineUserCircle className={styles.buttonUser} />
                 </span>
                 {
                   userLogged

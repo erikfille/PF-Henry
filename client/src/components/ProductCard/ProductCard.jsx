@@ -28,8 +28,8 @@ export default function ProductCart(props) {
           </div>
           {/* </Link> */}
           <div className="d-flex flex-column cantidad me-3 align-items-center">
-            <h5 className="mb-0">Cant</h5>
-            <h5 className="mb-0">{props.cant}</h5>
+            <h5 className={`${style.cant} mb-0`}>Cant</h5>
+            <h5 className={`${style.cant} mb-0`}>{props.cant}</h5>
           </div>
           <div className="d-flex justify-content-center align-items-center botonEliminar">
             <button
@@ -78,7 +78,7 @@ export default function ProductCart(props) {
             edit={false}
             activeColor="#ffd700"
           />
-          <p className="mb-0">( {props.rating} )</p>
+          <p className={`${style.rating} mb-0`}>( {props.rating} )</p>
         </div>
         <p className={style.p}>{props.precio} U$D</p>
       </div>

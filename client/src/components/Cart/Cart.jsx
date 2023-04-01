@@ -102,11 +102,14 @@ export default function Cart() {
 									<h6>{totalPrice}</h6>
 								</div>
 							</div>
-							<div className="d-flex justify-content-center">
+							<div className="d-flex flex-column align-items-center gap-10 justify-content-center">
 								<NavLink to="/checkout">
 									<button className="button" onClick={() => setActiveCart(false)}>
 										Confirmar pedido
 									</button>
+								</NavLink>
+								<NavLink className={style.navlink} onClick={() => setActiveCart()} to="/tienda">
+								Seguir Comprando
 								</NavLink>
 							</div>
 						</div>

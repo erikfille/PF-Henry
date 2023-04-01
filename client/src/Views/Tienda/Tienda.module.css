@@ -1,10 +1,10 @@
 .filterCard {
-    background-color: #fff;
+    background-color: var(--body_background);
     border-radius: 10px;
 }
 
 .filterSortGrid {
-    background-color: #fff;
+    background-color: var(--body_background);
     border-radius: 10px;
 }
 
@@ -23,6 +23,7 @@
 .rangePrice > label {
     font-size: 20px;
     font-weight: 600;
+    color: var(--body_color);
 }
 
 .rangePrice > input::-webkit-slider-thumb {
@@ -31,4 +32,15 @@
 
 .prices {
     font-weight: 600;
+    color: var(--body_color);
 }
+
+.num {
+    color: var(--body_color);
+}
+
+.p {
+    color: var(--body_color);
+}
+
+
