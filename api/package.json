@@ -26,6 +26,6 @@
     "nodemailer-smtp-transport": "^2.7.4"
   },
   "devDependencies": {
-    "nodemon": "^2.0.21"
+    "nodemon": "^2.0.22"
   }
 }

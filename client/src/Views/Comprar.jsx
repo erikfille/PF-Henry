@@ -20,11 +20,9 @@ export default function Comprar({ productos, data }){
     },[data])
 
     return(
-  <div>
-
-  <form id='form1'>
-
-      </form>
+        <div>
+            <form id='form1'>
+            </form>
 
      </div>
     )

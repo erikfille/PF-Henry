@@ -15,4 +15,28 @@ export default defineConfig({
     host: "localhost",
     port: 3001,
   },
+  ssr: {
+    external: ["process"],
+  },
+  optimizeDeps: {
+    include: ["buffer", "process"],
+  },
+  rollupInputOptions: {
+    // Agrega la variable process al objeto globalThis
+    onwarn(warning, rollupWarn) {
+      if (
+        warning.code === "THIS_IS_UNDEFINED" &&
+        warning.message.includes("process")
+      ) {
+        return;
+      }
+      rollupWarn(warning);
+    },
+    output: {
+      globals: {
+        process: "globalThis.process",
+      },
+    },
+  },
 });
+

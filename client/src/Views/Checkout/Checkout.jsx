@@ -24,7 +24,7 @@ export default function CheckOut() {
   
 	useEffect(()=>{
 	  axios
-	  .get(`http://localhost:3000/mercadopago`)
+	  .get(`http://localhost:3001/mercadopago`)
 	  .then((data)=>{
 		setDatos(data.data)
 		console.info('Contenido de data:', data)
