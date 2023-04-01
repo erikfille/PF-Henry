@@ -10,7 +10,7 @@ import { Link } from "react-router-dom";
 import styles from "./Header.module.css";
 
 const Header = () => {
-  
+
   const [ userLogged, setUserLogged ] = useState(false); // estado hardcodeado solo para trabajar lo que muestra el boton de User.
 
   const [setActiveCart] = useProduct((state) => [state.setActiveCart]);
@@ -66,7 +66,7 @@ const Header = () => {
               {/* <NavLink to="/user" className="nav-item me-3" id="userButton">
                 <HiOutlineUserCircle />
               </NavLink> */}
-              <div class="dropdown">
+              <div className="dropdown">
                 <span className={`${styles.buttonCart} dropdown-toggle`} role="button" data-bs-toggle="dropdown" >
                   <HiOutlineUserCircle />
                 </span>

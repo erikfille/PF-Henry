@@ -15,20 +15,20 @@ export default function Servicios() {
   })
 
 	// Hooks store
-	const [allServices, filteredServices, filteredServicesWOSearch, ordered, setFilter, searchServices] =
+	const [allServices, filteredServices, filteredServicesWOSearch, ordered, getServices, setFilter, searchServices] =
   useServices((state) => [
     state.allServices,
     state.filteredServices,
     state.filteredServicesWOSearch,
     state.ordered,
-    // state.getServices,
+    state.getServices,
     state.setFilter,
     state.searchServices
   ]);
 
-  // useEffect(() => {
-  //   getServices();
-  // }, []);
+  useEffect(() => {
+    getServices();
+  }, []);
 
   // Filters
   useEffect(() => {
@@ -91,9 +91,9 @@ export default function Servicios() {
 			<div className='store-wrapper home-wrapper-2 py-5'>
 				<div className='container-xxl'>
 					<div className='row'>
-						<div className='col-3'>
-							<div className={`${style.filterCard} mb-3 p-3`}>
-								<div className='service-filter mb-4'>
+						<div className='col-12 col-lg-3'>
+							<div className={`${style.filterCard} mb-3 p-3 d-flex flex-lg-column`}>
+								<div className='col-6 col-lg-12 service-filter mb-md-4 me-md-3'>
                 <p className='mb-2' style={{ width: "150px" }}>
 										Filtrar por tipo:
 									</p>
@@ -110,7 +110,7 @@ export default function Servicios() {
 										<option value='Hogar'>Hogar / Cuidado</option>
 									</select>
 								</div>
-								<div className='location-filter'>
+								<div className='col-6 col-lg-12 location-filter'>
 									<p className='mb-2' style={{ width: "150px" }}>
 										Filtrar por pais:
 									</p>
@@ -130,10 +130,10 @@ export default function Servicios() {
 								</div>
 							</div>
 						</div>
-						<div className='col-9'>
-							<div className={`${style.filterSortGrid} mb-4 p-2`}>
-								<div className='d-flex justify-content-between align-items-center flex-wrap'>
-									<div className='d-flex align-items-center gap-10'>
+						<div className='col-12 col-md-9'>
+							<div className={`${style.filterSortGrid} mb-4 p-0 p-md-2`}>
+								<div className='d-flex justify-content-between align-items-center flex-column flex-md-row'>
+									<div className='d-flex align-items-center gap-10 mb-2 px-3 mb-md-0'>
 										<p className='mb-0' style={{ width: "150px" }}>
 											Ordenar por:
 										</p>
