@@ -1,5 +1,5 @@
 //? React
-import React from "react";
+import React, { useEffect, useState} from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
 import axios from "axios";
 
@@ -7,6 +7,7 @@ import axios from "axios";
 import Footer from "./components/Footer/Footer";
 import Cart from "./components/Cart/Cart";
 import ModalConsultaGenerico from "./components/ModalGenerico/ModalConsultaGenerico";
+import { useProduct } from "../src/hooks/useStore";
 
 //? Views
 import Home from "./Views/Home/Home";
@@ -25,15 +26,23 @@ import CheckOut from "./Views/Checkout/Checkout";
 //? Styles
 import "./App.css";
 
+
 axios.defaults.baseURL = "http://localhost:3000";
 
 function App() {
   const location = useLocation();
+  
 
+  
   return (
     <div className="App">
       {location.pathname !== "/login" && <Header /> &&
         location.pathname !== "/signup" && <Header />}
+        
+      {/* { !datos
+        ? <p>Aguarde un momento...</p>
+        : <CheckOut productos={productos} data ={datos}/>
+      } */}
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Login />} />
