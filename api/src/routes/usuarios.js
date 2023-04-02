@@ -127,7 +127,7 @@ const usuariosRoutes = [
     path: "/users/GoogleLogin",
     options: {
       async handler(request, h) {
-        const { email, password, name, surname, image } = request.payload;
+        const { email, password, name, surname, image, rol} = request.payload;
   
         try {
 
@@ -195,17 +195,18 @@ const usuariosRoutes = [
     path: "/users/{id}/role",
     handler: async (request, h) => {
       const { id } = request.params;
-    const { rol } = request.payload;
+    const { role } = request.payload;
       try {
         // Buscar el usuario por su id
       const usuario = await Usuario.findById(id);
+      console.log(usuario)
       // Si el usuario no existe, devolver un error
       if (!usuario) {
         return h.response({ error: "El usuario no existe" }).code(404);
       }
       // Si se especificó un rol en la solicitud, buscar el rol por su nombre
-      if (rol) {
-        const rolEncontrado = await Rol.findOne({ nombre: rol });
+      if (role) {
+        const rolEncontrado = await Rol.findOne({ nombre: role });
         // Si el rol no existe, devolver un error
         if (!rolEncontrado) {
           return h.response({ error: "El rol especificado no existe" }).code(400);
@@ -213,9 +214,12 @@ const usuariosRoutes = [
         // Actualizar el rol del usuario
         usuario.rol = rolEncontrado._id;
       }
+
+      
       // Guardar los cambios en la base de datos
       await usuario.save();
-      return h.response(usuario);
+      const usuarioGuardado = await Usuario.findById(id).select('name surname image rol email').populate('rol')
+      return h.response(usuarioGuardado);
       } catch (error) {
         return h.response({ error: "Error al actualizar el usuario" }).code(500);
       }
