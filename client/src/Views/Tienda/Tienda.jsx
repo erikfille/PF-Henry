@@ -105,7 +105,7 @@ export default function Tienda() {
 
 	const [currentPage, setCurrentPage] = useState(1);
 
-	const productsPerPage = 5;
+	const productsPerPage = 9;
 	const pagesToShow = 3;
 
 	const indexOfLastProduct = currentPage * productsPerPage;
@@ -133,14 +133,14 @@ export default function Tienda() {
 			<div className="store-wrapper home-wrapper-2 py-5">
 				<div className="container-xxl">
 					<div className="row">
-						<div className="col-3">
-							<div className={`${style.filterCard} mb-3 p-3`}>
-								<div className="Category-filter mb-4">
+						<div className={`${style.filterCard} mb-3 p-3 col-12 col-md-4 col-lg-3`}>
+							<div className="d-flex d-md-block">
+								<div className="Category-filter mb-4 col col-md-12 me-2">
 									<select
 										name="categoria"
 										value={filterBy.categoria}
 										onChange={(e) => handlerFilter(e)}
-										className="form-select form-select-lg mb-3"
+										className="form-select mb-3"
 										aria-label=".form-select-lg">
 										<option value="default" defaultValue disabled>
 											Categorías
@@ -157,40 +157,12 @@ export default function Tienda() {
 											)}
 									</select>
 								</div>
-								<div className={`${style.rangePrice} mb-4`}>
-									<label htmlFor="customRange3" className="form-label d-lg-block d-none">
-										Rango de precio
-									</label>
-									<div className="ranges">
-										<div className="d-flex flex-column gap-10 justify-content-center">
-											<div className="d-flex gap-2 flex-column flex-lg-row">
-												<span className={style.prices}>Desde:</span>
-												<span>0 U$D</span>
-											</div>
-											<div className="d-flex gap-2 flex-column flex-lg-row">
-												<span className={style.prices}>Hasta:</span>
-												<span>{filterBy.price} U$D</span>
-											</div>
-										</div>
-									</div>
-									<input
-										type="range"
-										className="form-range"
-										name="price"
-										value={filterBy.price}
-										onChange={(e) => handlerFilter(e)}
-										min={0}
-										max={300}
-										step={10}
-										id="customRange3"
-									/>
-								</div>
-								<div className="Type-filter">
+								<div className="Type-filter col col-md-12">
 									<select
 										name="animal"
 										value={filterBy.animal}
 										onChange={(e) => handlerFilter(e)}
-										className="form-select form-select-lg mb-3"
+										className="form-select mb-3"
 										aria-label=".form-select-lg">
 										<option value="default" defaultValue disabled>
 											Especie
@@ -204,12 +176,40 @@ export default function Tienda() {
 									</select>
 								</div>
 							</div>
+							<div className={`${style.rangePrice} mb-4 col-12`}>
+								<label htmlFor="customRange3" className="form-label d-lg-block d-none">
+									Rango de precio
+								</label>
+								<div className="ranges">
+									<div className="col-12 d-flex flex-md-column gap-10 justify-content-md-center justify-content-around">
+										<div className="d-flex gap-2 flex-row ">
+											<span className={style.prices}>Desde:</span>
+											<span>0 U$D</span>
+										</div>
+										<div className="d-flex gap-2 flex-row">
+											<span className={style.prices}>Hasta:</span>
+											<span>{filterBy.price} U$D</span>
+										</div>
+									</div>
+								</div>
+								<input
+									type="range"
+									className="form-range"
+									name="price"
+									value={filterBy.price}
+									onChange={(e) => handlerFilter(e)}
+									min={0}
+									max={300}
+									step={10}
+									id="customRange3"
+								/>
+							</div>
 						</div>
-						<div className="col-9">
+						<div className="col-12 col-md-8 col-lg-9">
 							<div className={`${style.filterSortGrid} mb-4 p-2`}>
-								<div className="d-flex justify-content-between align-items-center flex-wrap">
-									<div className="d-flex align-items-center gap-10">
-										<p className="mb-0" style={{ width: "150px" }}>
+								<div className="d-flex flex-column flex-md-row justify-content-between justify-content-md-center align-items-center">
+									<div className="d-flex align-items-center gap-10 pe-2 col-11 col-md-6">
+										<p className="mb-0 d-none d-md-inline" style={{ width: "inherit" }}>
 											Ordenar por:
 										</p>
 										<select
@@ -226,8 +226,8 @@ export default function Tienda() {
 											<option value="popularidad">Popularidad</option>
 										</select>
 									</div>
-									<div className="d-flex align-items-center gap-10">
-										<p className="mb-0" style={{ width: "210px" }}>
+									<div className="d-flex align-items-center gap-10 col-11 col-md-6">
+										<p className="mb-0 d-none d-md-block" style={{ width: "inherit" }}>
 											Buscar producto
 										</p>
 										<input
@@ -237,6 +237,7 @@ export default function Tienda() {
 											type="search"
 											name=""
 											id=""
+											placeholder="Buscar"
 										/>
 									</div>
 								</div>
@@ -245,7 +246,7 @@ export default function Tienda() {
 								<Loader />
 							) : (
 								<div className="product-list pb-5">
-									<div className="d-flex flex-wrap gap-2">
+									<div className="d-flex flex-wrap gap-2 justify-content-center">
 										<ProductsContainer product={currentProducts} />
 									</div>
 								</div>

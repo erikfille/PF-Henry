@@ -37,7 +37,6 @@ export const useProduct = create((set, get) => ({
 		try {
 			let response = await axios.get("/especies");
 			let especies = response.data;
-			console.log(especies);
 			set((state) => ({ species: especies }));
 		} catch (err) {
 			console.log(err);
