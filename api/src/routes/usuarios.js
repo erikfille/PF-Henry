@@ -19,7 +19,7 @@ const usuariosRoutes = [
     },
     handler: async (request, h) => {
       try {
-        const { name, surname, email, password } = request.payload;
+        const { name, surname, email, password, image } = request.payload;
 
         // Verifico credenciales con Joi
         await validateUser(request.payload);
@@ -32,7 +32,7 @@ const usuariosRoutes = [
   
         // Crear un nuevo usuario
         const hashedPassword = await bcrypt.hash(password, 10);
-        const user = new Usuario({ name, surname, email, password: hashedPassword });
+        const user = new Usuario({ name, surname, email, password: hashedPassword, image });
         await user.save();
   
         // Crear un token JWT
@@ -52,7 +52,7 @@ const usuariosRoutes = [
   
         await transporter.sendMail(mailOptions);
   
-        return h.response({id: user.id, email: user.email, name: user.name, token: token});
+        return h.response({token: token, user: {name: user.name, id: user.id, email: user.email, image: user.image}});
 
       } catch (error) {
         console.log(error)
@@ -92,7 +92,7 @@ const usuariosRoutes = [
           // })
           // console.log(token)
 
-          return h.response({token: token, name: usuario.name, id: usuario.id, email: usuario.email});
+          return h.response({token: token, user: {name: usuario.name, id: usuario.id, email: usuario.email, image: usuario.image}});
         } catch (error) {
           if (Boom.isBoom(error)) {
             return error;
