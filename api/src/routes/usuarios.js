@@ -7,7 +7,7 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 require("dotenv").config();
 const accountTransport = require('../account_transport.json');
-const {validateUser, validate} = require('../libs/validateFunction');
+const {validateUser} = require('../libs/validateFunction');
 const Boom = require('@hapi/boom');
 
 const usuariosRoutes = [
@@ -52,7 +52,7 @@ const usuariosRoutes = [
           image, 
           rol: rolEncontrado ? rolEncontrado._id : null
         });
-        // await user.save();
+        await user.save();
   
         // Crear un token JWT
         const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, {
@@ -74,8 +74,11 @@ const usuariosRoutes = [
         return h.response({user: {token: token, name: user.name, id: user.id, email: user.email, image: user.image, rol}});
 
       } catch (error) {
-        console.log(error)
-        return h.response({ error: 'Error al crear el usuario' }).code(418);
+        if (Boom.isBoom(error)) {
+          return error;
+        } else {
+          return h.response({ error: 'Error al crear el usuario' }).code(418);
+        }
       }
     },
   },
@@ -90,6 +93,7 @@ const usuariosRoutes = [
 
           // Buscar el usuario por su email y contraseña y hacer el populate del campo "rol"
           const usuario = await Usuario.findOne({ email }).populate("rol");
+
           if (!usuario) {
             return h.response({ error: "El correo electrónico no coincide" }).code(401);
           }
@@ -105,8 +109,11 @@ const usuariosRoutes = [
 
         return h.response({user: {token: token, name: usuario.name, id: usuario.id, email: usuario.email, image: usuario.image}});
         }  catch (error) {
-          console.log(error)
-          return h.response({ error: 'Error al crear el usuario' }).code(418);
+          if (Boom.isBoom(error)) {
+            return error;
+          } else {
+            return h.response({ error: 'Error al crear el usuario' }).code(418);
+          }
         }
       },
       payload: {
@@ -126,14 +133,13 @@ const usuariosRoutes = [
 
           // Buscar el usuario por su email.
           const usuario = await Usuario.findOne({ email });
-          console.log(usuario)
           // si no encuentra el email, lo creamos y guardamos en la base de datos.
           if (!usuario) {
         const hashedPassword = await bcrypt.hash(password, 10);
         const user = new Usuario({ name, surname, email, password: hashedPassword, image});
         await user.save();
        // Crear un token JWT
-      const token = jwt.sign({ id: usuario._id }, process.env.JWT_SECRET, {
+      const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
         expiresIn: 60 * 60 * 72 // 72 horas
       });
       // Devolvemos objeto user con su info + el token generado
@@ -153,8 +159,11 @@ const usuariosRoutes = [
           return h.response({user: {token: token, name: usuario.name, id: usuario.id, email: usuario.email, image: usuario.image}});
     
         } catch (error) {
-          console.log(error)
-          return h.response({ error: 'Error al crear el usuario' }).code(418);
+          if (Boom.isBoom(error)) {
+            return error;
+          } else {
+            return h.response({ error: 'Error al crear el usuario' }).code(418);
+          }
         }
       },
       payload: {
