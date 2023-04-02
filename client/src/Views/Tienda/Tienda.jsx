@@ -206,40 +206,41 @@ export default function Tienda() {
 							</div>
 						</div>
 						<div className="col-12 col-md-8 col-lg-9">
-							<div className={`${style.filterSortGrid} mb-4 p-2`}>
-								<div className="d-flex flex-column flex-md-row justify-content-md-center align-items-center">
-									<div className="d-flex align-items-center gap-10 pe-2 col-11 col-md-6">
-										<p className="mb-0 d-none d-lg-inline" style={{ width: "inherit" }}>
-											Ordenar por:
-										</p>
-										<select
-											value={order}
-											onChange={(e) => handlerOrder(e)}
-											className="form-control form-select"
-											name="ordenar_por"
-											id="ordenar_por">
-											<option value="default" defaultValue disabled>
-												Ordenar por
-											</option>
-											<option value="alfabetico-ascendente">Alfabeticamente A-Z</option>
-											<option value="alfabetico-descendente">Alfabeticamente Z-A</option>
-											<option value="popularidad">Popularidad</option>
-										</select>
-									</div>
-									<div className="d-flex align-items-center gap-10 col-11 col-md-6">
-										<p className="mb-0 d-none d-lg-inline" style={{ width: "inherit" }}>
-											Buscar producto
-										</p>
-										<input
-											value={inputSearch}
-											onChange={(e) => handlerInput(e)}
-											className="form-control"
-											type="search"
-											name=""
-											id=""
-											placeholder="Buscar"
-										/>
-									</div>
+							<div
+								className={`${style.filterSortGrid} mb-4 p-2 d-flex flex-column flex-md-row justify-content-between`}>
+								<div className="d-flex align-items-center gap-10 p-1 col-12 col-md-6">
+									<p className="mb-0 d-none d-lg-inline fw-bold">Ordenar por:</p>
+									<select
+										value={order}
+										onChange={(e) => handlerOrder(e)}
+										className="form-control form-select"
+										name="ordenar_por"
+										id="ordenar_por"
+										style={{ width: "max-content" }}>
+										<option value="default" defaultValue disabled>
+											Ordenar por
+										</option>
+										<option value="alfabetico-ascendente">Alfabeticamente A-Z</option>
+										<option value="alfabetico-descendente">Alfabeticamente Z-A</option>
+										<option value="popularidad">Popularidad</option>
+									</select>
+								</div>
+								<div
+									className={`d-flex align-items-center gap-10 col-12 col-md-6 m-1 ${style.search}`}>
+									<p
+										className="mb-0 d-none d-lg-inline fw-bold"
+										style={{ width: "inherit" }}>
+										Buscar producto:
+									</p>
+									<input
+										value={inputSearch}
+										onChange={(e) => handlerInput(e)}
+										className="form-control"
+										type="search"
+										name=""
+										id=""
+										placeholder="Buscar"
+									/>
 								</div>
 							</div>
 							{loading ? (
