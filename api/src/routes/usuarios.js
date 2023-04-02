@@ -52,7 +52,7 @@ const usuariosRoutes = [
   
         await transporter.sendMail(mailOptions);
   
-        return h.response({token: token, user: {name: user.name, id: user.id, email: user.email, image: user.image}});
+        return h.response({user: {token: token, name: user.name, id: user.id, email: user.email, image: user.image}});
 
       } catch (error) {
         console.log(error)
@@ -92,7 +92,7 @@ const usuariosRoutes = [
           // })
           // console.log(token)
 
-          return h.response({token: token, user: {name: usuario.name, id: usuario.id, email: usuario.email, image: usuario.image}});
+          return h.response({user: {token: token, name: user.name, id: user.id, email: user.email, image: user.image}});
         } catch (error) {
           if (Boom.isBoom(error)) {
             return error;
