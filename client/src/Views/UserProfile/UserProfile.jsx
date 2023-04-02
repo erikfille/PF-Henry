@@ -9,9 +9,28 @@ import { useLogin } from "../../hooks/useAuth";
 
 // objetos hardcodeados solo para saber si los array tienen algo o estan vacios
 // Esto para el renderizado condicional.
-import { pets, compras } from "../../components/PetData/petHelp";
+// import { pets, compras } from "../../components/PetData/petHelp";
+import { useState } from "react";
 
 export default function UserProfile() {
+  const { userEmail } = useParams();
+  const [userInfo, getUserInfo, pets, getPets, compras, getCompras] = useLogin(
+    (state) => [
+      state.userInfo,
+      state.getUserInfo,
+      state.pets,
+      state.getPets,
+      state.compras,
+      state.getCompras,
+    ]
+  );
+
+  useEffect(() => {
+    getUserInfo();
+    getPets();
+    getCompras();
+  });
+
   return (
     <>
       <Meta title={"Perfil"} />
@@ -26,7 +45,7 @@ export default function UserProfile() {
                 </Link>
               </div>
               <div className="d-flex justify-content-center">
-                {user.map((u) => (
+                {userInfo.map((u) => (
                   <>
                     <div className="col-4">
                       <div className={style.circle}>

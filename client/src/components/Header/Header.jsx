@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import { useProduct } from "../../hooks/useStore";
+import { useLogin } from "../../hooks/useAuth";
 import Logo from "../../assets/logo.png";
 import { BiMenu } from "react-icons/bi";
 import { HiOutlineUserCircle } from "react-icons/hi";
@@ -11,8 +12,15 @@ import styles from "./Header.module.css";
 
 const Header = () => {
   const [userLogged, setUserLogged] = useState(false); // estado hardcodeado solo para trabajar lo que muestra el boton de User.
-
   const [setActiveCart] = useProduct((state) => [state.setActiveCart]);
+
+  const [user, logout] = useLogin((state) => [state.user, state.logout]);
+
+  useEffect(() => {
+    if (user.id) {
+      setUserLogged(true);
+    }
+  }, [user]);
 
   return (
     <nav className="navbar navbar-expand-lg bg-body-tertiary">
@@ -73,7 +81,7 @@ const Header = () => {
                 >
                   <HiOutlineUserCircle className={styles.buttonUser} />
                 </span>
-                {userLogged ? (
+                {!userLogged ? (
                   <>
                     <ul
                       className="dropdown-menu dropdown-menu-end"
@@ -105,13 +113,13 @@ const Header = () => {
                     >
                       <li>
                         <Link
-                          to="/perfil"
+                          to={`/perfil/${user.email}`}
                           className={`${styles.li} dropdown-item`}
                         >
                           Ver perfil
                         </Link>
                       </li>
-                      <li>
+                      <li onClick={() => {}}>
                         <Link to="" className={`${styles.li} dropdown-item`}>
                           Cerrar sesión
                         </Link>
@@ -121,7 +129,6 @@ const Header = () => {
                 )}
               </div>
               <NavLink
-                // to="/cart"
                 className="nav-item me-3"
                 id="cartButton"
                 onClick={() => setActiveCart()}

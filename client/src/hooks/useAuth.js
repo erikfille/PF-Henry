@@ -9,7 +9,7 @@ export const useLogin = create((set, get) => ({
     try {
       let response = await axios.post("/users/GoogleLogin", userData);
 
-      console.log(response.data);
+      console.log("Post a Users: ", response.data);
 
       set((state) => ({ user: response.data.user }));
       if (!user.rol) {
@@ -81,7 +81,7 @@ export const useLogin = create((set, get) => ({
     axios.defaults.headers.common["Authorization"] = "Bearer " + token;
     // receiveLogin();
     console.log("localStorageUser: ", JSON.parse(localStorage.getItem("user")));
-    console.log("localStorageUser: ", localStorage.getItem("token"));
+    console.log("localStorageToken: ", localStorage.getItem("token"));
   },
   receiveLogin() {
     const { user } = get();
