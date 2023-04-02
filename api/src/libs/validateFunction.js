@@ -4,21 +4,6 @@ const Boom = require('@hapi/boom');
 const Joi = require('joi');
 
 
-async function validateNewUser(name, email) {
-      const nameAlreadyExists = await Usuario.findOne({ name });
-      const emailAlreadyExists = await Usuario.findOne({ email });
-    
-      if (nameAlreadyExists) {
-        throw Boom.conflict('El nombre de usuario ya existe');
-      }
-    
-      if (emailAlreadyExists) {
-        throw Boom.conflict('El correo electrónico ya está en uso');
-      }
-    
-      return null;
-    }
-
 // --- Para el hapi-basic
 const validate = async (request, email, password) => {
 
@@ -42,6 +27,11 @@ const userSchema = Joi.object({
     rol: Joi.string().min(4).required(),
   });
   
+  const userSchema2 = Joi.object({
+    password: Joi.string().min(6).max(20).required(),
+    email: Joi.string().email().required(),
+  });
+
   const validateUser = (user) => {
     const { error, value } = userSchema.validate(user);
     if (error) {
@@ -50,8 +40,17 @@ const userSchema = Joi.object({
     }
     return value;
   };
+
+  async function validateLogin(email, password) {
+    const { error, value } = userSchema2.validate(email, password);
+    if (error) {
+      const message = error.details.map((detail) => detail.message).join(', ');
+      throw Boom.badRequest(message);
+    }
+    return value;
+  }
 module.exports = {
-    validateNewUser,
+    validateLogin,
     validate,
     validateUser
 }

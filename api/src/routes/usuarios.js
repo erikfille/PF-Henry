@@ -7,7 +7,7 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 require("dotenv").config();
 const accountTransport = require('../account_transport.json');
-const {validateNewUser, validateUser, validate} = require('../libs/validateFunction');
+const {validateLogin, validateUser, validate} = require('../libs/validateFunction');
 const Boom = require('@hapi/boom');
 
 const usuariosRoutes = [
@@ -20,7 +20,7 @@ const usuariosRoutes = [
     handler: async (request, h) => {
       try {
         const { name, surname, email, password } = request.payload;
-  
+
         // Verifico credenciales con Joi
         await validateUser(request.payload);
 
@@ -52,7 +52,7 @@ const usuariosRoutes = [
   
         await transporter.sendMail(mailOptions);
   
-        return h.response({email: user.email, name: user.name, token: token});
+        return h.response({id: user.id, email: user.email, name: user.name, token: token});
 
       } catch (error) {
         console.log(error)
@@ -68,17 +68,37 @@ const usuariosRoutes = [
         const { email, password } = request.payload;
   
         try {
+
           // Buscar el usuario por su email y contraseña y hacer el populate del campo "rol"
-          const usuario = await Usuario.findOne({ email, password }).populate("rol");
-          console.log(usuario)
+          const usuario = await Usuario.findOne({ email }).populate("rol");
+
           if (!usuario) {
-            return h.response({ error: "El correo electrónico o la contraseña no coinciden" }).code(401);
+            return h.response({ error: "El correo electrónico no coincide" }).code(401);
           }
-  
-          return h.response(usuario);
+          
+          const validatePass = await Usuario.comparePassword(password, usuario.password);
+
+          if (!validatePass) {
+            throw Boom.unauthorized("Invalid Password");
+          }
+
+
+           // Crear un token JWT
+        const token = jwt.sign({ id: usuario._id }, process.env.JWT_SECRET, {
+          expiresIn: 60 * 60 * 72 // 72 horas
+        });
+          // const token = jwt.sign({id: usuario._id}, process.env.SECRET, {
+          //   expiresIn: 60 * 60 * 72
+          // })
+          // console.log(token)
+
+          return h.response({token: token, name: usuario.name, id: usuario.id, email: usuario.email});
         } catch (error) {
-          return h.response({ error: "Error al obtener el usuario" }).code(500);
-        }
+          if (Boom.isBoom(error)) {
+            return error;
+          }
+          return error
+        }  
       },
       payload: {
         allow: ["application/json"],
