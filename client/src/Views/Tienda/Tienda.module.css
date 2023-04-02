@@ -8,6 +8,10 @@
 	border-radius: 10px;
 }
 
+.filterSortGrid select {
+	max-width: max-content;
+}
+
 .buttonSearch {
 	border: none;
 	width: 70px;
