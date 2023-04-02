@@ -19,6 +19,8 @@ const usuariosRoutes = [
     },
     handler: async (request, h) => {
       try {
+
+        // HAY Q AGREGAR EL ROL 
         const { name, surname, email, password, image, rol} = request.payload;
 
         // Verifico credenciales con Joi
@@ -29,11 +31,28 @@ const usuariosRoutes = [
         if (existingUser) {
           return h.response({ error: 'El correo electrónico ya está registrado' }).code(409);
         }
+
+        let rolEncontrado = null;
+        // Buscar el rol por su nombre si se especifica
+        if (rol) {
+          rolEncontrado = await Rol.findOne({ nombre: rol });
+          // Si el rol no existe, devolver un error
+          if (!rolEncontrado) {
+            return Boom.badRequest("El rol especificado no existe");
+          }
+        }
   
         // Crear un nuevo usuario
         const hashedPassword = await bcrypt.hash(password, 10);
-        const user = new Usuario({ name, surname, email, password: hashedPassword, image, rol });
-        await user.save();
+        const user = new Usuario({ 
+          name,
+          surname, 
+          email, 
+          password: hashedPassword, 
+          image, 
+          rol: rolEncontrado ? rolEncontrado._id : null
+        });
+        // await user.save();
   
         // Crear un token JWT
         const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, {
@@ -71,28 +90,67 @@ const usuariosRoutes = [
 
           // Buscar el usuario por su email y contraseña y hacer el populate del campo "rol"
           const usuario = await Usuario.findOne({ email }).populate("rol");
-
           if (!usuario) {
             return h.response({ error: "El correo electrónico no coincide" }).code(401);
           }
           
           const validatePass = await Usuario.comparePassword(password, usuario.password);
-
           if (!validatePass) {
             throw Boom.unauthorized("Invalid Password");
           }
-
-
            // Crear un token JWT
         const token = jwt.sign({ id: usuario._id }, process.env.JWT_SECRET, {
           expiresIn: 60 * 60 * 72 // 72 horas
         });
-          // const token = jwt.sign({id: usuario._id}, process.env.SECRET, {
-          //   expiresIn: 60 * 60 * 72
-          // })
-          // console.log(token)
 
-          return h.response({user: {token: token, name: user.name, id: user.id, email: user.email, image: user.image, rol}});
+        return h.response({user: {token: token, name: usuario.name, id: usuario.id, email: usuario.email, image: usuario.image}});
+        }  catch (error) {
+          console.log(error)
+          return h.response({ error: 'Error al crear el usuario' }).code(418);
+        }
+      },
+      payload: {
+        allow: ["application/json"],
+        parse: true,
+      },
+    },
+  },
+  {
+    method: "POST",
+    path: "/users/GoogleLogin",
+    options: {
+      async handler(request, h) {
+        const { email, password, name, surname, image } = request.payload;
+  
+        try {
+
+          // Buscar el usuario por su email.
+          const usuario = await Usuario.findOne({ email });
+          // si no encuentra el email, lo creamos y guardamos en la base de datos.
+          if (!usuario) {
+        const hashedPassword = await bcrypt.hash(password, 10);
+        const user = new Usuario({ name, surname, email, password: hashedPassword, image});
+        await user.save();
+       // Crear un token JWT
+      const token = jwt.sign({ id: usuario._id }, process.env.JWT_SECRET, {
+        expiresIn: 60 * 60 * 72 // 72 horas
+      });
+      // Devolvemos objeto user con su info + el token generado
+        return h.response({user: {token: token, name: user.name, id: user.id, email: user.email, image: user.image}});
+          }
+
+      // En caso que si encuentre el usuario en la base de datos, validamos su password
+          const validatePass = await Usuario.comparePassword(password, usuario.password);
+          if (!validatePass) {
+            throw Boom.unauthorized("Invalid Password");
+          }
+          const token = jwt.sign({ id: usuario._id }, process.env.JWT_SECRET, {
+            expiresIn: 60 * 60 * 72 // 72 horas
+          });
+
+      // Si sus credenciales son validas respondemos con la data del user + el token generado
+          return h.response({user: {token: token, name: user.name, id: user.id, email: user.email, image: user.image}});
+    
         } catch (error) {
           if (Boom.isBoom(error)) {
             return error;
