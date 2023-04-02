@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const rolSchema = new mongoose.Schema({
   nombre: {
     type: String,
-    enum: ["admin", "customer", "provider"],
+    enum: ["admin", "customer", "provider"], 
     required: true,
   }
 });
