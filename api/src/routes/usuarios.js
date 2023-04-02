@@ -7,7 +7,7 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 require("dotenv").config();
 const accountTransport = require('../account_transport.json');
-const {validateLogin, validateUser, validate} = require('../libs/validateFunction');
+const {validateUser, validate} = require('../libs/validateFunction');
 const Boom = require('@hapi/boom');
 
 const usuariosRoutes = [
@@ -56,7 +56,7 @@ const usuariosRoutes = [
 
       } catch (error) {
         console.log(error)
-        return h.response({ error: 'Error al crear el usuario' }).code(500);
+        return h.response({ error: 'Error al crear el usuario' }).code(418);
       }
     },
   },

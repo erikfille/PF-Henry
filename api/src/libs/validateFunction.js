@@ -22,16 +22,12 @@ const userSchema = Joi.object({
     name: Joi.string().alphanum().min(3).max(30).required(),
     surname: Joi.string().alphanum().min(3).max(20).required(),
     email: Joi.string().email().required(),
-    password: Joi.string().min(6).max(20).required(),
+    password: Joi.string().required(),
     adress: Joi.string().min(3).max(18),
     rol: Joi.string().min(4).required(),
     image: Joi.string().required()
   });
   
-  const userSchema2 = Joi.object({
-    password: Joi.string().min(6).max(20).required(),
-    email: Joi.string().email().required(),
-  });
 
   const validateUser = (user) => {
     const { error, value } = userSchema.validate(user);
@@ -42,16 +38,7 @@ const userSchema = Joi.object({
     return value;
   };
 
-  async function validateLogin(email, password) {
-    const { error, value } = userSchema2.validate(email, password);
-    if (error) {
-      const message = error.details.map((detail) => detail.message).join(', ');
-      throw Boom.badRequest(message);
-    }
-    return value;
-  }
 module.exports = {
-    validateLogin,
     validate,
     validateUser
 }
