@@ -207,16 +207,15 @@ export default function Tienda() {
 						</div>
 						<div className="col-12 col-md-8 col-lg-9">
 							<div
-								className={`${style.filterSortGrid} mb-4 p-2 d-flex flex-column flex-md-row justify-content-between`}>
-								<div className="d-flex align-items-center gap-10 p-1 col-12 col-md-6">
+								className={`${style.filterSortGrid} mb-4 p-2 d-flex flex-row justify-content-between`}>
+								<div className="d-flex align-items-center gap-10 p-1 col col-md-6">
 									<p className="mb-0 d-none d-lg-inline fw-bold">Ordenar por:</p>
 									<select
 										value={order}
 										onChange={(e) => handlerOrder(e)}
 										className="form-control form-select"
 										name="ordenar_por"
-										id="ordenar_por"
-										style={{ width: "max-content" }}>
+										id="ordenar_por">
 										<option value="default" defaultValue disabled>
 											Ordenar por
 										</option>
@@ -226,7 +225,7 @@ export default function Tienda() {
 									</select>
 								</div>
 								<div
-									className={`d-flex align-items-center gap-10 col-12 col-md-6 m-1 ${style.search}`}>
+									className={`d-flex align-items-center gap-10 col col-md-6 m-1 ${style.search}`}>
 									<p
 										className="mb-0 d-none d-lg-inline fw-bold"
 										style={{ width: "inherit" }}>
