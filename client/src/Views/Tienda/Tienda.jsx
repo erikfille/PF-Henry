@@ -207,9 +207,9 @@ export default function Tienda() {
 						</div>
 						<div className="col-12 col-md-8 col-lg-9">
 							<div className={`${style.filterSortGrid} mb-4 p-2`}>
-								<div className="d-flex flex-column flex-md-row justify-content-between justify-content-md-center align-items-center">
+								<div className="d-flex flex-column flex-md-row justify-content-md-center align-items-center">
 									<div className="d-flex align-items-center gap-10 pe-2 col-11 col-md-6">
-										<p className="mb-0 d-none d-md-inline" style={{ width: "inherit" }}>
+										<p className="mb-0 d-none d-lg-inline" style={{ width: "inherit" }}>
 											Ordenar por:
 										</p>
 										<select
@@ -227,7 +227,7 @@ export default function Tienda() {
 										</select>
 									</div>
 									<div className="d-flex align-items-center gap-10 col-11 col-md-6">
-										<p className="mb-0 d-none d-md-block" style={{ width: "inherit" }}>
+										<p className="mb-0 d-none d-lg-inline" style={{ width: "inherit" }}>
 											Buscar producto
 										</p>
 										<input
