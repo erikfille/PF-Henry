@@ -126,6 +126,7 @@ const usuariosRoutes = [
 
           // Buscar el usuario por su email.
           const usuario = await Usuario.findOne({ email });
+          console.log(usuario)
           // si no encuentra el email, lo creamos y guardamos en la base de datos.
           if (!usuario) {
         const hashedPassword = await bcrypt.hash(password, 10);
@@ -149,14 +150,12 @@ const usuariosRoutes = [
           });
 
       // Si sus credenciales son validas respondemos con la data del user + el token generado
-          return h.response({user: {token: token, name: user.name, id: user.id, email: user.email, image: user.image}});
+          return h.response({user: {token: token, name: usuario.name, id: usuario.id, email: usuario.email, image: usuario.image}});
     
         } catch (error) {
-          if (Boom.isBoom(error)) {
-            return error;
-          }
-          return error
-        }  
+          console.log(error)
+          return h.response({ error: 'Error al crear el usuario' }).code(418);
+        }
       },
       payload: {
         allow: ["application/json"],
