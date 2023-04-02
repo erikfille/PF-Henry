@@ -13,7 +13,10 @@ import validation from "./validation";
 export default function LoginWidget(props) {
   const { childProps } = props;
 
-  const [loginUser] = useLogin((state) => [state.loginUser]);
+  const [loginUser, loginGoogleUser] = useLogin((state) => [
+    state.loginUser,
+    state.loginGoogleUser,
+  ]);
 
   // Google Auth Data
   const [user, setUser] = useState({});
@@ -58,14 +61,14 @@ export default function LoginWidget(props) {
     };
     try {
       // Mando todo al back
-      loginUser(user);
+      loginGoogleUser(user);
     } catch (err) {
       console.log(err);
     }
   };
 
   const onFailure = () => {
-    console.log("something went wrong");
+    console.log("Ups... Something went wrong");
   };
 
   // Own Auth Logic
@@ -85,12 +88,7 @@ export default function LoginWidget(props) {
 
   function handleSubmit(e) {
     e.preventDefault();
-
-    /*
-    - Guardado de la info
-    - Trae la info del usuario
-    - Separa el Token y lo envía al LocalStorage
-    */
+    loginUser(userData);
   }
 
   return (
@@ -143,15 +141,16 @@ export default function LoginWidget(props) {
             </>
           )}
           <div className="mb-3 w-100">
-            <label htmlFor="exampleInputEmail1" className="form-label fw-bold">
+            <label htmlFor="email" className="form-label fw-bold">
               Email
             </label>
             <input
               placeholder="Ingresa tu email"
-              id="mail"
-              className={`form-control ${errors.mail && "danger"}`}
-              name="mail"
+              id="email"
+              className={`form-control ${errors.email && "danger"}`}
+              name="email"
               value={userData.user}
+              e
               onChange={handleInputChange}
               type="email"
               aria-describedby="emailHelp"

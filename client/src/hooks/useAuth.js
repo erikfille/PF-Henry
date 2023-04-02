@@ -4,17 +4,42 @@ import axios from "axios";
 export const useLogin = create((set, get) => ({
   user: {},
   modal: false,
-  loginUser: async (userData) => {
+  loginGoogleUser: async (userData) => {
     const { user, setModal, receiveToken } = get();
     try {
-      let response = await axios.post("/users", userData);
+      let response = await axios.post("/users/GoogleLogin", userData);
+
       console.log(response.data);
 
-      set((state) => ({ user: response.data }));
+      set((state) => ({ user: response.data.user }));
       if (!user.rol) {
         setModal();
         return;
       }
+      receiveToken();
+    } catch (err) {
+      console.log(err.message);
+    }
+    // Hago el post al back
+    // Recibo el usuario de vuelta
+    // Verifico si tiene el rol:
+    // - Si no tiene el rol, abro el modal de elegir rol, y hago el put con el nuevo user, agregando el rol y voy a receiveToken con lo que devuelve
+    // - Si tiene el rol, voy a receiveToken(data)
+    // receiveToken(data);
+  },
+  loginUser: async (userData) => {
+    const { receiveToken } = get();
+    try {
+      /* 
+      Se envía el email y password
+      Tres posibles respuestas:
+      - Success: Se recibe la info del usuario y el token y se setean en el store y se ejecuta receiveToken.
+      - Usuario inexistente: se avisa al usuario que no existe el usuario y se abre el modal generico con la opcion de redirigirse a Sign In.
+      - Contraseña Incorrecta: se avisa al usuario que la contraseña no coincide.
+      */
+      let response = await axios.post("/users/login", userData);
+      console.log("Response Login Normal: ", response);
+      set((state) => ({ user: response.data.user }));
       receiveToken();
     } catch (err) {
       console.log(err.message);
@@ -32,33 +57,39 @@ export const useLogin = create((set, get) => ({
     try {
       let response = await axios.put(`/users/${user.id}/role`, role);
       set((state) => ({ user: response.data }));
+
+      console.log("user with role: ", response.data);
+
       receiveToken();
     } catch (err) {
       console.log(err.message);
     }
   },
   receiveToken() {
-    const { user } = get();
-    userData = {
-      id: user.id,
+    const { user, receiveLogin } = get();
+    console.log("receiveToken: ", user);
+    let userData = {
+      id: user._id,
       name: user.name,
       image: user.image,
       email: user.email,
       rol: user.rol,
     };
-    var token = user.token;
+    let token = user.token;
     localStorage.setItem("token", token);
     localStorage.setItem("user", JSON.stringify(userData));
     axios.defaults.headers.common["Authorization"] = "Bearer " + token;
-    receiveLogin();
+    // receiveLogin();
+    console.log("localStorageUser: ", JSON.parse(localStorage.getItem("user")));
+    console.log("localStorageUser: ", localStorage.getItem("token"));
   },
   receiveLogin() {
     const { user } = get();
 
     if (user.rol == "customer") {
-      router.push("/tienda");
+      window.location.assign("/tienda");
     } else {
-      router.push("/");
+      window.location.assign("/");
     }
   },
   // logoutUser() {

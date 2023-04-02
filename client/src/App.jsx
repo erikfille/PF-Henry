@@ -1,5 +1,5 @@
 //? React
-import React, { useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
 import axios from "axios";
 
@@ -19,26 +19,24 @@ import Servicios from "./Views/Servicios/Servicios";
 import Contacto from "./Views/Contacto/Contacto";
 import Login from "./Views/Login/Login";
 import CreateProduct from "./components/CreateProduct/CreateProduct";
-import Detail from "./Views/Detail/Detail";
+import Detail from "./Views/ProductDetail/Detail";
 import UserProfile from "./Views/UserProfile/UserProfile";
 import CheckOut from "./Views/Checkout/Checkout";
+import ProviderDashboard from "./Views/ProviderDashboard/ProviderDashboard";
 
 //? Styles
 import "./App.css";
-
 
 axios.defaults.baseURL = "http://localhost:3000";
 
 function App() {
   const location = useLocation();
-  
 
-  
   return (
     <div className="App">
       {location.pathname !== "/login" && <Header /> &&
         location.pathname !== "/signup" && <Header />}
-        
+
       {/* { !datos
         ? <p>Aguarde un momento...</p>
         : <CheckOut productos={productos} data ={datos}/>
@@ -56,6 +54,7 @@ function App() {
         <Route path="/crearProducto" element={<CreateProduct />} />
         <Route path="/perfil" element={<UserProfile />} />
         <Route path="/checkout" element={<CheckOut />} />
+        <Route path="/provider/:providerId" element={<ProviderDashboard />} />
       </Routes>
       <Cart />
       <ModalConsultaGenerico />
