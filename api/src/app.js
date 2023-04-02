@@ -33,6 +33,7 @@ const init = async () => {
   await server.register({
     plugin: HapiCors,
     options: {
+      methods: ['PUT','POST','DELETE','GET'],
       origins: ["*"],
     },
   });
