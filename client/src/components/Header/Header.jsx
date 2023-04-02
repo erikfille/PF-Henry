@@ -30,7 +30,9 @@ const Header = () => {
 					aria-label="Toggle navigation"
 					className={styles.menuButton}
 				/>
-				<div className="collapse navbar-collapse justify-content-end me-4" id="navbarNav">
+				<div
+					className="collapse navbar-collapse justify-content-end me-4 bg-white"
+					id="navbarNav">
 					<div className="navbar-nav align-items-center">
 						<NavLink to="/" className="nav-item me-3">
 							Inicio
