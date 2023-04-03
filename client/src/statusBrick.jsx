@@ -1,4 +1,5 @@
 import React from 'react'
+import { StatusScreen } from '@mercadopago/sdk-react';
 
 export default function statusBrick() { 
 
@@ -18,6 +19,10 @@ const initialization = {
    };
    
   return (
-    <div>statusBrick</div>
+    <StatusScreen
+    initialization={initialization}
+    onReady={onReady}
+    onError={onError}
+ />
   )
 }

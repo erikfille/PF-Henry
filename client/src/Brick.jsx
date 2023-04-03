@@ -5,9 +5,6 @@ import React from 'react'
 import { initMercadoPago } from '@mercadopago/sdk-react';
 initMercadoPago('APP_USR-5748bc97-54ef-411e-9d38-78d5ebdf76fb');
 
-
-
-
 export default function Brick() {
 
 

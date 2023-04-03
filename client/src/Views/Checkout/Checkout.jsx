@@ -20,6 +20,8 @@ export default function CheckOut({productos, data}) {
 
   const [setModal] = useModal((state) => [state.setModal]);
 
+  
+
 //   const [datos, setDatos] = useState("")
 
 //   useEffect(()=>{
@@ -118,11 +120,8 @@ export default function CheckOut({productos, data}) {
 								<Comprar data={datos}/>
 							</div> */}
 
-							{cartProducts.length ? (
-    							<button>
-        							<Brick/>
-    							</button>
-							) : null}
+							{cartProducts.length ? <Brick/> : null}
+
 
 					</div>
 
