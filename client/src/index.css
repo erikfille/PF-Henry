@@ -5,6 +5,12 @@
 	--wrapper_background: #f8f8f8;
 	--body_color: #131921;
 	--body_boxshadow: 5px 1px 10px rgba(0, 0, 0, 0.458);
+	--border_color: #dcdcdc;
+	/* --body_background: rgb(32,32,44);
+	--body_color: white;
+	--wrapper_background: rgb(28, 28, 38);
+	--body_boxshadow: 0 -2px 10px rgba(0, 0, 0, 1);
+	--border_color: #0CC5BA; */
 }
 
 [data-theme="dark"] {
@@ -12,6 +18,11 @@
 	--body_color: white;
 	--wrapper_background: rgb(28, 28, 38);
 	--body_boxshadow: 0 -2px 10px rgba(0, 0, 0, 1);
+	--border_color: #0CC5BA;
+}
+
+* {
+	transition: all 0.3s ease-out;
 }
 
 body {
@@ -32,3 +43,5 @@ a {
 #navbarNav .active {
 	color: #0cc5ba;
 }
+
+

@@ -1,3 +1,4 @@
+import DarkMode from "../../components/DarkMode/DarkMode";
 import style from "./Home.module.css";
 
 const Home = () => {

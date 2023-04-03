@@ -1,5 +1,6 @@
 .containerReview {
 	border-radius: 10px;
+	background-color: var(--body_background);
 }
 
 hr {
@@ -8,13 +9,20 @@ hr {
 
 a,
 .span {
-	color: #777777;
+	color: var(--body_color)
+}
+
+.fColor {
+	color: var(--body_color);
+}
+
+.hr {
+	opacity: 1;
 }
 
 .textReview {
 	resize: none;
 	height: 6rem;
-	border-color: #0cc5ba;
 }
 
 .stars span {

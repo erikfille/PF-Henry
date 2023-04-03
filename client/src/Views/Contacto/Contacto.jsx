@@ -23,6 +23,7 @@ export default function Contacto() {
 									className='form-control'
 									id='nameInput'
 									placeholder='Ingresa tu nombre'
+									style={{ backgroundColor: "var(--body_background)", color: "var(--body_color)", border: "0.5px solid var(--border_color)"}}
 								/>
 							</div>
 							<div className='mb-3 col-12 col-md-9 '>
@@ -34,6 +35,7 @@ export default function Contacto() {
 									className='form-control'
 									id='formGroupExampleInput'
 									placeholder='Ingresa tu telefono'
+									style={{ backgroundColor: "var(--body_background)", color: "var(--body_color)", border: "0.5px solid var(--border_color)"}}
 								/>
 							</div>
 							<div class='mb-3 col-12 col-md-9'>
@@ -44,8 +46,10 @@ export default function Contacto() {
 									className='form-control'
 									id='exampleFormControlTextarea1'
 									rows='3'
-									style={{ resize: "none", height: "8rem" }}
-									placeholder='Dejanos tu mensaje'></textarea>
+									style={{ resize: "none", height: "8rem", backgroundColor: "var(--body_background)", color: "var(--body_color)", border: "0.5px solid var(--border_color)" }}
+									placeholder='Dejanos tu mensaje'
+									>
+								</textarea>
 							</div>
 							<button
 								type='submit'
@@ -56,7 +60,7 @@ export default function Contacto() {
 						<div className={`col-12 col-md-6 col-xxl-5 d-none d-sm-block ${styles.imageContainer}`}>
 							<img
 								className={`img-fluid ${styles.image}`}
-								src='https://s3-alpha-sig.figma.com/img/d920/3c9e/e606229d590829ac05c1a43ebdf0dd1f?Expires=1680480000&Signature=XxnQBjiIv~EMRgkc8KCqbQXuxIibgpVRLPix6UqpmDWqnjbKtcilWSHBbLelAlWacghnwd0JI9qSnLw5ml7ZiNsulsfFt17LDZIPKUHamjNkm1Ukf4eARuiGk9OzJHRoFCDe9DWhhB3jEPL77jz-RlJvRQ2LWEqP4o2EgSKdfs8RlEK9OyNrGQjYFIv73SUQ5vdzc0azYOazDXYGE9M-nc9PfVAIhtkU-7SNj~p2NUPO3-0x1iLgE3ln1QVos3V7x9Xn~KAFxfQR5WY7KPDOXNvjkpX2YpFF1h8LiIPef4yakzCJFsPvFQ0HksBnkuCacupkwqffPv0ORs41cTYUUg__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4'
+								src='images/bg-cat.jpg'
 								alt='cat pic'
 							/>
 						</div>

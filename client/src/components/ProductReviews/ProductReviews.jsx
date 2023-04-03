@@ -76,8 +76,8 @@ export default function ProductReviews(props) {
       {/* <h1 className="fw-bold mb-5">Reseñas</h1> */}
       <div className="container-xxl">
         <div className="row">
-          <div className={`${styles.containerReview} col-12 container-md bg-white mb-5 p-5`}>
-            <h1 className="fw-bold">Reseñas de Clientes</h1>
+          <div className={`${styles.containerReview} col-12 container-md mb-5 p-5`}>
+            <h1 className={`${styles.fColor} fw-bold`}>Reseñas de Clientes</h1>
             <ReactStars
               count={5}
               size={20}
@@ -90,9 +90,9 @@ export default function ProductReviews(props) {
               Basada en {reviews.length} usuarios
             </span>
 
-            <hr />
+            <hr className={styles.hr} />
             <div className="">
-              <h3 className="fw-bold fs-5">Escribe una reseña</h3>
+              <h3 className={`${styles.fColor}  fw-bold fs-5`}>Escribe una reseña</h3>
               <p className={`${styles.span} fw-bold mb-1`}>Calificación</p>
               <ReactStars
                 count={5}
@@ -104,6 +104,7 @@ export default function ProductReviews(props) {
               <p className={`${styles.span} fw-bold mt-2`}>Reseña</p>
               <textarea
                 className={`form-control ${styles.textReview}`}
+                style={{ backgroundColor: "var(--body_background)", color: "var(--body_color)", border: "0.5px solid var(--border_color)"}}
                 placeholder="Escribe aquí tu reseña"
                 type="text"
                 name="review"
@@ -115,7 +116,7 @@ export default function ProductReviews(props) {
               {reviews.map((r) => (
                 <div className="mt-5">
                   <div className="d-sm-flex align-items-end mt-0">
-                    <h1 className="fw-bold fs-3 me-3">{r.usuario}</h1>
+                    <h1 className={`${styles.fColor} fw-bold fs-3 me-3`}>{r.usuario}</h1>
                     <ReactStars
                       count={5}
                       size={20}

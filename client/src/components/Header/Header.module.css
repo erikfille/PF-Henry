@@ -1,9 +1,14 @@
-.logoContainer h3 {
+.navlink{
 	font-size: 1.7rem;
 	margin-bottom: 0;
 	font-weight: 700;
 	cursor: default;
 	color: var(--body_color);
+	cursor: pointer;
+}
+
+.navContainer {
+	background-color: transparent;
 }
 
 .buttonUser {
@@ -68,17 +73,27 @@ nav a:hover {
 	display: none;
 }
 
+.li {
+	color: var(--body_color);
+}
+
 .li:hover {
 	color: #0cc5ba;
+	background-color: var(--body_background);
 }
 
 .menuButton {
 	font-size: 1.5rem;
 	display: none;
+	color: var(--body_color);
 }
 
 .logo {
 	width: 3.6rem;
+}
+
+.bgColor {
+	background-color: var(--body_background);
 }
 
 /* Muestra boton burguer en responsive */

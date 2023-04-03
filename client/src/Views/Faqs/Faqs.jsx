@@ -19,6 +19,7 @@ export default function Faqs() {
 							<h2 className="accordion-header">
 								<button
 									className={`accordion-button collapsed fw-bold ${styles.button}`}
+									style={{ backgroundColor: "var(--body_background)", color: "var(--body_color)", borderTopLeftRadius: "7px", borderTopRightRadius: "7px"}}
 									type="button"
 									data-bs-toggle="collapse"
 									data-bs-target="#flush-collapseOne"
@@ -29,7 +30,7 @@ export default function Faqs() {
 							</h2>
 							<div
 								id="flush-collapseOne"
-								className="accordion-collapse collapse"
+								className="accordion-collapse collapse_in"
 								data-bs-parent="#accordionFlushExample">
 								<div className={`accordion-body ${styles.response}`}>
 									¡Por supuesto! Tenemos una amplia variedad de productos para mascotas,
@@ -43,6 +44,7 @@ export default function Faqs() {
 							<h2 className="accordion-header">
 								<button
 									className={`accordion-button collapsed fw-bold ${styles.button}`}
+									style={{ backgroundColor: "var(--body_background)", color: "var(--body_color)", borderTopLeftRadius: "7px", borderTopRightRadius: "7px"}}
 									type="button"
 									data-bs-toggle="collapse"
 									data-bs-target="#flush-collapseTwo"
@@ -55,7 +57,7 @@ export default function Faqs() {
 								id="flush-collapseTwo"
 								className="accordion-collapse collapse"
 								data-bs-parent="#accordionFlushExample">
-								<div className="accordion-body">
+								<div className={`accordion-body ${styles.response}`}>
 									La mejor opción de alimento para su perro dependerá de muchos factores,
 									como la edad, el tamaño, la raza y el nivel de actividad. Nuestro equipo
 									de expertos en nutrición para mascotas puede ayudarlo a encontrar la
@@ -68,6 +70,7 @@ export default function Faqs() {
 							<h2 className="accordion-header">
 								<button
 									className={`accordion-button collapsed fw-bold ${styles.button}`}
+									style={{ backgroundColor: "var(--body_background)", color: "var(--body_color)", borderTopLeftRadius: "7px", borderTopRightRadius: "7px"}}
 									type="button"
 									data-bs-toggle="collapse"
 									data-bs-target="#flush-collapseThree"
@@ -80,7 +83,7 @@ export default function Faqs() {
 								id="flush-collapseThree"
 								className="accordion-collapse collapse"
 								data-bs-parent="#accordionFlushExample">
-								<div className="accordion-body">
+								<div className={`accordion-body ${styles.response}`}>
 									Sí, vendemos productos para mascotas exóticas, como pájaros, reptiles y
 									roedores. Tenemos una amplia variedad de alimentos, juguetes y
 									accesorios para satisfacer las necesidades de sus mascotas exóticas.
@@ -91,6 +94,7 @@ export default function Faqs() {
 							<h2 className="accordion-header">
 								<button
 									className={`accordion-button collapsed fw-bold ${styles.button}`}
+									style={{ backgroundColor: "var(--body_background)", color: "var(--body_color)", borderTopLeftRadius: "7px", borderTopRightRadius: "7px"}}
 									type="button"
 									data-bs-toggle="collapse"
 									data-bs-target="#flush-collapseFour"
@@ -103,7 +107,7 @@ export default function Faqs() {
 								id="flush-collapseFour"
 								className="accordion-collapse collapse"
 								data-bs-parent="#accordionFlushExample">
-								<div className="accordion-body">
+								<div className={`accordion-body ${styles.response}`}>
 									Sí, tenemos una amplia variedad de camas para mascotas disponibles.
 									Desde camas para perros pequeños hasta camas para perros grandes y
 									acolchonadas, ¡seguro que encontrará la cama perfecta para su mascota en
@@ -115,6 +119,7 @@ export default function Faqs() {
 							<h2 className="accordion-header">
 								<button
 									className={`accordion-button collapsed fw-bold ${styles.button}`}
+									style={{ backgroundColor: "var(--body_background)", color: "var(--body_color)", borderTopLeftRadius: "7px", borderTopRightRadius: "7px"}}
 									type="button"
 									data-bs-toggle="collapse"
 									data-bs-target="#flush-collapseFive"
@@ -127,7 +132,7 @@ export default function Faqs() {
 								id="flush-collapseFive"
 								className="accordion-collapse collapse"
 								data-bs-parent="#accordionFlushExample">
-								<div className="accordion-body">
+								<div className={`accordion-body ${styles.response}`}>
 									Sí, ofrecemos servicios de cuidado de mascotas. Si necesita un cuidador
 									para su mascota mientras está fuera de casa, nuestro equipo puede
 									ayudarlo a encontrar a alguien confiable y calificado para cuidar de su
