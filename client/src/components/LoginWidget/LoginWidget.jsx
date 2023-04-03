@@ -221,7 +221,7 @@ export default function LoginWidget(props) {
             </div>
           )}
           {childProps.type === "signup" && (
-            <div className="imgContainer ">
+            <div className="mb-3 w-100">
               <div className="widgetButton">
                 <label
                   htmlFor="exampleFormControlTextarea1"
