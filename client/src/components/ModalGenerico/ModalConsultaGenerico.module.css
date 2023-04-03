@@ -3,9 +3,9 @@
     top: 40%;
     right: 30%;
     z-index: 1000;
-    background-color: #fff;
+    background-color: var(--body_background);
     border-radius: 10px;
-    box-shadow: 10px 12px 21px rgba(0, 0, 0, 0.15);
+    box-shadow: var(--body_boxshadow)
 }
 
 .title {

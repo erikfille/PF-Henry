@@ -7,3 +7,12 @@
 .imgContainer {
 	height: 100vh;
 }
+
+.fColor {
+	color: var(--body_color);
+	font-size: 26px;
+}
+
+.fColor:hover {
+	color: var(--color-0CC5BA);
+}

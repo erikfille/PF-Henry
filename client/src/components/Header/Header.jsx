@@ -9,6 +9,7 @@ import { MdOutlineShoppingCart } from "react-icons/md";
 import { Link } from "react-router-dom";
 // styles
 import styles from "./Header.module.css";
+import DarkMode from "../DarkMode/DarkMode";
 
 const Header = () => {
   const [userLogged, setUserLogged] = useState(false); // estado hardcodeado solo para trabajar lo que muestra el boton de User.
@@ -28,10 +29,8 @@ const Header = () => {
   return (
     <nav className="navbar navbar-expand-lg bg-body-tertiary">
       <div className="container-fluid">
-        <div
-          className={`d-flex align-items-center ms-3 gap-3 ${styles.logoContainer}`}
-        >
-          <h3>PetsAmerica</h3>
+        <div className={`d-flex align-items-center ms-3 gap-3 ${styles.logoContainer}`}>
+          <NavLink to="/" className={styles.navlink}>PetsAmerica</NavLink>
           <img
             src={Logo}
             alt="Logo"
@@ -47,10 +46,7 @@ const Header = () => {
           aria-label="Toggle navigation"
           className={styles.menuButton}
         />
-        <div
-          className="collapse navbar-collapse justify-content-end me-4 bg-white"
-          id="navbarNav"
-        >
+        <div className={`${styles.navContainer} collapse navbar-collapse justify-content-end me-4`} id="navbarNav">
           <div className="navbar-nav align-items-center">
             <NavLink to="/" className="nav-item me-3">
               Inicio
@@ -70,12 +66,7 @@ const Header = () => {
             <NavLink to="/about" className="nav-item me-3">
               Sobre Nosotros
             </NavLink>
-            <div
-              className={`d-flex flex-column flex-lg-row align-items-center justify-content-center ${styles.buttonContainer}`}
-            >
-              {/* <NavLink to="/user" className="nav-item me-3" id="userButton">
-                <HiOutlineUserCircle />
-              </NavLink> */}
+            <div className={`d-flex flex-column flex-lg-row align-items-center justify-content-center ${styles.buttonContainer}`}>
               <div className="dropdown">
                 <span
                   className={`${styles.buttonCart} dropdown-toggle`}
@@ -87,7 +78,7 @@ const Header = () => {
                 {!userLogged ? (
                   <>
                     <ul
-                      className="dropdown-menu dropdown-menu-end"
+                      className={`${styles.bgColor} dropdown-menu dropdown-menu-end`}
                       aria-labelledby="dropdownMenuLink"
                     >
                       <li>
@@ -142,6 +133,7 @@ const Header = () => {
               >
                 <MdOutlineShoppingCart />
               </NavLink>
+              <DarkMode />
             </div>
           </div>
         </div>

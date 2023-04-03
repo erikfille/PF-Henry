@@ -3,6 +3,7 @@ import LoginWidget from "../../components/LoginWidget/LoginWidget";
 import { useLocation } from "react-router-dom";
 import loginDog from "../../assets/img/login/login-dog.jpeg";
 import signUpCat from "../../assets/img/login/signUp-cat.jpeg";
+import { NavLink } from "react-router-dom";
 
 import styles from "./Login.module.css";
 
@@ -41,9 +42,9 @@ export default function Login() {
         <div
           className={`col-12 col-md-6 col-xl-7 d-flex justify-content-center align-items-center ${styles.formContainer}`}
         >
-          <h1 className="fw-bold position-absolute top-0 start-0 m-4">
+          <NavLink to="/" className={`${styles.fColor} fw-bold position-absolute top-0 start-0 m-4`}>
             PetsAmerica
-          </h1>
+          </NavLink>
           <LoginWidget childProps={childProps} />
         </div>
 

@@ -89,14 +89,15 @@ export default function Servicios() {
 						<div className="col-12 col-lg-3">
 							<div className={`${style.filterCard} mb-3 p-3 d-flex flex-lg-column`}>
 								<div className="col-6 col-lg-12 service-filter mb-md-4 me-md-3 pe-2">
-									<p className={`${style.p} mb-2`} style={{ width: "150px" }}>
+									<p className={`${style.p} mb-2 fw-bold`} style={{ width: "150px" }}>
 										Filtrar por tipo:
 									</p>
 									<select
 										name="tipo"
 										value={filterBy.tipo}
 										onChange={(e) => handlerFilter(e)}
-										className="form-select form-select-lg mb-3"
+										className="form-select form-select-lg mb-3 fw-light fs-6"
+										style={{ backgroundColor: "var(--body_background)", color: "var(--body_color)", border: "0.5px solid var(--border_color)"}}
 										aria-label=".form-select-lg">
 										<option value="All" defaultValue>
 											Todos
@@ -108,14 +109,15 @@ export default function Servicios() {
 									</select>
 								</div>
 								<div className="col-6 col-lg-12 location-filter">
-									<p className={`${style.p} mb-2`} style={{ width: "150px" }}>
+									<p className={`${style.p} mb-2 fw-bold`} style={{ width: "150px" }}>
 										Filtrar por pais:
 									</p>
 									<select
 										name="locacion"
 										value={filterBy.locacion}
 										onChange={(e) => handlerFilter(e)}
-										className="form-select form-select-lg mb-3"
+										className="form-select form-select-lg mb-3 fw-light fs-6"
+										style={{ backgroundColor: "var(--body_background)", color: "var(--body_color)", border: "0.5px solid var(--border_color)"}}
 										aria-label=".form-select-lg">
 										<option value="All" defaultValue>
 											Todos
@@ -131,13 +133,14 @@ export default function Servicios() {
 							<div className={`${style.filterSortGrid} mb-4 p-0 p-md-2`}>
 								<div className="d-flex justify-content-between align-items-center flex-column flex-md-row">
 									<div className="d-flex align-items-center gap-10 mb-2 px-3 mb-md-0">
-										<p className={`${style.p} mb-0`} style={{ width: "150px" }}>
+										<p className={`${style.p} mb-0 fw-bold`} style={{ width: "150px" }}>
 											Ordenar por:
 										</p>
 										<select
 											value={order}
 											onChange={(e) => handlerOrder(e)}
 											className="form-control form-select"
+											style={{ backgroundColor: "var(--body_background)", color: "var(--body_color)", border: "0.5px solid var(--border_color)"}}
 											name="ordenar_por"
 											id="ordenar_por">
 											<option value="all" defaultValue>
@@ -148,13 +151,15 @@ export default function Servicios() {
 										</select>
 									</div>
 									<div className="d-flex align-items-center gap-10">
-										<p className={`${style.p} mb-0`} style={{ width: "200px" }}>
+										<p className={`${style.p} mb-0 fw-bold`} style={{ width: "200px" }}>
 											Buscar Servicio
 										</p>
 										<input
 											value={inputSearch}
 											onChange={(e) => handlerInput(e)}
+											placeholder="Ej: salud"
 											className="form-control"
+											style={{ backgroundColor: "var(--body_background)", color: "var(--body_color)", border: "0.5px solid var(--border_color)"}}
 											type="search"
 											name=""
 											id=""

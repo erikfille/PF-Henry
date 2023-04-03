@@ -149,16 +149,15 @@ export default function Tienda() {
             >
               <div className="d-flex d-md-block">
                 <div className="Category-filter mb-4 col col-md-12 me-2">
+                <p className={`${style.p} fw-bold`}>Categorías</p>
                   <select
                     name="categoria"
                     value={filterBy.categoria}
                     onChange={(e) => handlerFilter(e)}
                     className="form-select mb-3"
+                    style={{ backgroundColor: "var(--body_background)", color: "var(--body_color)", border: "0.5px solid var(--border_color)"}}
                     aria-label=".form-select-lg"
                   >
-                    <option value="default" defaultValue disabled>
-                      Categorías
-                    </option>
                     <option value="all">Todas</option>
                     {categories.length &&
                       categories.map(
@@ -172,16 +171,15 @@ export default function Tienda() {
                   </select>
                 </div>
                 <div className="Type-filter col col-md-12">
+                <p className={`${style.p} fw-bold`}>Especies</p>
                   <select
                     name="animal"
                     value={filterBy.animal}
                     onChange={(e) => handlerFilter(e)}
                     className="form-select mb-3"
+                    style={{ backgroundColor: "var(--body_background)", color: "var(--body_color)", border: "0.5px solid var(--border_color)"}}
                     aria-label=".form-select-lg"
                   >
-                    <option value="default" defaultValue disabled>
-                      Especie
-                    </option>
                     <option value="all">Todos</option>
                     {species.map((s, idx) => (
                       <option key={idx} value={s.animal.toLowerCase()}>
@@ -192,21 +190,16 @@ export default function Tienda() {
                 </div>
               </div>
               <div className={`${style.rangePrice} mb-4 col-12`}>
-                <label
-                  htmlFor="customRange3"
-                  className="form-label d-lg-block d-none"
-                >
-                  Rango de precio
-                </label>
+              <p className={`${style.p} fw-bold`}>Rango de precio</p>
                 <div className="ranges">
                   <div className="col-12 d-flex flex-md-column gap-10 justify-content-md-center justify-content-around">
                     <div className="d-flex gap-2 flex-row ">
                       <span className={style.prices}>Desde:</span>
-                      <span>0 U$D</span>
+                      <span className={style.num}>0 U$D</span>
                     </div>
                     <div className="d-flex gap-2 flex-row">
                       <span className={style.prices}>Hasta:</span>
-                      <span>{filterBy.price} U$D</span>
+                      <span className={style.num}>{filterBy.price} U$D</span>
                     </div>
                   </div>
                 </div>
@@ -228,18 +221,19 @@ export default function Tienda() {
                 className={`${style.filterSortGrid} mb-4 p-2 d-flex flex-row justify-content-between`}
               >
                 <div className="d-flex align-items-center gap-10 p-1 col col-md-6">
-                  <p className="mb-0 d-none d-lg-inline fw-bold">
+                  <p className={`${style.p} mb-0 d-none d-lg-inline fw-bold`}>
                     Ordenar por:
                   </p>
                   <select
                     value={order}
                     onChange={(e) => handlerOrder(e)}
                     className="form-control form-select"
+                    style={{ backgroundColor: "var(--body_background)", color: "var(--body_color)", border: "0.5px solid var(--border_color)"}}
                     name="ordenar_por"
                     id="ordenar_por"
                   >
                     <option value="default" defaultValue disabled>
-                      Ordenar por
+                      Selecciona
                     </option>
                     <option value="alfabetico-ascendente">
                       Alfabeticamente A-Z
@@ -254,7 +248,7 @@ export default function Tienda() {
                   className={`d-flex align-items-center gap-10 col col-md-6 m-1 ${style.search}`}
                 >
                   <p
-                    className="mb-0 d-none d-lg-inline fw-bold"
+                    className={`${style.p} mb-0 d-none d-lg-inline fw-bold`}
                     style={{ width: "inherit" }}
                   >
                     Buscar producto:
@@ -263,6 +257,7 @@ export default function Tienda() {
                     value={inputSearch}
                     onChange={(e) => handlerInput(e)}
                     className="form-control"
+                    style={{ backgroundColor: "var(--body_background)", color: "var(--body_color)", border: "0.5px solid var(--border_color)"}}
                     type="search"
                     name=""
                     id=""

@@ -118,8 +118,8 @@ export default function LoginWidget(props) {
 
   return (
     <div className="container d-flex flex-column align-items-center">
-      <h1 className="fs-3 fw-bold">¡Bienvenido!</h1>
-      <p className="fs-6 fw-light">La mejor forma de cuidar a tu mascota</p>
+      <h1 className={`${styles.fColor} fs-3 fw-bold`}>¡Bienvenido!</h1>
+      <p className={`${styles.fColor} fs-6 fw-light`}>La mejor forma de cuidar a tu mascota</p>
       <div className="col-10 col-sm-8 col-md-8 col-xl-5">
         <form
           className="d-flex flex-column align-items-center"
@@ -130,7 +130,7 @@ export default function LoginWidget(props) {
               <div className="mb-3 w-100">
                 <label
                   htmlFor="exampleInputEmail1"
-                  className="form-label fw-bold"
+                  className={`${styles.fColor} form-label fw-bold`}
                 >
                   Nombre
                 </label>
@@ -148,7 +148,7 @@ export default function LoginWidget(props) {
               <div className="mb-3 w-100">
                 <label
                   htmlFor="exampleInputEmail1"
-                  className="form-label fw-bold"
+                  className={`${styles.fColor} form-label fw-bold`}
                 >
                   Apellido
                 </label>{" "}
@@ -166,7 +166,7 @@ export default function LoginWidget(props) {
             </>
           )}
           <div className="mb-3 w-100">
-            <label htmlFor="email" className="form-label fw-bold">
+            <label htmlFor="email" className={`${styles.fColor} form-label fw-bold`}>
               Email
             </label>
             <input
@@ -186,7 +186,7 @@ export default function LoginWidget(props) {
           <div className="mb-3 w-100">
             <label
               htmlFor="exampleInputPassword1"
-              className="form-label fw-bold"
+              className={`${styles.fColor} form-label fw-bold`}
             >
               Contraseña
             </label>
@@ -275,7 +275,7 @@ export default function LoginWidget(props) {
         </form>
       </div>
       <div className="text-center">
-        <p>{childProps.message}</p>
+        <p className={styles.fColor}>{childProps.message}</p>
         <a className={styles.link} href={childProps.anchorPath}>
           <span>{childProps.accountAnchor}</span>
         </a>
