@@ -127,6 +127,7 @@ const usuariosRoutes = [
               id: usuario.id,
               email: usuario.email,
               image: usuario.image,
+              rol: usuario.rol?usuario.rol.nombre:usuario.rol
             },
           });
         } catch (error) {
@@ -152,7 +153,7 @@ const usuariosRoutes = [
 
         try {
           // Buscar el usuario por su email.
-          const usuario = await Usuario.findOne({ email });
+          const usuario = await Usuario.findOne({ email }).populate('rol');
           // si no encuentra el email, lo creamos y guardamos en la base de datos.
           if (!usuario) {
             const hashedPassword = await bcrypt.hash(password, 10);
@@ -188,6 +189,11 @@ const usuariosRoutes = [
           if (!validatePass) {
             throw Boom.unauthorized("Invalid Password");
           }
+
+          if (!usuario.rol) {
+            throw Boom.badRequest('Role not selected')
+          }
+      
           const token = jwt.sign({ id: usuario._id }, process.env.JWT_SECRET, {
             expiresIn: 60 * 60 * 72, // 72 horas
           });
@@ -200,6 +206,7 @@ const usuariosRoutes = [
               id: usuario.id,
               email: usuario.email,
               image: usuario.image,
+              rol: usuario.rol?usuario.rol.nombre:usuario.rol
             },
           });
         } catch (error) {
