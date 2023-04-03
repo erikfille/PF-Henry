@@ -30,7 +30,7 @@ export default function LoginWidget(props) {
     password: "",
     verifyPassword: "",
     image: "",
-    rol: "",
+    rol: "customer",
   });
 
   // Own Auth Data
