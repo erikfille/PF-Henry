@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useLogin } from "../../hooks/useAuth";
 import ModalRolSelector from "../ModalRolSelector/ModalRolSelector";
 import styles from "./LoginWidget.module.css";
+import UploadWidget from "../CreateProduct/UploadWidget";
 
 // Google Auth
 import { gapi } from "gapi-script";
@@ -13,9 +14,10 @@ import validation from "./validation";
 export default function LoginWidget(props) {
   const { childProps } = props;
 
-  const [loginUser, loginGoogleUser] = useLogin((state) => [
+  const [loginUser, loginGoogleUser, signUp] = useLogin((state) => [
     state.loginUser,
     state.loginGoogleUser,
+    state.signUp,
   ]);
 
   // Google Auth Data
@@ -26,6 +28,8 @@ export default function LoginWidget(props) {
     surname: "",
     email: "",
     password: "",
+    verifyPassword: "",
+    image: "",
     rol: "",
   });
 
@@ -49,7 +53,6 @@ export default function LoginWidget(props) {
   }, []);
 
   const onSuccess = async (response) => {
-    console.log(response);
     // Esto mando al loguear por google.
     // Se verifica el mail y la contraseña y si no existen en la db, se crea el usuario y se devuelve, sin el rol.
     let user = {
@@ -84,11 +87,33 @@ export default function LoginWidget(props) {
         [e.target.name]: e.target.value,
       })
     );
+
+    console.log(userData);
   }
 
   function handleSubmit(e) {
     e.preventDefault();
-    loginUser(userData);
+    if (childProps.type === "login") loginUser(userData);
+    if (childProps.type === "signup") {
+      let signUpUserData = {
+        name: userData.name,
+        surname: userData.surname,
+        email: userData.email,
+        password: userData.password,
+        image: userData.image,
+        rol: userData.rol,
+      };
+      signUp(signUpUserData);
+    }
+  }
+
+  function handleSelect(e) {
+    setUserData({ ...userData, rol: [e.target.value][0] });
+  }
+
+  function onUpload(url) {
+    setUserData({ ...userData, image: url });
+    console.log(url);
   }
 
   return (
@@ -130,8 +155,8 @@ export default function LoginWidget(props) {
                 <input
                   placeholder="Apellido"
                   id="surname"
-                  surname="surname"
-                  value={userData.user}
+                  name="surname"
+                  value={userData.surname}
                   onChange={handleInputChange}
                   className={`form-control ${errors.apellido && "danger"}`}
                   type="text"
@@ -163,7 +188,7 @@ export default function LoginWidget(props) {
               htmlFor="exampleInputPassword1"
               className="form-label fw-bold"
             >
-              Password
+              Contraseña
             </label>
             <input
               placeholder="Ingresa tu contraseña"
@@ -173,23 +198,68 @@ export default function LoginWidget(props) {
               value={userData.password}
               onChange={handleInputChange}
               className={`form-control ${errors.password && "danger"}`}
-            />
-            {errors.password && <p>{errors.password}</p>}
+            />{" "}
           </div>
           {childProps.type === "signup" && (
-            <div className=" w-100 mb-3">
-              <select
-                name="rol"
-                id="rol"
-                className="form-select"
-                aria-label="Default select example"
+            <div className="mb-3 w-100">
+              <label
+                htmlFor="exampleInputPassword1"
+                className="form-label fw-bold"
               >
-                <option value="" disabled defaultValue>
-                  ¿Qué quieres hacer?
-                </option>
-                <option value="customer">Quiero Comprar</option>
-                <option value="provider">Quiero Vender</option>
-              </select>
+                Verificar Contraseña
+              </label>
+              <input
+                placeholder="Verifica tu contraseña"
+                id="verifyPassword"
+                name="verifyPassword"
+                type="password"
+                value={userData.verifyPassword}
+                onChange={handleInputChange}
+                className={`form-control ${errors.password && "danger"}`}
+              />
+              {errors.password && <p>{errors.password}</p>}
+            </div>
+          )}
+          {childProps.type === "signup" && (
+            <div className="mb-3 w-100">
+              <div className="widgetButton">
+                <label
+                  htmlFor="exampleFormControlTextarea1"
+                  className="form-label fw-bold"
+                >
+                  Agregá una imagen de Perfil
+                </label>
+                <UploadWidget onUpload={onUpload} />
+                <br />
+                {userData.image && (
+                  <div className="uploadedImage">
+                    <img src={userData.image} alt="Uploaded" width="30%" />
+                  </div>
+                )}
+              </div>
+            </div>
+          )}
+          {childProps.type === "signup" && (
+            <div className=" w-100 mb-3">
+              <label
+                htmlFor="exampleInputPassword1"
+                className="form-label fw-bold"
+              >
+                ¿Que querés hacer con la App?
+                <select
+                  name="rol"
+                  id="rol"
+                  onChange={handleSelect}
+                  className="form-select"
+                  aria-label="Default select example"
+                >
+                  <option value="" disabled defaultValue>
+                    ¿Qué quieres hacer?
+                  </option>
+                  <option value="customer">Quiero Comprar</option>
+                  <option value="provider">Quiero Vender</option>
+                </select>
+              </label>
             </div>
           )}
           <button className="button w-100 mb-3">{childProps.button}</button>

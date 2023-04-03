@@ -4,6 +4,18 @@ import axios from "axios";
 export const useLogin = create((set, get) => ({
   user: {},
   modal: false,
+  signUp: async (userData) => {
+    const { receiveToken } = get();
+    console.log(userData);
+    try {
+      let response = await axios.post("/users", userData);
+      console.log(response);
+      set((state) => ({ user: response.data.user }));
+      receiveToken(response.data.user.token);
+    } catch (err) {
+      console.log(err.message);
+    }
+  },
   loginGoogleUser: async (userData) => {
     const { setModal, receiveToken } = get();
     try {
@@ -12,7 +24,7 @@ export const useLogin = create((set, get) => ({
       console.log("Post a Users: ", response.data);
 
       set((state) => ({ user: response.data.user }));
-      
+
       if (!response.data.user.rol) {
         setModal();
         return;
@@ -75,7 +87,7 @@ export const useLogin = create((set, get) => ({
       name: user.name,
       image: user.image,
       email: user.email,
-      rol: user.rol.nombre,
+      rol: user.rol,
     };
     localStorage.setItem("token", token);
     localStorage.setItem("user", JSON.stringify(userData));

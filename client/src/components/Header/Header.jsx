@@ -122,11 +122,14 @@ const Header = () => {
                           Ver perfil
                         </Link>
                       </li>
-                      <li
-                        onClick={() => logoutUser()}
-                        className={`${styles.li} dropdown-item`}
-                      >
-                        Cerrar sesión
+                      <li>
+                        <Link
+                          to=""
+                          onClick={() => logoutUser()}
+                          className={`${styles.li} dropdown-item`}
+                        >
+                          Cerrar sesión
+                        </Link>
                       </li>
                     </ul>
                   </>
