@@ -19,7 +19,7 @@ const validate = async (request, email, password) => {
 };
 // ----------------------
 const userSchema = Joi.object({
-    name: Joi.string().alphanum().min(3).required(),
+    name: Joi.string().min(3).required(),
     surname: Joi.string().alphanum().min(3).required(),
     email: Joi.string().email().required(),
     password: Joi.string().required(),
