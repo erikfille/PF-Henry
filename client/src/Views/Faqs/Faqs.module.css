@@ -1,5 +1,5 @@
 .button:not(.collapsed) {
-	color: black;
+	color: var(--body_color);
 	background: none;
 	box-shadow: none;
 }
@@ -10,6 +10,20 @@
 	border-radius: 10px !important;
 }
 
-h1 {
-	font-size: 1.5rem;
+.containerFaq {
+	border-radius: 10px;
+	background-color: var(--body_background);
 }
+
+.h1 {
+	color: var(--body_color);
+}
+
+.button {
+	color: var(--body_color) !important;
+}
+
+.response {
+	color: var(--body_color) !important;
+}
+

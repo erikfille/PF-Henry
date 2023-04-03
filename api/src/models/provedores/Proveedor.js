@@ -14,7 +14,7 @@ const ProveedorSchema = new Schema({
     type: Boolean,
     required: true,
   },
-  productos: [{ type: Schema.Types.ObjectId, ref: "Producto_servicio" }],
+  productos: [{ type: Schema.Types.ObjectId, ref: "ProductoServicio" }],
   rating: {
     type: Number,
   },
@@ -26,6 +26,21 @@ const ProveedorSchema = new Schema({
     type: String,
     enum: ["VIP", "Normal", "Gratuito"],
     required: true,
+  },
+  pais:{
+     type:String
+  },
+  tipo: {
+    type:String
+  },
+  descripcion: {
+    type:String
+  },
+  email: {
+    type:String
+  },
+  telefono: {
+    type:String
   },
   horarioAtencion: {
     type: {

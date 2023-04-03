@@ -1,11 +1,13 @@
 //? React
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
 import axios from "axios";
 
 //? Components
 import Footer from "./components/Footer/Footer";
-import Cart from "../src/components/Cart/Cart"
+import Cart from "./components/Cart/Cart";
+import ModalConsultaGenerico from "./components/ModalGenerico/ModalConsultaGenerico";
+import { useProduct } from "../src/hooks/useStore";
 
 //? Views
 import Home from "./Views/Home/Home";
@@ -17,12 +19,14 @@ import Servicios from "./Views/Servicios/Servicios";
 import Contacto from "./Views/Contacto/Contacto";
 import Login from "./Views/Login/Login";
 import CreateProduct from "./components/CreateProduct/CreateProduct";
-import Detail from "./Views/Detail/Detail";
+import Detail from "./Views/ProductDetail/Detail";
 import UserProfile from "./Views/UserProfile/UserProfile";
-
+import CheckOut from "./Views/Checkout/Checkout";
+import ProviderDashboard from "./Views/ProviderDashboard/ProviderDashboard";
 
 //? Styles
 import "./App.css";
+
 
 axios.defaults.baseURL = "http://localhost:3000";
 
@@ -33,10 +37,11 @@ function App() {
     <div className="App">
       {location.pathname !== "/login" && <Header /> &&
         location.pathname !== "/signup" && <Header />}
+
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Login />} />
-        <Route path="/inicio" element={<Home />} />
+        <Route exact path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
         <Route path="/faqs" element={<Faqs />} />
         <Route path="/tienda" element={<Tienda />} />
@@ -44,9 +49,14 @@ function App() {
         <Route path="/servicios" element={<Servicios />} />
         <Route path="/productos/:productId" element={<Detail />} />
         <Route path="/crearProducto" element={<CreateProduct />} />
-        <Route path="/perfil" element={<UserProfile />} />
+        <Route path="/perfil" element={<UserProfile />}>
+          <Route path="/perfil/:userEmail" element={<UserProfile />} />
+        </Route>
+        <Route path="/checkout" element={<CheckOut />} />
+        <Route path="/provider/:providerId" element={<ProviderDashboard />} />
       </Routes>
       <Cart />
+      <ModalConsultaGenerico />
       {location.pathname !== "/login" && <Footer /> &&
         location.pathname !== "/signup" && <Footer />}
     </div>

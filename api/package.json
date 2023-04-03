@@ -12,11 +12,21 @@
   "dependencies": {
     "@hapi/hapi": "^21.3.0",
     "@hapi/joi": "^17.1.1",
-    "hapi-cors": "^1.0.3",
+    "bcrypt": "^5.1.0",
+    "dotenv": "^16.0.3",
+    "google-auth-library": "^8.7.0",
+    "googleapis": "^114.0.0",
+    "hapi-auth-jwt2": "^10.4.0",
+    "jsonwebtoken": "^9.0.0",
+    "mercadopago": "^1.5.15",
     "mongoose": "^7.0.2",
-    "mongoose-populate": "^3.0.3"
+    "mongoose-populate": "^3.0.3",
+    "nodemailer": "^6.9.1",
+    "nodemailer-smtp-transport": "^2.7.4"
   },
   "devDependencies": {
+    "@hapi/boom": "^10.0.1",
+    "hapi-cors": "^1.0.3",
     "nodemon": "^2.0.21"
   }
 }

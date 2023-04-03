@@ -3,7 +3,12 @@ import validation from "./validation";
 import CreatableSelect from "react-select/creatable";
 import Select from "react-select";
 import UploadWidget from "./UploadWidget";
+import { useProduct } from "../../hooks/useStore";
 import axios from "axios";
+
+import Meta from "../Meta/Meta";
+import BreadCrump from "../BreadCrump/BreadCrump";
+import styles from "./CreateProducto.module.css";
 
 export default function CreateProduct() {
   const [productData, setProductData] = useState({
@@ -26,28 +31,39 @@ export default function CreateProduct() {
     stock: "",
   });
 
-  let productCategories = [
-    { value: "categorias.a", label: "Juguete" },
-    { value: "categorias.b", label: "Alimento" },
-    { value: "categorias.c", label: "Golosinas" },
-  ];
+  const [productCategories, setProductCategories] = useState([]);
+  const [servicesCategories, setServicesCategories] = useState([]);
 
-  let servicesCategories = [
-    { value: "categorias.a", label: "Consulta" },
-    { value: "categorias.b", label: "Paseo" },
-    { value: "categorias.c", label: "Baño" },
-    { value: "categorias.d", label: "Guarderia" },
-  ];
+  const [categories, getCategories] = useProduct((state) => [
+    state.categories,
+    state.getCategories,
+  ]);
 
-  async function getCategories() {
-    let response = await axios.get("/categorias");
-    console.log("categorias: ", response.data);
-  }
 
   useEffect(() => {
     // Trae todas las categorias de producto desde el back y guarda las de productos y las de servicios
     getCategories();
-  }, []);
+    let products = categories
+      .filter((c) => c.tipo === "Producto")
+      .map((p, idx) => {
+        return {
+          value: `${p.nombre}.${String.fromCharCode(97 + idx)}`,
+          label: `${p.nombre}`,
+        };
+      });
+    setProductCategories(products);
+    let services = categories
+      .filter((c) => c.tipo === "Servicio")
+      .map((p, idx) => {
+        return {
+          value: `${p.nombre}.${String.fromCharCode(97 + idx)}`,
+          label: `${p.nombre}`,
+        };
+      });
+    setServicesCategories(services);
+    console.log(products, services);
+    console.log(productData.tipo);
+  }, [productData.tipo]);
 
   async function createProduct(data) {
     try {
@@ -91,7 +107,7 @@ export default function CreateProduct() {
     console.log(selected);
   }
 
-  async function handleSubmit() {
+  async function handleSubmit(e) {
     e.preventDefault();
     // getProveedor()
     console.log(productData);
@@ -112,129 +128,237 @@ export default function CreateProduct() {
 
   return (
     <div className="formContainer">
-      <h1>Creación de Producto / Servicio</h1>
-      <div className="form">
-        <form onSubmit={handleSubmit}>
-          <div className="productDataContainer">
-            <input
-              placeholder="Nombre del Producto"
-              type="text"
-              name="titulo"
-              value={productData.titulo}
-              onChange={handleInputChange}
-              className={errors.titulo ? "danger" : "formInput"}
-            />
-            {errors.titulo && (
-              <span className="errorSpan">
-                {errors.titulo}
-                <br />
-              </span>
-            )}
-            <br />
-            <Select
-              name="tipo"
-              options={[
-                { value: "tipo.a", label: "Producto" },
-                { value: "tipo.b", label: "Servicio" },
-              ]}
-              className="basic-select"
-              placeholder="Tipo de Producto"
-              onChange={handleSelectChange}
-            />
-            <br />
-            <textarea
-              placeholder={
-                productData.tipo === "Producto"
-                  ? "Descripción del Producto"
-                  : "Descripción del Servicio"
-              }
-              type="text"
-              name="descripcion"
-              value={productData.descripcion}
-              onChange={handleInputChange}
-              className={
-                errors.descripcion && errors.state ? "danger" : "formInput"
-              }
-            />
-            {errors.descripcion && (
-              <span
-                className={
-                  productData.descripcion.length < 1 ||
-                  productData.descripcion.length >= 140
-                    ? "errorSpan"
-                    : "charactersLeft"
-                }
-              >
-                {errors.descripcion}
-                <br />
-              </span>
-            )}
-            <br />
-            <label htmlFor="precio">Precio</label>
-            <input
-              placeholder="Precio"
-              type="number"
-              name="precio"
-              value={productData.precio}
-              onChange={handleInputChange}
-            />
-            <br />
-            {productData.tipo === "Producto" ? (
-              <label htmlFor="stock">Stock</label>
-            ) : (
-              ""
-            )}
-            {productData.tipo === "Producto" ? (
-              <input
-                placeholder="Cantidad de Stock"
-                type="number"
-                name="stock"
-                value={productData.stock}
-                onChange={handleInputChange}
-              />
-            ) : (
-              ""
-            )}
-            <br />
+      <Meta title={"Contacto"} />
+      <BreadCrump title="Crear producto" />
 
-            <Select
-              isMulti
-              isSearchable={true}
-              isDisabled={productData.tipo ? false : true}
-              name="categorias"
-              options={
-                productData.tipo === "Producto"
-                  ? productCategories
-                  : servicesCategories
-              }
-              className="basic-multi-select"
-              placeholder="Categorías"
-              onChange={handleSelectChange}
-            />
-            <br />
-          </div>
-          <div className="imgContainer">
-            <div className="widgetButton">
-              <UploadWidget onUpload={onUpload} />
-              <br />
-              {productData.imagen && (
-                <div className="uploadedImage">
-                  <img src={productData.imagen} alt="Uploaded" width="30%" />
+      <div className={` home-wrapper-2 ${styles.creaateProductContainer}`}>
+        <h1 className=" text-center fw-bold pt-5 pb-1">
+          ¡Registrá aquí tu producto o servicio y crecé de la mano de
+          PetsAmerica!
+        </h1>
+
+        <div className="container mt-5 bg-white py-4 d-flex justify-content-center mt-auto">
+          <div className="row py-2">
+            <form
+              onSubmit={handleSubmit}
+              classname="d-flex flex-column align-items-center justify-content-center"
+            >
+              <div className="mb-3 ">
+                <div>
+                  <label
+                    htmlFor="formGroupExampleInput"
+                    className="form-label fw-bold"
+                  >
+                    Indicá si es un producto o servicio
+                  </label>
+                  <Select
+                    name="tipo"
+                    placeholder="Seleccioná producto o servicio"
+                    className={`accordion-item my-4 ${styles.selectContainer}`}
+                    options={[
+                      { value: "tipo.a", label: "Producto" },
+                      { value: "tipo.b", label: "Servicio" },
+                    ]}
+                    onChange={handleSelectChange}
+                  />
                 </div>
-              )}
-            </div>
-            {errors.state ? (
-              <button className="disabledButton" disabled>
-                <span>Crear Producto</span>
-              </button>
-            ) : (
-              <button className="submitButton">
-                <span>Crear Producto</span>
-              </button>
-            )}
+
+                <br />
+
+                <div>
+                  <label
+                    htmlFor="formGroupExampleInput"
+                    className="form-label fw-bold"
+                  >
+                    Nombre de tu{" "}
+                    {productData.tipo === "Producto" ? "producto" : "servicio"}
+                  </label>
+                  <input
+                    type="text"
+                    name="titulo"
+                    value={productData.titulo}
+                    onChange={handleInputChange}
+                    className={`${
+                      errors.titulo ? "danger" : "formInput"
+                    } form-control`}
+                    placeholder={`Ingresa aquí el nombre de tu ${
+                      productData.tipo === "Producto" ? "producto" : "servicio"
+                    }`}
+                  />
+                  {errors.titulo && (
+                    <span className="errorSpan">
+                      {errors.titulo}
+                      <br />
+                    </span>
+                  )}
+                </div>
+
+                <br />
+
+                <div>
+                  <label
+                    htmlFor="formGroupExampleInput"
+                    className="form-label fw-bold"
+                  >
+                    Descripción
+                  </label>
+                  <textarea
+                    placeholder={
+                      productData.tipo === "Producto"
+                        ? "Descripción del Producto"
+                        : "Descripción del Servicio"
+                    }
+                    type="text"
+                    name="descripcion"
+                    value={productData.descripcion}
+                    onChange={handleInputChange}
+                    className={`${
+                      errors.descripcion && errors.state
+                        ? "danger"
+                        : "formInput"
+                    } form-control `}
+                  />
+                  {errors.descripcion && (
+                    <span
+                      className={
+                        productData.descripcion.length < 1 ||
+                        productData.descripcion.length >= 140
+                          ? "errorSpan"
+                          : "charactersLeft"
+                      }
+                    >
+                      {errors.descripcion}
+                      <br />
+                    </span>
+                  )}
+                </div>
+
+                <br />
+
+                <div>
+                  <label
+                    htmlFor="exampleFormControlTextarea1"
+                    class="form-label fw-bold"
+                  >
+                    Indicá el precio del{" "}
+                    {productData.tipo === "Producto" ? "producto" : "servicio"}
+                  </label>
+                  <input
+                    placeholder="Precio"
+                    type="number"
+                    name="precio"
+                    value={productData.precio}
+                    onChange={handleInputChange}
+                    className="form-control"
+                  />
+                </div>
+
+                <br />
+
+                <div>
+                  {productData.tipo === "Producto" ? (
+                    <label
+                      htmlFor="exampleFormControlTextarea1"
+                      class="form-label fw-bold"
+                    >
+                      Stock disponible
+                    </label>
+                  ) : (
+                    ""
+                  )}
+
+                  {productData.tipo === "Producto" ? (
+                    <input
+                      placeholder="Cantidad de Stock"
+                      type="number"
+                      name="stock"
+                      value={productData.stock}
+                      onChange={handleInputChange}
+                      className="form-control"
+                    />
+                  ) : (
+                    ""
+                  )}
+                </div>
+
+                <br />
+
+                <div>
+                  <label
+                    htmlFor="exampleFormControlTextarea1"
+                    className="form-label fw-bold"
+                  >
+                    Seleccioná las categorías en las que querés que se publique
+                    tu{" "}
+                    {productData.tipo === "Producto" ? "producto" : "servicio"}
+                  </label>
+                  <Select
+                    isMulti
+                    isSearchable={true}
+                    isDisabled={productData.tipo ? false : true}
+                    name="categorias"
+                    options={
+                      productData.tipo === "Producto"
+                        ? productCategories
+                        : servicesCategories
+                    }
+                    className={`accordion-item my-4 ${styles.questionContainer}`}
+                    placeholder="Categorías"
+                    onChange={handleSelectChange}
+                  />
+                </div>
+
+                <br />
+              </div>
+
+              <div className="imgContainer ">
+                <div className="widgetButton">
+                  <label
+                    htmlFor="exampleFormControlTextarea1"
+                    className="form-label fw-bold"
+                  >
+                    Agregá una imagen de tu {productData.tipo === "Producto" ? "producto" : "servicio"}
+                  </label>
+                  <UploadWidget onUpload={onUpload} />
+                  <br />
+                  {productData.imagen && (
+                    <div className="uploadedImage">
+                      <img
+                        src={productData.imagen}
+                        alt="Uploaded"
+                        width="30%"
+                      />
+                    </div>
+                  )}
+                </div>
+              </div>
+
+              <div>
+                {errors.state ? (
+                  <button className="disabledButton" disabled>
+                    <span>
+                      Crear{" "}
+                      {productData.tipo === "Producto"
+                        ? "producto"
+                        : "servicio"}
+                    </span>
+                  </button>
+                ) : (
+                  <button className="submitButton">
+                    <span>
+                      Crear{" "}
+                      {productData.tipo === "Producto"
+                        ? "producto"
+                        : "servicio"}
+                    </span>
+                  </button>
+                )}
+              </div>
+
+              <div className="floatClear"></div>
+            </form>
           </div>
-          <div className="floatClear"></div>
-        </form>
+        </div>
       </div>
     </div>
   );

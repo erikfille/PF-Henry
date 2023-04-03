@@ -1,57 +1,72 @@
 .productCard {
-    width: 300px;
-    height: 370px;
-    border-radius: 10px;
-    background: url(images/logo-bg-product.png) no-repeat 10px;
-    background-color: #fff;
+	width: 300px;
+	height: 370px;
+	border-radius: 10px;
+	background: url(images/logo-bg-product.png) no-repeat 10px;
+	background-color: var(--body_background);
+}
+.productCard:hover {
+	box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+	transition: all ease-in-out 0.1s;
 }
 
 .productCard > h5 {
-    font-weight: 700;
+	font-weight: 700;
 }
 
 .productCard > hr {
-    opacity: 1;
-    background-color: var(--color-0CC5BA);
-    height: 2px;
-    border: none;
+	opacity: 1;
+	background-color: var(--color-0CC5BA);
+	height: 2px;
+	border: none;
 }
 
 .productCart {
-    border-bottom: 1px solid var(--color-0CC5BA);
+	border-bottom: 1px solid var(--color-0CC5BA);
 }
 
 .productCart h5 {
-    color: var(--color-131921);
-    line-height: 20px;
-    font-weight: 600;
-    font-size: 12px;
+	color: var(--body_color);
+	line-height: 20px;
+	font-weight: 600;
+	font-size: 12px;
 }
 
 .title {
-    font-weight: 600;
+	font-weight: 600;
 }
 
 .price {
-    font-weight: 600;
-    font-size: 12px;
-}
-
-.sku {
-    font-size: 1px;
+	font-weight: 600;
+	font-size: 12px;
+	color: var(--body_color);
 }
 
 .cant {
-    width: 60px;
+	color: var(--body_color);
+}
+
+.cant {
+	width: 60px;
 }
 
 .buttonDelete {
-    border: none;
-    background-color: transparent;
+	border: none;
+	background-color: transparent;
 }
 
 .iconDelete {
-    width: 20px;
-    height: 20px;
-    color: var(--color-0CC5BA);
+	width: 20px;
+	height: 20px;
+	color: var(--color-0CC5BA);
+}
+
+.p {
+	font-size: 16px;
+	font-weight: 700;
+	color: var(--body_color);
+}
+
+.rating {
+	color: var(--body_color);
 }

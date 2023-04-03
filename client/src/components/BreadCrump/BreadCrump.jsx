@@ -9,10 +9,9 @@ const BreadCrump = (props) => {
       <div className={`${style.breadcrump} py-2`}>
          <div className='container-xxl'>
                <div className='row'>
-                  <div className='col-12'>
-                     <p className='text-center mb-0'>
-                           <Link to="/" className={`${style.link} text-dark text-decoration-none`}>Inicio </Link> / {title}
-                     </p>
+                  <div className='col-12 d-flex justify-content-center align-items-center'>
+                     <Link to="/" className={`${style.link} text-decoration-none`}>Inicio&nbsp;</Link>
+                     <p className={`${style.p} mb-0`}>/ {title}</p>
                   </div>
                </div>
          </div>

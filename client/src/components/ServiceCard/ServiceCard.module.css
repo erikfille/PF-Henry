@@ -1,5 +1,5 @@
 .serviceCard {
-    background-color: #fff;
+    background-color: var(--body_background);
     border-radius: 10px;
 }
 
@@ -13,6 +13,11 @@
 .titleContainer > p {
     font-size: 14px;
     text-align: justify;
+    color: var(--body_color);
+}
+
+.titleContainer > h5 {
+    color: var(--body_color);
 }
 
 .contactContainer > hr {
@@ -25,10 +30,27 @@
 .contactContainer > p {
     font-size: 14px;
     text-align: justify;
+    color: var(--body_color);
+}
+
+.contactContainer > h5 {
+    color: var(--body_color);
+}
+
+.contactContainer > span {
+    color: var(--body_color);
 }
 
 .subtitle {
     font-size: 16px !important;
     font-weight: 600;
+    color: var(--body_color);
 }
 
+.desc > h5 {
+    color: var(--body_color);
+}
+
+.desc > span {
+    color: var(--body_color);
+}

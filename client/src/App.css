@@ -53,7 +53,7 @@
 /** Fondo grisesito de las page **/
 
 .home-wrapper-2 {
-  background-color: var(--color-f8f8f8);
+  background-color: var(--wrapper_background);
 }
 
 /** Fondo grisesito termina aqui **/

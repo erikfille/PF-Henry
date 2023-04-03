@@ -4,4 +4,13 @@
 
 .link {
     font-weight: 600;
+    color: var(--body_color);
+}
+
+.link:hover {
+    color: var(--color-0CC5BA);
+}
+
+.p {
+    color: var(--body_color);
 }

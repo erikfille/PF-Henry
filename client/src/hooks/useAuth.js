@@ -1,129 +1,137 @@
 import { create } from "zustand";
 import axios from "axios";
 
-const useLogin = create((set) => ({
-  // getProveedor: async () => {
-  //   // revisar cuando esten las rutas
-  //   try {
-  //     let response = await axios.get("/proveedor");
-  //     let allProducts = response.data.data;
-  //     set((state) => ({ allProducts: allProducts }));
-  //     set((state) => ({ filteredProducts: allProducts }));
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // },
-  loginUser(userData) {
-    axios
-      .post("auth/login", userData)
-      .then((response) => {
-        const data = response.data;
-        if (!data.success) {
-          window.alert(data.error.message);
-        } else {
-          receiveToken(data);
-        }
-      })
-      .catch((err) => {
-        window.alert(err.response.data);
-      });
+export const useLogin = create((set, get) => ({
+  user: {},
+  modal: false,
+  signUp: async (userData) => {
+    const { receiveToken } = get();
+    console.log(userData);
+    try {
+      let response = await axios.post("/users", userData);
+      console.log(response);
+      set((state) => ({ user: response.data.user }));
+      receiveToken(response.data.user.token);
+    } catch (err) {
+      console.log(err.message);
+    }
   },
-  receiveToken(data) {
-    user = {
-      email: data.data.usuario,
-      id: data.data.id,
-      rol_id: data.data.rol_id,
-      id_odontologo: data.data.id_odontologo,
-      permisos: permisos,
-      acepto_condiciones: data.data.acepto_condiciones,
+  loginGoogleUser: async (userData) => {
+    const { setModal, receiveToken } = get();
+    try {
+      let response = await axios.post("/users/GoogleLogin", userData);
+
+      console.log("Post a Users: ", response.data);
+
+      set((state) => ({ user: response.data.user }));
+
+      if (!response.data.user.rol) {
+        setModal();
+        return;
+      }
+      receiveToken(response.data.user.token);
+    } catch (err) {
+      console.log(err.message);
+    }
+    // Hago el post al back
+    // Recibo el usuario de vuelta
+    // Verifico si tiene el rol:
+    // - Si no tiene el rol, abro el modal de elegir rol, y hago el put con el nuevo user, agregando el rol y voy a receiveToken con lo que devuelve
+    // - Si tiene el rol, voy a receiveToken(data)
+    // receiveToken(data);
+  },
+  loginUser: async (userData) => {
+    const { receiveToken } = get();
+    try {
+      /* 
+      Se envía el email y password
+      Tres posibles respuestas:
+      - Success: Se recibe la info del usuario y el token y se setean en el store y se ejecuta receiveToken.
+      - Usuario inexistente: se avisa al usuario que no existe el usuario y se abre el modal generico con la opcion de redirigirse a Sign In.
+      - Contraseña Incorrecta: se avisa al usuario que la contraseña no coincide.
+      */
+      let response = await axios.post("/users/login", userData);
+      console.log("Response Login Normal: ", response);
+      set((state) => ({ user: response.data.user }));
+      receiveToken(response.data.user.token);
+    } catch (err) {
+      console.log(err.message);
+    }
+    // Hago el post al back
+    // Recibo el usuario de vuelta
+    // Verifico si tiene el rol:
+    // - Si no tiene el rol, abro el modal de elegir rol, y hago el put con el nuevo user, agregando el rol y voy a receiveToken con lo que devuelve
+    // - Si tiene el rol, voy a receiveToken(data)
+    // receiveToken(data);
+  },
+  setUserRole: async (role) => {
+    const { user, receiveToken } = get();
+
+    try {
+      let token = user.token;
+      let response = await axios.put(`/users/${user.id}/role`, { role: role });
+      set((state) => ({ user: response.data }));
+
+      console.log("user with role: ", response.data);
+
+      receiveToken(token);
+    } catch (err) {
+      console.log(err.message);
+    }
+  },
+  receiveToken(token) {
+    const { user, receiveLogin } = get();
+    console.log("receiveToken: ", user);
+    let userData = {
+      id: user._id,
+      name: user.name,
+      image: user.image,
+      email: user.email,
+      rol: user.rol,
     };
-    var token = data.data.token;
     localStorage.setItem("token", token);
-    localStorage.setItem("user", JSON.stringify(user));
+    localStorage.setItem("user", JSON.stringify(userData));
     axios.defaults.headers.common["Authorization"] = "Bearer " + token;
-    receiveLogin(user);
+    receiveLogin();
+    console.log("localStorageUser: ", JSON.parse(localStorage.getItem("user")));
+    console.log("localStorageToken: ", localStorage.getItem("token"));
+  },
+  receiveLogin() {
+    const { user } = get();
+
+    if (user.rol == "admin") {
+      window.location.assign("/admin");
+    } else if (user.rol == "provider") {
+      window.location.assign("/");
+    } else {
+      window.location.assign("/tienda");
+    }
   },
   logoutUser() {
     localStorage.removeItem("token");
     localStorage.removeItem("user");
     document.cookie = "token=;expires=Thu, 01 Jan 1970 00:00:01 GMT;";
     axios.defaults.headers.common["Authorization"] = "";
-    router.push("/login");
+    window.location.assign("/");
   },
-  receiveLogin(user) {
-    if (user.rol_id == "admin") {
-      router.push("/home");
-    } else {
-      router.push("/home");
+  checkLogin: () => {
+    try {
+      const jwt = localStorage.getItem("jwt");
+      const user = JSON.parse(localStorage.getItem("user"));
+
+      if (jwt) {
+        // Si existe un token, lo envío a verificar al back
+        axios.get("/user/login");
+
+        // Si el token se valida, guardo user en el store y le doy acceso a su dashboard
+
+        // Si el token no se valida, lo mando al login
+      }
+    } catch (err) {
+      console.log(err.message);
     }
+  },
+  setModal: () => {
+    set((state) => ({ modal: state.modal ? false : true }));
   },
 }));
-
-/*
-loginUser({dispatch}, creds) {
-    if (creds.email.length > 0 && creds.password.length > 0) {
-      axios.post('auth/login', creds).then(response => {
-        const data = response.data;
-        if ( !data.success){
-          dispatch('loginError', data.error.message);
-        } else {
-          dispatch('receiveToken', data);
-        }
-      }).catch(err => {
-        dispatch('loginError', err.response.data);
-      })
-
-    } else {
-      dispatch('loginError', 'Something was wrong. Try again');
-    }
-  },
-  receiveToken({dispatch}, data) {
-    let user = {};
-    var permisos = [];
-    if ( data.data.permisos.length > 0 ){
-      data.data.permisos.forEach((item, i) => {
-          permisos.push(item.permiso_padre.nombre_interno);
-          if ( item.permiso_hijo.length > 0 ){
-            item.permiso_hijo.forEach((item, i) => {
-              permisos.push(item.permiso.nombre_interno);
-            });
-          }
-      });
-    }
-    user = {
-        email: data.data.usuario,
-        id: data.data.id,
-        rol_id: data.data.rol_id,
-        id_odontologo: data.data.id_odontologo,
-        permisos: permisos,
-        acepto_condiciones: data.data.acepto_condiciones,
-    }
-    var token = data.data.token;
-    localStorage.setItem('token', token);
-    localStorage.setItem('user', JSON.stringify(user));
-    axios.defaults.headers.common['Authorization'] = "Bearer " + token;
-    dispatch('receiveLogin',user);
-  },
-  logoutUser() {
-      localStorage.removeItem('token');
-      localStorage.removeItem('user');
-      document.cookie = 'token=;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
-      axios.defaults.headers.common['Authorization'] = "";
-      router.push('/login');
-  },
-  loginError({commit}, payload) {
-      commit('LOGIN_FAILURE', payload);
-  },
-  receiveLogin({commit}, user) {
-      commit('LOGIN_SUCCESS');
-      if ( user.rol_id == 1 ){
-        router.push('/app/pacientesAdmin/list');
-      } else {
-        router.push('/app/pacientes/list');
-      }
-  },
-  requestLogin({commit}) {
-      commit('LOGIN_REQUEST');
-  }
-
-*/

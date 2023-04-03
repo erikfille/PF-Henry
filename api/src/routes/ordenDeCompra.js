@@ -1,21 +1,28 @@
-const ordenDeCompra = require("../models/ordenesDeCompras/OrdenDeCompra");
+const OrdenDeCompra = require("../models/ordenesDeCompras/OrdenDeCompra");
 
 const compraDetailRoutes = [
   {
     method: 'GET',
-    path: '/compra-detail/{id}',
+    path: '/ordenDeCompra/{id}',
     handler: async (request, h) => {
       try {
-        const compra = await ordenDeCompra.findById(request.params.id);
+        const compra = await OrdenDeCompra.findById(request.params.id)
+          .populate({
+            path: "comprador",
+            select:"name surname email address"
+          })
+          .populate("productos", "titulo")
+          .populate("envio")
         return h.response(compra);
       } catch (err) {
         return h.response(err).code(500);
       }
     }
   },
+
   {
     method: 'POST',
-    path: '/compra-detail',
+    path: '/ordenDeCompra',
     handler: async (request, h) => {
       try {
         
