@@ -129,7 +129,7 @@ export default function Servicios() {
 								</div>
 							</div>
 						</div>
-						<div className="col-12 col-md-9">
+						<div className="col-12 col-lg-9">
 							<div className={`${style.filterSortGrid} mb-4 p-0 p-md-2`}>
 								<div className="d-flex justify-content-between align-items-center flex-column flex-md-row">
 									<div className="d-flex align-items-center gap-10 mb-2 px-3 mb-md-0">
