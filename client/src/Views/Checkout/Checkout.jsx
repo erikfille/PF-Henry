@@ -4,10 +4,9 @@ import { RiDeleteBin6Line } from "react-icons/ri";
 import styles from "./Checkout.module.css";
 import { useModal, useProduct } from "../../hooks/useStore";
 
-
-// import React, { useEffect } from "react";
-// import MercadoPago from "MercadoPago"
-
+import React, {useEffect, useState} from "react";
+import Comprar from "../../Comprar";
+import axios from "axios";
 
 export default function CheckOut({productos, data}) {
 
@@ -20,60 +19,18 @@ export default function CheckOut({productos, data}) {
 
   const [setModal] = useModal((state) => [state.setModal]);
 
-//   useEffect(() => {
-// 		const mp = new MercadoPago('TEST-35895483-3aaf-4657-9524-93fc0375cbc7', { locale: 'es' });
-// 		const bricksBuilder = mp.bricks();
-// 		const renderCardPaymentBrick = async (bricksBuilder) => {
-// 		  const settings = {
-// 			initialization: {
-// 			  amount: totalPrice, // monto a ser pagado
-// 			  payer: {
-// 				email: "",
-// 			  },
-// 			},
-// 			customization: {
-// 			  maxInstallments: 12,
-// 			  visual: {
-// 				style: {
-// 				  theme: 'bootstrap', // | 'dark' | 'bootstrap' | 'flat'
-// 				}
-// 			  },
-// 			},
-// 			callbacks: {
-// 			  onReady: () => {
-// 				// callback llamado cuando Brick esté listo
-// 			  },
-// 			  onSubmit: (cardFormData) => {
-// 				//  callback llamado cuando el usuario haga clic en el botón enviar los datos
-// 				//  ejemplo de envío de los datos recolectados por el Brick a su servidor
-// 				return new Promise((resolve, reject) => {
-// 				  fetch("/pagos", {
-// 					method: "POST",
-// 					headers: {
-// 					  "Content-Type": "application/json",
-// 					},
-// 					body: JSON.stringify(cardFormData)
-// 				  })
-// 					.then((response) => {
-// 					  // recibir el resultado del pago
-// 					  resolve();
-// 					})
-// 					.catch((error) => {
-// 					  // tratar respuesta de error al intentar crear el pago
-// 					  reject();
-// 					})
-// 				});
-// 			  },
-// 			  onError: (error) => {
-// 				// callback llamado para todos los casos de error de Brick
-// 			  },
-// 			},
-// 		  };
-// 		  window.cardPaymentBrickController = await bricksBuilder.create('cardPayment', 'cardPaymentBrick_container', settings);
-// 		};
-// 		renderCardPaymentBrick(bricksBuilder);
-// 	  }, [totalPrice]);
-  
+  const [datos, setDatos] = useState("")
+
+  useEffect(()=>{
+      axios
+      .get("http://localhost:3000/pagos")
+      .then((data)=>{
+          setDatos(data.data)
+          console.log("Contenido de data:", data)
+      })
+      .catch(err=> console.error(err))
+  },[])
+
 	return (
 		<>
 			<Meta title={"Completar Orden"} />
@@ -156,10 +113,12 @@ export default function CheckOut({productos, data}) {
 						</div>
 							
 							</div>
-							{/* <div id="cardPaymentBrick_container">
-							</div>  */}
-		
-				</div>
+							<div>
+								<Comprar data={datos}/>
+							</div>
+					</div>
+
+							
 			</div>
 		</>
 	);
