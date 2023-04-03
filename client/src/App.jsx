@@ -37,10 +37,6 @@ function App() {
       {location.pathname !== "/login" && <Header /> &&
         location.pathname !== "/signup" && <Header />}
 
-      {/* { !datos
-        ? <p>Aguarde un momento...</p>
-        : <CheckOut productos={productos} data ={datos}/>
-      } */}
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Login />} />
