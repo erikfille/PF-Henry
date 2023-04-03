@@ -4,6 +4,9 @@ import axios from "axios";
 export const useLogin = create((set, get) => ({
   user: {},
   modal: false,
+  signUp: async (userData) => {
+    let response = axios.post("/users", userData)
+  },
   loginGoogleUser: async (userData) => {
     const { setModal, receiveToken } = get();
     try {

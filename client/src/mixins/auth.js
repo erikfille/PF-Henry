@@ -14,13 +14,17 @@ export function rolAdmin() {
     return ( JSON.parse(localStorage.getItem('user')).rol === 'admin' )
 }
 export function rolUser() {
-    return ( JSON.parse(localStorage.getItem('user')).rol === 'user' )
+    return ( JSON.parse(localStorage.getItem('user')).rol === 'customer' )
+}
+export function rolProvider() {
+    return ( JSON.parse(localStorage.getItem('user')).rol === 'provider' )
 }
 
 export const AuthMixin = {
     methods: {
         isAuthenticated,
         rolAdmin,
-        rolUser
+        rolUser,
+        rolProvider
     }
 };
