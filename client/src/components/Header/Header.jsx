@@ -13,12 +13,15 @@ import styles from "./Header.module.css";
 const Header = () => {
   const [userLogged, setUserLogged] = useState(false); // estado hardcodeado solo para trabajar lo que muestra el boton de User.
   const [setActiveCart] = useProduct((state) => [state.setActiveCart]);
-
-  const [user, logout] = useLogin((state) => [state.user, state.logout]);
+  const [logoutUser] = useLogin((state) => [state.logoutUser]);
+  const [user, setUser] = useState({});
 
   useEffect(() => {
-    if (user.id) {
+    const localUser = JSON.parse(localStorage.getItem("user"));
+    console.log(localUser);
+    if (localUser && !user.id) {
       setUserLogged(true);
+      setUser(localUser);
     }
   }, [user]);
 
@@ -119,10 +122,11 @@ const Header = () => {
                           Ver perfil
                         </Link>
                       </li>
-                      <li onClick={() => {}}>
-                        <Link to="" className={`${styles.li} dropdown-item`}>
-                          Cerrar sesión
-                        </Link>
+                      <li
+                        onClick={() => logoutUser()}
+                        className={`${styles.li} dropdown-item`}
+                      >
+                        Cerrar sesión
                       </li>
                     </ul>
                   </>

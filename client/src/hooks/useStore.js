@@ -198,7 +198,7 @@ export const useServices = create((set, get) => ({
   },
 }));
 
-const useUser = create((set, get) => ({
+export const useUser = create((set, get) => ({
   userInfo: {},
   pets: {},
   compras: {},

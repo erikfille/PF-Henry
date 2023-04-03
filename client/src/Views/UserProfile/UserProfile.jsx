@@ -1,20 +1,21 @@
 import Meta from "../../components/Meta/Meta";
 import BreadCrump from "../../components/BreadCrump/BreadCrump";
 import style from "./UserProfile.module.css";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { user } from "./userHelp";
 import { FaUserAlt } from "react-icons/fa";
 import PetsContainer from "../../components/PetsContainer/PetsContainer";
-import { useLogin } from "../../hooks/useAuth";
+import { useUser } from "../../hooks/useStore";
 
 // objetos hardcodeados solo para saber si los array tienen algo o estan vacios
 // Esto para el renderizado condicional.
 // import { pets, compras } from "../../components/PetData/petHelp";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export default function UserProfile() {
   const { userEmail } = useParams();
-  const [userInfo, getUserInfo, pets, getPets, compras, getCompras] = useLogin(
+
+  const [userInfo, getUserInfo, pets, getPets, compras, getCompras] = useUser(
     (state) => [
       state.userInfo,
       state.getUserInfo,
@@ -26,9 +27,9 @@ export default function UserProfile() {
   );
 
   useEffect(() => {
-    getUserInfo();
-    getPets();
-    getCompras();
+    getUserInfo(userEmail);
+    getPets(userEmail);
+    getCompras(userEmail);
   });
 
   return (
@@ -45,7 +46,7 @@ export default function UserProfile() {
                 </Link>
               </div>
               <div className="d-flex justify-content-center">
-                {userInfo.map((u) => (
+                {user.map((u) => (
                   <>
                     <div className="col-4">
                       <div className={style.circle}>

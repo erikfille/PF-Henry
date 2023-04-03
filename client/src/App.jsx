@@ -52,7 +52,9 @@ function App() {
         <Route path="/servicios" element={<Servicios />} />
         <Route path="/productos/:productId" element={<Detail />} />
         <Route path="/crearProducto" element={<CreateProduct />} />
-        <Route path="/perfil/:userEmail" element={<UserProfile />} as="/perfil" />
+        <Route path="/perfil" element={<UserProfile />}>
+          <Route path="/perfil/:userEmail" element={<UserProfile />} />
+        </Route>
         <Route path="/checkout" element={<CheckOut />} />
         <Route path="/provider/:providerId" element={<ProviderDashboard />} />
       </Routes>

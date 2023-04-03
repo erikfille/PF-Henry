@@ -12,11 +12,12 @@ export const useLogin = create((set, get) => ({
       console.log("Post a Users: ", response.data);
 
       set((state) => ({ user: response.data.user }));
+      
       if (!user.rol) {
         setModal();
         return;
       }
-      receiveToken();
+      receiveToken(response.data.user.token);
     } catch (err) {
       console.log(err.message);
     }
@@ -40,7 +41,7 @@ export const useLogin = create((set, get) => ({
       let response = await axios.post("/users/login", userData);
       console.log("Response Login Normal: ", response);
       set((state) => ({ user: response.data.user }));
-      receiveToken();
+      receiveToken(response.data.user.token);
     } catch (err) {
       console.log(err.message);
     }
@@ -55,17 +56,18 @@ export const useLogin = create((set, get) => ({
     const { user, receiveToken } = get();
 
     try {
-      let response = await axios.put(`/users/${user.id}/role`, role);
+      let token = user.token;
+      let response = await axios.put(`/users/${user.id}/role`, { role: role });
       set((state) => ({ user: response.data }));
 
       console.log("user with role: ", response.data);
 
-      receiveToken();
+      receiveToken(token);
     } catch (err) {
       console.log(err.message);
     }
   },
-  receiveToken() {
+  receiveToken(token) {
     const { user, receiveLogin } = get();
     console.log("receiveToken: ", user);
     let userData = {
@@ -73,32 +75,33 @@ export const useLogin = create((set, get) => ({
       name: user.name,
       image: user.image,
       email: user.email,
-      rol: user.rol,
+      rol: user.rol.nombre,
     };
-    let token = user.token;
     localStorage.setItem("token", token);
     localStorage.setItem("user", JSON.stringify(userData));
     axios.defaults.headers.common["Authorization"] = "Bearer " + token;
-    // receiveLogin();
+    receiveLogin();
     console.log("localStorageUser: ", JSON.parse(localStorage.getItem("user")));
     console.log("localStorageToken: ", localStorage.getItem("token"));
   },
   receiveLogin() {
     const { user } = get();
 
-    if (user.rol == "customer") {
-      window.location.assign("/tienda");
-    } else {
+    if (user.rol == "admin") {
+      window.location.assign("/admin");
+    } else if (user.rol == "provider") {
       window.location.assign("/");
+    } else {
+      window.location.assign("/tienda");
     }
   },
-  // logoutUser() {
-  //   localStorage.removeItem("token");
-  //   localStorage.removeItem("user");
-  //   document.cookie = "token=;expires=Thu, 01 Jan 1970 00:00:01 GMT;";
-  //   axios.defaults.headers.common["Authorization"] = "";
-  //   router.push("/login");
-  // },
+  logoutUser() {
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+    document.cookie = "token=;expires=Thu, 01 Jan 1970 00:00:01 GMT;";
+    axios.defaults.headers.common["Authorization"] = "";
+    window.location.assign("/");
+  },
   checkLogin: () => {
     try {
       const jwt = localStorage.getItem("jwt");
