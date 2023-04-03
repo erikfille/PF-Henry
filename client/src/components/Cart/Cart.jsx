@@ -4,6 +4,7 @@ import style from "./Cart.module.css";
 import { useState, useEffect } from "react";
 import { useProduct } from "../../hooks/useStore";
 import { NavLink } from "react-router-dom";
+import { v4 as uuidv4 } from 'uuid';
 
 export default function Cart() {
   const [isOpen, setIsOpen] = useState(false); // El boton de CART del header debe modificar este estado. inicalmente debe estar en False.
@@ -37,19 +38,23 @@ export default function Cart() {
     }
   }, [cartProducts]);
 
-  return (
-    <>
-      <div
-        className={`${style.shoppingCart} ${
-          isOpen ? style.show : style.hidden
-        }`}
-      >
-        <div className="d-flex justify-content-end">
-          <button onClick={() => setActiveCart()} className="button">
-            Cerrar
-          </button>
-        </div>
+	//? Genero ID de la orden de compra para usar con mp en checkout
+	const [ordenId, setOrdenId] = useState(null);
 
+  	const handleConfirmOrder = () => {
+    const newOrdenId = uuidv4();
+    setOrdenId(newOrdenId);
+    // ? Dice chatgpt :aquí puedes hacer otras cosas con el ID, como guardarlo en una base de datos o enviarlo a un servidor
+  };
+
+	return (
+		<>
+			<div className={`${style.shoppingCart} ${isOpen ? style.show : style.hidden}`}>
+				<div className="d-flex justify-content-end">
+					<button onClick={() => setActiveCart()} className="button">
+						Cerrar
+					</button>
+				</div>
         <div
           className={`${style.titleCart} d-flex flex-column align-items-center my-5 gap-2`}
         >
@@ -68,7 +73,6 @@ export default function Cart() {
             style={{ width: "430px" }}
           />
         </div>
-
         {!cartProducts.length ? (
           <>
             <div
