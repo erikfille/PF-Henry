@@ -63,14 +63,14 @@ const init = async () => {
   server.auth.scheme('google', () => {
     const scheme = {
       authenticate: async (request, h) => {
-        const authorizationHeader = request.headers.authorization;
+        const authorizationHeader = request.headers.Authorization;
         if (!authorizationHeader) {
           return h.unauthenticated();
         }
 
         const [authType, token] = authorizationHeader.split(' ');
 
-        if (authType.toLowerCase() !== 'bearer') {
+        if (authType.toLowerCase() !== 'Bearer') {
           return h.unauthenticated();
         }
 
