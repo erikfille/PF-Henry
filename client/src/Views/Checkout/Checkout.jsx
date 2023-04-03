@@ -4,9 +4,8 @@ import { RiDeleteBin6Line } from "react-icons/ri";
 import styles from "./Checkout.module.css";
 import { useModal, useProduct } from "../../hooks/useStore";
 
-import React, {useEffect, useState} from "react";
-import Comprar from "../../Comprar";
-import axios from "axios";
+import React from "react";
+import Brick from "../../Brick";
 
 export default function CheckOut({productos, data}) {
 
@@ -19,17 +18,17 @@ export default function CheckOut({productos, data}) {
 
   const [setModal] = useModal((state) => [state.setModal]);
 
-  const [datos, setDatos] = useState("")
+//   const [datos, setDatos] = useState("")
 
-  useEffect(()=>{
-      axios
-      .get("http://localhost:3000/pagos")
-      .then((data)=>{
-          setDatos(data.data)
-          console.log("Contenido de data:", data)
-      })
-      .catch(err=> console.error(err))
-  },[])
+//   useEffect(()=>{
+//       axios
+//       .get("http://localhost:3000/pagos")
+//       .then((data)=>{
+//           setDatos(data.data)
+//           console.log("Contenido de data:", data)
+//       })
+//       .catch(err=> console.error(err))
+//   },[])
 
 	return (
 		<>
@@ -113,9 +112,16 @@ export default function CheckOut({productos, data}) {
 						</div>
 							
 							</div>
-							<div>
+							{/* <div>
 								<Comprar data={datos}/>
-							</div>
+							</div> */}
+
+							{cartProducts.length ? (
+    							<button>
+        							<Brick/>
+    							</button>
+							) : null}
+
 					</div>
 
 							
