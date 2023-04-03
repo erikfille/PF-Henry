@@ -10,9 +10,14 @@ initMercadoPago('APP_USR-5748bc97-54ef-411e-9d38-78d5ebdf76fb');
 
 export default function Brick() {
 
-const initialization = {
-    amount: 100,
-   };
+
+    const initialization = {
+    amount: 100, // monto a ser pago
+        payer: {
+            email: "",
+        },
+    }
+
    
    
    const onSubmit = async (formData) => {

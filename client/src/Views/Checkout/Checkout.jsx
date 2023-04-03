@@ -5,6 +5,8 @@ import styles from "./Checkout.module.css";
 import { useModal, useProduct } from "../../hooks/useStore";
 
 import React from "react";
+// import Comprar from "../../Comprar";
+// import axios from "axios";
 import Brick from "../../Brick";
 
 export default function CheckOut({productos, data}) {
