@@ -14,21 +14,6 @@ export default function Brick() {
             email: "",
         },
     }
-
-<<<<<<< HEAD
-=======
-export default function Brick() {
-
-
-    const initialization = {
-    amount: 100, // monto a ser pago
-        payer: {
-            email: "",
-        },
-    }
-
->>>>>>> 6931ad78fc2a98c364c7f036b427b4ce887f21cb
-   
    
    const onSubmit = async (formData) => {
     // callback llamado al hacer clic en el botón enviar datos

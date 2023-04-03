@@ -19,7 +19,6 @@ export default function CheckOut({productos, data}) {
   ]);
 
   const [setModal] = useModal((state) => [state.setModal]);
-
   
 
 //   const [datos, setDatos] = useState("")
