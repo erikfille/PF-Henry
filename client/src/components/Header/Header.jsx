@@ -23,7 +23,7 @@ const Header = () => {
       setUserLogged(true);
       setUser(localUser);
     }
-  }, [user]);
+  }, [userLogged]);
 
   return (
     <nav className="navbar navbar-expand-lg bg-body-tertiary">

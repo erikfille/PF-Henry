@@ -5,7 +5,7 @@ export const useLogin = create((set, get) => ({
   user: {},
   modal: false,
   loginGoogleUser: async (userData) => {
-    const { user, setModal, receiveToken } = get();
+    const { setModal, receiveToken } = get();
     try {
       let response = await axios.post("/users/GoogleLogin", userData);
 
@@ -13,7 +13,7 @@ export const useLogin = create((set, get) => ({
 
       set((state) => ({ user: response.data.user }));
       
-      if (!user.rol) {
+      if (!response.data.user.rol) {
         setModal();
         return;
       }
