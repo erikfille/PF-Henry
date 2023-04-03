@@ -87,17 +87,33 @@ export default function LoginWidget(props) {
         [e.target.name]: e.target.value,
       })
     );
+
+    console.log(userData);
   }
 
   function handleSubmit(e) {
     e.preventDefault();
     if (childProps.type === "login") loginUser(userData);
-    if (childProps.type === "signup") signUp(userData);
-    console.log(userData);
+    if (childProps.type === "signup") {
+      let signUpUserData = {
+        name: userData.name,
+        surname: userData.surname,
+        email: userData.email,
+        password: userData.password,
+        image: userData.image,
+        rol: userData.rol,
+      };
+      signUp(signUpUserData);
+    }
+  }
+
+  function handleSelect(e) {
+    setUserData({ ...userData, rol: [e.target.value][0] });
   }
 
   function onUpload(url) {
-    setUserData({ ...userData, imagen: url });
+    setUserData({ ...userData, image: url });
+    console.log(url);
   }
 
   return (
@@ -139,8 +155,8 @@ export default function LoginWidget(props) {
                 <input
                   placeholder="Apellido"
                   id="surname"
-                  surname="surname"
-                  value={userData.user}
+                  name="surname"
+                  value={userData.surname}
                   onChange={handleInputChange}
                   className={`form-control ${errors.apellido && "danger"}`}
                   type="text"
@@ -184,56 +200,66 @@ export default function LoginWidget(props) {
               className={`form-control ${errors.password && "danger"}`}
             />{" "}
           </div>
-          <div className="mb-3 w-100">
-            <label
-              htmlFor="exampleInputPassword1"
-              className="form-label fw-bold"
-            >
-              Verificar Contraseña
-            </label>
-            <input
-              placeholder="Verifica tu contraseña"
-              id="verifyPassword"
-              name="verifyPassword"
-              type="password"
-              value={userData.verifyPassword}
-              onChange={handleInputChange}
-              className={`form-control ${errors.password && "danger"}`}
-            />
-            {errors.password && <p>{errors.password}</p>}
-          </div>
-          <div className="imgContainer ">
-            <div className="widgetButton">
+          {childProps.type === "signup" && (
+            <div className="mb-3 w-100">
               <label
-                htmlFor="exampleFormControlTextarea1"
+                htmlFor="exampleInputPassword1"
                 className="form-label fw-bold"
               >
-                Agregá una imagen de tu
-                {productData.tipo === "Producto" ? "producto" : "servicio"}
+                Verificar Contraseña
               </label>
-              <UploadWidget onUpload={onUpload} />
-              <br />
-              {productData.imagen && (
-                <div className="uploadedImage">
-                  <img src={productData.imagen} alt="Uploaded" width="30%" />
-                </div>
-              )}
+              <input
+                placeholder="Verifica tu contraseña"
+                id="verifyPassword"
+                name="verifyPassword"
+                type="password"
+                value={userData.verifyPassword}
+                onChange={handleInputChange}
+                className={`form-control ${errors.password && "danger"}`}
+              />
+              {errors.password && <p>{errors.password}</p>}
             </div>
-          </div>
+          )}
+          {childProps.type === "signup" && (
+            <div className="imgContainer ">
+              <div className="widgetButton">
+                <label
+                  htmlFor="exampleFormControlTextarea1"
+                  className="form-label fw-bold"
+                >
+                  Agregá una imagen de Perfil
+                </label>
+                <UploadWidget onUpload={onUpload} />
+                <br />
+                {userData.image && (
+                  <div className="uploadedImage">
+                    <img src={userData.image} alt="Uploaded" width="30%" />
+                  </div>
+                )}
+              </div>
+            </div>
+          )}
           {childProps.type === "signup" && (
             <div className=" w-100 mb-3">
-              <select
-                name="rol"
-                id="rol"
-                className="form-select"
-                aria-label="Default select example"
+              <label
+                htmlFor="exampleInputPassword1"
+                className="form-label fw-bold"
               >
-                <option value="" disabled defaultValue>
-                  ¿Qué quieres hacer?
-                </option>
-                <option value="customer">Quiero Comprar</option>
-                <option value="provider">Quiero Vender</option>
-              </select>
+                ¿Que querés hacer con la App?
+                <select
+                  name="rol"
+                  id="rol"
+                  onChange={handleSelect}
+                  className="form-select"
+                  aria-label="Default select example"
+                >
+                  <option value="" disabled defaultValue>
+                    ¿Qué quieres hacer?
+                  </option>
+                  <option value="customer">Quiero Comprar</option>
+                  <option value="provider">Quiero Vender</option>
+                </select>
+              </label>
             </div>
           )}
           <button className="button w-100 mb-3">{childProps.button}</button>
