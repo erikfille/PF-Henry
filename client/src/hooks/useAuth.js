@@ -11,7 +11,7 @@ export const useLogin = create((set, get) => ({
       let response = await axios.post("/users", userData);
       console.log(response);
       set((state) => ({ user: response.data.user }));
-      receiveToken(response.data.user.token);
+      receiveToken(response.data.user.token, response.data.user);
     } catch (err) {
       console.log(err.message);
     }
@@ -29,7 +29,7 @@ export const useLogin = create((set, get) => ({
         setModal();
         return;
       }
-      receiveToken(response.data.user.token);
+      receiveToken(response.data.user.token, response.data.user);
     } catch (err) {
       console.log(err.message);
     }
@@ -53,7 +53,7 @@ export const useLogin = create((set, get) => ({
       let response = await axios.post("/users/login", userData);
       console.log("Response Login Normal: ", response);
       set((state) => ({ user: response.data.user }));
-      receiveToken(response.data.user.token);
+      receiveToken(response.data.user.token, response.data.user);
     } catch (err) {
       console.log(err.message);
     }
@@ -74,13 +74,13 @@ export const useLogin = create((set, get) => ({
 
       console.log("user with role: ", response.data);
 
-      receiveToken(token);
+      receiveToken(token, response.data);
     } catch (err) {
       console.log(err.message);
     }
   },
-  receiveToken(token) {
-    const { user, receiveLogin } = get();
+  receiveToken(token, user) {
+    const { receiveLogin } = get();
     console.log("receiveToken: ", user);
     let userData = {
       id: user._id,
