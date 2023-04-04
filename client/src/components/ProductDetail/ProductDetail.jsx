@@ -3,6 +3,7 @@ import ReactStars from "react-stars";
 import { useProduct } from "../../hooks/useStore";
 import styles from "./ProductDetail.module.css";
 import Zoom from "react-img-hover-zoom";
+import { NavLink } from "react-router-dom";
 
 export default function ProductDetail(props) {
 
@@ -37,7 +38,10 @@ export default function ProductDetail(props) {
   return (
     <div className="container mb-5">
       <div className="row gx-5">
-        <div className={`${styles.container} col-12 col-md-6 d-flex justify-content-center mt-5`}>
+        <div >
+          <NavLink className={`${styles.resena} d-flex justify-content-end pt-3`} to="/tienda">Volver</NavLink>
+        </div>
+        <div className={`${styles.container} col-12 col-md-6 d-flex justify-content-center mt-3`}>
           <Zoom
             img={imagen}
             zoomScale={3}
@@ -48,7 +52,7 @@ export default function ProductDetail(props) {
           />
           {/* <img src={imagen} alt="productImage" className="img-fluid p-lg-4" /> */}
         </div>
-        <div className={`${styles.container} container col-12 col-md-6 py-4 mt-5`}>
+        <div className={`${styles.container} container col-12 col-md-6 py-4 mt-3`}>
           <h1 className={`${styles.fColor} fw-bold`}>{titulo}</h1>
           <hr />
           <h3 className={`${styles.fColor} fw-bold fs-5`}>$ {precio}</h3>
