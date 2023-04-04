@@ -81,25 +81,20 @@ export const useProduct = create((set, get) => ({
     }
   },
   setCartAdd: async (productId, quantity, stock) => {
-    const { cartProducts, saveCartToStorage } = get();
+    const { saveCartToStorage } = get();
 
-    if (cartProducts.length < 1) {
-      let repeatedProduct = cartProducts.find((p) => p._id === productId);
+    let savedCart = JSON.parse(window.localStorage.getItem("cart"));
 
-      if (repeatedProduct !== undefined) {
-        repeatedProduct.quantity = quantity;
-      } else {
-        let response = await axios
-          .get(`/product-detail/${productId}`)
-          .catch((error) =>
-            window.alert("Algo salio mal, intentalo nuevamente")
-          );
+    let cartProducts = savedCart;
 
-        let product = response.data;
-        product.quantity = Number(quantity);
+    console.log("savedCart: ", savedCart);
+    console.log("cartProducts: ", cartProducts);
 
-        set((state) => ({ cartProducts: [...state.cartProducts, product] }));
-      }
+    let repeatedProduct = cartProducts.find((p) => p._id === productId);
+
+    if (repeatedProduct) {
+      repeatedProduct.quantity = quantity;
+      set((state) => ({ cartProducts: cartProducts }));
     } else {
       let response = await axios
         .get(`/product-detail/${productId}`)
@@ -107,7 +102,8 @@ export const useProduct = create((set, get) => ({
 
       let product = response.data;
       product.quantity = Number(quantity);
-      set((state) => ({ cartProducts: [product] }));
+
+      set((state) => ({ cartProducts: [...state.cartProducts, product] }));
     }
     saveCartToStorage();
   },
@@ -118,8 +114,7 @@ export const useProduct = create((set, get) => ({
       set((state) => ({
         cartProducts: filteredProducts,
       }));
-    }
-    else set(() => ({cartProducts: []}))
+    } else set(() => ({ cartProducts: [] }));
     saveCartToStorage();
   },
   setActiveCart: () => {
