@@ -131,7 +131,7 @@ const Header = () => {
                 id="cartButton"
                 onClick={() => setActiveCart()}
               >
-                <MdOutlineShoppingCart />
+                <MdOutlineShoppingCart className={styles.iconCart} />
               </NavLink>
               <DarkMode />
             </div>
