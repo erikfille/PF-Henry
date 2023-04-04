@@ -2,8 +2,10 @@ import React, { useState } from "react";
 import ReactStars from "react-stars";
 import { useProduct } from "../../hooks/useStore";
 import styles from "./ProductDetail.module.css";
+import Zoom from "react-img-hover-zoom";
 
 export default function ProductDetail(props) {
+
   const {
     _id,
     titulo,
@@ -36,7 +38,15 @@ export default function ProductDetail(props) {
     <div className="container mb-5">
       <div className="row gx-5">
         <div className={`${styles.container} col-12 col-md-6 d-flex justify-content-center mt-5`}>
-          <img src={imagen} alt="productImage" className="img-fluid p-lg-4" />
+          <Zoom
+            img={imagen}
+            zoomScale={3}
+            width={600}
+            height={600}
+            // style={}
+            className=""
+          />
+          {/* <img src={imagen} alt="productImage" className="img-fluid p-lg-4" /> */}
         </div>
         <div className={`${styles.container} container col-12 col-md-6 py-4 mt-5`}>
           <h1 className={`${styles.fColor} fw-bold`}>{titulo}</h1>
