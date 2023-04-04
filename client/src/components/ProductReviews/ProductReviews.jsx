@@ -111,6 +111,7 @@ export default function ProductReviews(props) {
                 value={review}
                 onChange={handleInputChange}
               />
+              <button className="button mt-3">Enviar Reseña</button>
             </div>
             <div className="mt-5">
               {reviews.map((r) => (
