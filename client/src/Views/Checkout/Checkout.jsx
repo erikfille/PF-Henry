@@ -23,18 +23,6 @@ export default function CheckOut({productos, data}) {
   const [setModal] = useModal((state) => [state.setModal]);
   
 
-//   const [datos, setDatos] = useState("")
-
-//   useEffect(()=>{
-//       axios
-//       .get("http://localhost:3000/pagos")
-//       .then((data)=>{
-//           setDatos(data.data)
-//           console.log("Contenido de data:", data)
-//       })
-//       .catch(err=> console.error(err))
-//   },[])
-
 	return (
 		<>
 			<Meta title={"Completar Orden"} />
@@ -130,7 +118,7 @@ export default function CheckOut({productos, data}) {
 							{cartProducts.length 
 							? <PayPalButton
 								options = {{
-								clientId: "AUqQqTlFaiedAwEQ_6DYD0VtDWyl5wOgl8vMl3LRxLIbzxOr2vdGllhX1nVfxuNvOphwC9hEP_C0cKGP",
+								clientId: "AeL7yM8K1K-s4nfOXeKfU3rt4QbKBpiWrqiwqcdwZStk-UOhIDb9qEmBhUSBjTkVn5AmyF2E60PnHzXc",
 								currency: "USD"
 								}}
 						  
