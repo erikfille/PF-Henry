@@ -225,13 +225,15 @@ const usuariosRoutes = [
   },
   {
     method: "GET",
-    path: "/users/{email}",
+    path: "/users/{id}",
     options: {
       async handler(request, h) {
-        const { email } = request.params;
+        const { id } = request.params;
 
         try {
-          const usuario = await Usuario.findOne({ email }).populate("rol");
+          const usuario = await Usuario.findById(id)
+            .populate("rol")
+            .populate("mascota");
           const usuarioSinPassword = usuario.toObject(); // convertir el objeto Mongoose a objeto JS
           delete usuarioSinPassword.password; // eliminar la propiedad password
           return h.response(usuarioSinPassword);

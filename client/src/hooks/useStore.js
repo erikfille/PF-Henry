@@ -83,10 +83,23 @@ export const useProduct = create((set, get) => ({
   setCartAdd: async (productId, quantity, stock) => {
     const { cartProducts, saveCartToStorage } = get();
 
-    let repeatedProduct = cartProducts.find((p) => p._id === productId);
+    if (cartProducts.length < 1) {
+      let repeatedProduct = cartProducts.find((p) => p._id === productId);
 
-    if (repeatedProduct !== undefined) {
-      repeatedProduct.quantity = quantity;
+      if (repeatedProduct !== undefined) {
+        repeatedProduct.quantity = quantity;
+      } else {
+        let response = await axios
+          .get(`/product-detail/${productId}`)
+          .catch((error) =>
+            window.alert("Algo salio mal, intentalo nuevamente")
+          );
+
+        let product = response.data;
+        product.quantity = Number(quantity);
+
+        set((state) => ({ cartProducts: [...state.cartProducts, product] }));
+      }
     } else {
       let response = await axios
         .get(`/product-detail/${productId}`)
@@ -94,17 +107,19 @@ export const useProduct = create((set, get) => ({
 
       let product = response.data;
       product.quantity = Number(quantity);
-
-      set((state) => ({ cartProducts: [...state.cartProducts, product] }));
+      set((state) => ({ cartProducts: [product] }));
     }
     saveCartToStorage();
   },
   setCartRemove: (productId) => {
     const { cartProducts, saveCartToStorage } = get();
     let filteredProducts = cartProducts.filter((p) => p._id !== productId);
-    set((state) => ({
-      cartProducts: filteredProducts,
-    }));
+    if (cartProducts.length > 1) {
+      set((state) => ({
+        cartProducts: filteredProducts,
+      }));
+    }
+    else set(() => ({cartProducts: []}))
     saveCartToStorage();
   },
   setActiveCart: () => {

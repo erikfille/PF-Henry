@@ -35,10 +35,10 @@ const userSchema = new mongoose.Schema({
   pet: {
     type:String
   },
-  id_mascota:{
+  id_mascota:[{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Mascota',
-  },
+  }],
   image: {
     type: String,
     required: true
