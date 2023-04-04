@@ -1,14 +1,10 @@
+import React from "react";
 import BreadCrump from "../../components/BreadCrump/BreadCrump";
 import Meta from "../../components/Meta/Meta";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import styles from "./Checkout.module.css";
 import { useModal, useProduct } from "../../hooks/useStore";
 
-import React from "react";
-// import Comprar from "../../Comprar";
-// import axios from "axios";
-// import Brick from "../../Brick";
-// import PayPal from "./PayPal"
 import { PayPalButton } from "react-paypal-button-v2";
 
 export default function CheckOut({productos, data}) {
@@ -22,18 +18,6 @@ export default function CheckOut({productos, data}) {
 
   const [setModal] = useModal((state) => [state.setModal]);
   
-
-//   const [datos, setDatos] = useState("")
-
-//   useEffect(()=>{
-//       axios
-//       .get("http://localhost:3000/pagos")
-//       .then((data)=>{
-//           setDatos(data.data)
-//           console.log("Contenido de data:", data)
-//       })
-//       .catch(err=> console.error(err))
-//   },[])
 
 	return (
 		<>
@@ -118,39 +102,34 @@ export default function CheckOut({productos, data}) {
 						</div>
 							
 							</div>
-							{/* Checkout Pro */}
-							
-							{/* <div>
-								<Comprar data={datos}/>
-							</div> */}
-
-							{/* Brick */}
-							{/* {cartProducts.length ? <Brick/> : null} */}
 
 							{cartProducts.length 
 							? <PayPalButton
-								options = {{
-								clientId: "AUqQqTlFaiedAwEQ_6DYD0VtDWyl5wOgl8vMl3LRxLIbzxOr2vdGllhX1nVfxuNvOphwC9hEP_C0cKGP",
-								currency: "USD"
+								options={{
+							  		clientId: "AeL7yM8K1K-s4nfOXeKfU3rt4QbKBpiWrqiwqcdwZStk-UOhIDb9qEmBhUSBjTkVn5AmyF2E60PnHzXc",
+							  		currency: "USD"
 								}}
-						  
 								amount={totalPrice}
-								// shippingPreference="NO_SHIPPING" // default is "GET_FROM_FILE"
-						  
 								onSuccess={(details, data) => {
-								alert("Transaction completed by " + details.payer.name.given_name);
-								console.log({details, data});
-				  
-								// OPTIONAL: Call your server to save the transaction
-								return fetch("/paypal-transaction-complete", {
-							  		method: "post",
-							  		body: JSON.stringify({
-									orderID: data.orderID
+							  		alert( details.payer.name.given_name + "El pago se completó con exito");
+							  		console.log({details, data});
+						  
+							  		// Borrar todos los productos del carrito si el pago se completo con exito
+							  		setCartRemove();
+						  
+							  		// OPTIONAL: Call your server to save the transaction
+							  		return fetch("/paypal-transaction-complete", {
+										method: "post",
+										body: JSON.stringify({
+								  		orderID: data.orderID
+									})
 							  		})
-									});
-						  		}}
-								/>
-							
+							  		.then(() => {
+										// Redirrige al home si la transaccion fue correcta
+										window.location.href = '/';
+							  		});
+								}}
+						  	/>
 							: null}
 					</div>
 			</div>

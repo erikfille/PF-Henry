@@ -38,14 +38,7 @@ export default function Cart() {
     }
   }, [cartProducts]);
 
-	//? Genero ID de la orden de compra para usar con mp en checkout
-	const [ordenId, setOrdenId] = useState(null);
 
-  	const handleConfirmOrder = () => {
-    const newOrdenId = uuidv4();
-    setOrdenId(newOrdenId);
-    // ? Dice chatgpt :aquí puedes hacer otras cosas con el ID, como guardarlo en una base de datos o enviarlo a un servidor
-  };
 
 	return (
 		<>
