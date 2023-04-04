@@ -18,9 +18,9 @@ export default defineConfig({
   ssr: {
     external: ["process"],
   },
-  optimizeDeps: {
-    include: ["buffer", "process"],
-  },
+  // optimizeDeps: {
+  //   include: ["buffer", "process"],
+  // },
   rollupInputOptions: {
     // Agrega la variable process al objeto globalThis
     onwarn(warning, rollupWarn) {
@@ -39,4 +39,3 @@ export default defineConfig({
     },
   },
 });
-
