@@ -3,7 +3,9 @@ const HapiCors = require("hapi-cors");
 require("./database.js");
 const { OAuth2Client } = require('google-auth-library');
 require("dotenv").config();
-const HapiJwt = require('hapi-auth-jwt2');
+  const jwt = require('jsonwebtoken');
+  const Boom = require('@hapi/boom');
+  const Usuario = require('./models/usuarios/Usuario');
 
 const usuariosRoutes = require("./routes/usuarios.js");
 const rolRoutes = require("./routes/roles");
@@ -33,6 +35,7 @@ const init = async () => {
   await server.register({
     plugin: HapiCors,
     options: {
+      methods: ['PUT','POST','DELETE','GET'],
       origins: ["*"],
     },
   });
@@ -62,14 +65,14 @@ const init = async () => {
   server.auth.scheme('google', () => {
     const scheme = {
       authenticate: async (request, h) => {
-        const authorizationHeader = request.headers.authorization;
+        const authorizationHeader = request.headers.Authorization;
         if (!authorizationHeader) {
           return h.unauthenticated();
         }
 
         const [authType, token] = authorizationHeader.split(' ');
 
-        if (authType.toLowerCase() !== 'bearer') {
+        if (authType.toLowerCase() !== 'Bearer') {
           return h.unauthenticated();
         }
 
@@ -96,6 +99,78 @@ const init = async () => {
   });
 
   server.auth.strategy('google', 'google');
+
+
+// Creamos una función para validar el token JWT
+const validateToken = async (decoded, request) => {
+  try {
+  // 1. Obtener el id del usuario desde el token decodificado.
+  const { id } = decoded;
+      
+  // 2. Buscar el usuario en la base de datos usando el id.
+  const usuario = await Usuario.findById(id).populate('rol');
+  
+  // 3. Verificar si el usuario existe y si tiene los permisos necesarios para acceder a la ruta.
+  if (!usuario) {
+    throw Boom.unauthorized("Invalid User");
+  }
+  
+  const permisosNecesarios = ['provider', 'admin']; // Aquí especifica los permisos necesarios para acceder a la ruta
+  
+  if (!usuario.rol || !permisosNecesarios.includes(usuario.rol.nombre)) {
+    throw Boom.forbidden("Insufficient Permissions");
+  }
+  
+  // 4. Si el usuario tiene los permisos necesarios, se debe llamar a la función credentials() de la respuesta y pasarle el usuario como parámetro.
+  return {
+    isValid: true,
+    credentials: usuario
+  };
+} catch (err) {
+  console.error(err);
+  return {
+    isValid: false,
+    credentials: null
+  };
+}
+};
+
+// Registramos el esquema de autenticación JWT
+server.auth.scheme('jwt', () => ({
+  async authenticate(request, h) {
+    try {
+      // Obtenemos el token JWT del encabezado Authorization
+      const authorizationHeader = request.headers.authorization;
+      if (!authorizationHeader) {
+        throw Boom.unauthorized('Missing token');
+      }
+
+      const token = authorizationHeader.replace(/^Bearer\s+/, '');
+
+      // Validamos el token JWT
+      const decoded = await jwt.verify(token, process.env.JWT_SECRET, {
+        algorithms: ['HS256'],
+      });
+
+      // Llamamos a la función de validación de token
+      const credentials = await validateToken(decoded, request);
+
+      return h.authenticated({ credentials, artifacts: token });
+    } catch (error) {
+      throw Boom.unauthorized('Invalid token');
+    }
+  },
+}));
+
+// Registramos la estrategia de autenticación JWT
+server.auth.strategy('jwt', 'jwt',  {
+  keys: process.env.JWT_SECRET,
+  verify: {
+    aud: false,
+    iss: false,
+    sub: false,
+    maxAgeSec: 60 * 60 * 72 // 72 horas
+  }});
 
   server.route(usuariosRoutes);
   server.route(rolRoutes);

@@ -1,15 +1,11 @@
 import ProductCard from "../ProductCard/ProductCard";
 import { Link } from "react-router-dom";
-// import { products } from "../../Views/Tienda/helper"
-import { useProduct } from "../../hooks/useStore";
 
-const ProductsContainer = () => {
-	const [filteredProducts] = useProduct((state) => [state.filteredProducts]);
-
+const ProductsContainer = ({ product }) => {
 	return (
 		<>
-			{typeof filteredProducts === "object" && filteredProducts.length ? (
-				filteredProducts.map((product) => {
+			{typeof product === "object" && product.length ? (
+				product.map((product) => {
 					return (
 						<Link to={`/productos/${product._id}`}>
 							<ProductCard
@@ -21,7 +17,7 @@ const ProductsContainer = () => {
 								categoria={product.categoria}
 								animal={product.animal}
 								imagen={product.imagen}
-								showAs='Default'
+								showAs="Default"
 							/>
 						</Link>
 					);

@@ -4,14 +4,31 @@ import { RiDeleteBin6Line } from "react-icons/ri";
 import styles from "./Checkout.module.css";
 import { useModal, useProduct } from "../../hooks/useStore";
 
-export default function CheckOut() {
-	const [totalPrice, setCartRemove, cartProducts] = useProduct((state) => [
-		state.totalPrice,
-		state.setCartRemove,
-		state.cartProducts,
-	]);
+import React from "react";
+import Brick from "../../Brick";
 
-	const [setModal] = useModal((state) => [state.setModal]);
+export default function CheckOut({productos, data}) {
+
+  const [totalPrice, setCartRemove, cartProducts] = useProduct((state) => [
+    state.totalPrice,
+    state.setCartRemove,
+    state.cartProducts,
+    state.orderId
+  ]);
+
+  const [setModal] = useModal((state) => [state.setModal]);
+
+//   const [datos, setDatos] = useState("")
+
+//   useEffect(()=>{
+//       axios
+//       .get("http://localhost:3000/pagos")
+//       .then((data)=>{
+//           setDatos(data.data)
+//           console.log("Contenido de data:", data)
+//       })
+//       .catch(err=> console.error(err))
+//   },[])
 
 	return (
 		<>
@@ -93,9 +110,24 @@ export default function CheckOut() {
 						<div>
 							<h1 className="fw-bold text-end m-3">Total $ {totalPrice}</h1>
 						</div>
+							
+							</div>
+							{/* <div>
+								<Comprar data={datos}/>
+							</div> */}
+
+							{cartProducts.length ? (
+    							<button>
+        							<Brick/>
+    							</button>
+							) : null}
+
 					</div>
-				</div>
+
+							
 			</div>
 		</>
 	);
 }
+
+

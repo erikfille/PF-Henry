@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const bcrypt = require('bcrypt');
 
 const userSchema = new mongoose.Schema({
     
@@ -39,7 +40,8 @@ const userSchema = new mongoose.Schema({
     ref: 'Mascota',
   },
   image: {
-    type: String
+    type: String,
+    required: true
   }
 });
 

@@ -1,25 +1,26 @@
 .loader {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
 }
 
 .loader > img {
-    width: 100px;
-    height: 100px;
-    animation-name: spin;
-    animation-duration: 1s;
-    animation-delay: 0.5s;
-    animation-iteration-count: infinite;
-    animation-timing-function: linear;
+  width: 100px;
+  height: 100px;
+  animation-name: spin;
+  animation-duration: 1s;
+  animation-delay: 0.1s;
+  opacity: 0.75;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
 }
 
 @keyframes spin {
-    0% {
+  0% {
     transform: rotateZ(0deg);
-    }
-    100% {
+  }
+  100% {
     transform: rotateZ(360deg);
-    }
+  }
 }
