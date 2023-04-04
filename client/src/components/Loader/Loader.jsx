@@ -4,7 +4,7 @@ const Loader = () => {
   return (
     <>
       <div className={style.loader}>
-        <img src="../../../public/images/logo-pet.png" alt="Dog Paw Icon" />
+        <img src="src/images/logo-pet.png" alt="Dog Paw Icon" />
       </div>
     </>
   );

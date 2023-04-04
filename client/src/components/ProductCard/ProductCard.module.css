@@ -2,7 +2,7 @@
 	width: 300px;
 	height: 370px;
 	border-radius: 10px;
-	background: url(images/logo-bg-product.png) no-repeat 10px;
+	background: url(src/images/logo-bg-product.png) no-repeat 10px;
 	background-color: var(--body_background);
 }
 .productCard:hover {

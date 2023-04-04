@@ -48,23 +48,14 @@ const Header = () => {
         />
         <div className={`${styles.navContainer} collapse navbar-collapse justify-content-end me-4`} id="navbarNav">
           <div className="navbar-nav align-items-center">
-            <NavLink to="/" className="nav-item me-3">
+            {/* <NavLink to="/" className="nav-item me-3">
               Inicio
-            </NavLink>
+            </NavLink> */}
             <NavLink to="/tienda" className="nav-item me-3">
               Tienda
             </NavLink>
             <NavLink to="/servicios" className="nav-item me-3">
               Servicios
-            </NavLink>
-            <NavLink to="/contacto" className="nav-item me-3">
-              Contacto
-            </NavLink>
-            <NavLink to="/faqs" className="nav-item me-3">
-              Faqs
-            </NavLink>
-            <NavLink to="/about" className="nav-item me-3">
-              Sobre Nosotros
             </NavLink>
             <div className={`d-flex flex-column flex-lg-row align-items-center justify-content-center ${styles.buttonContainer}`}>
               <div className="dropdown">

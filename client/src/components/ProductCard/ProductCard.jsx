@@ -55,7 +55,7 @@ export default function ProductCart(props) {
 		<>
 			<div className={`${style.productCard} col-3,5 px-3 py-3`}>
 				<div className="d-flex justify-content-end">
-					<img style={{ width: "40px" }} src="images/logo-pet.png" alt="logo"></img>
+					<img style={{ width: "40px" }} src="src/images/logo-pet.png" alt="logo"></img>
 				</div>
 				<div className="d-flex justify-content-center">
 					<img src={props.imagen} alt="juguete para perro" style={{ height: "170px" }} />
