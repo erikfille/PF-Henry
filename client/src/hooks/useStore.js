@@ -114,9 +114,12 @@ export const useProduct = create((set, get) => ({
   setCartRemove: (productId) => {
     const { cartProducts, saveCartToStorage } = get();
     let filteredProducts = cartProducts.filter((p) => p._id !== productId);
-    set((state) => ({
-      cartProducts: filteredProducts,
-    }));
+    if (cartProducts.length > 1) {
+      set((state) => ({
+        cartProducts: filteredProducts,
+      }));
+    }
+    else set(() => ({cartProducts: []}))
     saveCartToStorage();
   },
   setActiveCart: () => {
