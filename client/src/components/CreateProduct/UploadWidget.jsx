@@ -1,4 +1,5 @@
 import { useEffect, useRef } from "react";
+import style from './UploadWidget.module.css';
 
 export default function UploadWidget(props) {
   const cloudinaryRef = useRef();
@@ -21,7 +22,7 @@ export default function UploadWidget(props) {
 
   return (
     <div className="widgetContainer">
-      <a onClick={() => widgetRef.current.open()} className="link-opacity-100-hover">Seleccionar Imagen</a>
+      <span onClick={() => widgetRef.current.open()} className={`${style.selectImg} link-opacity-100-hover`}>Seleccionar Imagen</span>
     </div>
   );
 }

@@ -1,0 +1,5 @@
+.selectImg {
+    cursor: pointer;
+    color: var(--color-0CC5BA);
+    font-weight: 600;
+}
