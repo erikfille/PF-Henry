@@ -92,7 +92,8 @@ nav a:hover {
 	width: 3.6rem;
 }
 
-.bgColor {
+.bgColor,
+.dropDownMenu {
 	background-color: var(--body_background);
 }
 
