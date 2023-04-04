@@ -2,6 +2,7 @@
 .loginContainer {
 	overflow: hidden;
 	height: 100vh;
+	background-color: var(--body_background);
 }
 
 .imgContainer {
@@ -15,4 +16,17 @@
 
 .fColor:hover {
 	color: var(--color-0CC5BA);
+}
+
+
+@media screen and (max-width: 700px) {
+	.fColor {
+		font-size: 12px;
+	}
+}
+
+@media screen and (max-width: 992px) {
+	.fColor {
+		font-size: 12px;
+	}
 }

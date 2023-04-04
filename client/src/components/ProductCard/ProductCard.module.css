@@ -2,7 +2,7 @@
 	width: 300px;
 	height: 370px;
 	border-radius: 10px;
-	background: url(images/logo-bg-product.png) no-repeat 10px;
+	background: url(src/images/logo-bg-product.png) no-repeat 10px;
 	background-color: var(--body_background);
 }
 .productCard:hover {
@@ -14,12 +14,23 @@
 	font-weight: 700;
 }
 
+.imgContainer {
+	border-top-right-radius: 5px;
+	border-top-left-radius: 5px;
+}
+
+.imgProduct {
+	height: 200px;
+	width: 200px;
+}
+
 .productCard > hr {
 	opacity: 1;
 	background-color: var(--color-0CC5BA);
 	height: 2px;
 	border: none;
 }
+
 
 .productCart {
 	border-bottom: 1px solid var(--color-0CC5BA);

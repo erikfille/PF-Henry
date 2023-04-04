@@ -326,7 +326,7 @@ export default function CreateProduct() {
                       <img
                         src={productData.imagen}
                         alt="Uploaded"
-                        width="30%"
+                        width="10%"
                       />
                     </div>
                   )}

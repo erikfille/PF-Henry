@@ -21,10 +21,7 @@ export default function ModalConsultaGenerico() {
   }
 
   return (
-    <div
-      className="ModalContainer"
-      style={{ display: isOpen ? "block" : "none" }}
-    >
+    <div className="ModalContainer" style={{ display: isOpen ? "block" : "none" }}>
       <h1>¿Que buscas en la app?</h1>
       <button
         className="customer"
@@ -36,7 +33,7 @@ export default function ModalConsultaGenerico() {
         ¡Quiero Comprar!
       </button>
       <button
-        className="cancelButton"
+        className="cancelButton"  
         name="provider"
         onClick={() => handleClick("provider")}
       >

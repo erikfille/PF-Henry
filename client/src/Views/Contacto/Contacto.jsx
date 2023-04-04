@@ -60,7 +60,7 @@ export default function Contacto() {
 						<div className={`col-12 col-md-6 col-xxl-5 d-none d-sm-block ${styles.imageContainer}`}>
 							<img
 								className={`img-fluid ${styles.image}`}
-								src='images/bg-cat.jpg'
+								src='src/images/bg-cat.jpg'
 								alt='cat pic'
 							/>
 						</div>

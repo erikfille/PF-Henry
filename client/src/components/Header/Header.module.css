@@ -15,6 +15,10 @@
 	color: var(--body_color);
 }
 
+.iconCart {
+	color: var(--body_color);
+}
+
 nav {
 	height: 5rem;
 	background-color: var(--body_background);
@@ -92,7 +96,8 @@ nav a:hover {
 	width: 3.6rem;
 }
 
-.bgColor {
+.bgColor,
+.dropDownMenu {
 	background-color: var(--body_background);
 }
 
