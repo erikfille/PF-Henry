@@ -7,7 +7,9 @@ import { useModal, useProduct } from "../../hooks/useStore";
 import React from "react";
 // import Comprar from "../../Comprar";
 // import axios from "axios";
-import Brick from "../../Brick";
+// import Brick from "../../Brick";
+// import PayPal from "./PayPal"
+import { PayPalButton } from "react-paypal-button-v2";
 
 export default function CheckOut({productos, data}) {
 
@@ -112,19 +114,45 @@ export default function CheckOut({productos, data}) {
 						)}
 						<div>
 							<h1 className="fw-bold text-end m-3">Total $ {totalPrice}</h1>
+							
 						</div>
 							
 							</div>
+							{/* Checkout Pro */}
+							
 							{/* <div>
 								<Comprar data={datos}/>
 							</div> */}
 
-							{cartProducts.length ? <Brick/> : null}
+							{/* Brick */}
+							{/* {cartProducts.length ? <Brick/> : null} */}
 
-
-					</div>
-
+							{cartProducts.length 
+							? <PayPalButton
+								options = {{
+								clientId: "AUqQqTlFaiedAwEQ_6DYD0VtDWyl5wOgl8vMl3LRxLIbzxOr2vdGllhX1nVfxuNvOphwC9hEP_C0cKGP",
+								currency: "USD"
+								}}
+						  
+								amount={totalPrice}
+								// shippingPreference="NO_SHIPPING" // default is "GET_FROM_FILE"
+						  
+								onSuccess={(details, data) => {
+								alert("Transaction completed by " + details.payer.name.given_name);
+								console.log({details, data});
+				  
+								// OPTIONAL: Call your server to save the transaction
+								return fetch("/paypal-transaction-complete", {
+							  		method: "post",
+							  		body: JSON.stringify({
+									orderID: data.orderID
+							  		})
+									});
+						  		}}
+								/>
 							
+							: null}
+					</div>
 			</div>
 		</>
 	);
