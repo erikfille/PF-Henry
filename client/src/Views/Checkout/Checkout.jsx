@@ -1,14 +1,11 @@
+import React from "react";
 import BreadCrump from "../../components/BreadCrump/BreadCrump";
 import Meta from "../../components/Meta/Meta";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import styles from "./Checkout.module.css";
 import { useModal, useProduct } from "../../hooks/useStore";
 
-import React from "react";
-// import Comprar from "../../Comprar";
-// import axios from "axios";
-// import Brick from "../../Brick";
-// import PayPal from "./PayPal"
+
 import { PayPalButton } from "react-paypal-button-v2";
 
 export default function CheckOut({productos, data}) {
@@ -126,19 +123,22 @@ export default function CheckOut({productos, data}) {
 								// shippingPreference="NO_SHIPPING" // default is "GET_FROM_FILE"
 						  
 								onSuccess={(details, data) => {
-								alert("Transaction completed by " + details.payer.name.given_name);
-								console.log({details, data});
-				  
-								// OPTIONAL: Call your server to save the transaction
-								return fetch("/paypal-transaction-complete", {
-							  		method: "post",
-							  		body: JSON.stringify({
-									orderID: data.orderID
-							  		})
+									alert( details.payer.name.given_name + "El pago se completó con exito");
+									console.log({details, data});
+								
+									// OPTIONAL: Call your server to save the transaction
+									return fetch("/paypal-transaction-complete", {
+										method: "post",
+										body: JSON.stringify({
+											orderID: data.orderID
+										})
+									})
+									.then(() => {
+										// Redirrige al home si la transaccion fue correcta
+										window.location.href = '/';
 									});
-						  		}}
+								}}
 								/>
-							
 							: null}
 					</div>
 			</div>
