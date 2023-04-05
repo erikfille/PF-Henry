@@ -27,7 +27,8 @@ export const useProduct = create((set, get) => ({
   getCategories: async () => {
     try {
       let response = await axios.get("/categorias");
-      let categorias = response.data.categorias;
+      let categorias = [... new Set(response.data.categorias.map(c => c.nombre))];
+      console.log(categorias)
       set((state) => ({ categories: categorias }));
     } catch (err) {
       console.log(err);
