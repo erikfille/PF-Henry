@@ -130,6 +130,10 @@ export const useProduct = create((set, get) => ({
     const { cartProducts } = get();
     window.localStorage.setItem("cart", JSON.stringify(cartProducts));
   },
+  deleteCartContent: () => {
+    set((state) => ({ cartProducts: [] }));
+    window.localStorage.setItem("cart", JSON.stringify(""));
+  },
   maxPage: () => {
     const { allProducts } = get();
     let max = Math.ceil(allProducts.length / 10);
