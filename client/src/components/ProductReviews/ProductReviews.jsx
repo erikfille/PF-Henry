@@ -30,45 +30,24 @@ export default function ProductReviews(props) {
   const [averageReviews, setAverageReviews] = useState(0);
   const [qualify, setQualify] = useState(0);
   const [review, setReview] = useState("");
-  /*
-
-  propiedades de reviews:
-  - userId
-  - comentario
-  - puntuacion
-  - fecha
-
-  */
+  const [user, setUser] = useState({});
 
   useEffect(() => {
-    // axios
-    //   .get(`/reviews/${__id}`)
-    //   .then((data) => {
-    //     console.log(data.data);
-    //     setReviews(data.data);
-    //   })
-    //   .catch((error) => window.alert("Algo salio mal, intentalo nuevamente"));
-    // return () => setReviews({});
-  }, [_id]);
-
-  // function reviewsAverage() {
-  //   let puntuaciones = [];
-
-  //   for (let review in reviews) {
-  //     puntuaciones.push(review.rating);
-  //   }
-
-  //   let sumaPuntuaciones = puntuaciones.reduce((acc, curr) => acc + curr);
-
-  //   let promedioPuntuaciones = (sumaPuntuaciones / reviews.length).toFixed(1);
-
-  //   console.log(promedioPuntuaciones);
-
-  //   setAverageReviews(promedioPuntuaciones);
-  // }
+    setUser(JSON.parse(localStorage.getItem("user")));
+  }, []);
 
   function handleInputChange(e) {
     setReview(e.target.value);
+  }
+
+  function handleSubmit() {
+    let newReview = {
+      review: review,
+      rating: qualify,
+      user: user,
+      product: _id,
+    };
+    sendReview(newReview);
   }
 
   return (
@@ -76,7 +55,9 @@ export default function ProductReviews(props) {
       {/* <h1 className="fw-bold mb-5">Reseñas</h1> */}
       <div className="container-xxl">
         <div className="row">
-          <div className={`${styles.containerReview} col-12 container-md mb-5 p-5`}>
+          <div
+            className={`${styles.containerReview} col-12 container-md mb-5 p-5`}
+          >
             <h1 className={`${styles.fColor} fw-bold`}>Reseñas de Clientes</h1>
             <ReactStars
               count={5}
@@ -92,7 +73,9 @@ export default function ProductReviews(props) {
 
             <hr className={styles.hr} />
             <div className="">
-              <h3 className={`${styles.fColor}  fw-bold fs-5`}>Escribe una reseña</h3>
+              <h3 className={`${styles.fColor}  fw-bold fs-5`}>
+                Escribe una reseña
+              </h3>
               <p className={`${styles.span} fw-bold mb-1`}>Calificación</p>
               <ReactStars
                 count={5}
@@ -104,20 +87,28 @@ export default function ProductReviews(props) {
               <p className={`${styles.span} fw-bold mt-2`}>Reseña</p>
               <textarea
                 className={`form-control ${styles.textReview}`}
-                style={{ backgroundColor: "var(--body_background)", color: "var(--body_color)", border: "0.5px solid var(--border_color)"}}
+                style={{
+                  backgroundColor: "var(--body_background)",
+                  color: "var(--body_color)",
+                  border: "0.5px solid var(--border_color)",
+                }}
                 placeholder="Escribe aquí tu reseña"
                 type="text"
                 name="review"
                 value={review}
                 onChange={handleInputChange}
               />
-              <button className="button mt-3">Enviar Reseña</button>
+              <button className="button mt-3" onClick={() => handleSubmit()}>
+                Enviar Reseña
+              </button>
             </div>
             <div className="mt-5">
               {reviews.map((r) => (
                 <div className="mt-5">
                   <div className="d-sm-flex align-items-end mt-0">
-                    <h1 className={`${styles.fColor} fw-bold fs-3 me-3`}>{r.usuario}</h1>
+                    <h1 className={`${styles.fColor} fw-bold fs-3 me-3`}>
+                      {r.usuario}
+                    </h1>
                     <ReactStars
                       count={5}
                       size={20}

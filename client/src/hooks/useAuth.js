@@ -83,7 +83,7 @@ export const useLogin = create((set, get) => ({
     const { receiveLogin } = get();
     console.log("receiveToken: ", user);
     let userData = {
-      id: user._id,
+      id: user.id,
       name: user.name,
       image: user.image,
       email: user.email,

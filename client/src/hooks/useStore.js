@@ -153,6 +153,9 @@ export const useProduct = create((set, get) => ({
   setTotalPrice: (total) => {
     set((state) => ({ totalPrice: total }));
   },
+  sendReview: (obj) => {
+
+  }
 }));
 
 export const useModal = create((set) => ({

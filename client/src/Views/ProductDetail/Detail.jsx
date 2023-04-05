@@ -30,6 +30,8 @@ export default function Detail() {
     return () => setProductDetail({});
   }, [productId]);
 
+  console.log(productDetail)
+
   return (
     <>
         <Meta title={"Detalle"} />
