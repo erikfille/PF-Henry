@@ -8,9 +8,9 @@ import { useModal, useProduct } from "../../hooks/useStore";
 import { PayPalButton } from "react-paypal-button-v2";
 
 export default function CheckOut({ productos, data }) {
-  const [totalPrice, setCartRemove, cartProducts] = useProduct((state) => [
+  const [totalPrice, deleteCartContent, cartProducts] = useProduct((state) => [
     state.totalPrice,
-    state.setCartRemove,
+    state.deleteCartContent,
     state.cartProducts,
   ]);
 
@@ -126,7 +126,7 @@ export default function CheckOut({ productos, data }) {
                 console.log({ details, data });
 
                 // Borrar todos los productos del carrito si el pago se completo con exito
-                setCartRemove();
+                deleteCartContent();
 
                 // OPTIONAL: Call your server to save the transaction
                 return axios
