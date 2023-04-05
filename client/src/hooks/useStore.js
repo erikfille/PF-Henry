@@ -27,7 +27,8 @@ export const useProduct = create((set, get) => ({
   getCategories: async () => {
     try {
       let response = await axios.get("/categorias");
-      let categorias = response.data.categorias;
+      let categorias = [... new Set(response.data.categorias.map(c => c.nombre))];
+      console.log(categorias)
       set((state) => ({ categories: categorias }));
     } catch (err) {
       console.log(err);
@@ -130,6 +131,10 @@ export const useProduct = create((set, get) => ({
     const { cartProducts } = get();
     window.localStorage.setItem("cart", JSON.stringify(cartProducts));
   },
+  deleteCartContent: () => {
+    set((state) => ({ cartProducts: [] }));
+    window.localStorage.setItem("cart", JSON.stringify(""));
+  },
   maxPage: () => {
     const { allProducts } = get();
     let max = Math.ceil(allProducts.length / 10);
@@ -148,6 +153,9 @@ export const useProduct = create((set, get) => ({
   setTotalPrice: (total) => {
     set((state) => ({ totalPrice: total }));
   },
+  sendReview: (obj) => {
+
+  }
 }));
 
 export const useModal = create((set) => ({

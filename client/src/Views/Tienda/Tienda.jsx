@@ -149,35 +149,43 @@ export default function Tienda() {
             >
               <div className="d-flex d-md-block">
                 <div className="Category-filter mb-4 col col-md-12 me-2">
-                <p className={`${style.p} fw-bold`}>Categorías</p>
+                  <p className={`${style.p} fw-bold`}>Categorías</p>
                   <select
                     name="categoria"
                     value={filterBy.categoria}
                     onChange={(e) => handlerFilter(e)}
                     className="form-select mb-3"
-                    style={{ backgroundColor: "var(--body_background)", color: "var(--body_color)", border: "0.5px solid var(--border_color)"}}
+                    style={{
+                      backgroundColor: "var(--body_background)",
+                      color: "var(--body_color)",
+                      border: "0.5px solid var(--border_color)",
+                    }}
                     aria-label=".form-select-lg"
                   >
                     <option value="all">Todas</option>
                     {categories.length &&
                       categories.map(
                         (c, idx) =>
-                          c.tipo === "Producto" && (
-                            <option key={idx} value={c.nombre.toLowerCase()}>
-                              {c.nombre}
+                         (
+                            <option key={idx} value={c.toLowerCase()}>
+                              {c}
                             </option>
                           )
                       )}
                   </select>
                 </div>
                 <div className="Type-filter col col-md-12">
-                <p className={`${style.p} fw-bold`}>Especies</p>
+                  <p className={`${style.p} fw-bold`}>Especies</p>
                   <select
                     name="animal"
                     value={filterBy.animal}
                     onChange={(e) => handlerFilter(e)}
                     className="form-select mb-3"
-                    style={{ backgroundColor: "var(--body_background)", color: "var(--body_color)", border: "0.5px solid var(--border_color)"}}
+                    style={{
+                      backgroundColor: "var(--body_background)",
+                      color: "var(--body_color)",
+                      border: "0.5px solid var(--border_color)",
+                    }}
                     aria-label=".form-select-lg"
                   >
                     <option value="all">Todos</option>
@@ -190,7 +198,7 @@ export default function Tienda() {
                 </div>
               </div>
               <div className={`${style.rangePrice} mb-4 col-12`}>
-              <p className={`${style.p} fw-bold`}>Rango de precio</p>
+                <p className={`${style.p} fw-bold`}>Rango de precio</p>
                 <div className="ranges">
                   <div className="col-12 d-flex flex-md-column gap-10 justify-content-md-center justify-content-around">
                     <div className="d-flex gap-2 flex-row ">
@@ -228,7 +236,11 @@ export default function Tienda() {
                     value={order}
                     onChange={(e) => handlerOrder(e)}
                     className="form-control form-select"
-                    style={{ backgroundColor: "var(--body_background)", color: "var(--body_color)", border: "0.5px solid var(--border_color)"}}
+                    style={{
+                      backgroundColor: "var(--body_background)",
+                      color: "var(--body_color)",
+                      border: "0.5px solid var(--border_color)",
+                    }}
                     name="ordenar_por"
                     id="ordenar_por"
                   >
@@ -257,7 +269,11 @@ export default function Tienda() {
                     value={inputSearch}
                     onChange={(e) => handlerInput(e)}
                     className="form-control"
-                    style={{ backgroundColor: "var(--body_background)", color: "var(--body_color)", border: "0.5px solid var(--border_color)"}}
+                    style={{
+                      backgroundColor: "var(--body_background)",
+                      color: "var(--body_color)",
+                      border: "0.5px solid var(--border_color)",
+                    }}
                     type="search"
                     name=""
                     id=""
