@@ -23,7 +23,7 @@ import Detail from "./Views/ProductDetail/Detail";
 import UserProfile from "./Views/UserProfile/UserProfile";
 import CheckOut from "./Views/Checkout/Checkout";
 import ProviderDashboard from "./Views/ProviderDashboard/ProviderDashboard";
-
+import PayPal from "./Views/Checkout/PayPal";
 //? Styles
 import "./App.css";
 
@@ -46,11 +46,12 @@ function App() {
         <Route path="/tienda" element={<Tienda />} />
         <Route path="/contacto" element={<Contacto />} />
         <Route path="/servicios" element={<Servicios />} />
+        <Route path="/paypal" element={<PayPal />} />
         <Route path="/productos/:productId" element={<Detail />} />
         <Route path="/crearProducto" element={<CreateProduct />} />
         <Route path="/perfil" element={<UserProfile />}>
-          <Route path="/perfil/:userId" element={<UserProfile />} />
-        </Route>
+        <Route path="/perfil/:userId" element={<UserProfile />} />
+      </Route>
         <Route path="/checkout" element={<CheckOut />} />
         <Route path="/provider/:providerId" element={<ProviderDashboard />} />
       </Routes>
