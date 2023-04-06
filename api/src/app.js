@@ -18,13 +18,14 @@ const postProvedorRoutes = require("./routes/Proveedores/postProveedor");
 const getProveedorRoutes = require("./routes/Proveedores/getProveedor.js");
 const createMascotaRoutes = require("./routes/createMascota.js");
 const compraDetailRoutes = require("./routes/ordenDeCompra.js");
-const modifyingProductosRoutes = require("./routes/Productos/modifyingProducto.js");
-const searchProductosRoutes = require("./routes/Productos/searchProducto.js");
-const modifyingProveedorRoutes = require("./routes/Proveedores/putProveedor");
-const createComentarioResenaRoute = require("./routes/comentariosResenas");
-const especieRoutes = require("./routes/especies");
-const nodeMailerRoutes = require("./routes/nodeMailerRoute");
-const mercadoPagoRoutes = require("./routes/mercadoPago");
+const modifyingProductosRoutes = require("./routes/Productos/modifyingProducto.js")
+const searchProductosRoutes = require("./routes/Productos/searchProducto.js")
+const modifyingProveedorRoutes = require("./routes/Proveedores/putProveedor")
+const createComentarioResenaRoute = require("./routes/comentariosResenas")
+const especieRoutes = require("./routes/especies")
+const nodeMailerRoutes = require("./routes/nodeMailerRoute")
+const mercadoPagoRoutes = require ("./routes/mercadoPago")
+const comprasRoutes = require ("./routes/comprasUsuario.js")
 
 const init = async () => {
   const server = new hapi.Server({
@@ -128,9 +129,10 @@ const init = async () => {
   server.route(searchProductosRoutes);
   server.route(modifyingProveedorRoutes);
   server.route(createComentarioResenaRoute);
-  server.route(especieRoutes);
-  server.route(nodeMailerRoutes);
-  server.route(mercadoPagoRoutes);
+  server.route(especieRoutes)
+  server.route(nodeMailerRoutes)
+  server.route(mercadoPagoRoutes)
+  server.route(comprasRoutes)
 
   await server.start();
   console.log(`el servidor esta corriendo en ${server.info.uri}`);

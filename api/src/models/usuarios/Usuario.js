@@ -39,6 +39,10 @@ const userSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Mascota',
   }],
+  productosComprados: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'productoVendido',
+  }],
   image: {
     type: String,
     required: true

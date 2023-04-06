@@ -4,7 +4,7 @@ const productoVendidoSchema = new mongoose.Schema({
    
       id_producto: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "Producto_servicio",
+        ref: "ProductoServicio",
     },
       id_usuario: {
         type: mongoose.Schema.Types.ObjectId,
@@ -24,4 +24,4 @@ const productoVendidoSchema = new mongoose.Schema({
     },
 });
 
-module.exports = mongoose.modelo('productoVendido', productoVendidoSchema)
+module.exports = mongoose.model('productoVendido', productoVendidoSchema)
