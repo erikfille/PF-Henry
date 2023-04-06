@@ -29,8 +29,12 @@ const Header = () => {
   return (
     <nav className="navbar navbar-expand-lg bg-body-tertiary">
       <div className="container-fluid">
-        <div className={`d-flex align-items-center ms-3 gap-3 ${styles.logoContainer}`}>
-          <NavLink to="/" className={styles.navlink}>PetsAmerica</NavLink>
+        <div
+          className={`d-flex align-items-center ms-3 gap-3 ${styles.logoContainer}`}
+        >
+          <NavLink to="/" className={styles.navlink}>
+            PetsAmerica
+          </NavLink>
           <img
             src={Logo}
             alt="Logo"
@@ -46,7 +50,10 @@ const Header = () => {
           aria-label="Toggle navigation"
           className={styles.menuButton}
         />
-        <div className={`${styles.navContainer} collapse navbar-collapse justify-content-end me-4`} id="navbarNav">
+        <div
+          className={`${styles.navContainer} collapse navbar-collapse justify-content-end me-4`}
+          id="navbarNav"
+        >
           <div className="navbar-nav align-items-center">
             {/* <NavLink to="/" className="nav-item me-3">
               Inicio
@@ -57,7 +64,9 @@ const Header = () => {
             <NavLink to="/servicios" className="nav-item me-3">
               Servicios
             </NavLink>
-            <div className={`d-flex flex-column flex-lg-row align-items-center justify-content-center ${styles.buttonContainer}`}>
+            <div
+              className={`d-flex flex-column flex-lg-row align-items-center justify-content-center ${styles.buttonContainer}`}
+            >
               <div className="dropdown">
                 <span
                   className={`${styles.buttonCart} dropdown-toggle`}
@@ -98,7 +107,7 @@ const Header = () => {
                     >
                       <li>
                         <Link
-                          to={`/perfil/${user.email}`}
+                          to={`/perfil/${user.id}`}
                           className={`${styles.li} dropdown-item`}
                         >
                           Ver perfil

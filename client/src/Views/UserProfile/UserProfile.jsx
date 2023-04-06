@@ -2,7 +2,7 @@ import Meta from "../../components/Meta/Meta";
 import BreadCrump from "../../components/BreadCrump/BreadCrump";
 import style from "./UserProfile.module.css";
 import { Link, useParams } from "react-router-dom";
-import { user } from "./userHelp";
+// import { user } from "./userHelp";
 import { FaUserAlt } from "react-icons/fa";
 import PetsContainer from "../../components/PetsContainer/PetsContainer";
 import { useUser } from "../../hooks/useStore";
@@ -13,7 +13,7 @@ import { useUser } from "../../hooks/useStore";
 import { useState, useEffect } from "react";
 
 export default function UserProfile() {
-  const { userEmail } = useParams();
+  const { userId } = useParams();
 
   const [userInfo, getUserInfo, pets, getPets, compras, getCompras] = useUser(
     (state) => [
@@ -27,10 +27,12 @@ export default function UserProfile() {
   );
 
   useEffect(() => {
-    getUserInfo(userEmail);
-    getPets(userEmail);
-    getCompras(userEmail);
+    getUserInfo(userId);
+    // getPets(userId);
+    // getCompras(userId);
   });
+
+  console.log(userInfo);
 
   return (
     <>
@@ -46,37 +48,38 @@ export default function UserProfile() {
                 </Link>
               </div>
               <div className="d-flex justify-content-center">
-                {user.map((u) => (
-                  <>
-                    <div className="col-4">
-                      <div className={style.circle}>
-                        <FaUserAlt
-                          style={{ width: "140px", height: "140px" }}
-                        />
-                        {/* <img src={u.imagen} alt="user-imagen" className={style.imgUser} /> */}
+                {userInfo.id &&
+                  userInfo.map((u) => (
+                    <>
+                      <div className="col-4">
+                        <div className={style.circle}>
+                          <FaUserAlt
+                            style={{ width: "140px", height: "140px" }}
+                          />
+                          {/* <img src={u.imagen} alt="user-imagen" className={style.imgUser} /> */}
+                        </div>
                       </div>
-                    </div>
-                    <div className="col-7">
-                      <div className={style.nameContainer}>
-                        <p className={style.name}>
-                          {u.name} {u.surname}
-                        </p>
+                      <div className="col-7">
+                        <div className={style.nameContainer}>
+                          <p className={style.name}>
+                            {u.name} {u.surname}
+                          </p>
+                        </div>
+                        <div
+                          className={`${style.fColor} d-flex align-items-center gap-2 mb-4`}
+                        >
+                          <h4 className="mb-0">Email:</h4>
+                          <span>{u.email}</span>
+                        </div>
+                        <div
+                          className={`${style.fColor} d-flex align-items-center gap-2 mb-4`}
+                        >
+                          <h4 className="mb-0">Dirección:</h4>
+                          <span>{u.address}</span>
+                        </div>
                       </div>
-                      <div
-                        className={`${style.fColor} d-flex align-items-center gap-2 mb-4`}
-                      >
-                        <h4 className="mb-0">Email:</h4>
-                        <span>{u.email}</span>
-                      </div>
-                      <div
-                        className={`${style.fColor} d-flex align-items-center gap-2 mb-4`}
-                      >
-                        <h4 className="mb-0">Dirección:</h4>
-                        <span>{u.address}</span>
-                      </div>
-                    </div>
-                  </>
-                ))}
+                    </>
+                  ))}
               </div>
             </div>
             <button className="button" style={{ width: "150px" }}>
