@@ -109,7 +109,7 @@ export default function CheckOut({ productos, data }) {
               <h1 className="fw-bold text-end m-3">Total $ {totalPrice}</h1>
             </div>
           </div>
-
+          {/* PayPal */}
           {cartProducts.length ? (
             <PayPal/>
           ) 
