@@ -233,7 +233,7 @@ const usuariosRoutes = [
         try {
           const usuario = await Usuario.findById(id)
             .populate("rol")
-            .populate("mascota");
+            .populate("id_mascota");
           const usuarioSinPassword = usuario.toObject(); // convertir el objeto Mongoose a objeto JS
           delete usuarioSinPassword.password; // eliminar la propiedad password
           return h.response(usuarioSinPassword);

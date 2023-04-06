@@ -18,7 +18,7 @@ const createComentarioResenaRoute = [
         // Aca se va a actualizar el campo "comentario" del producto al que se le hace la reseña.
         await ProductoServicio.findByIdAndUpdate(
           request.payload.producto,
-          { comentario: comentarioResena._id },
+          { $push: { comentarios: comentarioResena._id } },
           { new: true }
         );
 
