@@ -4,7 +4,7 @@ const Usuario = require("../models/usuarios/Usuario");
 const createMascotaRoutes = [
   {
     method: "POST",
-    path: "/usuarios/{userId}/mascotas",
+    path: "/mascotas/{userId}",
     handler: async (request, h) => {
       try {
         const mascota = new Mascota({
@@ -40,7 +40,7 @@ const createMascotaRoutes = [
   },
   {
     method: "GET",
-    path: "/usuarios/{userId}/mascotas",
+    path: "/mascotas/{userId}",
     handler: async (request, h) => {
       try {
         const usuarioId = request.params.userId;
