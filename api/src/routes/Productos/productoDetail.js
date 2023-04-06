@@ -1,4 +1,5 @@
 const ProductoServicio = require('../../models/productos_servicios/Producto_servicio');
+const ComentariosYResenas = require("../../models/comentarios_resenas/Comentario_resena")
 
 const productDetailRoutes = [
   {
@@ -13,7 +14,8 @@ const productDetailRoutes = [
             populate: {
               path: 'usuario',
               select: 'name surname'
-            }
+            },
+            match: { producto: request.params.id }
           })
           .populate({
             path: 'proveedor',
