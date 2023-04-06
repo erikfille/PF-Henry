@@ -5,7 +5,7 @@ import { RiDeleteBin6Line } from "react-icons/ri";
 import styles from "./Checkout.module.css";
 import { useModal, useProduct } from "../../hooks/useStore";
 
-import { PayPalButton } from "react-paypal-button-v2";
+ import PayPal from "./PayPal";
 
 export default function CheckOut({ productos, data }) {
   const [totalPrice, deleteCartContent, cartProducts] = useProduct((state) => [
@@ -89,7 +89,7 @@ export default function CheckOut({ productos, data }) {
                               setModal(
                                 "Eliminar Producto",
                                 "¿Deseas eliminar este producto?",
-                                setCartRemove,
+                                // setCartRemove,
                                 [p._id]
                               )
                             }
@@ -111,35 +111,9 @@ export default function CheckOut({ productos, data }) {
           </div>
 
           {cartProducts.length ? (
-            <PayPalButton
-              options={{
-                clientId:
-                  "AeL7yM8K1K-s4nfOXeKfU3rt4QbKBpiWrqiwqcdwZStk-UOhIDb9qEmBhUSBjTkVn5AmyF2E60PnHzXc",
-                currency: "USD",
-              }}
-              amount={totalPrice}
-              onSuccess={(details, data) => {
-                alert(
-                  details.payer.name.given_name +
-                    "El pago se completó con exito"
-                );
-                console.log({ details, data });
-
-                // Borrar todos los productos del carrito si el pago se completo con exito
-                deleteCartContent();
-
-                // OPTIONAL: Call your server to save the transaction
-                return axios
-                  .post("/paypal-transaction-complete", {
-                    orderID: data.orderID,
-                  })
-                  .then(() => {
-                    // Redirrige al home si la transaccion fue correcta
-                    window.location.assign("/");
-                  });
-              }}
-            />
-          ) : null}
+            <PayPal/>
+          ) 
+          : null}
         </div>
       </div>
     </>
