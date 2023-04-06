@@ -1,12 +1,11 @@
 const Usuario = require("../models/usuarios/Usuario");
 const Rol = require("../models/roles/Rol");
 const nodemailer = require("nodemailer");
-// const smtpTransport = require('nodemailer-smtp-transport');
-// const transporter = require("../nodemailerConfig")
+const { google } = require("googleapis");
+const OAuth2 = google.auth.OAuth2;
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
-const accountTransport = require("../account_transport.json");
 const { validateUser } = require("../libs/validateFunction");
 const Boom = require("@hapi/boom");
 
@@ -61,7 +60,48 @@ const usuariosRoutes = [
         });
 
         // Enviar un correo electrónico de bienvenida al usuario
-        const transporter = nodemailer.createTransport(accountTransport);
+        const accountTransport = {
+          service: "gmail",
+          auth: {
+            type: "OAuth2",
+            user: process.env.EMAIL_ADDRESS,
+            clientId: process.env.CLIENT_ID,
+            clientSecret: process.env.CLIENT_SECRET,
+            refreshToken: process.env.REFRESH_TOKEN,
+          },
+        };
+
+        const mail_rover = async (callback) => {
+          try {
+            const oauth2Client = new OAuth2(
+              accountTransport.auth.clientId,
+              accountTransport.auth.clientSecret,
+              "https://developers.google.com/oauthplayground"
+            );
+            oauth2Client.setCredentials({
+              refresh_token: accountTransport.auth.refreshToken,
+              tls: {
+                rejectUnauthorized: false,
+              },
+            });
+            oauth2Client.getAccessToken((err, token) => {
+              if (err) {
+                console.log(err);
+                return callback(err);
+              }
+              accountTransport.auth.accessToken = token;
+              const transporter = nodemailer.createTransport(accountTransport);
+              callback(transporter);
+            });
+          } catch (error) {
+            console.log(error);
+            throw new Error("Error al crear el transportador de correo.");
+          }
+        };
+
+        const transporter = await new Promise((resolve, reject) => {
+          mail_rover(resolve);
+        });
 
         const mailOptions = {
           from: process.env.EMAIL_ADDRESS,
@@ -85,8 +125,6 @@ const usuariosRoutes = [
       } catch (error) {
         if (Boom.isBoom(error)) {
           return error;
-        } else {
-          return h.response({ error: "Error al crear el usuario" }).code(418);
         }
       }
     },
@@ -127,7 +165,7 @@ const usuariosRoutes = [
               id: usuario.id,
               email: usuario.email,
               image: usuario.image,
-              rol: usuario.rol?usuario.rol.nombre:usuario.rol
+              rol: usuario.rol ? usuario.rol.nombre : usuario.rol,
             },
           });
         } catch (error) {
@@ -153,7 +191,7 @@ const usuariosRoutes = [
 
         try {
           // Buscar el usuario por su email.
-          const usuario = await Usuario.findOne({ email }).populate('rol');
+          const usuario = await Usuario.findOne({ email }).populate("rol");
           // si no encuentra el email, lo creamos y guardamos en la base de datos.
           if (!usuario) {
             const hashedPassword = await bcrypt.hash(password, 10);
@@ -191,12 +229,66 @@ const usuariosRoutes = [
           }
 
           if (!usuario.rol) {
-            throw Boom.badRequest('Role not selected')
+            throw Boom.badRequest("Role not selected");
           }
-      
+
           const token = jwt.sign({ id: usuario._id }, process.env.JWT_SECRET, {
             expiresIn: 60 * 60 * 72, // 72 horas
           });
+
+          // Enviar un correo electrónico de bienvenida al usuario
+          const accountTransport = {
+            service: "gmail",
+            auth: {
+              type: "OAuth2",
+              user: process.env.EMAIL_ADDRESS,
+              clientId: process.env.CLIENT_ID,
+              clientSecret: process.env.CLIENT_SECRET,
+              refreshToken: process.env.REFRESH_TOKEN,
+            },
+          };
+
+          const mail_rover = async (callback) => {
+            try {
+              const oauth2Client = new OAuth2(
+                accountTransport.auth.clientId,
+                accountTransport.auth.clientSecret,
+                "https://developers.google.com/oauthplayground"
+              );
+              oauth2Client.setCredentials({
+                refresh_token: accountTransport.auth.refreshToken,
+                tls: {
+                  rejectUnauthorized: false,
+                },
+              });
+              oauth2Client.getAccessToken((err, token) => {
+                if (err) {
+                  console.log(err);
+                  return callback(err);
+                }
+                accountTransport.auth.accessToken = token;
+                const transporter =
+                  nodemailer.createTransport(accountTransport);
+                callback(transporter);
+              });
+            } catch (error) {
+              console.log(error);
+              throw new Error("Error al crear el transportador de correo.");
+            }
+          };
+
+          const transporter = await new Promise((resolve, reject) => {
+            mail_rover(resolve);
+          });
+
+          const mailOptions = {
+            from: process.env.EMAIL_ADDRESS,
+            to: email,
+            subject: "¡Bienvenido a nuestra aplicación!",
+            text: `¡Hola ${name}, bienvenido a nuestra aplicación!`,
+          };
+
+          await transporter.sendMail(mailOptions);
 
           // Si sus credenciales son validas respondemos con la data del user + el token generado
           return h.response({
@@ -206,7 +298,7 @@ const usuariosRoutes = [
               id: usuario.id,
               email: usuario.email,
               image: usuario.image,
-              rol: usuario.rol?usuario.rol.nombre:usuario.rol
+              rol: usuario.rol ? usuario.rol.nombre : usuario.rol,
             },
           });
         } catch (error) {
