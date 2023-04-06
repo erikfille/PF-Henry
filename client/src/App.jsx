@@ -27,7 +27,6 @@ import ProviderDashboard from "./Views/ProviderDashboard/ProviderDashboard";
 //? Styles
 import "./App.css";
 
-
 axios.defaults.baseURL = "http://localhost:3000";
 
 function App() {
@@ -50,7 +49,7 @@ function App() {
         <Route path="/productos/:productId" element={<Detail />} />
         <Route path="/crearProducto" element={<CreateProduct />} />
         <Route path="/perfil" element={<UserProfile />}>
-          <Route path="/perfil/:userEmail" element={<UserProfile />} />
+          <Route path="/perfil/:userId" element={<UserProfile />} />
         </Route>
         <Route path="/checkout" element={<CheckOut />} />
         <Route path="/provider/:providerId" element={<ProviderDashboard />} />

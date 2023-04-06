@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import ReactStars from "react-stars";
 import styles from "./ProductReviews.module.css";
+import { useProduct } from "../../hooks/useStore";
 export default function ProductReviews(props) {
   const { _id, rating } = props.productDetail;
 
@@ -32,6 +33,8 @@ export default function ProductReviews(props) {
   const [review, setReview] = useState("");
   const [user, setUser] = useState({});
 
+  let [sendReview] = useProduct((state) => [state.sendReview]);
+
   useEffect(() => {
     setUser(JSON.parse(localStorage.getItem("user")));
   }, []);
@@ -42,10 +45,10 @@ export default function ProductReviews(props) {
 
   function handleSubmit() {
     let newReview = {
-      review: review,
-      rating: qualify,
-      user: user,
-      product: _id,
+      comentario: review,
+      puntuacion: qualify,
+      usuario: user,
+      producto: _id,
     };
     sendReview(newReview);
   }

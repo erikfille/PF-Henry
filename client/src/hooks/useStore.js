@@ -27,8 +27,10 @@ export const useProduct = create((set, get) => ({
   getCategories: async () => {
     try {
       let response = await axios.get("/categorias");
-      let categorias = [... new Set(response.data.categorias.map(c => c.nombre))];
-      console.log(categorias)
+      let categorias = [
+        ...new Set(response.data.categorias.map((c) => c.nombre)),
+      ];
+      console.log(categorias);
       set((state) => ({ categories: categorias }));
     } catch (err) {
       console.log(err);
@@ -154,8 +156,20 @@ export const useProduct = create((set, get) => ({
     set((state) => ({ totalPrice: total }));
   },
   sendReview: (obj) => {
-
-  }
+    /*
+    let newReview = {
+      review: review,
+      rating: qualify,
+      user: user,
+      product: _id,
+    };
+*/
+    try {
+      axios.post("/crearComentarioResena", obj);
+    } catch (err) {
+      console.log(err);
+    }
+  },
 }));
 
 export const useModal = create((set) => ({
@@ -220,15 +234,15 @@ export const useUser = create((set, get) => ({
   userInfo: {},
   pets: {},
   compras: {},
-  getUserInfo: async (email) => {
-    let response = await axios.post(`/users/${email}`);
+  getUserInfo: async (id) => {
+    let response = await axios.get(`/users/${id}`);
     console.log(response.data);
     set((state) => ({ userInfo: response.data }));
   },
-  getPets: async (email) => {
-    set((state) => ({ pets: response.data }));
-  },
-  getCompras: async (email) => {
-    set((state) => ({ compras: response.data }));
-  },
+  // getPets: async (id) => {
+  //   set((state) => ({ pets: response.data }));
+  // },
+  // getCompras: async (id) => {
+  //   set((state) => ({ compras: response.data }));
+  // },
 }));
