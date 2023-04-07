@@ -91,9 +91,7 @@ export default function CheckOut({ productos, data }) {
                             )
                           }
                         >
-                          <RiDeleteBin6Line
-                            className="ms-5"
-                          />
+                          <RiDeleteBin6Line className="ms-5" />
                         </td>
                       </tr>
                     ))}

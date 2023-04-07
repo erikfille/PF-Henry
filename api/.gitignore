@@ -8,11 +8,11 @@ pnpm-debug.log*
 lerna-debug.log*
 
 node_modules
+node_modules/
+**/node_modules/*
 dist
 dist-ssr
 *.local
-whatwg-url
-.env
 
 # Editor directories and files
 .vscode/*
@@ -24,4 +24,5 @@ whatwg-url
 *.njsproj
 *.sln
 *.sw?
-
+.env
+*.env
