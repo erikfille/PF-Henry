@@ -5,13 +5,13 @@ import { RiDeleteBin6Line } from "react-icons/ri";
 import styles from "./Checkout.module.css";
 import { useModal, useProduct } from "../../hooks/useStore";
 
- import PayPal from "./PayPal";
+import PayPal from "./PayPal";
 
 export default function CheckOut({ productos, data }) {
-  const [totalPrice, deleteCartContent, cartProducts] = useProduct((state) => [
+  const [totalPrice, cartProducts, setCartRemove] = useProduct((state) => [
     state.totalPrice,
-    state.deleteCartContent,
     state.cartProducts,
+    state.setCartRemove,
   ]);
 
   const [setModal] = useModal((state) => [state.setModal]);
@@ -82,17 +82,17 @@ export default function CheckOut({ productos, data }) {
                         </td>
                         <td
                           className={`align-middle text-center ${styles.buttonDelete}`}
+                          onClick={() =>
+                            setModal(
+                              "Eliminar Producto",
+                              "¿Deseas eliminar este producto?",
+                              setCartRemove,
+                              [p._id]
+                            )
+                          }
                         >
                           <RiDeleteBin6Line
                             className="ms-5"
-                            onClick={() =>
-                              setModal(
-                                "Eliminar Producto",
-                                "¿Deseas eliminar este producto?",
-                                // setCartRemove,
-                                [p._id]
-                              )
-                            }
                           />
                         </td>
                       </tr>
@@ -110,10 +110,7 @@ export default function CheckOut({ productos, data }) {
             </div>
           </div>
           {/* PayPal */}
-          {cartProducts.length ? (
-            <PayPal/>
-          ) 
-          : null}
+          {cartProducts.length ? <PayPal /> : null}
         </div>
       </div>
     </>
