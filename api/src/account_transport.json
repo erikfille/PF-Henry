@@ -1,0 +1,11 @@
+{
+    "service": "gmail",
+    "auth": {
+      "type": "OAuth2",
+      "user": "petcareamerica@gmail.com",
+      "clientId": "1098740085962-h15hpri00b9288q7ub6tcgsdf4gbk93q.apps.googleusercontent.com",
+      "clientSecret": "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",
+      "refreshToken": "1//042XqPdeK3s4qCgYIARAAGAQSNwF-L9IrGrMlxVIiMSnwU3d9q5vwQISGnhw00CgFwH40ESFcKEO6vgLpjKjLCk7MC_QDmYC8cSE"
+    }
+  }
+  
