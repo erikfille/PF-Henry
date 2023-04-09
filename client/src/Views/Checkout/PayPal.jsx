@@ -1,11 +1,28 @@
 import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
 import { useModal, useProduct } from "../../hooks/useStore";
 
+import axios from "axios"
+
 export default function PayPal(props) {
   const [setModalInfo] = useModal((state) => [state.setModalInfo]);
 
   const [deleteCartContent] = useProduct((state) => [state.deleteCartContent]);
 
+  async function onApproveAction(data) {
+    await axios
+      .post("/paypal-transaction-complete", { orderID: data.orderID })
+      console.log(data.orderId)
+      .then(() => {
+        console.log(data);
+        deleteCartContent()
+        window.location.assign("/");
+        
+      });
+      
+  } 
+
+
+  
   return (
     <PayPalScriptProvider
       options={{
@@ -30,20 +47,22 @@ export default function PayPal(props) {
           return actions.order.capture().then(function (details) {
             setModalInfo(
               "Compra Exitosa",
-              `${details.payer.name.given_name} tu compra se realizó con éxito, en breve serás redirijido a tu panel de usuario`
+              `${details.payer.name.given_name} tu compra se realizó con éxito, en breve serás redirijido a tu panel de usuario`,
+              onApproveAction(),
+              [data]
             );
-            deleteCartContent();
+            ;
             // OPTIONAL: Call your server to save the transaction
-            return fetch("/paypal-transaction-complete", {
-              method: "post",
-              body: JSON.stringify({
-                orderID: data.orderID,
-              }),
-            }).then(() => {
-              setTimeout(() => {
-                window.location.href = "/"; // Redirigir a la página de inicio
-              }, 3000); // Mostrar la alerta durante 3 segundos
-            });
+            // return fetch("/paypal-transaction-complete", {
+            //   method: "post",
+            //   body: JSON.stringify({
+            //     orderID: data.orderID,
+            //   }),
+            // }).then(() => {
+            //   setTimeout(() => {
+            //     window.location.href = "/"; // Redirigir a la página de inicio
+            //   }, 10000); // Mostrar la alerta durante 3 segundos
+            // });
           });
         }}
       />

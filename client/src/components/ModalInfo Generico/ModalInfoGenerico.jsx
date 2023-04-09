@@ -14,8 +14,8 @@ export default function ModalConsultaGenerico() {
     ]);
 
   useEffect(() => {
-    setIsOpen(modalState);
-  }, [modalState]);
+    setIsOpen(modalInfoState);
+  }, [modalInfoState]);
 
   return (
     <div
