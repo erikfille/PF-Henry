@@ -43,9 +43,14 @@ const createComentarioResenaRoute = [
         const comentariosResenas = await ComentarioResena.find({
           producto: request.params.productoId,
         })
-          .populate("usuario", "name")
+          .populate("usuario", "name surname")
           .populate("producto", "titulo");
-        return h.response(comentariosResenas).code(200);
+
+        return h
+          .response({
+            comentariosResenas: comentariosResenas,
+          })
+          .code(200);
       } catch (error) {
         return h.response(error).code(500);
       }

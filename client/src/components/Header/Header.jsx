@@ -19,7 +19,6 @@ const Header = () => {
 
   useEffect(() => {
     const localUser = JSON.parse(localStorage.getItem("user"));
-    console.log(localUser);
     if (localUser && !user.id) {
       setUserLogged(true);
       setUser(localUser);
@@ -54,7 +53,13 @@ const Header = () => {
           className={`${styles.navContainer} collapse navbar-collapse justify-content-end me-4`}
           id="navbarNav"
         >
-          <div className="navbar-nav align-items-center">
+          <div
+            className="navbar-nav align-items-center"
+            style={{
+              backgroundColor: "var(--body_background)",
+              width: "100vw !important",
+            }}
+          >
             {/* <NavLink to="/" className="nav-item me-3">
               Inicio
             </NavLink> */}

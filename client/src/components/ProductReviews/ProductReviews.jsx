@@ -33,11 +33,20 @@ export default function ProductReviews(props) {
   const [review, setReview] = useState("");
   const [user, setUser] = useState({});
 
-  let [sendReview] = useProduct((state) => [state.sendReview]);
+  let [productReviews, getReviews, sendReview] = useProduct((state) => [
+    state.productReviews,
+    state.getReviews,
+    state.sendReview,
+  ]);
 
   useEffect(() => {
     setUser(JSON.parse(localStorage.getItem("user")));
+    getReviews(_id);
   }, []);
+
+  useEffect(() => {
+    setReviews(productReviews);
+  }, [productReviews]);
 
   function handleInputChange(e) {
     setReview(e.target.value);
@@ -75,58 +84,64 @@ export default function ProductReviews(props) {
             </span>
 
             <hr className={styles.hr} />
-            <div className="">
-              <h3 className={`${styles.fColor}  fw-bold fs-5`}>
-                Escribe una reseña
-              </h3>
-              <p className={`${styles.span} fw-bold mb-1`}>Calificación</p>
-              <ReactStars
-                count={5}
-                size={20}
-                value={qualify}
-                edit={true}
-                activeColor="#ffd700"
-              />
-              <p className={`${styles.span} fw-bold mt-2`}>Reseña</p>
-              <textarea
-                className={`form-control ${styles.textReview}`}
-                style={{
-                  backgroundColor: "var(--body_background)",
-                  color: "var(--body_color)",
-                  border: "0.5px solid var(--border_color)",
-                }}
-                placeholder="Escribe aquí tu reseña"
-                type="text"
-                name="review"
-                value={review}
-                onChange={handleInputChange}
-              />
-              <button className="button mt-3" onClick={() => handleSubmit()}>
-                Enviar Reseña
-              </button>
-            </div>
+            {user && user.id ? (
+              <div className="">
+                <h3 className={`${styles.fColor}  fw-bold fs-5`}>
+                  Escribe una reseña
+                </h3>
+                <p className={`${styles.span} fw-bold mb-1`}>Calificación</p>
+                <ReactStars
+                  count={5}
+                  size={20}
+                  value={qualify}
+                  edit={true}
+                  activeColor="#ffd700"
+                />
+                <p className={`${styles.span} fw-bold mt-2`}>Reseña</p>
+                <textarea
+                  className={`form-control ${styles.textReview}`}
+                  style={{
+                    backgroundColor: "var(--body_background)",
+                    color: "var(--body_color)",
+                    border: "0.5px solid var(--border_color)",
+                  }}
+                  placeholder="Escribe aquí tu reseña"
+                  type="text"
+                  name="review"
+                  value={review}
+                  onChange={handleInputChange}
+                />
+                <button className="button mt-3" onClick={() => handleSubmit()}>
+                  Enviar Reseña
+                </button>
+              </div>
+            ) : (
+              "Debes estar logueado para poder dejar un comentario"
+            )}
             <div className="mt-5">
-              {reviews.map((r) => (
-                <div className="mt-5">
-                  <div className="d-sm-flex align-items-end mt-0">
-                    <h1 className={`${styles.fColor} fw-bold fs-3 me-3`}>
-                      {r.usuario}
-                    </h1>
-                    <ReactStars
-                      count={5}
-                      size={20}
-                      value={r.rating}
-                      edit={false}
-                      activeColor="#ffd700"
-                      className={styles.stars}
-                    />
-                  </div>
-                  <div>
-                    <span className={`${styles.span}`}>{r.fecha}</span>
-                    <p className={`${styles.span} pt-3`}>{r.comentario}</p>
-                  </div>
-                </div>
-              ))}
+              {reviews.length
+                ? reviews.map((r) => (
+                    <div className="mt-5">
+                      <div className="d-sm-flex align-items-end mt-0">
+                        <h1 className={`${styles.fColor} fw-bold fs-3 me-3`}>
+                          {r.usuario.name /* + " " + r.usuario.apellido */}
+                        </h1>
+                        <ReactStars
+                          count={5}
+                          size={20}
+                          value={r.puntuacion}
+                          edit={false}
+                          activeColor="#ffd700"
+                          className={styles.stars}
+                        />
+                      </div>
+                      <div>
+                        <span className={`${styles.span}`}>{r.fecha}</span>
+                        <p className={`${styles.span} pt-3`}>{r.comentario}</p>
+                      </div>
+                    </div>
+                  ))
+                : "Se el primero en comentar algo de este producto"}
             </div>
           </div>
         </div>
