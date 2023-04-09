@@ -46,14 +46,9 @@ const createComentarioResenaRoute = [
           .populate("usuario", "name surname")
           .populate("producto", "titulo");
 
-        const puntuaciones = comentariosResenas.map((cr) => cr.puntuacion);
-        const promedio =
-          puntuaciones.reduce((a, b) => a + b, 0) / puntuaciones.length;
-
         return h
           .response({
             comentariosResenas: comentariosResenas,
-            promedioPuntuacion: promedio,
           })
           .code(200);
       } catch (error) {
