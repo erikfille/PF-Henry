@@ -2,7 +2,7 @@ import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
 import { useModal, useProduct } from "../../hooks/useStore";
 
 export default function PayPal(props) {
-  const [setModal] = useModal((state) => [state.setModal]);
+  const [setModalInfo] = useModal((state) => [state.setModalInfo]);
 
   const [deleteCartContent] = useProduct((state) => [state.deleteCartContent]);
 
@@ -28,12 +28,9 @@ export default function PayPal(props) {
         }}
         onApprove={(data, actions) => {
           return actions.order.capture().then(function (details) {
-            setModal(
+            setModalInfo(
               "Compra Exitosa",
-              details.payer.name.given_name +
-                "Tu compra se realizó con éxito, en breve seras redirijido a tu panel de usuario"[
-                  props.id
-                ]
+              `${details.payer.name.given_name} tu compra se realizó con éxito, en breve serás redirijido a tu panel de usuario`
             );
             deleteCartContent();
             // OPTIONAL: Call your server to save the transaction
