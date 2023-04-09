@@ -26,29 +26,29 @@ const ModalPetDetail = () => {
          <div className='data d-flex justify-content-around'>
             <div className="d-flex flex-column align-items-center">
                <p className={style.data}>Especie</p>
-               <p>Perro</p>
+               <p style={{color: "var(--body_color)"}}>Perro</p>
             </div>
             <div className="d-flex flex-column align-items-center">
                <p className={style.data}>Fecha de Nac</p>
-               <p>26-05-2021</p>
+               <p style={{color: "var(--body_color)"}}>26-05-2021</p>
             </div>
          </div>
          <hr style={{opacity: "1", height: "2px"}} />
          <div className="historial py-3 d-flex justify-content-center">
-            <h1>Historial</h1>
+            <h1 style={{color: "var(--body_color)"}}>Historial</h1>
          </div>
          <div className="hist1">
             <span className={style.data}>Fecha:</span> <span>12/07/22</span> <br/>
             <span className={style.data}>Motivo:</span> <span>Vacuna 1</span>
             <p className={`${style.data} mt-3 mb-0`}>Descripción:</p>
-            <p>Se vacuno en la Clínica Veterinaria San Francisco, por el veterinario Oswaldo Petrini</p>
+            <p style={{color: "var(--body_color)"}}>Se vacuno en la Clínica Veterinaria San Francisco, por el veterinario Oswaldo Petrini</p>
          </div>
          <hr style={{opacity: "1"}} />
          <div className="hist1">
             <span className={style.data}>Fecha:</span> <span>10/11/22</span> <br/>
             <span className={style.data}>Motivo:</span> <span>Vacuna 2</span>
             <p className={`${style.data} mt-3 mb-0`}>Descripción:</p>
-            <p>Se vacuno en la Clínica Veterinaria San Francisco, por el veterinario Oswaldo Petrini</p>
+            <p style={{color: "var(--body_color)"}}>Se vacuno en la Clínica Veterinaria San Francisco, por el veterinario Oswaldo Petrini</p>
          </div>
       </div>
    )
