@@ -2,7 +2,7 @@ import Meta from "../../components/Meta/Meta";
 import BreadCrump from "../../components/BreadCrump/BreadCrump";
 import style from "./UserProfile.module.css";
 import { Link, useParams } from "react-router-dom";
-// import { user } from "./userHelp";
+import ModalPetDetail from '../../components/ModalPetDetail/ModalPetDetail';
 import { FaUserAlt } from "react-icons/fa";
 import PetsContainer from "../../components/PetsContainer/PetsContainer";
 import { useUser } from "../../hooks/useStore";
@@ -124,6 +124,7 @@ export default function UserProfile() {
             </div>
           </div>
         </div>
+        <ModalPetDetail />
       </div>
     </>
   );

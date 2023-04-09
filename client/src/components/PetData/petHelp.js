@@ -19,11 +19,6 @@ export const pets = [
         "especie": "Conejo",
         "nac": "12-06-2022",
     },
-    {
-        "name": "Dingo",
-        "especie": "Conejo",
-        "nac": "12-06-2022",
-    }
 ]
 
 export const compras = []

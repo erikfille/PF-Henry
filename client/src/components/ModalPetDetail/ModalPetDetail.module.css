@@ -1,0 +1,39 @@
+.modalContainer {
+    position: fixed;
+    width: 800px;
+    height: 500px;
+    top: 15%;
+    right: 17%;
+    z-index: 1000;
+    background-color: var(--body_background);
+    border-radius: 10px;
+    box-shadow: var(--body_boxshadow);
+    overflow: auto;
+}
+
+.title {
+    font-size: 50px;
+    font-weight: 600;
+}
+
+.circle {
+    background-color: var(--color-0CC5BA);
+    height: 130px;
+    width: 130px;
+    border-radius: 50%;
+    box-shadow: var(--body_boxshadow);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.data {
+    font-weight: 600;
+}
+
+.buttonLink {
+    border: none;
+    background-color: transparent;
+    font-weight: 600;
+    color: var(--color-0CC5BA);
+}
