@@ -13,7 +13,7 @@ export default function ProductCart(props) {
     return (
       <>
         <div className={`${style.productCart} col-12 d-flex gap-3 py-3 align-items-center justify-content-center`}>
-          {/* <Link to={`/productos/${props.id}`}> */}
+          <Link to={`/productos/${props.id}`}>
             <div className="ms-2 imagen">
               <img
                 src={props.imagen}
@@ -21,12 +21,12 @@ export default function ProductCart(props) {
                 style={{ width: "50px", height: "50px" }}
               />
             </div>
+          </Link>
             <div className="d-flex flex-column gap-1 tituloPrecio w-50 ps-4">
               <h5 className={`${style.title} mb-0`}>{props.titulo}</h5>
               {/* <p className={`${style.sku}sku mb-0`}>SKU-{props.stock}</p> */}
               <p className={`${style.price} mb-0`}>{props.price} U$D</p>
             </div>
-          {/* </Link> */}
           <div className="d-flex flex-column cantidad me-3 align-items-center">
             <h5 className={`${style.cant} mb-0`}>Cant</h5>
             <h5 className={`${style.cant} mb-0`}>{props.cant}</h5>
