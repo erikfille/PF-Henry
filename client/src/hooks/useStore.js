@@ -202,8 +202,7 @@ export const useModal = create((set) => ({
     if (title && text && action)
       set((state) => ({ modalInfoProps: { title, text, action } }));
     if (args) set((state) => ({ modalInfoActionArgs: args }));
-
-    set((state) => ({ modalState: state.modalState ? false : true }));
+    set((state) => ({ modalInfoState: state.modalInfoState ? false : true }));
   },
 }));
 
