@@ -45,9 +45,6 @@ export default function Footer() {
 								<a className={style.spans} href='mailto:info@petsamerica.com'><HiOutlineMail className={style.iconContact} /> info@petsamerica.com</a>
 							</div>
 						</div>
-						{/* <div className="col-3 d-flex flex-column justify-content-end">
-							<img className={style.imgCat} src="src/images/cat-footer.png" alt="gato" />
-						</div> */}
 					</div>
 				</div>
 			</div>
