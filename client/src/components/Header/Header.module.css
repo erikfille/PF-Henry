@@ -1,4 +1,4 @@
-.navlink{
+.navlink {
 	font-size: 1.7rem;
 	margin-bottom: 0;
 	font-weight: 700;
@@ -55,13 +55,6 @@ nav a:hover {
 	transition: all 0.3s ease-in-out;
 }
 
-/* .buttonContainer a:last-child {
-	background-color: #0cc5ba;
-	border-radius: 50%;
-	padding: 3px 5px;
-	transition: all 0.3s ease-in-out;
-} */
-
 .buttonContainer a:last-child svg:hover {
 	color: #0cc5ba;
 	background-color: transparent;
@@ -73,7 +66,7 @@ nav a:hover {
 	padding-right: 10px;
 }
 
-.buttonCart::after { 
+.buttonCart::after {
 	display: none;
 }
 
@@ -101,8 +94,13 @@ nav a:hover {
 	background-color: var(--body_background);
 }
 
+.imgProfile {
+	width: 40px;
+	border: 2px solid #0cc5ba;
+}
+
 /* Muestra boton burguer en responsive */
-@media screen and (max-width: 992px) {
+@media screen and (max-width: 768px) {
 	.menuButton {
 		font-size: 1.5rem;
 		display: inline-block;
