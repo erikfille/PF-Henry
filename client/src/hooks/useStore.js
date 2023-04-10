@@ -168,19 +168,27 @@ export const useProduct = create((set, get) => ({
     set((state) => ({ productReviews: response.data }));
   },
   sendReview: (obj) => {
-    /*
-    let newReview = {
-      review: review,
-      rating: qualify,
-      user: user,
-      product: _id,
-    };
-*/
     try {
       axios.post("/crearComentarioResena", obj);
     } catch (err) {
       console.log(err);
     }
+  },
+  updateStock: async (cartProducts) => {
+    let promisifiedUpdate = [];
+    cartProducts.forEach((p) =>
+      promisifiedUpdate.push(
+        axios.get(`/product-detail/${id}`).then((response) => {
+          console.log(response.data.stock);
+          console.log("Quantity: ", p.quantity);
+          let stock = response.data.stock - p.quantity;
+          axios.put(`/stock/${p.id}`, {
+            stock: stock,
+          });
+        })
+      )
+    );
+    await Promise.all(promisifiedUpdate);
   },
 }));
 
@@ -259,10 +267,4 @@ export const useUser = create((set, get) => ({
     let response = await axios.get(`/users/${id}`);
     set((state) => ({ userInfo: response.data }));
   },
-  // getPets: async (id) => {
-  //   set((state) => ({ pets: response.data }));
-  // },
-  // getCompras: async (id) => {
-  //   set((state) => ({ compras: response.data }));
-  // },
 }));
