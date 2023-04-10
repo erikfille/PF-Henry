@@ -8,6 +8,8 @@ const jwt = require("jsonwebtoken");
 require("dotenv").config();
 const { validateUser } = require("../libs/validateFunction");
 const Boom = require("@hapi/boom");
+const fs = require("fs");
+const Path = require("path");
 
 const usuariosRoutes = [
   {
@@ -103,11 +105,18 @@ const usuariosRoutes = [
           mail_rover(resolve);
         });
 
+        const html = fs.readFileSync(
+          Path.join(__dirname, "../emails/bienvenida.html"),
+          "utf-8",
+          {base:__dirname}
+        )
+        const emailHtml = html.replace("{{name}}", name);
+
         const mailOptions = {
           from: process.env.EMAIL_ADDRESS,
           to: email,
           subject: "¡Bienvenido a nuestra aplicación!",
-          text: `¡Hola ${name}, bienvenido a nuestra aplicación!`,
+          html: emailHtml,
         };
 
         await transporter.sendMail(mailOptions);
@@ -172,7 +181,7 @@ const usuariosRoutes = [
           if (Boom.isBoom(error)) {
             return error;
           } else {
-            return h.response({ error: "Error al crear el usuario" }).code(418);
+            return h.response({ error: "Error al crear el usuario" }).code(404);
           }
         }
       },
@@ -281,11 +290,19 @@ const usuariosRoutes = [
             mail_rover(resolve);
           });
 
+          const html = fs.readFileSync(
+            Path.join(__dirname, "../emails/bienvenida.html"),
+            "utf-8",
+            {base:__dirname}
+          )
+          const emailHtml = html.replace("{{name}}", name);
+  
+
           const mailOptions = {
             from: process.env.EMAIL_ADDRESS,
             to: email,
             subject: "¡Bienvenido a nuestra aplicación!",
-            text: `¡Hola ${name}, bienvenido a nuestra aplicación!`,
+            text: emailHtml,
           };
 
           await transporter.sendMail(mailOptions);
@@ -305,7 +322,7 @@ const usuariosRoutes = [
           if (Boom.isBoom(error)) {
             return error;
           } else {
-            return h.response({ error: "Error al crear el usuario" }).code(418);
+            return h.response({ error: "Error al crear el usuario" }).code(404);
           }
         }
       },
