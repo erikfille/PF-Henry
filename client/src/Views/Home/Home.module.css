@@ -1,50 +1,46 @@
 .bgImage {
-    position: absolute;
-}
-
-.title {
-    position: relative;
+	position: absolute;
 }
 
 .title > h1 {
-    font-size: 70px;
-    font-weight: 700;
-    padding-top: 5%;
-    margin-bottom: 0;
-    color: var(--body_color);
+	font-size: 70px;
+	font-weight: 700;
+	padding-top: 5%;
+	margin-bottom: 0;
+	color: var(--body_color);
 }
 
 .title > h2 {
-    font-size: 70px;
-    font-weight: 700;
-    color: var(--color-0CC5BA);
-    margin-bottom: 30px;
+	font-size: 70px;
+	font-weight: 700;
+	color: var(--color-0CC5BA);
+	margin-bottom: 30px;
 }
 
 .imgPets {
-    position: relative;
+	position: relative;
 }
 
 @media screen and (max-width: 700px) {
-    .title {
-        position:initial;
-    }
+	.title {
+		position: initial;
+	}
 
-    .title > h1 {
-        font-size: 30px;
-        padding-top: 15%;
-        z-index: -1;
-    }
-    
-    .title > h2 {
-        font-size: 30px;
-    }
+	.title > h1 {
+		font-size: 30px;
+		padding-top: 15%;
+		z-index: -1;
+	}
 
-    .imgPets > img {
-        width: 500px;
-    }
+	.title > h2 {
+		font-size: 30px;
+	}
 
-    .bgImage {
-        display: none;
-    }
+	.imgPets > img {
+		width: 500px;
+	}
+
+	.bgImage {
+		display: none;
+	}
 }
