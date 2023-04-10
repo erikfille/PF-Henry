@@ -16,7 +16,6 @@ export default function ModalConsultaGenerico() {
   }, [modal]);
 
   function handleClick(role) {
-    console.log(role)
     setUserRole(role);
     setModal();
   }

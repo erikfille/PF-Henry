@@ -1,29 +1,22 @@
 import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
 import { useModal, useProduct } from "../../hooks/useStore";
 
-import axios from "axios"
+import axios from "axios";
 
 export default function PayPal(props) {
   const [setModalInfo] = useModal((state) => [state.setModalInfo]);
 
-
   const [deleteCartContent] = useProduct((state) => [state.deleteCartContent]);
 
   async function onApproveAction(data) {
-    await axios
-      .post("/paypal-transaction-complete", { orderID: data.orderID })
-      console.log(data.orderId)
-      .then(() => {
-        console.log(data);
-        deleteCartContent()
-        window.location.assign("/");
-        
-      });
-      
-  } 
+    let response = await axios.post("/paypal-transaction-complete", {
+      orderID: data.orderID,
+    });
+    console.log(response);
+    deleteCartContent();
+    window.location.assign("/");
+  }
 
-
-  
   return (
     <PayPalScriptProvider
       options={{
@@ -47,13 +40,11 @@ export default function PayPal(props) {
         onApprove={(data, actions) => {
           return actions.order.capture().then(function (details) {
             setModalInfo(
-            setModalInfo(
               "Compra Exitosa",
               `${details.payer.name.given_name} tu compra se realizó con éxito, en breve serás redirijido a tu panel de usuario`,
-              onApproveAction(),
+              onApproveAction,
               [data]
             );
-            ;
             // OPTIONAL: Call your server to save the transaction
             // return fetch("/paypal-transaction-complete", {
             //   method: "post",
