@@ -28,7 +28,7 @@ const Header = () => {
 	console.log(user);
 
 	return (
-		<nav className="navbar navbar-expand-lg bg-body-tertiary">
+		<nav className="navbar navbar-expand-md bg-body-tertiary">
 			<div className="container-fluid">
 				<div className={`d-flex align-items-center ms-3 gap-3 ${styles.logoContainer}`}>
 					<NavLink to="/" className={styles.navlink}>
@@ -61,7 +61,7 @@ const Header = () => {
 							Servicios
 						</NavLink>
 						<div
-							className={`d-flex flex-column flex-lg-row align-items-center justify-content-center ${styles.buttonContainer}`}>
+							className={`d-flex flex-column flex-md-row align-items-center justify-content-center ${styles.buttonContainer}`}>
 							<div className="dropdown">
 								<span
 									className={`${styles.buttonCart} dropdown-toggle`}

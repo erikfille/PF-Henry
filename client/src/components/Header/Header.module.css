@@ -100,7 +100,7 @@ nav a:hover {
 }
 
 /* Muestra boton burguer en responsive */
-@media screen and (max-width: 992px) {
+@media screen and (max-width: 768px) {
 	.menuButton {
 		font-size: 1.5rem;
 		display: inline-block;
