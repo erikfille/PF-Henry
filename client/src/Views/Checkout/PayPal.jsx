@@ -1,14 +1,13 @@
 import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
 import { useModal, useProduct } from "../../hooks/useStore";
 
-
-
 export default function PayPal(props) {
-  const [setModalInfo] = useModal((state) => [state.setModalInfo]);
+  const [setModal] = useModal((state) => [state.setModal]);
   const [deleteCartContent] = useProduct((state) => [state.deleteCartContent]);
- 
-  return (
 
+  const fromPaypal = true; // Indicar que se está utilizando el modal desde el componente PayPal
+
+  return (
     <PayPalScriptProvider
       options={{
         "client-id": "AeL7yM8K1K-s4nfOXeKfU3rt4QbKBpiWrqiwqcdwZStk-UOhIDb9qEmBhUSBjTkVn5AmyF2E60PnHzXc",
@@ -29,28 +28,33 @@ export default function PayPal(props) {
         }}
         onApprove={(data, actions) => {
           return actions.order.capture().then(function (details) {
-              setModalInfo(
-                  "Compra Exitosa",
-                   details.payer.name.given_name + "Tu compra se realizó con éxito, en breve serás redirigido a tu panel de usuario"
-                );
-              deleteCartContent()
+            console.log("Payment succeeded:", details);
+            setModal(
+              "Compra Exitosa",
+              details.payer.name.given_name +
+                "Tu compra se realizó con éxito, en breve serás redirigido a tu panel de usuario",
+              { showButtons: fromPaypal },
+              fromPaypal
+            );
+            
+            
+            console.log("Modal info set successfully!"); // Agrega esta línea
+            deleteCartContent();
 
             // OPTIONAL: Call your server to save the transaction
             return fetch("/paypal-transaction-complete", {
               method: "post",
               body: JSON.stringify({
-                orderID: data.orderID
-              })
+                orderID: data.orderID,
+              }),
             }).then(() => {
               setTimeout(() => {
                 window.location.href = "/"; // Redirigir a la página de inicio
-              }, 3000); // Mostrar la alerta durante 3 segundos
+              }, 50000); // Mostrar la alerta durante 3 segundos
             });
           });
         }}
-
       />
     </PayPalScriptProvider>
-
-);
+  );
 }
