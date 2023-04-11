@@ -10,7 +10,7 @@ const allProductosRoutes = [
                 const productosActivos = await allProductos.find({ activo: true })
                 .populate('categoria')
                 .populate('proveedor', "nombre")
-                .populate("comentario")
+                .populate("comentarios")
                return h.response(productosActivos);
             } catch (err) {
                 return h.response(err).code(500);
