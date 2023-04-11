@@ -17,13 +17,14 @@ const Header = () => {
   const [logoutUser] = useLogin((state) => [state.logoutUser]);
   const [user, setUser] = useState({});
 
+
   useEffect(() => {
     const localUser = JSON.parse(localStorage.getItem("user"));
     if (localUser && !user.id) {
       setUserLogged(true);
       setUser(localUser);
     }
-  }, [userLogged]);
+  }, [window.location])
 
   console.log(user);
 

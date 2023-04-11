@@ -83,7 +83,7 @@ export const useLogin = create((set, get) => ({
     const { receiveLogin } = get();
     console.log("receiveToken: ", user);
     let userData = {
-      id: user.id,
+      id: user._id,
       name: user.name,
       image: user.image,
       email: user.email,
@@ -92,13 +92,9 @@ export const useLogin = create((set, get) => ({
     localStorage.setItem("token", token);
     localStorage.setItem("user", JSON.stringify(userData));
     axios.defaults.headers.common["Authorization"] = "Bearer " + token;
-    receiveLogin();
-    console.log("localStorageUser: ", JSON.parse(localStorage.getItem("user")));
-    console.log("localStorageToken: ", localStorage.getItem("token"));
+    receiveLogin(userData);
   },
-  receiveLogin() {
-    const { user } = get();
-
+  receiveLogin(user) {
     if (user.rol == "admin") {
       window.location.assign("/admin");
     } else if (user.rol == "provider") {
