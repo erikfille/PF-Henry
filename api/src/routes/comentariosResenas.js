@@ -22,6 +22,14 @@ const createComentarioResenaRoute = [
           { new: true }
         );
 
+       // Recalcular el rating del producto y actualizar su valor
+        const producto = await ProductoServicio.findById(request.payload.producto).populate("comentarios");
+        const comentarios = producto.comentarios;
+        const sumaPuntuaciones = comentarios.reduce((acc, comentario) => acc + comentario.puntuacion, 0);
+        const rating = sumaPuntuaciones / comentarios.length;
+        producto.rating = rating;
+        await producto.save();
+
         return h.response(comentarioResena).code(201);
       } catch (error) {
         console.error(error); // Imprimir el error en la consola para depuración

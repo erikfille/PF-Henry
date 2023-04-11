@@ -34,7 +34,7 @@ nav a {
 }
 
 nav a:hover {
-	color: #0cc5ba;
+	color: var(--color-0CC5BA);
 }
 
 .buttonContainer svg {
@@ -42,23 +42,23 @@ nav a:hover {
 }
 
 .buttonContainer svg:hover {
-	color: #0cc5ba;
+	color: var(--color-0CC5BA);
 }
 
 .buttonContainer a:last-child svg {
 	font-size: 2rem;
 	text-align: center;
 	color: var(--body_background);
-	background-color: #0cc5ba;
+	background-color: var(--color-0CC5BA);
 	border-radius: 50%;
 	padding: 3px 5px;
 	transition: all 0.3s ease-in-out;
 }
 
 .buttonContainer a:last-child svg:hover {
-	color: #0cc5ba;
+	color: var(--color-0CC5BA);
 	background-color: transparent;
-	border: 2px solid #0cc5ba;
+	border: 2px solid var(--color-0CC5BA);
 	transition: all 0.3s ease-in-out;
 }
 
@@ -75,7 +75,7 @@ nav a:hover {
 }
 
 .li:hover {
-	color: #0cc5ba;
+	color: var(--color-0CC5BA);
 	background-color: var(--body_background);
 }
 
@@ -96,7 +96,22 @@ nav a:hover {
 
 .imgProfile {
 	width: 40px;
-	border: 2px solid #0cc5ba;
+	border: 2px solid var(--color-0CC5BA);
+}
+
+.totalCart {
+	position: absolute;
+	top: -10px;
+	right: -10px;
+	background-color: var(--color-0CC5BA);
+	color: white;
+	border-radius: 50%;
+	width: 20px;
+	height: 20px;
+	font-size: 14px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 
 /* Muestra boton burguer en responsive */

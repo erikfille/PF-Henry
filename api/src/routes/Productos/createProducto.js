@@ -6,7 +6,7 @@ const createProductosRoutes = [
     method: "POST",
     path: "/crearProducto",
     options: {
-      auth: 'jwt', // Agrega autenticación jwt
+      // auth: 'jwt', // Agrega autenticación jwt
       handler: async (request, h) => {
         try {
           const {

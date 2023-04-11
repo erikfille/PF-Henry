@@ -1,4 +1,6 @@
 const Usuario = require("../models/usuarios/Usuario");
+const ProductoServicio = ("../models/productos_servicios/Producto_servicio.js");
+const productoVendido = ("../models/productosVendido/productoVendido.js");
 const Rol = require("../models/roles/Rol");
 const nodemailer = require("nodemailer");
 const { google } = require("googleapis");
@@ -342,7 +344,12 @@ const usuariosRoutes = [
         try {
           const usuario = await Usuario.findById(id)
             .populate("rol")
-            .populate("id_mascota");
+            .populate("id_mascota")
+            .populate({
+              path: "productosComprados",
+              model: "ProductoServicio",
+              select: "titulo",
+            });
           const usuarioSinPassword = usuario.toObject(); // convertir el objeto Mongoose a objeto JS
           delete usuarioSinPassword.password; // eliminar la propiedad password
           return h.response(usuarioSinPassword);
