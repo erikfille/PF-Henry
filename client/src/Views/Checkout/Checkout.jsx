@@ -5,7 +5,8 @@ import { RiDeleteBin6Line } from "react-icons/ri";
 import styles from "./Checkout.module.css";
 import { useModal, useProduct } from "../../hooks/useStore";
 
-import PayPal from "./PayPal";
+// import PayPal from "./PayPal";
+import Braintree from "./Braintree"
 
 export default function CheckOut({ productos, data }) {
   const [totalPrice, cartProducts, setCartRemove] = useProduct((state) => [
@@ -108,7 +109,8 @@ export default function CheckOut({ productos, data }) {
             </div>
           </div>
           {/* PayPal */}
-          {cartProducts.length ? <PayPal /> : null}
+          {/* {cartProducts.length ? <PayPal /> : null} */}
+          <Braintree/>
         </div>
       </div>
     </>
