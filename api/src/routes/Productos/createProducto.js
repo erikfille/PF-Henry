@@ -21,7 +21,7 @@ const createProductosRoutes = [
             activo,
             categoria,
             proveedor,
-            comentario
+            comentarios
           } = request.payload;
   
           // Buscar la categoría por su nombre
@@ -43,7 +43,7 @@ const createProductosRoutes = [
             activo,
             categoria: categoriaEncontrada._id,
             proveedor,
-            comentario
+            comentarios
           });
   
           const productoServicioGuardado = await nuevoProductoServicio.save();
