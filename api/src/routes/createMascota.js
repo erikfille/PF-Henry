@@ -44,13 +44,15 @@ const createMascotaRoutes = [
     handler: async (request, h) => {
       try {
         const usuarioId = request.params.userId;
-        const mascotas = await Mascota.find({ usuario: usuarioId });
+        const mascotas = await Mascota.find({ usuario: usuarioId })
+          .populate("usuario", "nombre email")
+          .select("-__v"); // quita el campo "__v"
         return h.response(mascotas).code(200);
       } catch (error) {
         return h.response(error).code(500);
       }
     },
-  },
+  }
 ];
 
 module.exports = createMascotaRoutes;
