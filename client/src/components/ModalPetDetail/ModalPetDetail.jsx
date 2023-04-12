@@ -2,7 +2,11 @@ import { useEffect, useState } from "react";
 import style from "./ModalPetDetail.module.css";
 import { TbPawFilled } from "react-icons/tb";
 import { usePets } from "../../hooks/useStore";
-import { useParams } from "react-router-dom";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import { registerLocale, setDefaultLocale } from "react-datepicker";
+import es from "date-fns/locale/es";
+registerLocale("es", es);
 
 const ModalPetDetail = (props) => {
   const [petDetailModal, setPetDetailModal, selectedPet] = usePets((state) => [
@@ -11,11 +15,40 @@ const ModalPetDetail = (props) => {
     state.selectedPet,
   ]);
 
+  const [historyModal, setHistoryModal] = useState(false);
+
+  const [newHistory, setNewHistory] = useState({
+    fecha: "",
+    titulo: "",
+    descripcion: "",
+  });
+
   const fecha = new Date(selectedPet.nac);
   const dia = fecha.getUTCDate().toString().padStart(2, "0");
   const mes = (fecha.getUTCMonth() + 1).toString().padStart(2, "0");
   const anio = fecha.getUTCFullYear().toString();
   const fechaFormateada = `${dia}/${mes}/${anio}`;
+
+  function openModal() {
+    setHistoryModal(historyModal ? false : true);
+  }
+
+  function handleChange(e) {
+    setNewHistory({ ...newHistory, [e.target.name]: e.target.value });
+    console.log(newHistory);
+  }
+
+  function handleDate(date) {
+    setNewHistory({ ...newHistory, fecha: date });
+  }
+
+  async function handleNewHistory() {
+    try {
+      let response = await axios.post(`/`, newHistory);
+    } catch (err) {
+      console.log(err);
+    }
+  }
 
   return (
     <div
@@ -73,7 +106,39 @@ const ModalPetDetail = (props) => {
             </div>
           ))
         : "No hay historial para mostrar"}
-      <button onClick={() => {}}>Agregar</button>
+      <button onClick={() => openModal()}>Agregar</button>
+      {historyModal && (
+        <>
+          <hr />
+          <form onSubmit={() => {}}>
+            <DatePicker
+              locale="es"
+              dateFormat="dd/MM/yyyy"
+              selected={newHistory.fecha}
+              name="fecha"
+              onChange={(date) => handleDate(date)}
+            />
+            <br />
+            <input
+              type="text"
+              name="titulo"
+              value={newHistory.titulo}
+              onChange={handleChange}
+              placeholder="Evento"
+            />
+            <br />
+            <textarea
+              type="text"
+              name="descripcion"
+              value={newHistory.descripcion}
+              onChange={handleChange}
+              placeholder="Describe el evento"
+            />
+            <br />
+            <button>Agregar al Historial</button>
+          </form>
+        </>
+      )}
     </div>
   );
 };
