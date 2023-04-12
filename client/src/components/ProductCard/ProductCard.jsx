@@ -8,7 +8,6 @@ import style from "./ProductCard.module.css";
 export default function ProductCart(props) {
 	const [setCartRemove] = useProduct((state) => [state.setCartRemove]);
 	const [setModal] = useModal((state) => [state.setModal]);
-
 	if (props.showAs === "cart") {
 		return (
 			<>
@@ -66,7 +65,7 @@ export default function ProductCart(props) {
 					<ReactStars
 						count={5}
 						size={20}
-						value={props.rating.toFixed(1)}
+						value={Number.parseInt(props.rating.toFixed(1))}
 						edit={false}
 						activeColor="#ffd700"
 					/>

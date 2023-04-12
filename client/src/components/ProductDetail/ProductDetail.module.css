@@ -23,6 +23,9 @@ a,
 .inputNumber {
 	width: 3rem;
 	text-align: center;
+	color: var(--body_color);
+	background-color: var(--body_background);
+	border: solid 2px var(--body_color);
 }
 
 .resena {
