@@ -24,7 +24,7 @@ export default function ProductReviews(props) {
     let newReview = {
       comentario: review,
       puntuacion: qualify,
-      usuario: user,
+      usuario: user.id,
       producto: _id,
     };
     sendReview(newReview);
