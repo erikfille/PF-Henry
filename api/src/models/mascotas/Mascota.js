@@ -21,7 +21,13 @@ const mascotaSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'Usuario',
     required: true
-  }
+  },
+  imagen: {
+    type:String
+  },
+  historial: [{
+    //aca ira la relacion de id al historial de la mascota
+  }]
 });
 
 module.exports = model('Mascota', mascotaSchema);
