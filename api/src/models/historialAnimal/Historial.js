@@ -13,6 +13,11 @@ const historialAnimalSchema = new Schema({
     type: String,
     required: true
   },
+  mascota:{
+    type: Schema.Types.ObjectId,
+    ref: 'Mascota',
+    required: true
+  }
 });
 
 module.exports = model('HistorialAnimal', historialAnimalSchema);
