@@ -33,7 +33,7 @@ const mascotaSchema = new Schema({
   },
   historial: [{
       type: Schema.Types.ObjectId,
-      ref: 'Historial',
+      ref: 'HistorialAnimal',
       required: true
   }]
 });

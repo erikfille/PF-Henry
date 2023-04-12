@@ -8,23 +8,21 @@ const historialRoutes = [
     path: "/historial/{mascotaId}",
     handler: async (request, h) => {
       try {
-        const mascotaId = request.params.mascotaId;
-        const mascota = await Mascota.findById(mascotaId);
-        if (!mascota) {
-          return h
-            .response({ message: "No se encontró la mascota." })
-            .code(404);
-        }
-
         const historial = new HistorialAnimal({
           fecha: request.payload.fecha,
           titulo: request.payload.titulo,
           descripcion: request.payload.descripcion,
         });
+        const mascotaId = request.params.mascotaId;
 
-        await historial.save();
-        mascota.historial.push(historial._id);
-        await mascota.save();
+        const mascota = await Mascota.findByIdAndUpdate(
+          mascotaId,
+          { $push: { historial: historial._id } },
+          { new: true }
+        );
+        historial.mascota = mascota
+
+        await historial.save()
 
         return h.response(historial).code(201);
       } catch (error) {
@@ -32,6 +30,22 @@ const historialRoutes = [
       }
     },
   },
+  {
+    method: "GET",
+    path: "/historial/{mascotaId}",
+    handler: async (request, h) => {
+      try {
+        const mascotaId = request.params.mascotaId;
+        const historial = await HistorialAnimal.find({ mascota: mascotaId })
+        
+          
+        return h.response(historial).code(200);
+      } catch (error) {
+        return h.response(error).code(500);
+      }
+    },
+  }
+
 ];
 
 module.exports = historialRoutes;
