@@ -10,20 +10,20 @@ import BreadCrump from "../BreadCrump/BreadCrump";
 import styles from "./CreateProducto.module.css";
 
 export default function CreateProduct() {
-  const [newPetData, setnewPetData] = useState({
+  const [newPetData, setNewPetData] = useState({
     nombre: "",
     especie: "",
     fechaDeNacimiento: "",
     descripcion: "",
+    imagen: "",
+    historial: [],
   });
 
   const [errors, setErrors] = useState({
-    titulo: "",
-    tipo: "",
+    nombre: "",
+    especie: "",
+    fechaDeNacimiento: "",
     descripcion: "",
-    precio: "",
-    imagen: "",
-    stock: "",
   });
 
   const [newPet, petAddModal, setPetAddModal] = usePets((state) => [
@@ -44,7 +44,7 @@ export default function CreateProduct() {
   }
 
   function handleInputChange(e) {
-    setnewPetData({
+    setNewPetData({
       ...newPetData,
       [e.target.name]: e.target.value,
     });
@@ -60,15 +60,15 @@ export default function CreateProduct() {
     let selected;
     if (typeof e === "object" && e.length) {
       selected = e.map((el) => ({ ...el, value: el.value.split(".")[0] }));
-      setProductData({
-        ...productData,
+      setNewPetData({
+        ...newPetData,
         [selected[0].value]: selected.map((el) => el.label),
       });
     }
     if (typeof e === "object" && !e.length) {
       selected = { ...e, value: e.value.split(".")[0] };
-      setProductData({
-        ...productData,
+      setNewPetData({
+        ...newPetData,
         [selected.value]: selected.label,
       });
     }
@@ -77,8 +77,8 @@ export default function CreateProduct() {
   async function handleSubmit(e) {
     e.preventDefault();
     // getProveedor()
-    console.log(productData);
-    await createProduct(productData);
+    console.log(newPetData);
+    await createProduct(newPetData);
     /*
     - Agrego la propiedad Proveedor, sacando el id de proveedor desde el token de localStorage
     - Posteo la info
@@ -86,7 +86,7 @@ export default function CreateProduct() {
   }
 
   function onUpload(url) {
-    setProductData({ ...productData, imagen: url });
+    setNewPetData({ ...newPetData, imagen: url });
   }
 
   async function createProduct() {
@@ -138,18 +138,18 @@ export default function CreateProduct() {
                     className="form-label fw-bold"
                   >
                     Nombre de tu{" "}
-                    {productData.tipo === "Producto" ? "producto" : "servicio"}
+                    {newPetData.tipo === "Producto" ? "producto" : "servicio"}
                   </label>
                   <input
                     type="text"
                     name="titulo"
-                    value={productData.titulo}
+                    value={newPetData.titulo}
                     onChange={handleInputChange}
                     className={`${
                       errors.titulo ? "danger" : "formInput"
                     } form-control`}
                     placeholder={`Ingresa aquí el nombre de tu ${
-                      productData.tipo === "Producto" ? "producto" : "servicio"
+                      newPetData.tipo === "Producto" ? "producto" : "servicio"
                     }`}
                   />
                   {errors.titulo && (
@@ -171,13 +171,13 @@ export default function CreateProduct() {
                   </label>
                   <textarea
                     placeholder={
-                      productData.tipo === "Producto"
+                      newPetData.tipo === "Producto"
                         ? "Descripción del Producto"
                         : "Descripción del Servicio"
                     }
                     type="text"
                     name="descripcion"
-                    value={productData.descripcion}
+                    value={newPetData.descripcion}
                     onChange={handleInputChange}
                     className={`${
                       errors.descripcion && errors.state
@@ -188,8 +188,8 @@ export default function CreateProduct() {
                   {errors.descripcion && (
                     <span
                       className={
-                        productData.descripcion.length < 1 ||
-                        productData.descripcion.length >= 140
+                        newPetData.descripcion.length < 1 ||
+                        newPetData.descripcion.length >= 140
                           ? "errorSpan"
                           : "charactersLeft"
                       }
@@ -208,13 +208,13 @@ export default function CreateProduct() {
                     class="form-label fw-bold"
                   >
                     Indicá el precio del{" "}
-                    {productData.tipo === "Producto" ? "producto" : "servicio"}
+                    {newPetData.tipo === "Producto" ? "producto" : "servicio"}
                   </label>
                   <input
                     placeholder="Precio"
                     type="number"
                     name="precio"
-                    value={productData.precio}
+                    value={newPetData.precio}
                     onChange={handleInputChange}
                     className="form-control"
                   />
@@ -223,7 +223,7 @@ export default function CreateProduct() {
                 <br />
 
                 <div>
-                  {productData.tipo === "Producto" ? (
+                  {newPetData.tipo === "Producto" ? (
                     <label
                       htmlFor="exampleFormControlTextarea1"
                       class="form-label fw-bold"
@@ -234,12 +234,12 @@ export default function CreateProduct() {
                     ""
                   )}
 
-                  {productData.tipo === "Producto" ? (
+                  {newPetData.tipo === "Producto" ? (
                     <input
                       placeholder="Cantidad de Stock"
                       type="number"
                       name="stock"
-                      value={productData.stock}
+                      value={newPetData.stock}
                       onChange={handleInputChange}
                       className="form-control"
                     />
@@ -257,15 +257,15 @@ export default function CreateProduct() {
                   >
                     Seleccioná las categorías en las que querés que se publique
                     tu{" "}
-                    {productData.tipo === "Producto" ? "producto" : "servicio"}
+                    {newPetData.tipo === "Producto" ? "producto" : "servicio"}
                   </label>
                   <Select
                     isMulti
                     isSearchable={true}
-                    isDisabled={productData.tipo ? false : true}
+                    isDisabled={newPetData.tipo ? false : true}
                     name="categorias"
                     options={
-                      productData.tipo === "Producto"
+                      newPetData.tipo === "Producto"
                         ? productCategories
                         : servicesCategories
                     }
@@ -285,14 +285,14 @@ export default function CreateProduct() {
                     className="form-label fw-bold"
                   >
                     Agregá una imagen de tu{" "}
-                    {productData.tipo === "Producto" ? "producto" : "servicio"}
+                    {newPetData.tipo === "Producto" ? "producto" : "servicio"}
                   </label>
                   <UploadWidget onUpload={onUpload} />
                   <br />
-                  {productData.imagen && (
+                  {newPetData.imagen && (
                     <div className="uploadedImage">
                       <img
-                        src={productData.imagen}
+                        src={newPetData.imagen}
                         alt="Uploaded"
                         width="10%"
                       />
@@ -306,7 +306,7 @@ export default function CreateProduct() {
                   <button className="disabledButton" disabled>
                     <span>
                       Crear{" "}
-                      {productData.tipo === "Producto"
+                      {newPetData.tipo === "Producto"
                         ? "producto"
                         : "servicio"}
                     </span>
@@ -315,7 +315,7 @@ export default function CreateProduct() {
                   <button className="submitButton">
                     <span>
                       Crear{" "}
-                      {productData.tipo === "Producto"
+                      {newPetData.tipo === "Producto"
                         ? "producto"
                         : "servicio"}
                     </span>

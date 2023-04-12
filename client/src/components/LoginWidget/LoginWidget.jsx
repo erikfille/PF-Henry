@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useLogin } from "../../hooks/useAuth";
 import ModalRolSelector from "../ModalRolSelector/ModalRolSelector";
 import styles from "./LoginWidget.module.css";
-import UploadWidget from "../CreateProduct/UploadWidget";
+import UploadWidget from "../UploadWidget/UploadWidget";
 
 // Google Auth
 import { gapi } from "gapi-script";
