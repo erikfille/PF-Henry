@@ -23,8 +23,9 @@ export default function CheckOut({ productos, data }) {
 			<div className="home-wrapper-2">
 				<div className="container-xl mt-5">
 					<div className="row px-3 pt-3">
-						<h1 className="fw-bold">Confirma tu pedido</h1>
+						<h1 className="fw-bold">Pagar Pedido</h1>
 						<hr />
+						<h5 >Detalle</h5>
 						{cartProducts.length && typeof cartProducts == "object" ? (
 							<div className="table-responsive-xl">
 								<table className="table table-hover align-middle table-borderless">
@@ -98,7 +99,8 @@ export default function CheckOut({ productos, data }) {
 						</div>
 					</div>
 					{/* PayPal */}
-					{cartProducts.length ? <PayPal /> : null}
+					{cartProducts.length ? <PayPal totalPrice={totalPrice} /> : null}
+
 				</div>
 			</div>
 		</>

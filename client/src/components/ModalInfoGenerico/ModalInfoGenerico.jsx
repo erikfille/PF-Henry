@@ -3,19 +3,30 @@ import { useState, useEffect } from "react";
 import { useModal } from "../../hooks/useStore";
 import style from "./ModalInfoGenerico.module.css";
 
-export default function ModalConsultaGenerico() {
+export default function ModalInfoGenerico() {
   const [isOpen, setIsOpen] = useState(false);
-  const [modalInfoState, modalInfoProps, setModalInfo, modalInfoActionArgs] =
-    useModal((state) => [
-      state.modalInfoState,
-      state.modalInfoProps,
-      state.setModalInfo,
-      state.modalInfoActionArgs,
-    ]);
+  const [
+    modalInfoState,
+    modalInfoProps,
+    setModalInfo,
+    modalInfoActionArgs,
+  ] = useModal((state) => [
+    state.modalInfoState,
+    state.modalInfoProps,
+    state.setModalInfo,
+    state.modalInfoActionArgs,
+  ]);
 
   useEffect(() => {
     setIsOpen(modalInfoState);
   }, [modalInfoState]);
+
+  function handleContinue() {
+    if (modalInfoActionArgs && modalInfoActionArgs.onContinue) {
+      modalInfoActionArgs.onContinue();
+    }
+    setModalInfo();
+  }
 
   return (
     <div
@@ -26,13 +37,7 @@ export default function ModalConsultaGenerico() {
         <h1 className={style.title}>{modalInfoProps.title}</h1>
         <h4 className={style.text}>{modalInfoProps.text}</h4>
         <div className="d-flex gap-15">
-          <button
-            className="button"
-            onClick={() => {
-              modalInfoProps.action(...modalInfoActionArgs);
-              setModalInfo();
-            }}
-          >
+          <button className="button" onClick={handleContinue}>
             Continuar
           </button>
         </div>
