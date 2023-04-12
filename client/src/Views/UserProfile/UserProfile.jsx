@@ -30,7 +30,7 @@ export default function UserProfile() {
     state.getCompras,
   ]);
 
-  const [pets, newPet, getPets, setPetAddModal, petDetailModal] = usePets(
+  const [pets, getPets, setPetAddModal, petDetailModal] = usePets(
     (state) => [
       state.pets,
       state.getPets,
