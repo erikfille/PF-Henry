@@ -65,5 +65,6 @@ export default function PayPal(props) {
         }}
       />
     </PayPalScriptProvider>
+    
   );
 }

@@ -270,33 +270,27 @@ export const useUser = create((set, get) => ({
 
 export const usePets = create((set, get) => ({
   pets: {},
-  newPet: {},
-  petDetailModal: false,
+  selectedPet: {},
   petAddModal: false,
+  petDetailModal: false,
   setPetAddModal: () => {
     set((state) => ({ petAddModal: state.petAddModal ? false : true }));
   },
   setPetDetailModal: () => {
     set((state) => ({ petDetailModal: state.petDetailModal ? false : true }));
   },
-  // addPet: async (formData, user) => {
-  //   let response = await axios.post(`/mascotas/${user.id}`, formData);
-  //   console.log(response);
-  // },
+  addPet: async (formData, user) => {
+    let response = await axios.post(`/mascotas/${user.id}`, formData);
+    console.log(response);
+  },
   getPets: async (arr) => {
     if (arr && arr.length) {
       let promisifiedPets = [];
       arr.forEach((p) => {
-        promisifiedPets.push(
-          axios.get(`/product-detail/${p.id}`).then((response) => {
-            console.log("Stock Previo: ", response.data.stock);
-            console.log("Cantidad a descontar: ", p.quantity);
-            let stock = response.data.stock - p.quantity;
-            axios.put(`/stock/${p.id}`, {
-              stock: stock,
-            });
-          })
-        );
+        promisifiedPets
+          .push
+          // Trae la info de las mascotas por id
+          ();
       });
       await Promise.all(promisifiedPets);
     }

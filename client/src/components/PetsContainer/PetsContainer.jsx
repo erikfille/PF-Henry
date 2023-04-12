@@ -4,26 +4,27 @@ import { useEffect } from "react";
 import { usePets } from "../../hooks/useStore";
 
 const PetsContainer = (props) => {
-  useEffect(() => {}, []);
+  const { setPetDetailModal, setPetAddModal, pets } = props;
 
-  const [petAddModal] = usePets((state) => [state.petAddModal]);
+  useEffect(() => {}, []);
 
   return (
     <>
-      {props.pets.length ? (
-        props.pets.map((p) => (
+      {pets.length ? (
+        pets.map((p) => (
           <PetData
             key={p.id}
             name={p.name}
             especie={p.especie}
             nac={p.nac}
             id={p.id}
+            setPetDetailModal={setPetDetailModal}
           />
         ))
       ) : (
         <>
           <div>No hay mascotas para mostrar</div>
-          <button onClick={() => petAddModal()}>Agregar una mascota</button>
+          <button onClick={() => setPetAddModal()}>Agregar una mascota</button>
         </>
       )}
     </>

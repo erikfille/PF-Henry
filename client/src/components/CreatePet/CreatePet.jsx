@@ -1,19 +1,24 @@
 import { useState, useEffect } from "react";
 import validation from "./validation";
-import Select from "react-select";
 import UploadWidget from "../UploadWidget/UploadWidget";
-import { useProduct } from "../../hooks/useStore";
+import { usePets } from "../../hooks/useStore";
 import axios from "axios";
 
-import Meta from "../Meta/Meta";
-import BreadCrump from "../BreadCrump/BreadCrump";
-import styles from "./CreateProducto.module.css";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import { registerLocale, setDefaultLocale } from "react-datepicker";
+import es from "date-fns/locale/es";
+registerLocale("es", es);
 
-export default function CreateProduct() {
+import styles from "./CreatePet.module.css";
+
+export default function CreatePet() {
+  const user = JSON.parse(localStorage.getItem("user"));
+
   const [newPetData, setNewPetData] = useState({
     nombre: "",
     especie: "",
-    fechaDeNacimiento: "",
+    fechaDeNacimiento: Date.now(),
     descripcion: "",
     imagen: "",
     historial: [],
@@ -26,17 +31,28 @@ export default function CreateProduct() {
     descripcion: "",
   });
 
-  const [newPet, petAddModal, setPetAddModal] = usePets((state) => [
-    state.newPet,
+  const [petAddModal, setPetAddModal, addPet] = usePets((state) => [
     state.petAddModal,
     state.setPetAddModal,
+    state.addPet,
   ]);
 
-  useEffect(() => {}, []);
+  console.log(user);
 
-  async function createPet(data) {
+  useEffect(() => {
+    setNewPetData({
+      nombre: "",
+      especie: "",
+      fechaDeNacimiento: Date.now(),
+      descripcion: "",
+      imagen: "",
+      historial: [],
+    });
+  }, [petAddModal]);
+
+  async function onSubmit(data) {
     try {
-      const response = await axios.post(`/mascotas/${userId}`, data);
+      const response = await axios.post(`/mascotas/${user.id}`, newPetData);
       console.log(response);
     } catch (err) {
       window.alert(err.error);
@@ -48,12 +64,12 @@ export default function CreateProduct() {
       ...newPetData,
       [e.target.name]: e.target.value,
     });
-    setErrors(
-      validation({
-        ...newPetData,
-        [e.target.name]: e.target.value,
-      })
-    );
+    // setErrors(
+    //   validation({
+    //     ...newPetData,
+    //     [e.target.name]: e.target.value,
+    //   })
+    // );
   }
 
   function handleSelectChange(e) {
@@ -76,12 +92,9 @@ export default function CreateProduct() {
 
   async function handleSubmit(e) {
     e.preventDefault();
-    // getProveedor()
     console.log(newPetData);
-    await createProduct(newPetData);
     /*
-    - Agrego la propiedad Proveedor, sacando el id de proveedor desde el token de localStorage
-    - Posteo la info
+    - Creo la mascota y envío la info a la ruta que lo vincula con el usuario
     */
   }
 
@@ -95,86 +108,59 @@ export default function CreateProduct() {
 
   return (
     <div className="formContainer">
-      <Meta title={"Contacto"} />
-      <BreadCrump title="Crear producto" />
-
       <div className={` home-wrapper-2 ${styles.creaateProductContainer}`}>
         <h1 className=" text-center fw-bold pt-5 pb-1">
-          ¡Registrá aquí tu producto o servicio y crecé de la mano de
-          PetsAmerica!
+          ¡Cuentanos sobre tu mascota!
         </h1>
-
         <div className="container mt-5 bg-white py-4 d-flex justify-content-center mt-auto">
           <div className="row py-2">
             <form
               onSubmit={handleSubmit}
-              classname="d-flex flex-column align-items-center justify-content-center"
+              className="d-flex flex-column align-items-center justify-content-center"
             >
               <div className="mb-3 ">
                 <div>
-                  <label
-                    htmlFor="formGroupExampleInput"
-                    className="form-label fw-bold"
-                  >
-                    Indicá si es un producto o servicio
-                  </label>
-                  <Select
-                    name="tipo"
-                    placeholder="Seleccioná producto o servicio"
-                    className={`accordion-item my-4 ${styles.selectContainer}`}
-                    options={[
-                      { value: "tipo.a", label: "Producto" },
-                      { value: "tipo.b", label: "Servicio" },
-                    ]}
-                    onChange={handleSelectChange}
-                  />
-                </div>
-
-                <br />
-
-                <div>
-                  <label
-                    htmlFor="formGroupExampleInput"
-                    className="form-label fw-bold"
-                  >
-                    Nombre de tu{" "}
-                    {newPetData.tipo === "Producto" ? "producto" : "servicio"}
-                  </label>
                   <input
                     type="text"
-                    name="titulo"
-                    value={newPetData.titulo}
+                    name="nombre"
+                    value={newPetData.nombre}
                     onChange={handleInputChange}
                     className={`${
-                      errors.titulo ? "danger" : "formInput"
+                      errors.nombre ? "danger" : "formInput"
                     } form-control`}
-                    placeholder={`Ingresa aquí el nombre de tu ${
-                      newPetData.tipo === "Producto" ? "producto" : "servicio"
-                    }`}
+                    placeholder="Nombre de tu mascota"
                   />
-                  {errors.titulo && (
+                  {errors.nombre && (
                     <span className="errorSpan">
-                      {errors.titulo}
+                      {errors.nombre}
                       <br />
                     </span>
                   )}
                 </div>
-
                 <br />
-
+                <input
+                  placeholder="¿A que especie pertenece?"
+                  type="text"
+                  name="especie"
+                  value={newPetData.especie}
+                  onChange={handleInputChange}
+                  className="form-control"
+                />
+                <br />
                 <div>
-                  <label
-                    htmlFor="formGroupExampleInput"
-                    className="form-label fw-bold"
-                  >
-                    Descripción
-                  </label>
-                  <textarea
-                    placeholder={
-                      newPetData.tipo === "Producto"
-                        ? "Descripción del Producto"
-                        : "Descripción del Servicio"
+                  <DatePicker
+                    locale="es"
+                    dateFormat="dd/MM/yyyy"
+                    selected={newPetData.fechaDeNacimiento}
+                    onChange={(date) =>
+                      setNewPetData({ ...newPetData, fechaDeNacimiento: date })
                     }
+                  />
+                </div>
+                <br />
+                <div>
+                  <textarea
+                    placeholder="Cuentanos un poco de tu mascota"
                     type="text"
                     name="descripcion"
                     value={newPetData.descripcion}
@@ -199,130 +185,39 @@ export default function CreateProduct() {
                     </span>
                   )}
                 </div>
-
-                <br />
-
-                <div>
-                  <label
-                    htmlFor="exampleFormControlTextarea1"
-                    class="form-label fw-bold"
-                  >
-                    Indicá el precio del{" "}
-                    {newPetData.tipo === "Producto" ? "producto" : "servicio"}
-                  </label>
-                  <input
-                    placeholder="Precio"
-                    type="number"
-                    name="precio"
-                    value={newPetData.precio}
-                    onChange={handleInputChange}
-                    className="form-control"
-                  />
-                </div>
-
-                <br />
-
-                <div>
-                  {newPetData.tipo === "Producto" ? (
-                    <label
-                      htmlFor="exampleFormControlTextarea1"
-                      class="form-label fw-bold"
-                    >
-                      Stock disponible
-                    </label>
-                  ) : (
-                    ""
-                  )}
-
-                  {newPetData.tipo === "Producto" ? (
-                    <input
-                      placeholder="Cantidad de Stock"
-                      type="number"
-                      name="stock"
-                      value={newPetData.stock}
-                      onChange={handleInputChange}
-                      className="form-control"
-                    />
-                  ) : (
-                    ""
-                  )}
-                </div>
-
-                <br />
-
-                <div>
-                  <label
-                    htmlFor="exampleFormControlTextarea1"
-                    className="form-label fw-bold"
-                  >
-                    Seleccioná las categorías en las que querés que se publique
-                    tu{" "}
-                    {newPetData.tipo === "Producto" ? "producto" : "servicio"}
-                  </label>
-                  <Select
-                    isMulti
-                    isSearchable={true}
-                    isDisabled={newPetData.tipo ? false : true}
-                    name="categorias"
-                    options={
-                      newPetData.tipo === "Producto"
-                        ? productCategories
-                        : servicesCategories
-                    }
-                    className={`accordion-item my-4 ${styles.questionContainer}`}
-                    placeholder="Categorías"
-                    onChange={handleSelectChange}
-                  />
-                </div>
-
                 <br />
               </div>
-
               <div className="imgContainer ">
                 <div className="widgetButton">
                   <label
                     htmlFor="exampleFormControlTextarea1"
                     className="form-label fw-bold"
                   >
-                    Agregá una imagen de tu{" "}
-                    {newPetData.tipo === "Producto" ? "producto" : "servicio"}
+                    Agregá una imagen de tu mascota
                   </label>
                   <UploadWidget onUpload={onUpload} />
                   <br />
                   {newPetData.imagen && (
                     <div className="uploadedImage">
-                      <img
-                        src={newPetData.imagen}
-                        alt="Uploaded"
-                        width="10%"
-                      />
+                      <img src={newPetData.imagen} alt="Uploaded" width="10%" />
                     </div>
                   )}
                 </div>
               </div>
-
               <div>
                 {errors.state ? (
                   <button className="disabledButton" disabled>
                     <span>
                       Crear{" "}
-                      {newPetData.tipo === "Producto"
-                        ? "producto"
-                        : "servicio"}
+                      {newPetData.tipo === "Producto" ? "producto" : "servicio"}
                     </span>
                   </button>
                 ) : (
                   <button className="submitButton">
-                    <span>
-                      Crear{" "}
-                      {newPetData.tipo === "Producto"
-                        ? "producto"
-                        : "servicio"}
-                    </span>
+                    <span>Agregar Mascota</span>
                   </button>
                 )}
               </div>
-
               <div className="floatClear"></div>
             </form>
           </div>
