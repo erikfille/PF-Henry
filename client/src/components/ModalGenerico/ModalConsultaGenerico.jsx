@@ -3,10 +3,8 @@ import { useState, useEffect } from "react";
 import { useModal } from "../../hooks/useStore";
 import style from './ModalConsultaGenerico.module.css';
 
-export default function ModalConsultaGenerico({ fromPaypal }) {
+export default function ModalConsultaGenerico() {
   
-  console.log("fromPaypal:", fromPaypal); 
-
   const [isOpen, setIsOpen] = useState(false);
   const [modalState, modalProps, setModal, actionArgs] = useModal((state) => [
     state.modalState,
