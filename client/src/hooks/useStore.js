@@ -164,7 +164,6 @@ export const useProduct = create((set, get) => ({
         .padStart(2, "0")}/${anio.toString()}`;
       return (r.fecha = fechaFormateada);
     });
-    console.log("Reseñas: ", response.data);
     set((state) => ({ productReviews: response.data }));
   },
   sendReview: (obj) => {
@@ -269,30 +268,23 @@ export const useUser = create((set, get) => ({
 }));
 
 export const usePets = create((set, get) => ({
-  pets: {},
+  pets: [],
   selectedPet: {},
   petAddModal: false,
   petDetailModal: false,
   setPetAddModal: () => {
     set((state) => ({ petAddModal: state.petAddModal ? false : true }));
   },
-  setPetDetailModal: () => {
+  setPetDetailModal: (petInfo) => {
+    if (petInfo) {
+      set((state) => ({ selectedPet: petInfo }));
+    }
     set((state) => ({ petDetailModal: state.petDetailModal ? false : true }));
   },
   addPet: async (formData, user) => {
     let response = await axios.post(`/mascotas/${user.id}`, formData);
-    console.log(response);
   },
-  getPets: async (arr) => {
-    if (arr && arr.length) {
-      let promisifiedPets = [];
-      arr.forEach((p) => {
-        promisifiedPets
-          .push
-          // Trae la info de las mascotas por id
-          ();
-      });
-      await Promise.all(promisifiedPets);
-    }
+  setPets: (pets) => {
+    set((state) => ({ pets: pets }));
   },
 }));

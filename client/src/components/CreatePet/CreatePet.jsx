@@ -50,8 +50,10 @@ export default function CreatePet() {
     });
   }, [petAddModal]);
 
-  async function onSubmit(data) {
+  async function onSubmit() {
     try {
+      console.log(newPetData);
+      console.log(user.id);
       const response = await axios.post(`/mascotas/${user.id}`, newPetData);
       console.log(response);
     } catch (err) {
@@ -72,38 +74,8 @@ export default function CreatePet() {
     // );
   }
 
-  function handleSelectChange(e) {
-    let selected;
-    if (typeof e === "object" && e.length) {
-      selected = e.map((el) => ({ ...el, value: el.value.split(".")[0] }));
-      setNewPetData({
-        ...newPetData,
-        [selected[0].value]: selected.map((el) => el.label),
-      });
-    }
-    if (typeof e === "object" && !e.length) {
-      selected = { ...e, value: e.value.split(".")[0] };
-      setNewPetData({
-        ...newPetData,
-        [selected.value]: selected.label,
-      });
-    }
-  }
-
-  async function handleSubmit(e) {
-    e.preventDefault();
-    console.log(newPetData);
-    /*
-    - Creo la mascota y envío la info a la ruta que lo vincula con el usuario
-    */
-  }
-
   function onUpload(url) {
     setNewPetData({ ...newPetData, imagen: url });
-  }
-
-  async function createProduct() {
-    // Hace el post al back
   }
 
   return (
@@ -115,7 +87,7 @@ export default function CreatePet() {
         <div className="container mt-5 bg-white py-4 d-flex justify-content-center mt-auto">
           <div className="row py-2">
             <form
-              onSubmit={handleSubmit}
+              onSubmit={onSubmit}
               className="d-flex flex-column align-items-center justify-content-center"
             >
               <div className="mb-3 ">

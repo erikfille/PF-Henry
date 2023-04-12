@@ -5,12 +5,17 @@ import { usePets } from "../../hooks/useStore";
 import { useParams } from "react-router-dom";
 
 const ModalPetDetail = (props) => {
-
   const [petDetailModal, setPetDetailModal, selectedPet] = usePets((state) => [
     state.petDetailModal,
     state.setPetDetailModal,
     state.selectedPet,
   ]);
+
+  const fecha = new Date(selectedPet.nac);
+  const dia = fecha.getUTCDate().toString().padStart(2, "0");
+  const mes = (fecha.getUTCMonth() + 1).toString().padStart(2, "0");
+  const anio = fecha.getUTCFullYear().toString();
+  const fechaFormateada = `${dia}/${mes}/${anio}`;
 
   return (
     <div
@@ -30,7 +35,15 @@ const ModalPetDetail = (props) => {
           <h1 className={style.title}>{selectedPet.nombre}</h1>
         </div>
         <div className={style.circle}>
-          <TbPawFilled style={{ width: "80px", height: "80px" }} />
+          {selectedPet.imagen ? (
+            <img
+              src={selectedPet.imagen}
+              alt="tu vieja en tanga, pero no"
+              style={{ width: "80px", height: "80px" }}
+            />
+          ) : (
+            <TbPawFilled style={{ width: "80px", height: "80px" }} />
+          )}
         </div>
       </div>
       <div className="data d-flex justify-content-around">
@@ -40,9 +53,7 @@ const ModalPetDetail = (props) => {
         </div>
         <div className="d-flex flex-column align-items-center">
           <p className={style.data}>Fecha de Nac</p>
-          <p style={{ color: "var(--body_color)" }}>
-            {selectedPet.fechaDeNacimiento}
-          </p>
+          <p style={{ color: "var(--body_color)" }}>{fechaFormateada}</p>
         </div>
       </div>
       <hr style={{ opacity: "1", height: "2px" }} />
@@ -62,6 +73,7 @@ const ModalPetDetail = (props) => {
             </div>
           ))
         : "No hay historial para mostrar"}
+      <button onClick={() => {}}>Agregar</button>
     </div>
   );
 };

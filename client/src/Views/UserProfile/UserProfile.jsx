@@ -30,27 +30,21 @@ export default function UserProfile() {
     state.getCompras,
   ]);
 
-  const [pets, getPets, setPetAddModal, petDetailModal] = usePets(
-    (state) => [
-      state.pets,
-      state.getPets,
-      state.setPetAddModal,
-      state.petDetailModal,
-    ]
-  );
+  const [pets, setPetAddModal, setPets] = usePets((state) => [
+    state.pets,
+    state.setPetAddModal,
+    state.setPets,
+  ]);
 
   useEffect(() => {
     getUserInfo(userId);
-    getPets(user.id_mascota);
   }, []);
 
   useEffect(() => {
     setUser(userInfo);
+    console.log(userInfo.id_mascota);
+    setPets(userInfo.id_mascota);
   }, [userInfo]);
-
-  // const setPetAddModal = () => {
-  //   return modal.newPet ? false : true;
-  // };
 
   const setPetDetailModal = (id) => {
     if (id) {
@@ -124,7 +118,7 @@ export default function UserProfile() {
             </button>
             <div className={`${style.petsContainer} col-10 p-5 my-5`}>
               <h4>Mis Mascotas:</h4>
-              {pets.length === 0 ? (
+              {typeof pets === "object" && pets.length === 0 ? (
                 <>
                   <div className="d-flex justify-content-center align-items-center my-5">
                     <h6 className={style.fColor}>
