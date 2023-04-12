@@ -3,19 +3,21 @@ import { useState, useEffect } from "react";
 import { useModal } from "../../hooks/useStore";
 import style from './ModalConsultaGenerico.module.css';
 
-export default function ModalConsultaGenerico() {
+export default function ModalConsultaGenerico({ fromPaypal }) {
+  
+  console.log("fromPaypal:", fromPaypal); 
 
-   const [isOpen, setIsOpen] = useState(false);
-   const [modalState, modalProps, setModal, actionArgs] = useModal((state) => [
-      state.modalState,
-      state.modalProps,
-      state.setModal,
-      state.actionArgs,
-   ]);
+  const [isOpen, setIsOpen] = useState(false);
+  const [modalState, modalProps, setModal, actionArgs] = useModal((state) => [
+    state.modalState,
+    state.modalProps,
+    state.setModal,
+    state.actionArgs,
+  ]);
 
-   useEffect(() => {
-      setIsOpen(modalState);
-   }, [modalState]);
+  useEffect(() => {
+    setIsOpen(modalState);
+  }, [modalState]);
 
    return (
       <div className={`${style.modalContainer} col-md-4 px-3 py-4`} style={{ display: isOpen ? "block" : "none" }}>

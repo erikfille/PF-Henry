@@ -192,7 +192,7 @@ export const useProduct = create((set, get) => ({
   },
 }));
 
-export const useModal = create((set) => ({
+export const useModal = create((set, get) => ({
   modalState: false,
   modalProps: {},
   actionArgs: {},
@@ -206,12 +206,18 @@ export const useModal = create((set) => ({
 
     set((state) => ({ modalState: state.modalState ? false : true }));
   },
-  setModalInfo: (title, text, action, args) => {
-    if (title && text && action)
-      set((state) => ({ modalInfoProps: { title, text, action } }));
-    if (args) set((state) => ({ modalInfoActionArgs: args }));
-    set((state) => ({ modalInfoState: state.modalInfoState ? false : true }));
-  },
+
+  // setModalPago: (title, text, action, args) => {
+  //   const {modalPagoState} = get()
+  //   console.log("Setting modal pago:", title, text);
+  //   if (title && text && action)
+  //     set((state) => ({ modalPagoProps: { title, text, action } }));
+  //   if (args) set((state) => ({ modalPagoActionArgs: args }));
+  //   set((state) => ({ modalPagoState: state.modalPagoState ? false : true }));
+  //   console.log(modalPagoState);
+  // },
+  
+
 }));
 
 export const useServices = create((set, get) => ({

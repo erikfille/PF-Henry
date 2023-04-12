@@ -7,6 +7,7 @@ import { useModal, useProduct } from "../../hooks/useStore";
 
 import PayPal from "./PayPal";
 
+
 export default function CheckOut({ productos, data }) {
 	const [totalPrice, cartProducts, setCartRemove] = useProduct((state) => [
 		state.totalPrice,
