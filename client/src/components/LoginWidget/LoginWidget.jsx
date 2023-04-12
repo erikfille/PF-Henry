@@ -92,7 +92,7 @@ export default function LoginWidget(props) {
   // To disabled or not button
   let isComplete = childProps.type === "signup" ?
     Object.values(errors).length ? true : false :
-    errors.email || errors.password ? true : false
+    errors.email || errors.password || !userData.email || !userData.password? true : false
 
   function handleSubmit(e) {
     e.preventDefault();
