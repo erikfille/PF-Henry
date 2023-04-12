@@ -10,15 +10,11 @@ import BreadCrump from "../BreadCrump/BreadCrump";
 import styles from "./CreateProducto.module.css";
 
 export default function CreateProduct() {
-  const [productData, setProductData] = useState({
-    titulo: "",
-    tipo: "",
+  const [newPetData, setnewPetData] = useState({
+    nombre: "",
+    especie: "",
+    fechaDeNacimiento: "",
     descripcion: "",
-    precio: "",
-    imagen: "",
-    stock: "",
-    categorias: [],
-    proveedor: "",
   });
 
   const [errors, setErrors] = useState({
@@ -30,42 +26,17 @@ export default function CreateProduct() {
     stock: "",
   });
 
-  const [productCategories, setProductCategories] = useState([]);
-  const [servicesCategories, setServicesCategories] = useState([]);
-
-  const [categories, getCategories] = useProduct((state) => [
-    state.categories,
-    state.getCategories,
+  const [newPet, petAddModal, setPetAddModal] = usePets((state) => [
+    state.newPet,
+    state.petAddModal,
+    state.setPetAddModal,
   ]);
 
-  useEffect(() => {
-    // Trae todas las categorias de producto desde el back y guarda las de productos y las de servicios
-    getCategories();
-    let products = categories
-      .filter((c) => c.tipo === "Producto")
-      .map((p, idx) => {
-        return {
-          value: `${p.nombre}.${String.fromCharCode(97 + idx)}`,
-          label: `${p.nombre}`,
-        };
-      });
-    setProductCategories(products);
-    let services = categories
-      .filter((c) => c.tipo === "Servicio")
-      .map((p, idx) => {
-        return {
-          value: `${p.nombre}.${String.fromCharCode(97 + idx)}`,
-          label: `${p.nombre}`,
-        };
-      });
-    setServicesCategories(services);
-    console.log(products, services);
-    console.log(productData.tipo);
-  }, [productData.tipo]);
+  useEffect(() => {}, []);
 
-  async function createProduct(data) {
+  async function createPet(data) {
     try {
-      const response = await axios.post(`/crearProducto`, data);
+      const response = await axios.post(`/mascotas/${userId}`, data);
       console.log(response);
     } catch (err) {
       window.alert(err.error);
@@ -73,20 +44,19 @@ export default function CreateProduct() {
   }
 
   function handleInputChange(e) {
-    setProductData({
-      ...productData,
+    setnewPetData({
+      ...newPetData,
       [e.target.name]: e.target.value,
     });
     setErrors(
       validation({
-        ...productData,
+        ...newPetData,
         [e.target.name]: e.target.value,
       })
     );
   }
 
   function handleSelectChange(e) {
-    console.log(productData.tipo);
     let selected;
     if (typeof e === "object" && e.length) {
       selected = e.map((el) => ({ ...el, value: el.value.split(".")[0] }));
