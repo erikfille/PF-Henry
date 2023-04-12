@@ -5,7 +5,7 @@ import { Link, useParams } from "react-router-dom";
 import ModalPetDetail from "../../components/ModalPetDetail/ModalPetDetail";
 import { FaUserAlt } from "react-icons/fa";
 import PetsContainer from "../../components/PetsContainer/PetsContainer";
-import { useUser } from "../../hooks/useStore";
+import { usePets, useUser } from "../../hooks/useStore";
 
 // objetos hardcodeados solo para saber si los array tienen algo o estan vacios
 // Esto para el renderizado condicional.
@@ -17,19 +17,39 @@ export default function UserProfile() {
 
   const [user, setUser] = useState({});
 
-  const [userInfo, getUserInfo, pets, getPets, compras, getCompras] = useUser(
-    (state) => [
-      state.userInfo,
-      state.getUserInfo,
-      state.pets,
-      state.getPets,
-      state.compras,
-      state.getCompras,
-    ]
-  );
+  const [modal, setModal] = useState({
+    detail: false,
+    newPet: false,
+  });
+
+  const [userInfo, getUserInfo, compras, getCompras] = useUser((state) => [
+    state.userInfo,
+    state.getUserInfo,
+    state.compras,
+    state.getCompras,
+  ]);
+
+  const [
+    pets,
+    newPet,
+    petDetailModal,
+    petAddModal,
+    setPetAddModal,
+    setPetDetailModal,
+    getPets,
+  ] = usePets((state) => [
+    state.pets,
+    state.newPet,
+    state.petDetailModal,
+    state.petAddModal,
+    state.setPetAddModal,
+    state.setPetDetailModal,
+    state.getPets,
+  ]);
 
   useEffect(() => {
     getUserInfo(userId);
+    getPets(user.id_mascota)
   }, []);
 
   useEffect(() => {
@@ -93,7 +113,11 @@ export default function UserProfile() {
                 )}
               </div>
             </div>
-            <button className="button" style={{ width: "150px" }}>
+            <button
+              className="button"
+              style={{ width: "150px" }}
+              onClick={() => {}}
+            >
               Agregar Mascota
             </button>
             <div className={`${style.petsContainer} col-10 p-5 my-5`}>
@@ -111,7 +135,7 @@ export default function UserProfile() {
                   <div
                     className={`${style.pets} d-flex justify-content-center justify-content-md-start flex-wrap gap-5 py-5`}
                   >
-                    <PetsContainer />
+                    <PetsContainer pets={pets} />
                   </div>
                 </>
               )}
