@@ -26,3 +26,7 @@
 .fColor {
 	color: var(--body_color);
 }
+
+.button:disabled {
+  color: gray;
+}
