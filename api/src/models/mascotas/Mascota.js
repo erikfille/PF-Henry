@@ -28,13 +28,14 @@ const mascotaSchema = new Schema({
     ref: 'Usuario',
     required: true
   },
-  historial: [
-    {
+  imagen: {
+    type:String
+  },
+  historial: [{
       type: Schema.Types.ObjectId,
       ref: 'Historial',
       required: true
-    }
-  ]
+  }]
 });
 
 module.exports = model('Mascota', mascotaSchema);

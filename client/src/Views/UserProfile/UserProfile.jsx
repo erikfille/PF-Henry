@@ -2,10 +2,9 @@ import Meta from "../../components/Meta/Meta";
 import BreadCrump from "../../components/BreadCrump/BreadCrump";
 import style from "./UserProfile.module.css";
 import { Link, useParams } from "react-router-dom";
-import ModalPetDetail from "../../components/ModalPetDetail/ModalPetDetail";
 import { FaUserAlt } from "react-icons/fa";
 import PetsContainer from "../../components/PetsContainer/PetsContainer";
-import { useUser } from "../../hooks/useStore";
+import { usePets, useUser } from "../../hooks/useStore";
 
 // objetos hardcodeados solo para saber si los array tienen algo o estan vacios
 // Esto para el renderizado condicional.
@@ -17,16 +16,25 @@ export default function UserProfile() {
 
   const [user, setUser] = useState({});
 
-  const [userInfo, getUserInfo, pets, getPets, compras, getCompras] = useUser(
-    (state) => [
-      state.userInfo,
-      state.getUserInfo,
-      state.pets,
-      state.getPets,
-      state.compras,
-      state.getCompras,
-    ]
-  );
+  const [modal, setModal] = useState({
+    detail: false,
+    newPet: false,
+  });
+
+  const [selectedPet, setSelectedPet] = useState({});
+
+  const [userInfo, getUserInfo, compras, getCompras] = useUser((state) => [
+    state.userInfo,
+    state.getUserInfo,
+    state.compras,
+    state.getCompras,
+  ]);
+
+  const [pets, setPetAddModal, setPets] = usePets((state) => [
+    state.pets,
+    state.setPetAddModal,
+    state.setPets,
+  ]);
 
   useEffect(() => {
     getUserInfo(userId);
@@ -34,9 +42,17 @@ export default function UserProfile() {
 
   useEffect(() => {
     setUser(userInfo);
+    console.log(userInfo.id_mascota);
+    setPets(userInfo.id_mascota);
   }, [userInfo]);
 
-  console.log(user);
+  const setPetDetailModal = (id) => {
+    if (id) {
+      let filteredPet = pets.find((p) => p.id === id);
+      setSelectedPet(filteredPet);
+    }
+    return modal.newPet ? false : true;
+  };
 
   return (
     <>
@@ -93,12 +109,16 @@ export default function UserProfile() {
                 )}
               </div>
             </div>
-            <button className="button" style={{ width: "150px" }}>
+            <button
+              className="button"
+              style={{ width: "150px" }}
+              onClick={() => setPetAddModal()}
+            >
               Agregar Mascota
             </button>
             <div className={`${style.petsContainer} col-10 p-5 my-5`}>
               <h4>Mis Mascotas:</h4>
-              {pets.length === 0 ? (
+              {typeof pets === "object" && pets.length === 0 ? (
                 <>
                   <div className="d-flex justify-content-center align-items-center my-5">
                     <h6 className={style.fColor}>
@@ -111,7 +131,11 @@ export default function UserProfile() {
                   <div
                     className={`${style.pets} d-flex justify-content-center justify-content-md-start flex-wrap gap-5 py-5`}
                   >
-                    <PetsContainer />
+                    <PetsContainer
+                      pets={pets}
+                      setPetDetailModal={setPetDetailModal}
+                      setPetAddModal={setPetAddModal}
+                    />
                   </div>
                 </>
               )}
@@ -137,7 +161,6 @@ export default function UserProfile() {
             </div>
           </div>
         </div>
-        <ModalPetDetail />
       </div>
     </>
   );

@@ -4,6 +4,7 @@ import { useLocation } from "react-router-dom";
 import loginDog from "../../assets/img/login/login-dog.jpeg";
 import signUpCat from "../../assets/img/login/signUp-cat.jpeg";
 import { NavLink } from "react-router-dom";
+import Logo from "../../assets/logo.png";
 
 import styles from "./Login.module.css";
 
@@ -40,8 +41,11 @@ export default function Login() {
 		<div className={styles.loginContainer}>
 			<div className="row">
 				<div
-					className={`col-12 col-md-6 col-xl-7 d-flex justify-content-center align-items-center ${styles.formContainer}`}>
-					<h1 className="fw-bold position-absolute top-0 start-0 m-4">PetsAmerica</h1>
+					className={`col-12 col-md-6 col-xl-7 d-flex justify-content-center align-items-center ${styles.formContainer} mt-4`}
+          style={{height: location.pathname === "/signup" ? '100%' : '100vh'}}>
+					<NavLink to="/">
+						<h1 className="fw-bold position-absolute top-0 start-0 m-4">PetsAmerica</h1>
+					</NavLink>
 					<LoginWidget childProps={childProps} />
 				</div>
 				<div

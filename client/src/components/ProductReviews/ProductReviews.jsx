@@ -2,51 +2,19 @@ import React, { useState, useEffect } from "react";
 import ReactStars from "react-stars";
 import styles from "./ProductReviews.module.css";
 import { useProduct } from "../../hooks/useStore";
-export default function ProductReviews(props) {
-  const { _id, rating } = props.productDetail;
 
-  const [reviews, setReviews] = useState([
-    {
-      usuario: "Jorge Vega",
-      rating: 4,
-      fecha: "27/03/2023",
-      comentario:
-        "A mi mascota le encanta este juguete, le parece muy divertido y pasamos mucho tiempo juntos jugando con el.",
-    },
-    {
-      usuario: "Martina Scomazzon",
-      rating: 5,
-      fecha: "20/03/2023",
-      comentario:
-        "¡Esta fantástico este juguete! Con mi gata lo usamos juntas mientras charlamos en ingles",
-    },
-    {
-      usuario: "Franco Etcheverri",
-      rating: 2,
-      fecha: "16/02/2023",
-      comentario:
-        "El juguete esta bien, pero no veo como esto afecta a la puntuacion de Ferro en el torneo",
-    },
-  ]);
-  const [averageReviews, setAverageReviews] = useState(0);
+export default function ProductReviews(props) {
+  const { _id, rating, comentarios } = props.productDetail;
+
   const [qualify, setQualify] = useState(0);
   const [review, setReview] = useState("");
   const [user, setUser] = useState({});
 
-  let [productReviews, getReviews, sendReview] = useProduct((state) => [
-    state.productReviews,
-    state.getReviews,
-    state.sendReview,
-  ]);
+  let [sendReview] = useProduct((state) => [state.sendReview]);
 
   useEffect(() => {
     setUser(JSON.parse(localStorage.getItem("user")));
-    getReviews(_id);
   }, []);
-
-  useEffect(() => {
-    setReviews(productReviews);
-  }, [productReviews]);
 
   function handleInputChange(e) {
     setReview(e.target.value);
@@ -56,7 +24,7 @@ export default function ProductReviews(props) {
     let newReview = {
       comentario: review,
       puntuacion: qualify,
-      usuario: user,
+      usuario: user.id,
       producto: _id,
     };
     sendReview(newReview);
@@ -64,7 +32,6 @@ export default function ProductReviews(props) {
 
   return (
     <div>
-      {/* <h1 className="fw-bold mb-5">Reseñas</h1> */}
       <div className="container-xxl">
         <div className="row">
           <div
@@ -80,11 +47,11 @@ export default function ProductReviews(props) {
               className={`d-inline-flex me-3 ${styles.stars}`}
             />
             <span className={`${styles.span} fw-bold`}>
-              Basada en {reviews.length} usuarios
+              Basada en {comentarios.length} usuarios
             </span>
 
             <hr className={styles.hr} />
-            {user && user.id ? (
+            {user && user.name ? (
               <div className="">
                 <h3 className={`${styles.fColor}  fw-bold fs-5`}>
                   Escribe una reseña
@@ -96,6 +63,7 @@ export default function ProductReviews(props) {
                   value={qualify}
                   edit={true}
                   activeColor="#ffd700"
+                  onChange={(e) => setQualify(e)}
                 />
                 <p className={`${styles.span} fw-bold mt-2`}>Reseña</p>
                 <textarea
@@ -119,12 +87,12 @@ export default function ProductReviews(props) {
               "Debes estar logueado para poder dejar un comentario"
             )}
             <div className="mt-5">
-              {reviews.length
-                ? reviews.map((r) => (
+              {comentarios.length
+                ? comentarios.map((r) => (
                     <div className="mt-5">
                       <div className="d-sm-flex align-items-end mt-0">
                         <h1 className={`${styles.fColor} fw-bold fs-3 me-3`}>
-                          {r.usuario.name /* + " " + r.usuario.apellido */}
+                          {r.usuario.name /* + " " + r.usuario.surname */}
                         </h1>
                         <ReactStars
                           count={5}
@@ -136,7 +104,7 @@ export default function ProductReviews(props) {
                         />
                       </div>
                       <div>
-                        <span className={`${styles.span}`}>{r.fecha}</span>
+                        <span className={`${styles.span}`}>{r.fecha.slice(0, 10)}</span>
                         <p className={`${styles.span} pt-3`}>{r.comentario}</p>
                       </div>
                     </div>

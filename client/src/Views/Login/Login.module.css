@@ -1,11 +1,11 @@
 .formContainer,
 .loginContainer {
-	overflow: hidden;
-	height: 100vh;
+  overflow: hidden;
 	background-color: var(--body_background);
 }
 
 .imgContainer {
+  overflow: hidden;
 	background-size: cover;
 	background-repeat: no-repeat;
 	background-position: center center;

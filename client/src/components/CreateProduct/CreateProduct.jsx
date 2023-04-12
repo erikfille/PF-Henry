@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import validation from "./validation";
 import Select from "react-select";
-import UploadWidget from "./UploadWidget";
+import UploadWidget from "../UploadWidget/UploadWidget";
 import { useProduct } from "../../hooks/useStore";
 import axios from "axios";
 
