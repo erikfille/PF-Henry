@@ -4,6 +4,8 @@ import { useModal } from "../../hooks/useStore";
 import style from './ModalConsultaGenerico.module.css';
 
 export default function ModalConsultaGenerico({ fromPaypal }) {
+  
+  console.log("fromPaypal:", fromPaypal); 
 
   const [isOpen, setIsOpen] = useState(false);
   const [modalState, modalProps, setModal, actionArgs] = useModal((state) => [
@@ -24,22 +26,22 @@ export default function ModalConsultaGenerico({ fromPaypal }) {
         <h4 className={style.text}>{modalProps.text}</h4>
 
         {!fromPaypal && (
-          <div className="d-flex gap-15">
-            <button
-              className="button"
-              onClick={() => {
-                modalProps.action(...actionArgs);
-                setModal();
-              }}
-            >
-              Si
-            </button>
-            <button className="button" onClick={() => setModal()}>
-              No
-            </button>
-          </div>
-        )}
-
+  <div className="d-flex gap-15">
+    <button
+      className="button"
+      onClick={() => {
+        modalProps.action(...actionArgs);
+        setModal();
+      }}
+    >
+      Si
+    </button>
+    <button className="button" onClick={() => setModal()}>
+      No
+    </button>
+  </div>
+)}
+        {console.log("Evalua a FromPaypal:", !fromPaypal)}
       </div>
     </div>
   );

@@ -199,14 +199,14 @@ export const useModal = create((set, get) => ({
     set((state) => ({ modalState: state.modalState ? false : true }));
   },
 
-  // setModalInfo: (title, text, action, args) => {
-  //   const {modalInfoState} = get()
-  //   console.log("Setting modal info:", title, text);
+  // setModalPago: (title, text, action, args) => {
+  //   const {modalPagoState} = get()
+  //   console.log("Setting modal pago:", title, text);
   //   if (title && text && action)
-  //     set((state) => ({ modalInfoProps: { title, text, action } }));
-  //   if (args) set((state) => ({ modalInfoActionArgs: args }));
-  //   set((state) => ({ modalInfoState: state.modalInfoState ? false : true }));
-  //   console.log(modalInfoState);
+  //     set((state) => ({ modalPagoProps: { title, text, action } }));
+  //   if (args) set((state) => ({ modalPagoActionArgs: args }));
+  //   set((state) => ({ modalPagoState: state.modalPagoState ? false : true }));
+  //   console.log(modalPagoState);
   // },
   
 
