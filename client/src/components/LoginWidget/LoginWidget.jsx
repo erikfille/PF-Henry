@@ -20,9 +20,6 @@ export default function LoginWidget(props) {
     state.signUp,
   ]);
 
-  // Google Auth Data
-  const [user, setUser] = useState({});
-
   const [userData, setUserData] = useState({
     name: "",
     surname: "",
@@ -35,7 +32,9 @@ export default function LoginWidget(props) {
 
   // Own Auth Data
   const [errors, setErrors] = useState({
-    user: "",
+    name: "",
+    surname: "",
+    email: "",
     password: "",
   });
 
@@ -88,9 +87,12 @@ export default function LoginWidget(props) {
         [e.target.name]: e.target.value,
       })
     );
-
-    console.log(userData);
   }
+
+  // To disabled or not button
+  let isComplete = childProps.type === "signup" ?
+    Object.values(errors).length ? true : false :
+    errors.email || errors.password ? true : false
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -138,12 +140,12 @@ export default function LoginWidget(props) {
                   placeholder="Nombre"
                   id="name"
                   name="name"
-                  value={userData.user}
+                  value={userData.name}
                   onChange={handleInputChange}
-                  className={`form-control ${errors.nombre && "danger"}`}
+                  className={`form-control ${errors.name && "is-invalid"}`}
                   type="text"
                 ></input>
-                {errors.name && <p>{errors.name}</p>}
+                {errors.name && <p className="text-danger text-center">{errors.name}</p>}
               </div>
               <div className="mb-3 w-100">
                 <label
@@ -158,10 +160,10 @@ export default function LoginWidget(props) {
                   name="surname"
                   value={userData.surname}
                   onChange={handleInputChange}
-                  className={`form-control ${errors.apellido && "danger"}`}
+                  className={`form-control ${errors.surname && "is-invalid"}`}
                   type="text"
                 ></input>
-                {errors.surname && <p>{errors.surname}</p>}
+                {errors.surname && <p className="text-danger text-center">{errors.surname}</p>}
               </div>
             </div>
           )}
@@ -176,18 +178,18 @@ export default function LoginWidget(props) {
               <input
                 placeholder="Ingresa tu email"
                 id="email"
-                className={`form-control ${errors.email && "danger"}`}
+                className={`form-control ${errors.email && "is-invalid"}`}
                 name="email"
                 value={userData.user}
                 onChange={handleInputChange}
                 type="email"
                 aria-describedby="emailHelp"
               />
-              {errors.mail && <p>{errors.mail}</p>}
+              {errors.email && <p className="text-danger text-center">{errors.email}</p>}
             </div>
             <div className="mb-3 w-100">
               <label
-                htmlFor="exampleInputPassword1"
+                htmlFor="password"
                 className={`${styles.fColor} form-label fw-bold`}
               >
                 Contraseña
@@ -199,11 +201,31 @@ export default function LoginWidget(props) {
                 type="password"
                 value={userData.password}
                 onChange={handleInputChange}
-                className={`form-control ${errors.password && "danger"}`}
-              />{" "}
+                className={`form-control ${!errors.verifyPassword && !errors.password && userData.password ? "is-valid" : errors.password && "is-invalid"}`}
+              />{errors.password && <p className="text-danger text-center">{errors.password}</p>}
             </div>
           </div>
           <div className="d-flex gap-10">
+          {childProps.type === "signup" && (
+              <div className="mb-3 w-100">
+                <label
+                  htmlFor="verifyPassword"
+                  className="form-label fw-bold"
+                >
+                  Verificar Contraseña
+                </label>
+                <input
+                  placeholder="Verifica tu contraseña"
+                  id="verifyPassword"
+                  name="verifyPassword"
+                  type="password"
+                  value={userData.verifyPassword}
+                  onChange={handleInputChange}
+                  className={`form-control ${!errors.verifyPassword && !errors.password && userData.password ? "is-valid" : errors.verifyPassword && "is-invalid"}`}
+                />
+                {errors.verifyPassword && <p className="text-danger text-center">{errors.verifyPassword}</p>}
+              </div>
+            )}
             {childProps.type === "signup" && (
               <div className=" w-100 mb-3">
                 <label
@@ -227,26 +249,7 @@ export default function LoginWidget(props) {
                 </select>
               </div>
             )}
-            {childProps.type === "signup" && (
-              <div className="mb-3 w-100">
-                <label
-                  htmlFor="exampleInputPassword1"
-                  className="form-label fw-bold"
-                >
-                  Verificar Contraseña
-                </label>
-                <input
-                  placeholder="Verifica tu contraseña"
-                  id="verifyPassword"
-                  name="verifyPassword"
-                  type="password"
-                  value={userData.verifyPassword}
-                  onChange={handleInputChange}
-                  className={`form-control ${errors.password && "danger"}`}
-                />
-                {errors.password && <p>{errors.password}</p>}
-              </div>
-            )}
+
           </div>
           {childProps.type === "signup" && (
             <div className="mb-3 w-100">
@@ -270,7 +273,7 @@ export default function LoginWidget(props) {
               </div>
             </div>
           )}
-          <button className="button w-100 mb-3">{childProps.button}</button>
+          <button className={`button w-100 mb-3 ${styles.button}`} disabled={isComplete}>{childProps.button}</button>
           <div className="w-100">
             <GoogleLogin
               className={`mb-3 w-100 ${styles.buttonGoogle}`}
@@ -282,7 +285,7 @@ export default function LoginWidget(props) {
           </div>
         </form>
       </div>
-      <div className="text-center">
+      <div className="text-center mb-5">
         <p className={styles.fColor}>{childProps.message}</p>
         <a className={styles.link} href={childProps.anchorPath}>
           <span>{childProps.accountAnchor}</span>
