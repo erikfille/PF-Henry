@@ -16,9 +16,9 @@ const PetData = (props) => {
           <p className={`${style.name} mb-0`}>{props.name}</p>
           <p className={`${style.especie} mb-0`}>{props.especie}</p>
           <p className={`${style.nac} mb-0`}>{props.nac}</p>
-          <NavLink to={`/user/pets/${props.id}`} className={style.info}>
+          <button onClick={() => setPetDetailModal(id)} className={style.info}>
             + Información
-          </NavLink>
+          </button>
         </div>
       </div>
     </>

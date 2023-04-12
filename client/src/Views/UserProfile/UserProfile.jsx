@@ -2,7 +2,6 @@ import Meta from "../../components/Meta/Meta";
 import BreadCrump from "../../components/BreadCrump/BreadCrump";
 import style from "./UserProfile.module.css";
 import { Link, useParams } from "react-router-dom";
-import ModalPetDetail from "../../components/ModalPetDetail/ModalPetDetail";
 import { FaUserAlt } from "react-icons/fa";
 import PetsContainer from "../../components/PetsContainer/PetsContainer";
 import { usePets, useUser } from "../../hooks/useStore";
@@ -22,6 +21,8 @@ export default function UserProfile() {
     newPet: false,
   });
 
+  const [selectedPet, setSelectedPet] = useState({});
+
   const [userInfo, getUserInfo, compras, getCompras] = useUser((state) => [
     state.userInfo,
     state.getUserInfo,
@@ -29,34 +30,35 @@ export default function UserProfile() {
     state.getCompras,
   ]);
 
-  const [
-    pets,
-    newPet,
-    petDetailModal,
-    petAddModal,
-    setPetAddModal,
-    setPetDetailModal,
-    getPets,
-  ] = usePets((state) => [
-    state.pets,
-    state.newPet,
-    state.petDetailModal,
-    state.petAddModal,
-    state.setPetAddModal,
-    state.setPetDetailModal,
-    state.getPets,
-  ]);
+  const [pets, newPet, getPets, setPetAddModal, petDetailModal] = usePets(
+    (state) => [
+      state.pets,
+      state.getPets,
+      state.setPetAddModal,
+      state.petDetailModal,
+    ]
+  );
 
   useEffect(() => {
     getUserInfo(userId);
-    getPets(user.id_mascota)
+    getPets(user.id_mascota);
   }, []);
 
   useEffect(() => {
     setUser(userInfo);
   }, [userInfo]);
 
-  console.log(user);
+  // const setPetAddModal = () => {
+  //   return modal.newPet ? false : true;
+  // };
+
+  const setPetDetailModal = (id) => {
+    if (id) {
+      let filteredPet = pets.find((p) => p.id === id);
+      setSelectedPet(filteredPet);
+    }
+    return modal.newPet ? false : true;
+  };
 
   return (
     <>
@@ -116,7 +118,7 @@ export default function UserProfile() {
             <button
               className="button"
               style={{ width: "150px" }}
-              onClick={() => {}}
+              onClick={() => setPetAddModal()}
             >
               Agregar Mascota
             </button>
@@ -135,7 +137,11 @@ export default function UserProfile() {
                   <div
                     className={`${style.pets} d-flex justify-content-center justify-content-md-start flex-wrap gap-5 py-5`}
                   >
-                    <PetsContainer pets={pets} />
+                    <PetsContainer
+                      pets={pets}
+                      setPetDetailModal={setPetDetailModal}
+                      setPetAddModal={setPetAddModal}
+                    />
                   </div>
                 </>
               )}
@@ -161,7 +167,6 @@ export default function UserProfile() {
             </div>
           </div>
         </div>
-        <ModalPetDetail />
       </div>
     </>
   );
