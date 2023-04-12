@@ -48,7 +48,7 @@ export default function ProductDetail(props) {
             zoomScale={3}
             width={600}
             height={600}
-            // style={}
+            style={{}}
             className=""
           />
           {/* <img src={imagen} alt="productImage" className="img-fluid p-lg-4" /> */}
