@@ -83,7 +83,7 @@ export const useLogin = create((set, get) => ({
     const { receiveLogin } = get();
     console.log("receiveToken: ", user);
     let userData = {
-      id: user._id,
+      id: user._id || user.id,
       name: user.name,
       image: user.image,
       email: user.email,
@@ -112,7 +112,7 @@ export const useLogin = create((set, get) => ({
   },
   checkLogin: () => {
     try {
-      const jwt = localStorage.getItem("jwt");
+      const jwt = localStorage.getItem("token");
       const user = JSON.parse(localStorage.getItem("user"));
 
       if (jwt) {
