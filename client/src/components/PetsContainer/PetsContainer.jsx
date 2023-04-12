@@ -6,18 +6,22 @@ import { usePets } from "../../hooks/useStore";
 const PetsContainer = (props) => {
   const { setPetDetailModal, setPetAddModal, pets } = props;
 
+  console.log(pets)
+
   useEffect(() => {}, []);
 
   return (
     <>
-      {pets.length ? (
+      {typeof pets === "object" && pets.length ? (
         pets.map((p) => (
           <PetData
-            key={p.id}
-            name={p.name}
+            key={p._id}
+            id={p._id}
+            name={p.nombre}
             especie={p.especie}
-            nac={p.nac}
-            id={p.id}
+            nac={p.fechaDeNacimiento}
+            imagen={p.imagen}
+            historial={p.historial}
             setPetDetailModal={setPetDetailModal}
           />
         ))

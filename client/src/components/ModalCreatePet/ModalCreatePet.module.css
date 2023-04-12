@@ -1,9 +1,9 @@
 .modalContainer {
     position: fixed;
     width: 800px;
-    height: 500px;
+    height: 75vh;
     top: 15%;
-    right: 17%;
+    right: 20%;
     z-index: 1000;
     background-color: var(--body_background);
     border-radius: 10px;
