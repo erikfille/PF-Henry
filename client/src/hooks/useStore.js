@@ -152,42 +152,42 @@ export const useProduct = create((set, get) => ({
   setTotalPrice: (total) => {
     set((state) => ({ totalPrice: total }));
   },
-  getReviews: async (productId) => {
-    let response = await axios.get(`/comentariosResenas/${productId}`);
-    let reviewsToFormat = response.data.forEach((r) => {
-      const fecha = new Date("2023-04-03T18:17:35.991Z");
-      const dia = fecha.getUTCDate();
-      const mes = fecha.getUTCMonth() + 1;
-      const anio = fecha.getUTCFullYear();
-      const fechaFormateada = `${dia.toString().padStart(2, "0")}/${mes
-        .toString()
-        .padStart(2, "0")}/${anio.toString()}`;
-      return (r.fecha = fechaFormateada);
-    });
-    console.log("Reseñas: ", response.data);
-    set((state) => ({ productReviews: response.data }));
-  },
+  // getReviews: async (productId) => {
+  //   let response = await axios.get(`/comentariosResenas/${productId}`);
+  //   let reviewsToFormat = response.data.forEach((r) => {
+  //     const fecha = new Date("2023-04-03T18:17:35.991Z");
+  //     const dia = fecha.getUTCDate();
+  //     const mes = fecha.getUTCMonth() + 1;
+  //     const anio = fecha.getUTCFullYear();
+  //     const fechaFormateada = `${dia.toString().padStart(2, "0")}/${mes
+  //       .toString()
+  //       .padStart(2, "0")}/${anio.toString()}`;
+  //     return (r.fecha = fechaFormateada);
+  //   });
+  //   set((state) => ({ productReviews: response.data }));
+  // },
   sendReview: (obj) => {
     try {
       axios.post("/crearComentarioResena", obj);
+      return true
     } catch (err) {
       console.log(err);
     }
   },
   updateStock: async (cartProducts) => {
     let promisifiedUpdate = [];
-    cartProducts.forEach((p) =>
+    cartProducts.forEach((p) => {
       promisifiedUpdate.push(
-        axios.get(`/product-detail/${id}`).then((response) => {
-          console.log(response.data.stock);
-          console.log("Quantity: ", p.quantity);
+        axios.get(`/product-detail/${p.id}`).then((response) => {
+          console.log("Stock Previo: ", response.data.stock);
+          console.log("Cantidad a descontar: ", p.quantity);
           let stock = response.data.stock - p.quantity;
           axios.put(`/stock/${p.id}`, {
             stock: stock,
           });
         })
-      )
-    );
+      );
+    });
     await Promise.all(promisifiedUpdate);
   },
 }));
@@ -261,10 +261,31 @@ export const useServices = create((set, get) => ({
 
 export const useUser = create((set, get) => ({
   userInfo: {},
-  pets: {},
   compras: {},
   getUserInfo: async (id) => {
     let response = await axios.get(`/users/${id}`);
     set((state) => ({ userInfo: response.data }));
+  },
+}));
+
+export const usePets = create((set, get) => ({
+  pets: [],
+  selectedPet: {},
+  petAddModal: false,
+  petDetailModal: false,
+  setPetAddModal: () => {
+    set((state) => ({ petAddModal: state.petAddModal ? false : true }));
+  },
+  setPetDetailModal: (petInfo) => {
+    if (petInfo) {
+      set((state) => ({ selectedPet: petInfo }));
+    }
+    set((state) => ({ petDetailModal: state.petDetailModal ? false : true }));
+  },
+  addPet: async (formData, user) => {
+    let response = await axios.post(`/mascotas/${user.id}`, formData);
+  },
+  setPets: (pets) => {
+    set((state) => ({ pets: pets }));
   },
 }));

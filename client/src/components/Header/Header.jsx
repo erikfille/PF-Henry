@@ -27,10 +27,7 @@ const Header = () => {
       setUser(localUser);
     }
   }, [window.location])
-
-
-	console.log(user);
-
+  
 	return (
 		<nav className="navbar navbar-expand-md bg-body-tertiary">
 			<div className="container-fluid">

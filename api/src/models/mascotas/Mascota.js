@@ -15,13 +15,27 @@ const mascotaSchema = new Schema({
   },
   descripcion: {
     type: String,
-    required: true
+    required: true,
+    validate: {
+      validator: function(v) {
+        return v.length <= 200;
+      },
+      message: props => `La descripción debe tener como máximo 200 caracteres.`
+    }
   },
   usuario: {
     type: Schema.Types.ObjectId,
     ref: 'Usuario',
     required: true
-  }
+  },
+  imagen: {
+    type:String
+  },
+  historial: [{
+      type: Schema.Types.ObjectId,
+      ref: 'HistorialAnimal',
+      required: true
+  }]
 });
 
 module.exports = model('Mascota', mascotaSchema);

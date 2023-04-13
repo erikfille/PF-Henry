@@ -344,7 +344,12 @@ const usuariosRoutes = [
         try {
           const usuario = await Usuario.findById(id)
             .populate("rol")
-            .populate("id_mascota")
+            .populate({
+              path: "id_mascota",
+              populate: {
+                path:"historial"
+              }
+            })
             .populate({
               path: "productosComprados",
               model: "ProductoServicio",

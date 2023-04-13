@@ -5,7 +5,7 @@ const modifyingProductosRoutes = [
     method: "PUT",
     path: "/producto-servicio/{id}",
     options: {
-      auth: 'jwt', // Agrega autenticación jwt
+     //auth: 'jwt', // Agrega autenticación jwt
     handler: async (request, h) => {
       try {
         const id = request.params.id;

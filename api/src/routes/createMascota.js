@@ -12,6 +12,7 @@ const createMascotaRoutes = [
           especie: request.payload.especie,
           fechaDeNacimiento: request.payload.fechaDeNacimiento,
           descripcion: request.payload.descripcion,
+          imagen: request.payload.imagen,
           usuario: request.params.userId, // asignar el usuario a la mascota
         });
 
@@ -45,7 +46,7 @@ const createMascotaRoutes = [
       try {
         const usuarioId = request.params.userId;
         const mascotas = await Mascota.find({ usuario: usuarioId })
-          .populate("usuario", "nombre email")
+          .populate("usuario", "name surname")
           .select("-__v"); // quita el campo "__v"
         return h.response(mascotas).code(200);
       } catch (error) {

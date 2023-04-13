@@ -9,7 +9,7 @@ const productDetailRoutes = [
       try {
         const product = await ProductoServicio.findById(request.params.id)
           .populate({
-            path: 'comentario',
+            path: 'comentarios',
             select: 'comentario puntuacion fecha',
             populate: {
               path: 'usuario',
