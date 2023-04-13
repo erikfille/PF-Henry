@@ -1,0 +1,88 @@
+.userContainer,
+.petsContainer,
+.comprasContainer {
+	border-radius: 10px;
+	background-color: var(--body_background);
+}
+
+.circle {
+	background-color: var(--color-0CC5BA);
+	height: 250px;
+	width: 250px;
+	border-radius: 50%;
+	box-shadow: var(--body_boxshadow);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.linkEdit {
+	color: var(--color-0CC5BA);
+	font-weight: 700;
+}
+
+.linkEdit:hover {
+	color: var(--color-0CC5BA);
+	font-weight: 800;
+}
+
+.imgUser {
+	width: 200px;
+	height: 200px;
+	border-radius: 50%;
+}
+
+.nameContainer {
+	border-bottom: 2px solid var(--color-0CC5BA);
+	margin-bottom: 50px;
+}
+
+.name {
+	font-size: 38px;
+	font-weight: 800;
+	color: var(--body_color);
+}
+
+.circlePet {
+	background-color: var(--color-0CC5BA);
+	height: 150px;
+	width: 150px;
+	border-radius: 50%;
+	box-shadow: 10px 1px 10px rgba(0, 0, 0, 0.458);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.pets {
+	padding-left: 100px;
+}
+
+.link {
+	font-weight: 700;
+	color: var(--color-0CC5BA);
+}
+
+.link:hover {
+	font-weight: 800;
+	color: var(--color-0CC5BA);
+}
+
+.fColor > h4,
+.fColor > span,
+.petsContainer > h4,
+.comprasContainer,
+h4,
+.fColor {
+	color: var(--body_color);
+}
+
+@media (max-width: 768px) {
+	.pets {
+		padding: 0;
+	}
+	.comprasContainer,
+	.petsContainer h4 {
+		text-align: center;
+	}
+}

@@ -1,0 +1,53 @@
+.container {
+	border-radius: 10px;
+	background-color: var(--body_background);
+}
+
+.container > img {
+	border-radius: 35px;
+}
+
+hr {
+	color: #0cc5ba;
+}
+
+a,
+.span {
+	color: var(--body_color);
+}
+
+.fColor {
+	color: var(--body_color);
+}
+
+.inputNumber {
+	width: 3rem;
+	text-align: center;
+	color: var(--body_color);
+	background-color: var(--body_background);
+	border: solid 2px var(--body_color);
+}
+
+.resena {
+	color: #0cc5ba;
+	font-weight: 600;
+}
+
+.resena:hover {
+	color: #0cc5ba;
+	font-weight: 700;
+}
+
+@media screen and (max-width: 700px) {
+	.container > img {
+		margin: 20px 0;
+		border-radius: 5px;
+	}
+}
+
+@media screen and (max-width: 992px) {
+	.container > img {
+		margin: 20px 0;
+		border-radius: 5px;
+	}
+}

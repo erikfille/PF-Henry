@@ -1,0 +1,132 @@
+.navlink {
+	font-size: 1.7rem;
+	margin-bottom: 0;
+	font-weight: 700;
+	cursor: default;
+	color: var(--body_color);
+	cursor: pointer;
+}
+
+.navContainer {
+	background-color: transparent;
+}
+
+.buttonUser {
+	color: var(--body_color);
+}
+
+.iconCart {
+	color: var(--body_color);
+}
+
+nav {
+	height: 5rem;
+	background-color: var(--body_background);
+	transition: all 0.3s ease-in-out;
+}
+
+nav a {
+	color: var(--body_color);
+	font-size: 1.1rem;
+	font-weight: 600;
+	text-decoration: none;
+	transition: all 0.3s ease-in-out;
+}
+
+nav a:hover {
+	color: var(--color-0CC5BA);
+}
+
+.buttonContainer svg {
+	font-size: 2.4rem;
+}
+
+.buttonContainer svg:hover {
+	color: var(--color-0CC5BA);
+}
+
+.buttonContainer a:last-child svg {
+	font-size: 2rem;
+	text-align: center;
+	color: var(--body_background);
+	background-color: var(--color-0CC5BA);
+	border-radius: 50%;
+	padding: 3px 5px;
+	transition: all 0.3s ease-in-out;
+}
+
+.buttonContainer a:last-child svg:hover {
+	color: var(--color-0CC5BA);
+	background-color: transparent;
+	border: 2px solid var(--color-0CC5BA);
+	transition: all 0.3s ease-in-out;
+}
+
+.buttonCart {
+	padding-right: 10px;
+}
+
+.buttonCart::after {
+	display: none;
+}
+
+.li {
+	color: var(--body_color);
+}
+
+.li:hover {
+	color: var(--color-0CC5BA);
+	background-color: var(--body_background);
+}
+
+.menuButton {
+	font-size: 1.5rem;
+	display: none;
+	color: var(--body_color);
+}
+
+.logo {
+	width: 3.6rem;
+}
+
+.bgColor,
+.dropDownMenu {
+	background-color: var(--body_background);
+}
+
+.imgProfile {
+	width: 40px;
+	border: 2px solid var(--color-0CC5BA);
+}
+
+.totalCart {
+	position: absolute;
+	top: -10px;
+	right: -10px;
+	background-color: var(--color-0CC5BA);
+	color: white;
+	border-radius: 50%;
+	width: 20px;
+	height: 20px;
+	font-size: 14px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+/* Muestra boton burguer en responsive */
+@media screen and (max-width: 768px) {
+	.menuButton {
+		font-size: 1.5rem;
+		display: inline-block;
+	}
+}
+/* Oculta titulo en responsive */
+@media screen and (max-width: 700px) {
+	.logoContainer h3 {
+		display: none;
+	}
+	.logoContainer {
+		margin-left: 0 !important;
+	}
+}

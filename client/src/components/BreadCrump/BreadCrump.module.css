@@ -1,0 +1,16 @@
+.breadcrump {
+    border-top: 2px solid var(--color-0CC5BA);
+}
+
+.link {
+    font-weight: 600;
+    color: var(--body_color);
+}
+
+.link:hover {
+    color: var(--color-0CC5BA);
+}
+
+.p {
+    color: var(--body_color);
+}

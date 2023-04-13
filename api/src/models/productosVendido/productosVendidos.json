@@ -1,0 +1,27 @@
+[
+    {
+      "id": 1,
+      "id_producto": 123,
+      "id_usuario": 456,
+      "id_proveedor": 789,
+      "precio": 20.99,
+      "fecha": "2023-03-22"
+    },
+    {
+      "id": 2,
+      "id_producto": 456,
+      "id_usuario": 789,
+      "id_proveedor": 123,
+      "precio": 15.75,
+      "fecha": "2023-03-21"
+    },
+    {
+      "id": 3,
+      "id_producto": 789,
+      "id_usuario": 123,
+      "id_proveedor": 456,
+      "precio": 10.50,
+      "fecha": "2023-03-20"
+    }
+  ]
+  

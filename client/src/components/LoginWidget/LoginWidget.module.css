@@ -1,0 +1,32 @@
+.buttonGoogle {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	box-shadow: none !important;
+	color: var(--color-3b4149) !important;
+	border: 1px solid black !important;
+	border-radius: 4px !important;
+	height: 36px;
+	overflow: hidden;
+}
+
+.buttonGoogle:hover {
+	color: var(--color-0CC5BA) !important;
+}
+
+.link {
+	font-weight: bold;
+	color: var(--color-0CC5BA);
+}
+
+.link:hover {
+	color: var(--color-3b4149);
+}
+
+.fColor {
+	color: var(--body_color);
+}
+
+.button:disabled {
+  color: gray;
+}

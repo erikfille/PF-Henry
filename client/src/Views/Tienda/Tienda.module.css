@@ -1,0 +1,62 @@
+.filterCard {
+	background-color: var(--body_background);
+	border-radius: 10px;
+}
+
+.filterSortGrid {
+	background-color: var(--body_background);
+	border-radius: 10px;
+}
+
+.filterSortGrid select {
+	max-width: max-content;
+}
+
+.buttonSearch {
+	border: none;
+	width: 70px;
+	height: 38px;
+	background-color: var(--color-0CC5BA);
+	border-radius: 5px;
+}
+
+.iconSearch {
+	color: #fff;
+}
+
+.rangePrice > label {
+	font-size: 20px;
+	font-weight: 600;
+	color: var(--body_color);
+}
+
+.rangePrice > input::-webkit-slider-thumb {
+	background-color: var(--color-0CC5BA);
+}
+
+.prices {
+	font-weight: 600;
+	color: var(--body_color);
+}
+
+.num {
+	color: var(--body_color);
+}
+
+.p {
+	color: var(--body_color);
+}
+
+.search {
+	width: max-content;
+}
+
+.search input {
+	border: none;
+	width: max-content;
+	border-radius: 3px;
+}
+
+.search input:focus {
+	box-shadow: none;
+}

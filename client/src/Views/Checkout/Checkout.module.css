@@ -1,0 +1,12 @@
+* {
+	color: var(--body_color);
+}
+
+.buttonDelete {
+	width: 10px !important;
+}
+
+.buttonDelete svg {
+	fill: var(--color-0CC5BA);
+	cursor: pointer;
+}
