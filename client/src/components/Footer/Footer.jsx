@@ -12,16 +12,35 @@ export default function Footer() {
 				<div className="container-xxl">
 					<div className="row">
 						<div className="col-3 py-4">
-							<div className={`${style.title} d-flex flex-column align-items-center justify-content-center gap-10`}>
-								<h2>PetsAmerica</h2>
-								<img src="src/images/logo-pet.png" alt="logo" style={{ width: '90px', height: "90px"}} className="mb-3" />
-								<div className="d-flex gap-30">
-									<button className={style.btnRrss}><AiFillInstagram className={style.iconRrss} /></button>
-									<button className={style.btnRrss}><BsFacebook className={style.iconRrss} /></button>
-									<button className={style.btnRrss}><FaTiktok className={style.iconRrss} /></button>
-									<button className={style.btnRrss}><BsTwitter className={style.iconRrss} /></button>
-								</div>
-							</div>
+						<div className={`${style.title} d-flex flex-column align-items-center justify-content-center gap-10`}>
+                                <h2>PetsAmerica</h2>
+                                <img src="src/images/logo-pet.png" alt="logo" style={{ width: '90px', height: "90px"}} className="mb-3" />
+                                	<div className="d-flex gap-30">
+                                    	<a href="https://www.instagram.com/pets.america/" >
+                                        	<button className={style.btnRrss}>
+                                            	<AiFillInstagram className={style.iconRrss}/>
+                                        	</button>
+                                    	</a>
+                                
+                                    	<a href="https://www.facebook.com/profile.php?id=100091093042920">
+                                        	<button className={style.btnRrss}>
+                                            	<BsFacebook className={style.iconRrss} />
+                                        	</button>
+                                    	</a>
+                                
+                                    	<a href="https://twitter.com/petcareamerica">
+                                        	<button className={style.btnRrss}>
+                                            	<BsTwitter className={style.iconRrss} />
+                                        	</button>
+                                    	</a>
+
+                                	{/* <a href="">
+                                    		<button className={style.btnRrss}>
+                                        		<FaTiktok className={style.iconRrss} />
+                                    		</button>
+                                		</a> */}
+                                </div>
+                            </div>
 						</div>
 						<div className="col-3 py-4 text-center">
 							<div className="policy d-flex flex-column justify-content-center gap-10">
