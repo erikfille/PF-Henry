@@ -3,6 +3,7 @@ import validation from "./validation";
 import UploadWidget from "../UploadWidget/UploadWidget";
 import { usePets } from "../../hooks/useStore";
 import axios from "axios";
+import styles from "./CreatePet.module.css";
 
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -10,7 +11,6 @@ import { registerLocale, setDefaultLocale } from "react-datepicker";
 import es from "date-fns/locale/es";
 registerLocale("es", es);
 
-import styles from "./CreatePet.module.css";
 
 export default function CreatePet() {
   const user = JSON.parse(localStorage.getItem("user"));
@@ -37,20 +37,20 @@ export default function CreatePet() {
     state.addPet,
   ]);
 
-  useEffect(() => {
-    setNewPetData({
-      nombre: "",
-      especie: "",
-      fechaDeNacimiento: Date.now(),
-      descripcion: "",
-      imagen: "",
-      historial: [],
-    });
-  }, [petAddModal]);
+  // useEffect(() => {
+  //   setNewPetData({
+  //     nombre: "",
+  //     especie: "",
+  //     fechaDeNacimiento: Date.now(),
+  //     descripcion: "",
+  //     imagen: "",
+  //     historial: [],
+  //   });
+  // }, [petAddModal]);
 
   async function onSubmit() {
     try {
-      const response = await axios.post(`/mascotas/${user.id}`, newPetData);
+      addPet(newPetData, user)
     } catch (err) {
       window.alert(err.error);
     }
@@ -61,12 +61,12 @@ export default function CreatePet() {
       ...newPetData,
       [e.target.name]: e.target.value,
     });
-    // setErrors(
-    //   validation({
-    //     ...newPetData,
-    //     [e.target.name]: e.target.value,
-    //   })
-    // );
+    setErrors(
+      validation({
+        ...newPetData,
+        [e.target.name]: e.target.value,
+      })
+    );
   }
 
   function onUpload(url) {
@@ -74,18 +74,18 @@ export default function CreatePet() {
   }
 
   return (
-    <div className="formContainer">
-      <div className={` home-wrapper-2 ${styles.creaateProductContainer}`}>
+    <div className="container-xl">
+      <div className={`home-wrapper-2 ${styles.createProductContainer}`}>
         <h1 className=" text-center fw-bold pt-5 pb-1">
           ¡Cuentanos sobre tu mascota!
         </h1>
-        <div className="container mt-5 bg-white py-4 d-flex justify-content-center mt-auto">
+        <div className="container mt-5 py-4 d-flex justify-content-center mt-auto">
           <div className="row py-2">
             <form
               onSubmit={onSubmit}
               className="d-flex flex-column align-items-center justify-content-center"
             >
-              <div className="mb-3 ">
+              <div className="mb-3 w-100">
                 <div>
                   <input
                     type="text"
@@ -98,7 +98,7 @@ export default function CreatePet() {
                     placeholder="Nombre de tu mascota"
                   />
                   {errors.nombre && (
-                    <span className="errorSpan">
+                    <span className={styles.errorSpan}>
                       {errors.nombre}
                       <br />
                     </span>
@@ -113,6 +113,12 @@ export default function CreatePet() {
                   onChange={handleInputChange}
                   className="form-control"
                 />
+                {errors.especie && (
+                    <span className={styles.errorSpan}>
+                      {errors.especie}
+                      <br />
+                    </span>
+                  )}
                 <br />
                 <div>
                   <DatePicker
@@ -122,6 +128,7 @@ export default function CreatePet() {
                     onChange={(date) =>
                       setNewPetData({ ...newPetData, fechaDeNacimiento: date })
                     }
+                    className={styles.date}
                   />
                 </div>
                 <br />
@@ -132,19 +139,15 @@ export default function CreatePet() {
                     name="descripcion"
                     value={newPetData.descripcion}
                     onChange={handleInputChange}
-                    className={`${
-                      errors.descripcion && errors.state
-                        ? "danger"
-                        : "formInput"
-                    } form-control `}
+                    className={`form-control `}
                   />
                   {errors.descripcion && (
                     <span
                       className={
                         newPetData.descripcion.length < 1 ||
                         newPetData.descripcion.length >= 140
-                          ? "errorSpan"
-                          : "charactersLeft"
+                          ? styles.errorSpan
+                          : styles.charactersLeft
                       }
                     >
                       {errors.descripcion}
@@ -155,7 +158,7 @@ export default function CreatePet() {
                 <br />
               </div>
               <div className="imgContainer ">
-                <div className="widgetButton">
+                <div className="widgetButton text-center">
                   <label
                     htmlFor="exampleFormControlTextarea1"
                     className="form-label fw-bold"
@@ -172,18 +175,9 @@ export default function CreatePet() {
                 </div>
               </div>
               <div>
-                {errors.state ? (
-                  <button className="disabledButton" disabled>
-                    <span>
-                      Crear{" "}
-                      {newPetData.tipo === "Producto" ? "producto" : "servicio"}
-                    </span>
-                  </button>
-                ) : (
-                  <button className="submitButton">
-                    <span>Agregar Mascota</span>
-                  </button>
-                )}
+                <button className="button mt-3" disabled={Object.values(errors).length}>
+                  Agregar Mascota
+                </button>
               </div>
               <div className="floatClear"></div>
             </form>

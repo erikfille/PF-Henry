@@ -1,25 +1,27 @@
-
-
-.button {
-	background-color: #0cc5ba;
-	border: #0cc5ba solid 2px;
-	color: black;
+input, textarea {
+  background-color: var(--body_background) !important;
+  color: var(--body_color) !important;
+  border: 0.5px solid var(--border_color) !important;
 }
 
-.button:hover {
-	background-color: white;
-	border: #0cc5ba solid 2px;
-	color: #0cc5ba;
+textarea {
+  resize: none;
+  height: 8rem !important;
 }
 
-.selectContainer {
-	border: 2px solid #0cc5ba !important;
-	border-top: 2px solid #0cc5ba;
-	border-radius: 10px !important;
+.date {
+  text-align: center;
+  width: 100%;
+  padding: 4px 15px;
+  border-radius: 4px;
+  cursor: default;
 }
 
-
-h1 {
-	font-size: 1.5rem;
+.errorSpan {
+  color: red;
+  font-size: 0.8rem;
 }
 
+button:disabled {
+  color: gray;
+}
