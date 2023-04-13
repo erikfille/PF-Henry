@@ -5,7 +5,7 @@ const stockProductosRoutes = [
     method: "PUT",
     path: "/stock/{idProducto}",
     options: {
-      auth: 'jwt', // Agrega autenticación jwt
+      // auth: 'jwt', // Agrega autenticación jwt
     async handler(request, h) {
       const { idProducto } = request.params;
       let { stock } = request.payload;
