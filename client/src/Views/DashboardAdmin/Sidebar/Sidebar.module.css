@@ -1,0 +1,34 @@
+.sidebarContainer {
+    background-color: var(--body_background);
+    height: 100vh;
+}
+
+.imgLogo {
+    width: 40px;
+    height: 40px;
+}
+
+.link, 
+.h1 {
+    color: var(--body_color);
+    font-weight: 600;
+}
+
+.link:hover,
+.button:hover {
+    color: var(--color-0CC5BA);
+}
+
+.item > svg,
+.signout {
+    width: 25px;
+    height: 25px;
+    color: var(--color-0CC5BA);
+}
+
+.button {
+    border: none;
+    background-color: transparent;
+    font-weight: 600;
+    color: var(--body_color);
+}

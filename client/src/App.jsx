@@ -27,6 +27,12 @@ import PayPal from "./Views/Checkout/PayPal";
 //? Styles
 import "./App.css";
 
+import DashUser from "./Views/DashboardAdmin/DashUser/DashUser";
+import DashProvider from "./Views/DashboardAdmin/DashProvider/DashProvider";
+import DashProduct from "./Views/DashboardAdmin/DashProduct/DashProduct";
+import DashCategories from "./Views/DashboardAdmin/DashCategories/DashCategories";
+import DashAnimals from "./Views/DashboardAdmin/DashAnimals/DashAnimals";
+
 axios.defaults.baseURL = "http://localhost:3000";
 
 function App() {
@@ -34,10 +40,23 @@ function App() {
 
   return (
     <div className="App">
-      {location.pathname !== "/login" && <Header /> &&
-        location.pathname !== "/signup" && <Header />}
+      { 
+        location.pathname !== "/login" && <Header /> &&
+        location.pathname !== "/signup" && <Header /> &&
+        location.pathname !== "/dashboard-admin/users" && <Header /> &&
+        location.pathname !== "/dashboard-admin/providers" && <Header /> &&
+        location.pathname !== "/dashboard-admin/products" && <Header /> &&
+        location.pathname !== "/dashboard-admin/categories" && <Header /> &&
+        location.pathname !== "/dashboard-admin/animals" && <Header />
+      }
 
       <Routes>
+        <Route path="/dashboard-admin/users" element={<DashUser/>} />
+        <Route path="/dashboard-admin/providers" element={<DashProvider/>} />
+        <Route path="/dashboard-admin/products" element={<DashProduct/>} />
+        <Route path="/dashboard-admin/categories" element={<DashCategories/>} />
+        <Route path="/dashboard-admin/animals" element={<DashAnimals/>} />
+        
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Login />} />
         <Route exact path="/" element={<Home />} />
@@ -57,8 +76,15 @@ function App() {
       </Routes>
       <Cart />
       <ModalConsultaGenerico />
-      {location.pathname !== "/login" && <Footer /> &&
-        location.pathname !== "/signup" && <Footer />}
+      {
+        location.pathname !== "/login" && <Footer /> &&
+        location.pathname !== "/signup" && <Footer /> &&
+        location.pathname !== "/dashboard-admin/users" && <Footer /> &&
+        location.pathname !== "/dashboard-admin/providers" && <Footer /> &&
+        location.pathname !== "/dashboard-admin/products" && <Footer /> &&
+        location.pathname !== "/dashboard-admin/categories" && <Footer />&&
+        location.pathname !== "/dashboard-admin/animals" && <Footer />
+      }
     </div>
   );
 }
