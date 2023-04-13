@@ -6,6 +6,8 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { registerLocale, setDefaultLocale } from "react-datepicker";
 import es from "date-fns/locale/es";
+import validation from "./validation";
+import axios from "axios";
 registerLocale("es", es);
 
 const ModalPetDetail = (props) => {
@@ -18,6 +20,12 @@ const ModalPetDetail = (props) => {
   const [historyModal, setHistoryModal] = useState(false);
 
   const [newHistory, setNewHistory] = useState({
+    fecha: Date.now(),
+    titulo: "",
+    descripcion: "",
+  });
+
+  const [errors, setErrors] = useState({
     fecha: "",
     titulo: "",
     descripcion: "",
@@ -35,7 +43,12 @@ const ModalPetDetail = (props) => {
 
   function handleChange(e) {
     setNewHistory({ ...newHistory, [e.target.name]: e.target.value });
-    console.log(newHistory);
+    setErrors(
+      validation({
+        ...newHistory,
+        [e.target.name]: e.target.value,
+      })
+    );
   }
 
   function handleDate(date) {
@@ -64,18 +77,14 @@ const ModalPetDetail = (props) => {
         </button>
       </div>
       <div className="perfil d-flex flex-column align-items-center">
-        <div className="">
-          <h1 className={style.title}>{selectedPet.nombre}</h1>
+        <div className="mb-2">
+          <h1 className={style.title}>{selectedPet.name}</h1>
         </div>
-        <div className={style.circle}>
-          {selectedPet.imagen ? (
-            <img
-              src={selectedPet.imagen}
-              alt="tu vieja en tanga, pero no"
-              style={{ width: "80px", height: "80px" }}
-            />
-          ) : (
+        <div className={selectedPet.imagen ? style.imgMascota : style.circle} style={{backgroundImage: `url(${selectedPet.imagen})`}}>
+          {!selectedPet.imagen ? (
             <TbPawFilled style={{ width: "80px", height: "80px" }} />
+            ) : (
+            <></>
           )}
         </div>
       </div>
@@ -105,18 +114,21 @@ const ModalPetDetail = (props) => {
               <hr />
             </div>
           ))
-        : "No hay historial para mostrar"}
-      <button onClick={() => openModal()}>Agregar</button>
+          :
+          (<p>No hay historial para mostrar</p>)}
+      <div className="text-center mb-4">
+        <button onClick={() => openModal()} className="button">Agregar</button>
+      </div>
       {historyModal && (
-        <>
-          <hr />
-          <form onSubmit={() => {}}>
+        <div className="d-flex flex-column align-items-center justify-content-center">
+          <form onSubmit={() => {}} className="d-flex flex-column align-items-center justify-content-center">
             <DatePicker
               locale="es"
               dateFormat="dd/MM/yyyy"
               selected={newHistory.fecha}
               name="fecha"
               onChange={(date) => handleDate(date)}
+              className={style.date}
             />
             <br />
             <input
@@ -125,7 +137,13 @@ const ModalPetDetail = (props) => {
               value={newHistory.titulo}
               onChange={handleChange}
               placeholder="Evento"
+              className={`${errors.titulo && 'is-invalid'} form-control`}
             />
+            {errors.titulo && (
+              <span className={style.errorSpan}>
+                {errors.titulo}
+              </span>
+            )}
             <br />
             <textarea
               type="text"
@@ -133,11 +151,17 @@ const ModalPetDetail = (props) => {
               value={newHistory.descripcion}
               onChange={handleChange}
               placeholder="Describe el evento"
+              className={`${errors.descripcion && 'is-invalid'} form-control`}
             />
+            {errors.descripcion && (
+              <span className={style.errorSpan}>
+                {errors.descripcion}
+              </span>
+            )}
             <br />
-            <button>Agregar al Historial</button>
+            <button className="button" disabled={Object.values(errors).length}>Agregar al Historial</button>
           </form>
-        </>
+        </div>
       )}
     </div>
   );
