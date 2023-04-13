@@ -111,7 +111,7 @@ export const useLogin = create((set, get) => ({
       window.location.href = "/";
       window.location.href = "/";
     } else {
-      window.location..href = "/tienda";
+      window.location.href = "/tienda";
     }
   },
   logoutUser() {
