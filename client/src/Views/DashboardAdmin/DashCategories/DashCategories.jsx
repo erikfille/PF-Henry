@@ -79,15 +79,15 @@ const DashCategories = () => {
                                        <div className="modificarActivo">
                                           {
                                              cat.status === "activo"
-                                             ? <BsCloudSlashFill style={{ cursor: "pointer"}} />
-                                             : <BsCloudCheckFill style={{ cursor: "pointer"}} />
+                                             ? <BsCloudSlashFill style={{ cursor: "pointer", fill: "var(--color-0CC5BA)"}} />
+                                             : <BsCloudCheckFill style={{ cursor: "pointer", fill: "var(--color-0CC5BA)"}} />
                                           }
                                        </div>
                                        <div className="delete">
-                                          <RiDeleteBin6Line style={{ cursor: "pointer"}} />
+                                          <RiDeleteBin6Line style={{ cursor: "pointer", fill: "var(--color-0CC5BA)"}} />
                                        </div>
                                        <div className="edit">
-                                          <FaEdit style={{ cursor: "pointer"}} />
+                                          <FaEdit style={{ cursor: "pointer", fill: "var(--color-0CC5BA)"}} />
                                        </div>
                                     </div>
                                  </td>

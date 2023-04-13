@@ -19,11 +19,10 @@
     color: var(--color-0CC5BA);
 }
 
-.item > svg,
-.signout {
+.icons {
     width: 25px;
     height: 25px;
-    color: var(--color-0CC5BA);
+    fill: var(--color-0CC5BA);
 }
 
 .button {

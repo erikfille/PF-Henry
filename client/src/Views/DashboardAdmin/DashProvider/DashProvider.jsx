@@ -73,7 +73,7 @@ const DashProvider = () => {
                            type="search"
                            name=""
                            id=""
-                           placeholder="  "
+                           placeholder="Ej. Juan"
                         />
                      </div>
                   </div>
@@ -110,18 +110,18 @@ const DashProvider = () => {
                                        <div className="modificarActivo">
                                           {
                                              prov.status === "activo"
-                                             ? <ImUserMinus style={{ cursor: "pointer"}} />
-                                             : <ImUserCheck style={{ cursor: "pointer"}} />
+                                             ? <ImUserMinus style={{ cursor: "pointer", fill: "var(--color-0CC5BA)"}} />
+                                             : <ImUserCheck style={{ cursor: "pointer", fill: "var(--color-0CC5BA)"}} />
                                           }
                                        </div>
                                        <div className="delete">
-                                          <RiDeleteBin6Line style={{ cursor: "pointer"}} />
+                                          <RiDeleteBin6Line style={{ cursor: "pointer", fill: "var(--color-0CC5BA)"}} />
                                        </div>
                                        <div className="edit">
-                                          <FaEdit style={{ cursor: "pointer"}} />
+                                          <FaEdit style={{ cursor: "pointer", fill: "var(--color-0CC5BA)"}} />
                                        </div>
                                        <div className="product">
-                                          <BsFillBoxSeamFill style={{ cursor: "pointer"}} />
+                                          <BsFillBoxSeamFill style={{ cursor: "pointer", fill: "var(--color-0CC5BA)"}} />
                                        </div>
                                     </div>
                                  </td>

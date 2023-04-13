@@ -70,10 +70,10 @@ const DashAnimals = () => {
                                     <td>
                                        <div className="icons d-flex gap-10 ms-3">
                                           <div className="delete">
-                                             <RiDeleteBin6Line style={{ cursor: "pointer"}} />
+                                             <RiDeleteBin6Line style={{ cursor: "pointer", fill: "var(--color-0CC5BA)"}} />
                                           </div>
                                           <div className="edit">
-                                             <FaEdit style={{ cursor: "pointer"}} />
+                                             <FaEdit style={{ cursor: "pointer", fill: "var(--color-0CC5BA)"}} />
                                           </div>
                                        </div>
                                     </td>
