@@ -30,7 +30,7 @@ import PayPal from "./Views/Checkout/PayPal";
 import "./App.css";
 import { useModal } from "./hooks/useStore";
 
-axios.defaults.baseURL = "pf-henry-production.up.railway.app";
+axios.defaults.baseURL = "https://pf-henry-production.up.railway.app";
 
 function App() {
   const location = useLocation();
