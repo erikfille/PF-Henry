@@ -1,0 +1,12 @@
+{
+  "rewrites": [
+    {
+      "source": "/tienda",
+      "destination": "/tienda"
+    },
+    {
+      "source": "/perfil",
+      "destination": "/perfil/(.*)"
+    }
+  ]
+}
