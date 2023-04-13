@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import BreadCrump from "../../components/BreadCrump/BreadCrump";
 import Meta from "../../components/Meta/Meta";
 import { RiDeleteBin6Line } from "react-icons/ri";
@@ -8,13 +8,38 @@ import { useModal, useProduct } from "../../hooks/useStore";
 import PayPal from "./PayPal";
 
 export default function CheckOut({ productos, data }) {
-  const [totalPrice, cartProducts, setCartRemove] = useProduct((state) => [
-    state.totalPrice,
-    state.cartProducts,
-    state.setCartRemove,
-  ]);
+  const [productsInCart, setProductsInCart] = useState({});
+
+  const [totalPrice, setTotalPrice, cartProducts, setCartRemove] = useProduct(
+    (state) => [
+      state.totalPrice,
+      state.setTotalPrice,
+      state.cartProducts,
+      state.setCartRemove,
+    ]
+  );
 
   const [setModal] = useModal((state) => [state.setModal]);
+
+  useEffect(() => {
+    let localStorageProducts = JSON.parse(localStorage.getItem("cart"));
+    setProductsInCart(localStorageProducts);
+    console.log(localStorageProducts)
+  }, []);
+
+  useEffect(() => {
+    if (
+      typeof productsInCart === "object" &&
+      productsInCart.length
+    ) {
+      let totalBuy = 0;
+      productsInCart.forEach((p) => (totalBuy += p.precio * p.quantity));
+      setTotalPrice(totalBuy.toFixed(2));
+      console.log(totalBuy)
+    } else {
+      setTotalPrice(0);
+    }
+  }, [productsInCart]);
 
   return (
     <>
@@ -26,7 +51,7 @@ export default function CheckOut({ productos, data }) {
             <h1 className="fw-bold">Pagar Pedido</h1>
             <hr />
             <h5>Detalle</h5>
-            {cartProducts.length && typeof cartProducts == "object" ? (
+            {productsInCart.length && typeof productsInCart == "object" ? (
               <div className="table-responsive-xl">
                 <table className="table table-hover align-middle table-borderless">
                   <thead>
@@ -54,7 +79,7 @@ export default function CheckOut({ productos, data }) {
                     </tr>
                   </thead>
                   <tbody>
-                    {cartProducts.map((p) => (
+                    {productsInCart.map((p) => (
                       <tr key={p._id}>
                         <td
                           colSpan="1"
@@ -111,7 +136,7 @@ export default function CheckOut({ productos, data }) {
             </div>
           </div>
           {/* PayPal */}
-          {cartProducts.length ? <PayPal totalPrice={totalPrice} /> : null}
+          {productsInCart.length ? <PayPal totalPrice={totalPrice} /> : null}
         </div>
       </div>
     </>
