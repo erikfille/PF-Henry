@@ -19,6 +19,7 @@ const PetsContainer = (props) => {
             nac={p.fechaDeNacimiento}
             imagen={p.imagen}
             historial={p.historial}
+            descripcion={p.descripcion}
             setPetDetailModal={setPetDetailModal}
           />
         ))

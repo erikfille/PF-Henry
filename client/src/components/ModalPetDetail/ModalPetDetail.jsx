@@ -99,6 +99,11 @@ const ModalPetDetail = (props) => {
         </div>
       </div>
       <hr style={{ opacity: "1", height: "2px" }} />
+      <div className="d-flex flex-column align-items-center">
+          <p className={style.data}>Descripción</p>
+          <p style={{ color: "var(--body_color)" }}>{selectedPet.descripcion}</p>
+        </div>
+      <hr style={{ opacity: "1", height: "2px" }} />
       <div className="historial py-3 d-flex justify-content-center">
         <h1 style={{ color: "var(--body_color)" }}>Historial</h1>
       </div>
