@@ -152,20 +152,20 @@ export const useProduct = create((set, get) => ({
   setTotalPrice: (total) => {
     set((state) => ({ totalPrice: total }));
   },
-  getReviews: async (productId) => {
-    let response = await axios.get(`/comentariosResenas/${productId}`);
-    let reviewsToFormat = response.data.forEach((r) => {
-      const fecha = new Date("2023-04-03T18:17:35.991Z");
-      const dia = fecha.getUTCDate();
-      const mes = fecha.getUTCMonth() + 1;
-      const anio = fecha.getUTCFullYear();
-      const fechaFormateada = `${dia.toString().padStart(2, "0")}/${mes
-        .toString()
-        .padStart(2, "0")}/${anio.toString()}`;
-      return (r.fecha = fechaFormateada);
-    });
-    set((state) => ({ productReviews: response.data }));
-  },
+  // getReviews: async (productId) => {
+  //   let response = await axios.get(`/comentariosResenas/${productId}`);
+  //   let reviewsToFormat = response.data.forEach((r) => {
+  //     const fecha = new Date("2023-04-03T18:17:35.991Z");
+  //     const dia = fecha.getUTCDate();
+  //     const mes = fecha.getUTCMonth() + 1;
+  //     const anio = fecha.getUTCFullYear();
+  //     const fechaFormateada = `${dia.toString().padStart(2, "0")}/${mes
+  //       .toString()
+  //       .padStart(2, "0")}/${anio.toString()}`;
+  //     return (r.fecha = fechaFormateada);
+  //   });
+  //   set((state) => ({ productReviews: response.data }));
+  // },
   sendReview: (obj) => {
     try {
       axios.post("/crearComentarioResena", obj);

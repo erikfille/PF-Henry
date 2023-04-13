@@ -37,8 +37,6 @@ export default function CreatePet() {
     state.addPet,
   ]);
 
-  console.log(user);
-
   useEffect(() => {
     setNewPetData({
       nombre: "",
@@ -52,10 +50,7 @@ export default function CreatePet() {
 
   async function onSubmit() {
     try {
-      console.log(newPetData);
-      console.log(user.id);
       const response = await axios.post(`/mascotas/${user.id}`, newPetData);
-      console.log(response);
     } catch (err) {
       window.alert(err.error);
     }
