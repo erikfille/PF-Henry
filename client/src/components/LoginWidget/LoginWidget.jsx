@@ -145,7 +145,7 @@ export default function LoginWidget(props) {
                   className={`form-control ${errors.name && "is-invalid"}`}
                   type="text"
                 ></input>
-                {errors.name && <p className="text-danger text-center">{errors.name}</p>}
+                {errors.name && <p className={`text-danger text-center ${styles.error}`}>{errors.name}</p>}
               </div>
               <div className="mb-3 w-100">
                 <label
@@ -163,7 +163,7 @@ export default function LoginWidget(props) {
                   className={`form-control ${errors.surname && "is-invalid"}`}
                   type="text"
                 ></input>
-                {errors.surname && <p className="text-danger text-center">{errors.surname}</p>}
+                {errors.surname && <p className={`text-danger text-center ${styles.error}`}>{errors.surname}</p>}
               </div>
             </div>
           )}
@@ -185,7 +185,7 @@ export default function LoginWidget(props) {
                 type="email"
                 aria-describedby="emailHelp"
               />
-              {errors.email && <p className="text-danger text-center">{errors.email}</p>}
+              {errors.email && <p className={`text-danger text-center ${styles.error}`}>{errors.email}</p>}
             </div>
             <div className="mb-3 w-100">
               <label
@@ -202,7 +202,7 @@ export default function LoginWidget(props) {
                 value={userData.password}
                 onChange={handleInputChange}
                 className={`form-control ${!errors.verifyPassword && !errors.password && userData.password ? "is-valid" : errors.password && "is-invalid"}`}
-              />{errors.password && <p className="text-danger text-center">{errors.password}</p>}
+              />{errors.password && <p className={`text-danger text-center ${styles.error}`}>{errors.password}</p>}
             </div>
           </div>
           <div className="d-flex gap-10">
@@ -223,7 +223,7 @@ export default function LoginWidget(props) {
                   onChange={handleInputChange}
                   className={`form-control ${!errors.verifyPassword && !errors.password && userData.password ? "is-valid" : errors.verifyPassword && "is-invalid"}`}
                 />
-                {errors.verifyPassword && <p className="text-danger text-center">{errors.verifyPassword}</p>}
+                {errors.verifyPassword && <p className={`text-danger text-center ${styles.error}`}>{errors.verifyPassword}</p>}
               </div>
             )}
             {childProps.type === "signup" && (
