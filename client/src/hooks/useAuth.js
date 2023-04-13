@@ -21,11 +21,8 @@ export const useLogin = create((set, get) => ({
     const { setModal, receiveToken } = get();
     try {
       let response = await axios.post("/users/GoogleLogin", userData);
-
       console.log("Post a Users: ", response.data);
-
       set((state) => ({ user: response.data.user }));
-
       if (!response.data.user.rol) {
         setModal();
         return;

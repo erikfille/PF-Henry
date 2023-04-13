@@ -14,7 +14,7 @@ export default function PayPal(props) {
     window.location.href = arg;
   };
 
-  let defaultUrl = "http://localHost:3000"
+  let defaultUrl = "http://localHost:3000";
 
   const user = JSON.parse(localStorage.getItem("user"));
 
@@ -46,7 +46,7 @@ export default function PayPal(props) {
                   "Compra Exitosa",
                   `${details.payer.name.given_name} tu compra se realizó con éxito, en breve serás redirigido a tu panel de usuario`,
                   onContinue,
-                  [`/perfil/${user.id}`]
+                  [`/tienda`]
                 );
                 updateStock(cartProducts);
                 deleteCartContent();

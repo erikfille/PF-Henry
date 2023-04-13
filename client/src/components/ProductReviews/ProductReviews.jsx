@@ -20,9 +20,11 @@ export default function ProductReviews(props) {
   }, []);
 
   useEffect(() => {
-    comentarios.forEach((c) => {
-      if (c.usuario._id === user.id) setAbleToComment(false);
-    });
+    if (user && user.id) {
+      comentarios.forEach((c) => {
+        if (c.usuario._id === user.id) setAbleToComment(false);
+      });
+    } else setAbleToComment(false)
   }, [updateComments, comentarios]);
 
   function handleInputChange(e) {
