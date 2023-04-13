@@ -12,6 +12,7 @@ const createMascotaRoutes = [
           especie: request.payload.especie,
           fechaDeNacimiento: request.payload.fechaDeNacimiento,
           descripcion: request.payload.descripcion,
+          imagen: request.payload.imagen,
           usuario: request.params.userId, // asignar el usuario a la mascota
         });
 
