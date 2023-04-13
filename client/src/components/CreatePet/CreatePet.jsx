@@ -93,7 +93,7 @@ export default function CreatePet() {
                     value={newPetData.nombre}
                     onChange={handleInputChange}
                     className={`${
-                      errors.nombre ? "danger" : "formInput"
+                      errors.nombre && 'is-invalid'
                     } form-control`}
                     placeholder="Nombre de tu mascota"
                   />
@@ -111,7 +111,9 @@ export default function CreatePet() {
                   name="especie"
                   value={newPetData.especie}
                   onChange={handleInputChange}
-                  className="form-control"
+                  className={`${
+                    errors.especie && 'is-invalid'
+                  } form-control`}
                 />
                 {errors.especie && (
                     <span className={styles.errorSpan}>
@@ -139,7 +141,9 @@ export default function CreatePet() {
                     name="descripcion"
                     value={newPetData.descripcion}
                     onChange={handleInputChange}
-                    className={`form-control `}
+                    className={`${
+                      errors.descripcion && 'is-invalid'
+                    } form-control`}
                   />
                   {errors.descripcion && (
                     <span

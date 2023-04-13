@@ -263,8 +263,12 @@ export const useUser = create((set, get) => ({
   userInfo: {},
   compras: {},
   getUserInfo: async (id) => {
-    let response = await axios.get(`/users/${id}`);
-    set((state) => ({ userInfo: response.data }));
+    try {
+      let response = await axios.get(`/users/${id}`);
+      set((state) => ({ userInfo: response.data }));
+    } catch (error) {
+      window.alert('No se encontró el usuario')
+    }
   },
 }));
 
