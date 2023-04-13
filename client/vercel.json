@@ -1,12 +1,9 @@
 {
-  "rewrites": [
+"rewrites":
+  [
     {
-      "source": "/tienda",
-      "destination": "src/tienda"
-    },
-    {
-      "source": "/perfil",
-      "destination": "src/perfil/"
+    "source": "/(.*)",
+    "destination": "/index.html"
     }
   ]
 }
