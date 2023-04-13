@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import ReactStars from "react-stars";
 import styles from "./ProductReviews.module.css";
-import { useProduct } from "../../hooks/useStore";
+import { useProduct, useModal } from "../../hooks/useStore";
 
 export default function ProductReviews(props) {
   const { updateComments } = props;
@@ -13,6 +13,7 @@ export default function ProductReviews(props) {
   const [ableToComment, setAbleToComment] = useState(true);
 
   let [sendReview] = useProduct((state) => [state.sendReview]);
+  let [setModalInfo] = useModal((state) => [state.setModalInfo]);
 
   useEffect(() => {
     setUser(JSON.parse(localStorage.getItem("user")));
@@ -36,7 +37,12 @@ export default function ProductReviews(props) {
       producto: _id,
     };
     sendReview(newReview);
-    updateComments()
+    setModalInfo(
+      "¡Reseña Enviada Exitosamente!",
+      "¡Tu reseña se ha enviado correctamente!",
+      updateComments,
+      []
+    );
   }
 
   function returnMessage() {
