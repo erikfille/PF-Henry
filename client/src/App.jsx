@@ -43,11 +43,7 @@ function App() {
       { 
         location.pathname !== "/login" && <Header /> &&
         location.pathname !== "/signup" && <Header /> &&
-        location.pathname !== "/dashboard-admin/users" && <Header /> &&
-        location.pathname !== "/dashboard-admin/providers" && <Header /> &&
-        location.pathname !== "/dashboard-admin/products" && <Header /> &&
-        location.pathname !== "/dashboard-admin/categories" && <Header /> &&
-        location.pathname !== "/dashboard-admin/animals" && <Header />
+        !location.pathname.includes("/dashboard-admin")  && <Header />
       }
 
       <Routes>
@@ -79,11 +75,7 @@ function App() {
       {
         location.pathname !== "/login" && <Footer /> &&
         location.pathname !== "/signup" && <Footer /> &&
-        location.pathname !== "/dashboard-admin/users" && <Footer /> &&
-        location.pathname !== "/dashboard-admin/providers" && <Footer /> &&
-        location.pathname !== "/dashboard-admin/products" && <Footer /> &&
-        location.pathname !== "/dashboard-admin/categories" && <Footer />&&
-        location.pathname !== "/dashboard-admin/animals" && <Footer />
+        !location.pathname.includes("/dashboard-admin")  && <Footer />
       }
     </div>
   );
