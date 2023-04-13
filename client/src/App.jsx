@@ -43,14 +43,7 @@ import DashProduct from "./Views/DashboardAdmin/DashProduct/DashProduct";
 import DashCategories from "./Views/DashboardAdmin/DashCategories/DashCategories";
 import DashAnimals from "./Views/DashboardAdmin/DashAnimals/DashAnimals";
 
-import AdminDashboard from "./Views/DashboardAdmin/AdminDashboard";
-import DashUser from "./Views/DashboardAdmin/DashUser/DashUser";
-import DashProvider from "./Views/DashboardAdmin/DashProvider/DashProvider";
-import DashProduct from "./Views/DashboardAdmin/DashProduct/DashProduct";
-import DashCategories from "./Views/DashboardAdmin/DashCategories/DashCategories";
-import DashAnimals from "./Views/DashboardAdmin/DashAnimals/DashAnimals";
-
-axios.defaults.baseURL = "pf-henry-production.up.railway.app";
+axios.defaults.baseURL = "https://pf-henry-production.up.railway.app";
 
 function App() {
   const location = useLocation();
