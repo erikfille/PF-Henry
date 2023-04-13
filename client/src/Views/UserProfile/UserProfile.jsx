@@ -1,7 +1,7 @@
 import Meta from "../../components/Meta/Meta";
 import BreadCrump from "../../components/BreadCrump/BreadCrump";
 import style from "./UserProfile.module.css";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { FaUserAlt } from "react-icons/fa";
 import PetsContainer from "../../components/PetsContainer/PetsContainer";
 import { usePets, useUser } from "../../hooks/useStore";
@@ -12,10 +12,11 @@ import { usePets, useUser } from "../../hooks/useStore";
 import { useState, useEffect } from "react";
 
 export default function UserProfile() {
+  const navigate = useNavigate();
+
   const { userId } = useParams();
 
   const [user, setUser] = useState({});
-
   const [modal, setModal] = useState({
     detail: false,
     newPet: false,
@@ -37,7 +38,8 @@ export default function UserProfile() {
   ]);
 
   useEffect(() => {
-    getUserInfo(userId);
+      if(!userId) navigate("/")
+      getUserInfo(userId);
   }, []);
 
   useEffect(() => {
@@ -58,7 +60,7 @@ export default function UserProfile() {
     <>
       <Meta title={"Perfil"} />
       <BreadCrump title="Perfil" />
-      <div className="userProfile-wrapper home-wrapper-2 py-5">
+      <div className="userProfile-wrapper home-wrapper-2 pb-5">
         <div className="container-xxl">
           <div className="row d-flex flex-column align-items-center">
             <div className={`${style.userContainer} col-10 p-5 my-5`}>
@@ -71,15 +73,10 @@ export default function UserProfile() {
                 {user._id ? (
                   <>
                     <div className="col-4">
-                      <div className={style.circle}>
-                        {/* <FaUserAlt
+                      <div className={user.image ? style.imgUser : style.circle} style={{backgroundImage:`url(${user.image})`}}>
+                        {!user.image ? <FaUserAlt
                           style={{ width: "140px", height: "140px" }}
-                        /> */}
-                        <img
-                          src={user.image}
-                          alt="user-imagen"
-                          className={style.imgUser}
-                        />
+                        /> : <></>}
                       </div>
                     </div>
                     <div className="col-7">
@@ -142,19 +139,19 @@ export default function UserProfile() {
             </div>
             <div className={`${style.comprasContainer} col-10 p-5 my-5`}>
               <h4>Mis Compras:</h4>
-              {compras.length === 0 ? (
+              {compras.length ? (
                 <>
-                  <div className="d-flex flex-column justify-content-center align-items-center my-5">
-                    <h6>Aún no tienes compras</h6>
-                    <Link to="" className={style.link}>
-                      Ir a tienda
-                    </Link>
+                  <div className={`${style.pets} d-flex flex-wrap gap-5 py-5`}>
+                    {/* renderizar las compras hechas por el cliente */}
                   </div>
                 </>
               ) : (
                 <>
-                  <div className={`${style.pets} d-flex flex-wrap gap-5 py-5`}>
-                    {/* renderizar las compras hechas por el cliente */}
+                  <div className="d-flex flex-column justify-content-center align-items-center my-5">
+                    <h6>Aún no tienes compras</h6>
+                    <Link to="/tienda" className={style.link}>
+                      Ir a tienda
+                    </Link>
                   </div>
                 </>
               )}

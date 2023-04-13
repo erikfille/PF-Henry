@@ -1,12 +1,13 @@
 import DarkMode from "../../components/DarkMode/DarkMode";
 import style from "./Home.module.css";
+import bgPaw from "../../images/bg-paw.png"
 
 const Home = () => {
    return (
       <>
          <div className={`home-wrapper home-wrapper-2 ${style.homeContainer}`}>
             <div className={style.bgImage}>
-               <img src="src/images/bg-paw.png" alt="logo=patas" />
+               <img src={bgPaw} alt="logo=patas" />
             </div>
             <div className={`${style.title} text-center`}>
                <h1 className={style.title1}>Una comunidad de</h1>
