@@ -30,20 +30,35 @@ export default function Detail() {
     return () => setProductDetail({});
   }, [productId]);
 
+  console.log(productDetail);
+
+  async function updateComments() {
+    let response = await axios
+      .get(`/product-detail/${productId}`)
+      .then((data) => {
+        setProductDetail(data.data);
+      })
+      .catch((error) => window.alert("Algo salio mal, intentalo nuevamente"));
+  }
+
   return (
     <>
-        <Meta title={"Detalle"} />
-        <BreadCrump title="Detalle de Producto" />
-        <div className="home-wrapper-2 px-5">
-          {loading ? (
-            <Loader />
-          ) : (
-            <div>
-              <ProductDetail productDetail={productDetail} />
-              {/* <ProviderDetail providerDetail={providerDetail} /> */}
-              <ProductReviews productDetail={productDetail} id="reseñar" />
-            </div>
-          )}
+      <Meta title={"Detalle"} />
+      <BreadCrump title="Detalle de Producto" />
+      <div className="home-wrapper-2 px-5">
+        {loading ? (
+          <Loader />
+        ) : (
+          <div>
+            <ProductDetail productDetail={productDetail} />
+            {/* <ProviderDetail providerDetail={providerDetail} /> */}
+            <ProductReviews
+              productDetail={productDetail}
+              updateComments={updateComments}
+              id="reseñar"
+            />
+          </div>
+        )}
       </div>
     </>
   );

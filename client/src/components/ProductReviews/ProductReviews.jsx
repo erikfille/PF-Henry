@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
 import ReactStars from "react-stars";
 import styles from "./ProductReviews.module.css";
-import { useProduct } from "../../hooks/useStore";
+import { useProduct, useModal } from "../../hooks/useStore";
 
 export default function ProductReviews(props) {
+  const { updateComments } = props;
   const { _id, rating, comentarios } = props.productDetail;
 
   const [qualify, setQualify] = useState(0);
@@ -12,6 +13,7 @@ export default function ProductReviews(props) {
   const [ableToComment, setAbleToComment] = useState(true);
 
   let [sendReview] = useProduct((state) => [state.sendReview]);
+  let [setModalInfo] = useModal((state) => [state.setModalInfo]);
 
   useEffect(() => {
     setUser(JSON.parse(localStorage.getItem("user")));
@@ -21,7 +23,7 @@ export default function ProductReviews(props) {
     comentarios.forEach((c) => {
       if (c.usuario._id === user.id) setAbleToComment(false);
     });
-  }, [user]);
+  }, [updateComments, comentarios]);
 
   function handleInputChange(e) {
     setReview(e.target.value);
@@ -35,6 +37,12 @@ export default function ProductReviews(props) {
       producto: _id,
     };
     sendReview(newReview);
+    setModalInfo(
+      "¡Reseña Enviada Exitosamente!",
+      "¡Tu reseña se ha enviado correctamente!",
+      updateComments,
+      []
+    );
   }
 
   function returnMessage() {
@@ -100,34 +108,39 @@ export default function ProductReviews(props) {
               <p>{returnMessage()}</p>
             )}
             <div className="mt-5">
-              {comentarios.length ? (
-                comentarios.map((r) => (
-                  <div className="mt-5">
-                    <div className="d-sm-flex align-items-end mt-0">
-                      <h1 className={`${styles.fColor} fw-bold fs-3 me-3`}>
-                        {`${r.usuario.name[0].toUpperCase()}${r.usuario.name.slice(
-                          1
-                        )} ${r.usuario.surname[0].toUpperCase()}${r.usuario.surname.slice(
-                          1
-                        )}`}
-                      </h1>
-                      <ReactStars
-                        count={5}
-                        size={20}
-                        value={r.puntuacion}
-                        edit={false}
-                        activeColor="#ffd700"
-                        className={styles.stars}
-                      />
-                    </div>
-                    <div>
-                      <span className={`${styles.span}`}>
-                        {r.fecha.slice(0, 10)}
-                      </span>
-                      <p className={`${styles.span} pt-3`}>{r.comentario}</p>
-                    </div>
-                  </div>
-                ))
+              {comentarios && comentarios.length ? (
+                comentarios.map(
+                  (r) =>
+                    r.usuario.name && (
+                      <div className="mt-5">
+                        <div className="d-sm-flex align-items-end mt-0">
+                          <h1 className={`${styles.fColor} fw-bold fs-3 me-3`}>
+                            {`${r.usuario.name[0].toUpperCase()}${r.usuario.name.slice(
+                              1
+                            )} ${r.usuario.surname[0].toUpperCase()}${r.usuario.surname.slice(
+                              1
+                            )}`}
+                          </h1>
+                          <ReactStars
+                            count={5}
+                            size={20}
+                            value={r.puntuacion}
+                            edit={false}
+                            activeColor="#ffd700"
+                            className={styles.stars}
+                          />
+                        </div>
+                        <div>
+                          <span className={`${styles.span}`}>
+                            {r.fecha.slice(0, 10)}
+                          </span>
+                          <p className={`${styles.span} pt-3`}>
+                            {r.comentario}
+                          </p>
+                        </div>
+                      </div>
+                    )
+                )
               ) : (
                 <>
                   <hr />

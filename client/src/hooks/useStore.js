@@ -169,6 +169,7 @@ export const useProduct = create((set, get) => ({
   sendReview: (obj) => {
     try {
       axios.post("/crearComentarioResena", obj);
+      return true
     } catch (err) {
       console.log(err);
     }
