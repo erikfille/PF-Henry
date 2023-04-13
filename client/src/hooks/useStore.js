@@ -169,7 +169,7 @@ export const useProduct = create((set, get) => ({
   sendReview: (obj) => {
     try {
       axios.post("/crearComentarioResena", obj);
-      return true
+      return true;
     } catch (err) {
       console.log(err);
     }
@@ -287,7 +287,11 @@ export const usePets = create((set, get) => ({
     set((state) => ({ petDetailModal: state.petDetailModal ? false : true }));
   },
   addPet: async (formData, user) => {
-    let response = await axios.post(`/mascotas/${user.id}`, formData);
+    try {
+      let response = await axios.post(`/mascotas/${user.id}`, formData);
+    } catch (err) {
+      console.log(err);
+    }
   },
   setPets: (pets) => {
     set((state) => ({ pets: pets }));
