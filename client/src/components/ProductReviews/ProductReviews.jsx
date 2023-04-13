@@ -9,12 +9,19 @@ export default function ProductReviews(props) {
   const [qualify, setQualify] = useState(0);
   const [review, setReview] = useState("");
   const [user, setUser] = useState({});
+  const [ableToComment, setAbleToComment] = useState(true);
 
   let [sendReview] = useProduct((state) => [state.sendReview]);
 
   useEffect(() => {
     setUser(JSON.parse(localStorage.getItem("user")));
   }, []);
+
+  useEffect(() => {
+    comentarios.forEach((c) => {
+      if (c.usuario._id === user.id) setAbleToComment(false);
+    });
+  }, [user]);
 
   function handleInputChange(e) {
     setReview(e.target.value);
@@ -28,6 +35,12 @@ export default function ProductReviews(props) {
       producto: _id,
     };
     sendReview(newReview);
+  }
+
+  function returnMessage() {
+    if (user && user.id && !ableToComment)
+      return "Ya has reseñado este producto";
+    if (!user) return "Debes estar logueado para poder dejar un comentario";
   }
 
   return (
@@ -51,7 +64,7 @@ export default function ProductReviews(props) {
             </span>
 
             <hr className={styles.hr} />
-            {user && user.name ? (
+            {user && user.id && ableToComment ? (
               <div className="">
                 <h3 className={`${styles.fColor}  fw-bold fs-5`}>
                   Escribe una reseña
@@ -84,32 +97,43 @@ export default function ProductReviews(props) {
                 </button>
               </div>
             ) : (
-              "Debes estar logueado para poder dejar un comentario"
+              <p>{returnMessage()}</p>
             )}
             <div className="mt-5">
-              {comentarios.length
-                ? comentarios.map((r) => (
-                    <div className="mt-5">
-                      <div className="d-sm-flex align-items-end mt-0">
-                        <h1 className={`${styles.fColor} fw-bold fs-3 me-3`}>
-                          {r.usuario.name /* + " " + r.usuario.surname */}
-                        </h1>
-                        <ReactStars
-                          count={5}
-                          size={20}
-                          value={r.puntuacion}
-                          edit={false}
-                          activeColor="#ffd700"
-                          className={styles.stars}
-                        />
-                      </div>
-                      <div>
-                        <span className={`${styles.span}`}>{r.fecha.slice(0, 10)}</span>
-                        <p className={`${styles.span} pt-3`}>{r.comentario}</p>
-                      </div>
+              {comentarios.length ? (
+                comentarios.map((r) => (
+                  <div className="mt-5">
+                    <div className="d-sm-flex align-items-end mt-0">
+                      <h1 className={`${styles.fColor} fw-bold fs-3 me-3`}>
+                        {`${r.usuario.name[0].toUpperCase()}${r.usuario.name.slice(
+                          1
+                        )} ${r.usuario.surname[0].toUpperCase()}${r.usuario.surname.slice(
+                          1
+                        )}`}
+                      </h1>
+                      <ReactStars
+                        count={5}
+                        size={20}
+                        value={r.puntuacion}
+                        edit={false}
+                        activeColor="#ffd700"
+                        className={styles.stars}
+                      />
                     </div>
-                  ))
-                : "Se el primero en comentar algo de este producto"}
+                    <div>
+                      <span className={`${styles.span}`}>
+                        {r.fecha.slice(0, 10)}
+                      </span>
+                      <p className={`${styles.span} pt-3`}>{r.comentario}</p>
+                    </div>
+                  </div>
+                ))
+              ) : (
+                <>
+                  <hr />
+                  <p>"Se el primero en comentar algo de este producto"</p>
+                </>
+              )}
             </div>
           </div>
         </div>
