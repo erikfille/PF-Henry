@@ -40,7 +40,7 @@ const init = async () => {
     plugin: HapiCors,
     options: {
       methods: ["PUT", "POST", "DELETE", "GET"],
-      origins: ["pf-henry-35rtlcz5e-erikfille.vercel.app"],
+      origins: ["https://pf-henry-35rtlcz5e-erikfille.vercel.app"],
     },
   });
 
