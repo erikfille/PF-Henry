@@ -70,7 +70,7 @@ export default function ProductCart(props) {
 						edit={false}
 						activeColor="#ffd700"
 					/>
-					<p className={`${style.rating} mb-0`}>( {props.rating.toFixed(1)} )</p>
+					<p className={`${style.rating} mb-0`}>({props.rating && props.rating.toFixed(1)} )</p>
 				</div>
 				<p className={style.p}>{props.precio} U$D</p>
 			</div>

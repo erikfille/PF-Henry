@@ -13,6 +13,16 @@
 	align-items: center;
 }
 
+.imgMascota {
+  height: 130px;
+	width: 130px;
+	border-radius: 50%;
+	box-shadow: var(--body_boxshadow);
+  background-size:cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
 .name {
 	font-size: 40px;
 	font-weight: 700;
