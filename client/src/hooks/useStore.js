@@ -288,4 +288,4 @@ export const usePets = create((set, get) => ({
   setPets: (pets) => {
     set((state) => ({ pets: pets }));
   },
-}));
+})); 
