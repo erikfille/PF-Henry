@@ -1,4 +1,5 @@
 import { create } from "zustand";
+import { useModal } from "./useStore";
 import axios from "axios";
 
 export const useLogin = create((set, get) => ({
@@ -80,7 +81,7 @@ export const useLogin = create((set, get) => ({
     }
   },
   receiveToken(token, user) {
-    const { receiveLogin } = get();
+    const { loginHi } = get();
     console.log("receiveToken: ", user);
     let userData = {
       id: user._id || user.id,
@@ -92,12 +93,24 @@ export const useLogin = create((set, get) => ({
     localStorage.setItem("token", token);
     localStorage.setItem("user", JSON.stringify(userData));
     axios.defaults.headers.common["Authorization"] = "Bearer " + token;
-    receiveLogin(userData);
+    loginHi(userData);
+  },
+  loginHi(user) {
+    const { receiveLogin } = get();
+    const modal = useModal.getState().setModalInfo;
+    const modalState = useModal.getState().modalInfoState;
+
+    modal(
+      "¡Login Exitoso!",
+      `¡Bienvenido a PetApp, ${user.name}!`,
+      receiveLogin,
+      [user]
+    );
   },
   receiveLogin(user) {
-    if (user.rol == "admin") {
+    if (user.rol === "admin") {
       window.location.assign("/admin");
-    } else if (user.rol == "provider") {
+    } else if (user.rol === "provider") {
       window.location.assign("/");
     } else {
       window.location.assign("/tienda");
