@@ -110,7 +110,7 @@ export const useLogin = create((set, get) => ({
     } else if (user.rol === "provider") {
       window.location.href = "/";
     } else {
-      window.location..href = "/tienda";
+      window.location.href = "/tienda";
     }
   },
   logoutUser() {
