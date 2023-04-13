@@ -283,7 +283,12 @@ export const usePets = create((set, get) => ({
     set((state) => ({ petDetailModal: state.petDetailModal ? false : true }));
   },
   addPet: async (formData, user) => {
+    try{
     let response = await axios.post(`/mascotas/${user.id}`, formData);
+    console.log(response)} catch(err){
+      console.log(err)
+    }
+                  
   },
   setPets: (pets) => {
     set((state) => ({ pets: pets }));
