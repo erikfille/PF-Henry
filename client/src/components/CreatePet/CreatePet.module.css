@@ -1,0 +1,27 @@
+input, textarea {
+  background-color: var(--body_background) !important;
+  color: var(--body_color) !important;
+  border: 0.5px solid var(--border_color) !important;
+}
+
+textarea {
+  resize: none;
+  height: 8rem !important;
+}
+
+.date {
+  text-align: center;
+  width: 100%;
+  padding: 4px 15px;
+  border-radius: 4px;
+  cursor: default;
+}
+
+.errorSpan {
+  color: red;
+  font-size: 0.8rem;
+}
+
+button:disabled {
+  color: gray;
+}

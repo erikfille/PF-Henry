@@ -7,7 +7,7 @@ const ProductsContainer = ({ product }) => {
 			{typeof product === "object" && product.length ? (
 				product.map((product) => {
 					return (
-						<Link to={`/productos/${product._id}`}>
+						<Link key={product._id} to={`/productos/${product._id}`}>
 							<ProductCard
 								key={product._id}
 								sku={product._id}

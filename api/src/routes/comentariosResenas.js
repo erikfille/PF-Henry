@@ -18,9 +18,17 @@ const createComentarioResenaRoute = [
         // Aca se va a actualizar el campo "comentario" del producto al que se le hace la reseña.
         await ProductoServicio.findByIdAndUpdate(
           request.payload.producto,
-          { comentario: comentarioResena._id },
+          { $push: { comentarios: comentarioResena._id } },
           { new: true }
         );
+
+       // Recalcular el rating del producto y actualizar su valor
+        const producto = await ProductoServicio.findById(request.payload.producto).populate("comentarios");
+        const comentarios = producto.comentarios;
+        const sumaPuntuaciones = comentarios.reduce((acc, comentario) => acc + comentario.puntuacion, 0);
+        const rating = sumaPuntuaciones / comentarios.length;
+        producto.rating = rating;
+        await producto.save();
 
         return h.response(comentarioResena).code(201);
       } catch (error) {
@@ -43,9 +51,14 @@ const createComentarioResenaRoute = [
         const comentariosResenas = await ComentarioResena.find({
           producto: request.params.productoId,
         })
-          .populate("usuario", "name")
+          .populate("usuario", "name surname")
           .populate("producto", "titulo");
-        return h.response(comentariosResenas).code(200);
+
+        return h
+          .response({
+            comentariosResenas: comentariosResenas,
+          })
+          .code(200);
       } catch (error) {
         return h.response(error).code(500);
       }

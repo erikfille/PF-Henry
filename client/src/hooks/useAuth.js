@@ -1,4 +1,5 @@
 import { create } from "zustand";
+import { useModal } from "./useStore";
 import axios from "axios";
 
 export const useLogin = create((set, get) => ({
@@ -11,7 +12,7 @@ export const useLogin = create((set, get) => ({
       let response = await axios.post("/users", userData);
       console.log(response);
       set((state) => ({ user: response.data.user }));
-      receiveToken(response.data.user.token);
+      receiveToken(response.data.user.token, response.data.user);
     } catch (err) {
       console.log(err.message);
     }
@@ -29,7 +30,7 @@ export const useLogin = create((set, get) => ({
         setModal();
         return;
       }
-      receiveToken(response.data.user.token);
+      receiveToken(response.data.user.token, response.data.user);
     } catch (err) {
       console.log(err.message);
     }
@@ -53,7 +54,7 @@ export const useLogin = create((set, get) => ({
       let response = await axios.post("/users/login", userData);
       console.log("Response Login Normal: ", response);
       set((state) => ({ user: response.data.user }));
-      receiveToken(response.data.user.token);
+      receiveToken(response.data.user.token, response.data.user);
     } catch (err) {
       console.log(err.message);
     }
@@ -74,16 +75,16 @@ export const useLogin = create((set, get) => ({
 
       console.log("user with role: ", response.data);
 
-      receiveToken(token);
+      receiveToken(token, response.data);
     } catch (err) {
       console.log(err.message);
     }
   },
-  receiveToken(token) {
-    const { user, receiveLogin } = get();
+  receiveToken(token, user) {
+    const { loginHi } = get();
     console.log("receiveToken: ", user);
     let userData = {
-      id: user._id,
+      id: user._id || user.id,
       name: user.name,
       image: user.image,
       email: user.email,
@@ -92,16 +93,24 @@ export const useLogin = create((set, get) => ({
     localStorage.setItem("token", token);
     localStorage.setItem("user", JSON.stringify(userData));
     axios.defaults.headers.common["Authorization"] = "Bearer " + token;
-    receiveLogin();
-    console.log("localStorageUser: ", JSON.parse(localStorage.getItem("user")));
-    console.log("localStorageToken: ", localStorage.getItem("token"));
+    loginHi(userData);
   },
-  receiveLogin() {
-    const { user } = get();
+  loginHi(user) {
+    const { receiveLogin } = get();
+    const modal = useModal.getState().setModalInfo;
+    const modalState = useModal.getState().modalInfoState;
 
-    if (user.rol == "admin") {
+    modal(
+      "¡Login Exitoso!",
+      `¡Bienvenido a PetApp, ${user.name}!`,
+      receiveLogin,
+      [user]
+    );
+  },
+  receiveLogin(user) {
+    if (user.rol === "admin") {
       window.location.assign("/admin");
-    } else if (user.rol == "provider") {
+    } else if (user.rol === "provider") {
       window.location.assign("/");
     } else {
       window.location.assign("/tienda");
@@ -116,7 +125,7 @@ export const useLogin = create((set, get) => ({
   },
   checkLogin: () => {
     try {
-      const jwt = localStorage.getItem("jwt");
+      const jwt = localStorage.getItem("token");
       const user = JSON.parse(localStorage.getItem("user"));
 
       if (jwt) {

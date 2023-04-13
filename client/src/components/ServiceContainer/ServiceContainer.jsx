@@ -1,6 +1,6 @@
 import { useServices } from "../../hooks/useStore";
 import ServiceCard from "../ServiceCard/ServiceCard";
-import servicesImage from "../../../public/images/service-img.jpg";
+import servicesImage from "../../images/service-img.jpg";
 import Loader from "../Loader/Loader";
 
 const ServiceContainer = () => {

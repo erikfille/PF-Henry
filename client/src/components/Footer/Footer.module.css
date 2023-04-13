@@ -1,5 +1,5 @@
 .footerWrapper {
-    background: url(images/logo-bg-product.png) no-repeat;
+    background: url(src/images/logo-bg-product.png) no-repeat;
     background-position: 75% 50%;
 }
 
@@ -15,7 +15,6 @@
 }
 
 .title {
-    margin-left: 25%;
     color: var(--body_color);
 }
 

@@ -35,10 +35,14 @@ const userSchema = new mongoose.Schema({
   pet: {
     type:String
   },
-  id_mascota:{
+  id_mascota:[{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Mascota',
-  },
+  }],
+  productosComprados: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'productoVendido',
+  }],
   image: {
     type: String,
     required: true

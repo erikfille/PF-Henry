@@ -1,5 +1,6 @@
 .container {
 	border-radius: 10px;
+	background-color: var(--body_background);
 }
 
 .container > img {
@@ -12,11 +13,19 @@ hr {
 
 a,
 .span {
-	color: #777777;
+	color: var(--body_color);
+}
+
+.fColor {
+	color: var(--body_color);
 }
 
 .inputNumber {
 	width: 3rem;
+	text-align: center;
+	color: var(--body_color);
+	background-color: var(--body_background);
+	border: solid 2px var(--body_color);
 }
 
 .resena {

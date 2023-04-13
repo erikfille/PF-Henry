@@ -10,6 +10,10 @@
 	overflow: hidden;
 }
 
+.buttonGoogle:hover {
+	color: var(--color-0CC5BA) !important;
+}
+
 .link {
 	font-weight: bold;
 	color: var(--color-0CC5BA);
@@ -17,4 +21,12 @@
 
 .link:hover {
 	color: var(--color-3b4149);
+}
+
+.fColor {
+	color: var(--body_color);
+}
+
+.button:disabled {
+  color: gray;
 }

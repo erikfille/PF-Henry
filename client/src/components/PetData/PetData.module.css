@@ -1,40 +1,58 @@
 .pet {
-    width: 400px;
+	width: 400px;
 }
 
 .circle {
-    background-color: var(--color-0CC5BA);
-    height: 130px;
-    width: 130px;
-    border-radius: 50%;
-    box-shadow: var(--body_boxshadow);
-    display: flex;
-    justify-content: center;
-    align-items: center;
+	background-color: var(--color-0CC5BA);
+	height: 130px;
+	width: 130px;
+	border-radius: 50%;
+	box-shadow: var(--body_boxshadow);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.imgMascota {
+  height: 130px;
+	width: 130px;
+	border-radius: 50%;
+	box-shadow: var(--body_boxshadow);
+  background-size:cover;
+  background-repeat: no-repeat;
+  background-position: center;
 }
 
 .name {
-    font-size: 40px;
-    font-weight: 700;
-    color: var(--body_color);
+	font-size: 40px;
+	font-weight: 700;
+	color: var(--body_color);
 }
 
 .especie,
 .nac {
-    font-size: 20px;
-    font-weight: 500;
-    color: var(--body_color);
+	font-size: 20px;
+	font-weight: 500;
+	color: var(--body_color);
 }
 
 .info {
-    border: none;
-    background-color: transparent;
-    color: var(--color-0CC5BA);
-    font-weight: 600;
+	border: none;
+	background-color: transparent;
+	color: var(--color-0CC5BA);
+	font-weight: 600;
 }
 
 .info:hover {
-    color: var(--color-0CC5BA);
-    font-weight: 800;
+	color: var(--color-0CC5BA);
+	font-weight: 800;
 }
 
+@media (max-width: 768px) {
+	.pet {
+		justify-content: center;
+	}
+	.detail {
+		text-align: center;
+	}
+}

@@ -1,8 +1,7 @@
 import { useState, useEffect } from "react";
 import validation from "./validation";
-import CreatableSelect from "react-select/creatable";
 import Select from "react-select";
-import UploadWidget from "./UploadWidget";
+import UploadWidget from "../UploadWidget/UploadWidget";
 import { useProduct } from "../../hooks/useStore";
 import axios from "axios";
 
@@ -38,7 +37,6 @@ export default function CreateProduct() {
     state.categories,
     state.getCategories,
   ]);
-
 
   useEffect(() => {
     // Trae todas las categorias de producto desde el back y guarda las de productos y las de servicios
@@ -104,7 +102,6 @@ export default function CreateProduct() {
         [selected.value]: selected.label,
       });
     }
-    console.log(selected);
   }
 
   async function handleSubmit(e) {
@@ -317,7 +314,8 @@ export default function CreateProduct() {
                     htmlFor="exampleFormControlTextarea1"
                     className="form-label fw-bold"
                   >
-                    Agregá una imagen de tu {productData.tipo === "Producto" ? "producto" : "servicio"}
+                    Agregá una imagen de tu{" "}
+                    {productData.tipo === "Producto" ? "producto" : "servicio"}
                   </label>
                   <UploadWidget onUpload={onUpload} />
                   <br />
@@ -326,7 +324,7 @@ export default function CreateProduct() {
                       <img
                         src={productData.imagen}
                         alt="Uploaded"
-                        width="30%"
+                        width="10%"
                       />
                     </div>
                   )}

@@ -7,7 +7,9 @@ import axios from "axios";
 import Footer from "./components/Footer/Footer";
 import Cart from "./components/Cart/Cart";
 import ModalConsultaGenerico from "./components/ModalGenerico/ModalConsultaGenerico";
-import { useProduct } from "../src/hooks/useStore";
+import ModalCreatePet from "./components/ModalCreatePet/ModalCreatePet";
+import ModalPetDetail from "./components/ModalPetDetail/ModalPetDetail";
+import ModalInfoGenerico from "./components/ModalInfoGenerico/ModalInfoGenerico";
 
 //? Views
 import Home from "./Views/Home/Home";
@@ -23,10 +25,10 @@ import Detail from "./Views/ProductDetail/Detail";
 import UserProfile from "./Views/UserProfile/UserProfile";
 import CheckOut from "./Views/Checkout/Checkout";
 import ProviderDashboard from "./Views/ProviderDashboard/ProviderDashboard";
-
+import PayPal from "./Views/Checkout/PayPal";
 //? Styles
 import "./App.css";
-
+import { useModal } from "./hooks/useStore";
 
 axios.defaults.baseURL = "http://localhost:3000";
 
@@ -47,16 +49,20 @@ function App() {
         <Route path="/tienda" element={<Tienda />} />
         <Route path="/contacto" element={<Contacto />} />
         <Route path="/servicios" element={<Servicios />} />
+        <Route path="/paypal" element={<PayPal />} />
         <Route path="/productos/:productId" element={<Detail />} />
         <Route path="/crearProducto" element={<CreateProduct />} />
         <Route path="/perfil" element={<UserProfile />}>
-          <Route path="/perfil/:userEmail" element={<UserProfile />} />
+          <Route path="/perfil/:userId" element={<UserProfile />} />
         </Route>
         <Route path="/checkout" element={<CheckOut />} />
         <Route path="/provider/:providerId" element={<ProviderDashboard />} />
       </Routes>
       <Cart />
       <ModalConsultaGenerico />
+      <ModalCreatePet />
+      <ModalPetDetail />
+      <ModalInfoGenerico />
       {location.pathname !== "/login" && <Footer /> &&
         location.pathname !== "/signup" && <Footer />}
     </div>

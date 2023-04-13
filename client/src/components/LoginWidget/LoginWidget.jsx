@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useLogin } from "../../hooks/useAuth";
 import ModalRolSelector from "../ModalRolSelector/ModalRolSelector";
 import styles from "./LoginWidget.module.css";
-import UploadWidget from "../CreateProduct/UploadWidget";
+import UploadWidget from "../UploadWidget/UploadWidget";
 
 // Google Auth
 import { gapi } from "gapi-script";
@@ -20,9 +20,6 @@ export default function LoginWidget(props) {
     state.signUp,
   ]);
 
-  // Google Auth Data
-  const [user, setUser] = useState({});
-
   const [userData, setUserData] = useState({
     name: "",
     surname: "",
@@ -30,12 +27,14 @@ export default function LoginWidget(props) {
     password: "",
     verifyPassword: "",
     image: "",
-    rol: "",
+    rol: "customer",
   });
 
   // Own Auth Data
   const [errors, setErrors] = useState({
-    user: "",
+    name: "",
+    surname: "",
+    email: "",
     password: "",
   });
 
@@ -53,6 +52,7 @@ export default function LoginWidget(props) {
   }, []);
 
   const onSuccess = async (response) => {
+	console.log("Google User", response.profileObj)
     // Esto mando al loguear por google.
     // Se verifica el mail y la contraseña y si no existen en la db, se crea el usuario y se devuelve, sin el rol.
     let user = {
@@ -87,9 +87,12 @@ export default function LoginWidget(props) {
         [e.target.name]: e.target.value,
       })
     );
-
-    console.log(userData);
   }
+
+  // To disabled or not button
+  let isComplete = childProps.type === "signup" ?
+    Object.values(errors).length ? true : false :
+    errors.email || errors.password || !userData.email || !userData.password? true : false
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -117,20 +120,19 @@ export default function LoginWidget(props) {
   }
 
   return (
-    <div className="container d-flex flex-column align-items-center">
-      <h1 className="fs-3 fw-bold">¡Bienvenido!</h1>
-      <p className="fs-6 fw-light">La mejor forma de cuidar a tu mascota</p>
-      <div className="col-10 col-sm-8 col-md-8 col-xl-5">
-        <form
-          className="d-flex flex-column align-items-center"
-          onSubmit={handleSubmit}
-        >
+    <div className="container d-flex flex-column align-items-center mt-5">
+      <h1 className={`${styles.fColor} fs-3 fw-bold`}>¡Bienvenido!</h1>
+      <p className={`${styles.fColor} fs-6 fw-light`}>
+        La mejor forma de cuidar a tu mascota
+      </p>
+      <div className="col-10 col-sm-8 col-md-8 col-xl-8">
+        <form className="d-flex flex-column" onSubmit={handleSubmit}>
           {childProps.type === "signup" && (
-            <>
+            <div className="d-flex gap-10">
               <div className="mb-3 w-100">
                 <label
                   htmlFor="exampleInputEmail1"
-                  className="form-label fw-bold"
+                  className={`${styles.fColor} form-label fw-bold`}
                 >
                   Nombre
                 </label>
@@ -138,17 +140,17 @@ export default function LoginWidget(props) {
                   placeholder="Nombre"
                   id="name"
                   name="name"
-                  value={userData.user}
+                  value={userData.name}
                   onChange={handleInputChange}
-                  className={`form-control ${errors.nombre && "danger"}`}
+                  className={`form-control ${errors.name && "is-invalid"}`}
                   type="text"
                 ></input>
-                {errors.name && <p>{errors.name}</p>}
+                {errors.name && <p className="text-danger text-center">{errors.name}</p>}
               </div>
               <div className="mb-3 w-100">
                 <label
                   htmlFor="exampleInputEmail1"
-                  className="form-label fw-bold"
+                  className={`${styles.fColor} form-label fw-bold`}
                 >
                   Apellido
                 </label>{" "}
@@ -158,94 +160,80 @@ export default function LoginWidget(props) {
                   name="surname"
                   value={userData.surname}
                   onChange={handleInputChange}
-                  className={`form-control ${errors.apellido && "danger"}`}
+                  className={`form-control ${errors.surname && "is-invalid"}`}
                   type="text"
                 ></input>
-                {errors.surname && <p>{errors.surname}</p>}
+                {errors.surname && <p className="text-danger text-center">{errors.surname}</p>}
               </div>
-            </>
+            </div>
           )}
-          <div className="mb-3 w-100">
-            <label htmlFor="email" className="form-label fw-bold">
-              Email
-            </label>
-            <input
-              placeholder="Ingresa tu email"
-              id="email"
-              className={`form-control ${errors.email && "danger"}`}
-              name="email"
-              value={userData.user}
-              e
-              onChange={handleInputChange}
-              type="email"
-              aria-describedby="emailHelp"
-            />
-            {errors.mail && <p>{errors.mail}</p>}
-          </div>
-
-          <div className="mb-3 w-100">
-            <label
-              htmlFor="exampleInputPassword1"
-              className="form-label fw-bold"
-            >
-              Contraseña
-            </label>
-            <input
-              placeholder="Ingresa tu contraseña"
-              id="password"
-              name="password"
-              type="password"
-              value={userData.password}
-              onChange={handleInputChange}
-              className={`form-control ${errors.password && "danger"}`}
-            />{" "}
-          </div>
-          {childProps.type === "signup" && (
+          <div className="d-flex gap-10">
             <div className="mb-3 w-100">
               <label
-                htmlFor="exampleInputPassword1"
-                className="form-label fw-bold"
+                htmlFor="email"
+                className={`${styles.fColor} form-label fw-bold`}
               >
-                Verificar Contraseña
+                Email
               </label>
               <input
-                placeholder="Verifica tu contraseña"
-                id="verifyPassword"
-                name="verifyPassword"
-                type="password"
-                value={userData.verifyPassword}
+                placeholder="Ingresa tu email"
+                id="email"
+                className={`form-control ${errors.email && "is-invalid"}`}
+                name="email"
+                value={userData.user}
                 onChange={handleInputChange}
-                className={`form-control ${errors.password && "danger"}`}
+                type="email"
+                aria-describedby="emailHelp"
               />
-              {errors.password && <p>{errors.password}</p>}
+              {errors.email && <p className="text-danger text-center">{errors.email}</p>}
             </div>
-          )}
-          {childProps.type === "signup" && (
             <div className="mb-3 w-100">
-              <div className="widgetButton">
+              <label
+                htmlFor="password"
+                className={`${styles.fColor} form-label fw-bold`}
+              >
+                Contraseña
+              </label>
+              <input
+                placeholder="Ingresa tu contraseña"
+                id="password"
+                name="password"
+                type="password"
+                value={userData.password}
+                onChange={handleInputChange}
+                className={`form-control ${!errors.verifyPassword && !errors.password && userData.password ? "is-valid" : errors.password && "is-invalid"}`}
+              />{errors.password && <p className="text-danger text-center">{errors.password}</p>}
+            </div>
+          </div>
+          <div className="d-flex gap-10">
+          {childProps.type === "signup" && (
+              <div className="mb-3 w-100">
                 <label
-                  htmlFor="exampleFormControlTextarea1"
+                  htmlFor="verifyPassword"
                   className="form-label fw-bold"
                 >
-                  Agregá una imagen de Perfil
+                  Verificar Contraseña
                 </label>
-                <UploadWidget onUpload={onUpload} />
-                <br />
-                {userData.image && (
-                  <div className="uploadedImage">
-                    <img src={userData.image} alt="Uploaded" width="30%" />
-                  </div>
-                )}
+                <input
+                  placeholder="Verifica tu contraseña"
+                  id="verifyPassword"
+                  name="verifyPassword"
+                  type="password"
+                  value={userData.verifyPassword}
+                  onChange={handleInputChange}
+                  className={`form-control ${!errors.verifyPassword && !errors.password && userData.password ? "is-valid" : errors.verifyPassword && "is-invalid"}`}
+                />
+                {errors.verifyPassword && <p className="text-danger text-center">{errors.verifyPassword}</p>}
               </div>
-            </div>
-          )}
-          {childProps.type === "signup" && (
-            <div className=" w-100 mb-3">
-              <label
-                htmlFor="exampleInputPassword1"
-                className="form-label fw-bold"
-              >
-                ¿Que querés hacer con la App?
+            )}
+            {childProps.type === "signup" && (
+              <div className=" w-100 mb-3">
+                <label
+                  htmlFor="exampleInputPassword1"
+                  className="form-label fw-bold"
+                >
+                  ¿Que querés hacer?
+                </label>
                 <select
                   name="rol"
                   id="rol"
@@ -259,10 +247,33 @@ export default function LoginWidget(props) {
                   <option value="customer">Quiero Comprar</option>
                   <option value="provider">Quiero Vender</option>
                 </select>
-              </label>
+              </div>
+            )}
+
+          </div>
+          {childProps.type === "signup" && (
+            <div className="mb-3 w-100">
+              <div className="widgetButton">
+                <label
+                  htmlFor="exampleFormControlTextarea1"
+                  className={`${styles.fColor} form-label fw-bold`}
+                >
+                  Agregá una imagen de Perfil
+                </label>
+                <UploadWidget
+                  onUpload={onUpload}
+                  style={{ width: "50px", height: "50px" }}
+                />
+                <br />
+                {userData.image && (
+                  <div className="uploadedImage">
+                    <img src={userData.image} alt="Uploaded" width="30%" />
+                  </div>
+                )}
+              </div>
             </div>
           )}
-          <button className="button w-100 mb-3">{childProps.button}</button>
+          <button className={`button w-100 mb-3 ${styles.button}`} disabled={isComplete}>{childProps.button}</button>
           <div className="w-100">
             <GoogleLogin
               className={`mb-3 w-100 ${styles.buttonGoogle}`}
@@ -274,8 +285,8 @@ export default function LoginWidget(props) {
           </div>
         </form>
       </div>
-      <div className="text-center">
-        <p>{childProps.message}</p>
+      <div className="text-center mb-5">
+        <p className={styles.fColor}>{childProps.message}</p>
         <a className={styles.link} href={childProps.anchorPath}>
           <span>{childProps.accountAnchor}</span>
         </a>

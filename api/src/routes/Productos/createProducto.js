@@ -6,7 +6,7 @@ const createProductosRoutes = [
     method: "POST",
     path: "/crearProducto",
     options: {
-      auth: 'jwt', // Agrega autenticación jwt
+      // auth: 'jwt', // Agrega autenticación jwt
       handler: async (request, h) => {
         try {
           const {
@@ -21,7 +21,7 @@ const createProductosRoutes = [
             activo,
             categoria,
             proveedor,
-            comentario
+            comentarios
           } = request.payload;
   
           // Buscar la categoría por su nombre
@@ -43,7 +43,7 @@ const createProductosRoutes = [
             activo,
             categoria: categoriaEncontrada._id,
             proveedor,
-            comentario
+            comentarios
           });
   
           const productoServicioGuardado = await nuevoProductoServicio.save();

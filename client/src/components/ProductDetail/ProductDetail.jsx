@@ -2,8 +2,12 @@ import React, { useState } from "react";
 import ReactStars from "react-stars";
 import { useProduct } from "../../hooks/useStore";
 import styles from "./ProductDetail.module.css";
+import Zoom from "react-img-hover-zoom";
+import {BiArrowBack} from 'react-icons/bi';
+import { NavLink } from "react-router-dom";
 
 export default function ProductDetail(props) {
+
   const {
     _id,
     titulo,
@@ -35,13 +39,24 @@ export default function ProductDetail(props) {
   return (
     <div className="container mb-5">
       <div className="row gx-5">
-        <div className={`${styles.container} col-12 col-md-6 bg-white d-flex justify-content-center mt-5`}>
-          <img src={imagen} alt="productImage" className="img-fluid p-lg-4" />
+        <div >
+          <NavLink className={`${styles.resena} d-flex justify-content-end align-items-center gap-1 pt-3`} to="/tienda"><BiArrowBack />Volver</NavLink>
         </div>
-        <div className={`${styles.container} container col-12 col-md-6 bg-white py-4 mt-5`}>
-          <h1 className="fw-bold">{titulo}</h1>
+        <div className={`${styles.container} col-12 col-md-6 d-flex justify-content-center mt-3`}>
+          <Zoom
+            img={imagen}
+            zoomScale={3}
+            width={600}
+            height={600}
+            style={{}}
+            className=""
+          />
+          {/* <img src={imagen} alt="productImage" className="img-fluid p-lg-4" /> */}
+        </div>
+        <div className={`${styles.container} container col-12 col-md-6 py-4 mt-3`}>
+          <h1 className={`${styles.fColor} fw-bold`}>{titulo}</h1>
           <hr />
-          <h3 className="fw-bold fs-5">AR$ {precio}</h3>
+          <h3 className={`${styles.fColor} fw-bold fs-5`}>$ {precio}</h3>
           <ReactStars
             count={5}
             size={20}
@@ -53,7 +68,7 @@ export default function ProductDetail(props) {
             Escribe una reseña
           </a>
           <hr />
-          <h3 className="fw-bold fs-5">Descripción:</h3>
+          <h3 className={`${styles.fColor} fw-bold fs-5`}>Descripción:</h3>
           {descripcion ? (
             <p className="fw-light">
               <small>{descripcion}</small>
@@ -65,7 +80,7 @@ export default function ProductDetail(props) {
           )}
           <hr />
           <div className="mb-3">
-            <span className="fw-bold me-3 fs-5">Categoría:</span>
+            <span className={`${styles.fColor} fw-bold me-3 fs-5`}>Categoría:</span>
             {categoria ? (
               <span className={`fw-bold ${styles.span}`}>
                 {categoria.nombre}
@@ -77,12 +92,12 @@ export default function ProductDetail(props) {
             )}
           </div>
           <div className="mb-3">
-            <span className="fw-bold me-3 fs-5">Disponibilidad:</span>
+            <span className={`${styles.fColor} fw-bold me-3 fs-5`}>Disponibilidad:</span>
             <span className={`fw-bold ${styles.span}`}>{stock}</span>
           </div>
           <div className="d-flex justify-content-between mb-3">
             <div>
-              <span className="fw-bold me-3 fs-5">Cantidad:</span>
+              <span className={`${styles.fColor} fw-bold me-3 fs-5`}>Cantidad:</span>
               <input
                 placeholder="Cantidad"
                 type="number"

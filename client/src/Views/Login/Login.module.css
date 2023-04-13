@@ -1,9 +1,33 @@
 .formContainer,
 .loginContainer {
-	overflow: hidden;
-	height: 100vh;
+  overflow: hidden;
+	background-color: var(--body_background);
 }
 
 .imgContainer {
-	height: 100vh;
+  overflow: hidden;
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-position: center center;
+}
+
+.fColor {
+	color: var(--body_color);
+	font-size: 26px;
+}
+
+.fColor:hover {
+	color: var(--color-0CC5BA);
+}
+
+@media screen and (max-width: 700px) {
+	.fColor {
+		font-size: 12px;
+	}
+}
+
+@media screen and (max-width: 992px) {
+	.fColor {
+		font-size: 12px;
+	}
 }

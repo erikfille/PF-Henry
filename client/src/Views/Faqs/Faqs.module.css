@@ -6,7 +6,6 @@
 
 .questionContainer {
 	border: 2px solid #0cc5ba !important;
-	border-top: 2px solid #0cc5ba;
 	border-radius: 10px !important;
 }
 
@@ -19,11 +18,10 @@
 	color: var(--body_color);
 }
 
-.button {
-	color: var(--body_color) !important;
-}
-
 .response {
 	color: var(--body_color) !important;
+	background-color: var(--body_background);
+	border-bottom-left-radius: 6px;
+	border-bottom-right-radius: 6px;
 }
 

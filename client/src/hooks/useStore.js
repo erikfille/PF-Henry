@@ -11,6 +11,7 @@ export const useProduct = create((set, get) => ({
   cartProducts: [],
   storePage: 1,
   storeMaxPage: 1,
+  productReviews: [],
   getProducts: async () => {
     const { maxPage } = get();
 
@@ -27,7 +28,9 @@ export const useProduct = create((set, get) => ({
   getCategories: async () => {
     try {
       let response = await axios.get("/categorias");
-      let categorias = response.data.categorias;
+      let categorias = [
+        ...new Set(response.data.categorias.map((c) => c.nombre)),
+      ];
       set((state) => ({ categories: categorias }));
     } catch (err) {
       console.log(err);
@@ -81,12 +84,17 @@ export const useProduct = create((set, get) => ({
     }
   },
   setCartAdd: async (productId, quantity, stock) => {
-    const { cartProducts, saveCartToStorage } = get();
+    const { saveCartToStorage } = get();
+
+    let savedCart = JSON.parse(window.localStorage.getItem("cart"));
+
+    let cartProducts = savedCart;
 
     let repeatedProduct = cartProducts.find((p) => p._id === productId);
 
-    if (repeatedProduct !== undefined) {
+    if (repeatedProduct) {
       repeatedProduct.quantity = quantity;
+      set((state) => ({ cartProducts: cartProducts }));
     } else {
       let response = await axios
         .get(`/product-detail/${productId}`)
@@ -102,9 +110,11 @@ export const useProduct = create((set, get) => ({
   setCartRemove: (productId) => {
     const { cartProducts, saveCartToStorage } = get();
     let filteredProducts = cartProducts.filter((p) => p._id !== productId);
-    set((state) => ({
-      cartProducts: filteredProducts,
-    }));
+    if (cartProducts.length > 1) {
+      set((state) => ({
+        cartProducts: filteredProducts,
+      }));
+    } else set(() => ({ cartProducts: [] }));
     saveCartToStorage();
   },
   setActiveCart: () => {
@@ -119,6 +129,10 @@ export const useProduct = create((set, get) => ({
   saveCartToStorage: () => {
     const { cartProducts } = get();
     window.localStorage.setItem("cart", JSON.stringify(cartProducts));
+  },
+  deleteCartContent: () => {
+    set((state) => ({ cartProducts: [] }));
+    window.localStorage.setItem("cart", JSON.stringify(""));
   },
   maxPage: () => {
     const { allProducts } = get();
@@ -138,18 +152,65 @@ export const useProduct = create((set, get) => ({
   setTotalPrice: (total) => {
     set((state) => ({ totalPrice: total }));
   },
+  // getReviews: async (productId) => {
+  //   let response = await axios.get(`/comentariosResenas/${productId}`);
+  //   let reviewsToFormat = response.data.forEach((r) => {
+  //     const fecha = new Date("2023-04-03T18:17:35.991Z");
+  //     const dia = fecha.getUTCDate();
+  //     const mes = fecha.getUTCMonth() + 1;
+  //     const anio = fecha.getUTCFullYear();
+  //     const fechaFormateada = `${dia.toString().padStart(2, "0")}/${mes
+  //       .toString()
+  //       .padStart(2, "0")}/${anio.toString()}`;
+  //     return (r.fecha = fechaFormateada);
+  //   });
+  //   set((state) => ({ productReviews: response.data }));
+  // },
+  sendReview: (obj) => {
+    try {
+      axios.post("/crearComentarioResena", obj);
+      return true
+    } catch (err) {
+      console.log(err);
+    }
+  },
+  updateStock: async (cartProducts) => {
+    let promisifiedUpdate = [];
+    cartProducts.forEach((p) => {
+      promisifiedUpdate.push(
+        axios.get(`/product-detail/${p.id}`).then((response) => {
+          console.log("Stock Previo: ", response.data.stock);
+          console.log("Cantidad a descontar: ", p.quantity);
+          let stock = response.data.stock - p.quantity;
+          axios.put(`/stock/${p.id}`, {
+            stock: stock,
+          });
+        })
+      );
+    });
+    await Promise.all(promisifiedUpdate);
+  },
 }));
 
 export const useModal = create((set) => ({
   modalState: false,
   modalProps: {},
   actionArgs: {},
+  modalInfoState: false,
+  modalInfoProps: {},
+  modalInfoActionArgs: {},
   setModal: (title, text, action, args) => {
     if (title && text && action)
       set((state) => ({ modalProps: { title, text, action } }));
     if (args) set((state) => ({ actionArgs: args }));
 
     set((state) => ({ modalState: state.modalState ? false : true }));
+  },
+  setModalInfo: (title, text, action, args) => {
+    if (title && text && action)
+      set((state) => ({ modalInfoProps: { title, text, action } }));
+    if (args) set((state) => ({ modalInfoActionArgs: args }));
+    set((state) => ({ modalInfoState: state.modalInfoState ? false : true }));
   },
 }));
 
@@ -200,17 +261,31 @@ export const useServices = create((set, get) => ({
 
 export const useUser = create((set, get) => ({
   userInfo: {},
-  pets: {},
   compras: {},
-  getUserInfo: async (email) => {
-    let response = await axios.post(`/users/${email}`);
-    console.log(response.data);
+  getUserInfo: async (id) => {
+    let response = await axios.get(`/users/${id}`);
     set((state) => ({ userInfo: response.data }));
   },
-  getPets: async (email) => {
-    set((state) => ({ pets: response.data }));
+}));
+
+export const usePets = create((set, get) => ({
+  pets: [],
+  selectedPet: {},
+  petAddModal: false,
+  petDetailModal: false,
+  setPetAddModal: () => {
+    set((state) => ({ petAddModal: state.petAddModal ? false : true }));
   },
-  getCompras: async (email) => {
-    set((state) => ({ compras: response.data }));
+  setPetDetailModal: (petInfo) => {
+    if (petInfo) {
+      set((state) => ({ selectedPet: petInfo }));
+    }
+    set((state) => ({ petDetailModal: state.petDetailModal ? false : true }));
+  },
+  addPet: async (formData, user) => {
+    let response = await axios.post(`/mascotas/${user.id}`, formData);
+  },
+  setPets: (pets) => {
+    set((state) => ({ pets: pets }));
   },
 }));

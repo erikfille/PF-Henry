@@ -4,7 +4,7 @@ import style from "./Cart.module.css";
 import { useState, useEffect } from "react";
 import { useProduct } from "../../hooks/useStore";
 import { NavLink } from "react-router-dom";
-import { v4 as uuidv4 } from 'uuid';
+import { v4 as uuidv4 } from "uuid";
 
 export default function Cart() {
   const [isOpen, setIsOpen] = useState(false); // El boton de CART del header debe modificar este estado. inicalmente debe estar en False.
@@ -25,6 +25,15 @@ export default function Cart() {
   ]);
 
   useEffect(() => {
+
+    let cart = JSON.parse(window.localStorage.getItem("cart"))
+
+    if(!cart) {
+      window.localStorage.setItem("cart", JSON.stringify([]))
+    }
+  })
+
+  useEffect(() => {
     setIsOpen(cartState);
   }, [cartState]);
 
@@ -38,28 +47,23 @@ export default function Cart() {
     }
   }, [cartProducts]);
 
-	//? Genero ID de la orden de compra para usar con mp en checkout
-	const [ordenId, setOrdenId] = useState(null);
-
-  	const handleConfirmOrder = () => {
-    const newOrdenId = uuidv4();
-    setOrdenId(newOrdenId);
-    // ? Dice chatgpt :aquí puedes hacer otras cosas con el ID, como guardarlo en una base de datos o enviarlo a un servidor
-  };
-
-	return (
-		<>
-			<div className={`${style.shoppingCart} ${isOpen ? style.show : style.hidden}`}>
-				<div className="d-flex justify-content-end">
-					<button onClick={() => setActiveCart()} className="button">
-						Cerrar
-					</button>
-				</div>
+  return (
+    <>
+      <div
+        className={`${style.shoppingCart} ${
+          isOpen ? style.show : style.hidden
+        }`}
+      >
+        <div className="d-flex justify-content-end">
+          <button onClick={() => setActiveCart()} className="button">
+            Cerrar
+          </button>
+        </div>
         <div
           className={`${style.titleCart} d-flex flex-column align-items-center my-5 gap-2`}
         >
           <img
-            src="images/logo-pet.png"
+            src="src/images/logo-pet.png"
             alt="logo-pet"
             style={{ width: "30px", height: "30px" }}
           />
@@ -68,9 +72,9 @@ export default function Cart() {
 
         <div className={style.imgBg}>
           <img
-            src="images/logo-bg-product.png"
+            src="src/images/logo-bg-product.png"
             alt="img-logo"
-            style={{ width: "430px" }}
+            style={{ width: "330px" }}
           />
         </div>
         {!cartProducts.length ? (

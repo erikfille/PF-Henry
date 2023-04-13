@@ -24,9 +24,10 @@ const productoServicioSchema = new Schema({
     type:String
   },
   rating: {
-    type: Number,
-    min: 0,
-    max: 5,
+      type: Number,
+      default: 0,
+ 
+  
   },
   stock: {
     type: Number,
@@ -53,10 +54,12 @@ const productoServicioSchema = new Schema({
     type: Date,
     default: Date.now,
   },
-  comentario: {
+  comentarios: [{
     type: Schema.Types.ObjectId,
     ref: "ComentarioResena"
-  }
+  }]
 });
+
+
 
 module.exports = model("ProductoServicio", productoServicioSchema);
