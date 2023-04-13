@@ -16,14 +16,8 @@ const PetData = (props) => {
     <>
       <div className={`${style.pet} d-flex gap-80`}>
         <div className="d-none d-md-flex flex-column align-items-center gap-3">
-          <div className={style.circle}>
-            {props.imagen ? (
-              <img
-                src={props.imagen}
-                alt="tu vieja en tanga, pero no"
-                style={{ width: "80px", height: "80px" }}
-              />
-            ) : (
+          <div className={props.imagen ? style.imgMascota : style.circle} style={{backgroundImage: `url(${props.imagen})`}}>
+            {!props.imagen && (
               <TbPawFilled style={{ width: "80px", height: "80px" }} />
             )}
           </div>
