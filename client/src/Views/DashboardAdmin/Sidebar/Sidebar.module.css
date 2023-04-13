@@ -14,7 +14,13 @@
     font-weight: 600;
 }
 
+.active {
+    color: var(--color-0CC5BA);
+    font-weight: 600;
+}
+
 .link:hover,
+.active:hover,
 .button:hover {
     color: var(--color-0CC5BA);
 }
