@@ -46,7 +46,7 @@ function App() {
     <div className="App">
       {location.pathname !== "/login" && <Header /> &&
         location.pathname !== "/signup" && <Header /> &&
-        !location.pathname.includes("/dashboard-admin") && <Header />}
+        !location.pathname.includes("/adminDashboard") && <Header />}
 
       <Routes>
         <Route path="/adminDashboard" element={<AdminDashboard />}>

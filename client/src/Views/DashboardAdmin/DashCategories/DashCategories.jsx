@@ -1,16 +1,60 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import style from "./DashCategories.module.css";
 import Sidebar from "../Sidebar/Sidebar";
 import DarkMode from "../../../components/DarkMode/DarkMode";
 import { FaUserCircle } from "react-icons/fa";
 import { FaEdit } from "react-icons/fa";
 import { RiDeleteBin6Line } from "react-icons/ri";
-import { BsCloudCheckFill } from "react-icons/bs";
-import { BsCloudSlashFill } from "react-icons/bs";
+import { BsFillCheckCircleFill } from "react-icons/bs";
+import { BsFillDashCircleFill } from "react-icons/bs";
+import { useAdmin } from "../../../hooks/useStore";
 
 import { Categories } from "../helpers/Categories";
 
 const DashCategories = () => {
+  const [inputSearch, setInputSearch] = useState("");
+
+  const [newCategory, setNewCategory] = useState({
+    nombre: "",
+    tipo: "",
+  });
+
+  const [
+    searchAdminCategories,
+    adminCategories,
+    adminFilteredCategories,
+    addCategory,
+  ] = useAdmin((state) => [
+    state.searchAdminCategories,
+    state.adminCategories,
+    state.adminFilteredCategories,
+    state.addCategory,
+  ]);
+
+  useEffect(() => {
+    if (inputSearch.length > 0) {
+      let result = [];
+      adminCategories.forEach((c) => {
+        c.toLowerCase().includes(inputSearch.toLowerCase()) && result.push(c);
+      });
+      searchAdminCategories(result);
+    } else if (inputSearch.length <= 0) {
+      searchAdminCategories(adminCategories);
+    }
+  }, [inputSearch]);
+
+  const handlerInput = (e) => {
+    setInputSearch(e.target.value);
+  };
+
+  const handleChange = (e) => {
+    setNewCategory({ ...newCategory, [e.target.name]: e.target.value });
+  };
+
+  const newCategorySubmit = () => {
+    addCategory(newCategory);
+  };
+
   return (
     <div className={`${style.dashboardContaier} sidebar col-9 px-5`}>
       <div className="header d-flex mt-5 align-items-center justify-content-between">
@@ -43,9 +87,10 @@ const DashCategories = () => {
                 border: "0.5px solid var(--border_color)",
               }}
               type="search"
-              name=""
-              id=""
+              name="search"
+              id="search"
               placeholder="Ej. Juguete"
+              onChange={handlerInput}
             />
           </div>
         </div>
@@ -57,70 +102,67 @@ const DashCategories = () => {
               <th scope="col">#</th>
               <th scope="col">Nombre</th>
               <th scope="col">Tipo</th>
-              <th scope="col">Estatus</th>
+              <th scope="col">Estado</th>
               <th scope="col">Acciones</th>
             </tr>
           </thead>
           <tbody>
-            {Categories.map((cat) => (
-              <tr>
-                <th scope="row">1</th>
-                <td>{cat.name}</td>
-                <td>{cat.type}</td>
-                <td className="status">
-                  <div
-                    className={`${style.status} ${
-                      cat.status === "activo" ? style.active : style.inactive
-                    } ms-4 mt-2`}
-                  ></div>
-                </td>
-                <td>
-                  <div className="icons d-flex gap-10">
-                    <div className="modificarActivo">
-                      {cat.status === "activo" ? (
-                        <BsCloudSlashFill
-                          style={{
-                            cursor: "pointer",
-                            fill: "var(--color-0CC5BA)",
-                          }}
-                        />
-                      ) : (
-                        <BsCloudCheckFill
-                          style={{
-                            cursor: "pointer",
-                            fill: "var(--color-0CC5BA)",
-                          }}
-                        />
-                      )}
-                    </div>
-                    <div className="delete">
-                      <RiDeleteBin6Line
-                        style={{
-                          cursor: "pointer",
-                          fill: "var(--color-0CC5BA)",
-                        }}
-                      />
-                    </div>
-                    <div className="edit">
-                      <FaEdit
-                        style={{
-                          cursor: "pointer",
-                          fill: "var(--color-0CC5BA)",
-                        }}
-                      />
-                    </div>
-                  </div>
-                </td>
-              </tr>
-            ))}
+            {adminFilteredCategories.length
+              ? adminFilteredCategories.map((cat, idx) => (
+                  <tr>
+                    <th scope="row">{idx + 1}</th>
+                    <td>{cat.nombre}</td>
+                    <td>{cat.tipo}</td>
+                    <td className="status">
+                      <div
+                        className={`${style.status} ${
+                          cat.status === 0 ? style.active : style.inactive
+                        } ms-4 mt-2`}
+                      ></div>
+                    </td>
+                    <td>
+                      <div className="icons d-flex gap-10">
+                        <div className="modificarActivo">
+                          {cat.status === 1 ? (
+                            <BsFillDashCircleFill
+                              title="Desactivar"
+                              style={{
+                                cursor: "pointer",
+                                fill: "var(--color-0CC5BA)",
+                              }}
+                            />
+                          ) : (
+                            <BsFillCheckCircleFill
+                              title="Activar"
+                              style={{
+                                cursor: "pointer",
+                                fill: "var(--color-0CC5BA)",
+                              }}
+                            />
+                          )}
+                        </div>
+                        <div className="edit">
+                          <FaEdit
+                            title="Editar"
+                            style={{
+                              cursor: "pointer",
+                              fill: "var(--color-0CC5BA)",
+                            }}
+                          />
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+                ))
+              : null}
           </tbody>
         </table>
       </div>
       <div className={style.addCategory}>
         <h1 className="fw-bold mb-0">Agregar nueva categoría</h1>
-        <div class="mb-3 my-5 d-flex gap-30">
+        <div className="mb-3 my-5 d-flex gap-30">
           <div className="name">
-            <label for="nombre" className="form-label">
+            <label htmlFor="nombre" className="form-label">
               Nombre
             </label>
             <input
@@ -128,25 +170,31 @@ const DashCategories = () => {
               className="form-control"
               id="nombre"
               placeholder="Ingresa un nombre"
+              value={newCategory.nombre}
               style={{
                 backgroundColor: "transparent",
                 color: "var(--body_color)",
                 border: "0.5px solid var(--border_color)",
               }}
+              onChange={handleChange}
             />
           </div>
           <div className="tipo">
-            <label for="nombre" className="form-label">
+            <label htmlFor="tipo" className="form-label">
               Tipo
             </label>
             <select
-              class="form-select"
+              id="tipo"
+              name="tipo"
+              className="form-select"
               aria-label="Default select example"
+              value={newCategory.tipo}
               style={{
                 backgroundColor: "transparent",
                 color: "var(--body_color)",
                 border: "0.5px solid var(--border_color)",
               }}
+              onChange={handleChange}
             >
               <option selected disabled>
                 Selecciona el tipo
@@ -156,7 +204,9 @@ const DashCategories = () => {
             </select>
           </div>
         </div>
-        <button className="button mt-3">Agregar categoría</button>
+        <button className="button mt-3" onClick={newCategorySubmit}>
+          Agregar categoría
+        </button>
       </div>
     </div>
   );

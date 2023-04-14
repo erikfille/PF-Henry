@@ -6,6 +6,7 @@ export const useProduct = create((set, get) => ({
   filteredProducts: [],
   filteredProductsWOSearch: [],
   categories: [],
+  filteredCategories: [],
   species: [],
   cartState: false,
   cartProducts: [],
@@ -28,10 +29,12 @@ export const useProduct = create((set, get) => ({
   getCategories: async () => {
     try {
       let response = await axios.get("/categorias");
+      console.log(response.data);
       let categorias = [
         ...new Set(response.data.categorias.map((c) => c.nombre)),
       ];
       set((state) => ({ categories: categorias }));
+      set((state) => ({ filteredCategories: categorias }));
     } catch (err) {
       console.log(err);
     }
@@ -152,20 +155,6 @@ export const useProduct = create((set, get) => ({
   setTotalPrice: (total) => {
     set((state) => ({ totalPrice: total }));
   },
-  // getReviews: async (productId) => {
-  //   let response = await axios.get(`/comentariosResenas/${productId}`);
-  //   let reviewsToFormat = response.data.forEach((r) => {
-  //     const fecha = new Date("2023-04-03T18:17:35.991Z");
-  //     const dia = fecha.getUTCDate();
-  //     const mes = fecha.getUTCMonth() + 1;
-  //     const anio = fecha.getUTCFullYear();
-  //     const fechaFormateada = `${dia.toString().padStart(2, "0")}/${mes
-  //       .toString()
-  //       .padStart(2, "0")}/${anio.toString()}`;
-  //     return (r.fecha = fechaFormateada);
-  //   });
-  //   set((state) => ({ productReviews: response.data }));
-  // },
   sendReview: (obj) => {
     try {
       axios.post("/crearComentarioResena", obj);
@@ -267,7 +256,7 @@ export const useUser = create((set, get) => ({
       let response = await axios.get(`/users/${id}`);
       set((state) => ({ userInfo: response.data }));
     } catch (error) {
-      window.alert('No se encontró el usuario')
+      window.alert("No se encontró el usuario");
     }
   },
 }));
@@ -295,5 +284,50 @@ export const usePets = create((set, get) => ({
   },
   setPets: (pets) => {
     set((state) => ({ pets: pets }));
+  },
+}));
+
+export const useAdmin = create((set, get) => ({
+  adminCategories: [],
+  adminFilteredCategories: [],
+  adminSpecies: [],
+  adminFilteredSpecies: [],
+  getAdminCategories: async () => {
+    try {
+      let response = await axios.get("/categorias");
+      console.log(response.data);
+      set((state) => ({ adminCategories: response.data }));
+      set((state) => ({ adminFilteredCategories: response.data }));
+    } catch (err) {
+      console.log(err);
+    }
+  },
+  getAdminSpecies: async () => {
+    try {
+      let response = await axios.get("/especies");
+      let species = response.data;
+      console.log(species);
+      set((state) => ({ adminSpecies: species }));
+      set((state) => ({ adminFilteredSpecies: response.data }));
+    } catch (err) {
+      console.log(err);
+    }
+  },
+  searchAdminCategories: (categories) => {
+    if (typeof categories === "object" && categories.length) {
+      set((state) => ({ adminFilteredCategories: categories }));
+    }
+  },
+  searchAdminSpecies: (species) => {
+    if (typeof species === "object" && species.length) {
+      set((state) => ({ adminFilteredSpecies: species }));
+    }
+  },
+  addCategory: (newCategory) => {
+    // try {
+    //   axios.post("/categories", newCategory);
+    // } catch (err) {
+    //   console.log(err);
+    // }
   },
 }));

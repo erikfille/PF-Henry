@@ -1,27 +1,27 @@
 export const Categories = [
     {
-        "name": "Juguete",
-        "type": "Producto",
-        "status": "activo"
+        "nombre": "Juguete",
+        "tipo": "Producto",
+        "status": 1
     },
     {
-        "name": "Alimento",
-        "type": "Producto",
-        "status": "activo"
+        "nombre": "Alimento",
+        "tipo": "Producto",
+        "status": 1
     },
     {
-        "name": "Golosinas",
-        "type": "Producto",
-        "status": "inactivo"
+        "nombre": "Golosinas",
+        "tipo": "Producto",
+        "status": 0
     },
     {
-        "name": "Higiene",
-        "type": "Servicio",
-        "status": "activo"
+        "nombre": "Higiene",
+        "tipo": "Servicio",
+        "status": 1
     },
     {
-        "name": "Paseo",
-        "type": "Servicio",
-        "status": "inactivo"
+        "nombre": "Paseo",
+        "tipo": "Servicio",
+        "status": 0
     }
 ]
