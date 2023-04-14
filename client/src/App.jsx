@@ -30,6 +30,7 @@ import PayPal from "./Views/Checkout/PayPal";
 import "./App.css";
 import { useModal } from "./hooks/useStore";
 
+import AdminDashboard from "./Views/DashboardAdmin/AdminDashboard";
 import DashUser from "./Views/DashboardAdmin/DashUser/DashUser";
 import DashProvider from "./Views/DashboardAdmin/DashProvider/DashProvider";
 import DashProduct from "./Views/DashboardAdmin/DashProduct/DashProduct";
@@ -43,19 +44,19 @@ function App() {
 
   return (
     <div className="App">
-      { 
-        location.pathname !== "/login" && <Header /> &&
+      {location.pathname !== "/login" && <Header /> &&
         location.pathname !== "/signup" && <Header /> &&
-        !location.pathname.includes("/dashboard-admin")  && <Header />
-      }
+        !location.pathname.includes("/adminDashboard") && <Header />}
 
       <Routes>
-        <Route path="/dashboard-admin/users" element={<DashUser/>} />
-        <Route path="/dashboard-admin/providers" element={<DashProvider/>} />
-        <Route path="/dashboard-admin/products" element={<DashProduct/>} />
-        <Route path="/dashboard-admin/categories" element={<DashCategories/>} />
-        <Route path="/dashboard-admin/animals" element={<DashAnimals/>} />
-        
+        <Route path="/adminDashboard" element={<AdminDashboard />}>
+          <Route path="/adminDashboard/users" element={<DashUser />} />
+          <Route path="/adminDashboard/providers" element={<DashProvider />} />
+          <Route path="/adminDashboard/products" element={<DashProduct />} />
+          <Route path="/adminDashboard/categories" element={<DashCategories />} />
+          <Route path="/adminDashboard/animals" element={<DashAnimals />} />
+        </Route>
+
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Login />} />
         <Route exact path="/" element={<Home />} />
@@ -78,11 +79,9 @@ function App() {
       <ModalCreatePet />
       <ModalPetDetail />
       <ModalInfoGenerico />
-      {
-        location.pathname !== "/login" && <Footer /> &&
+      {location.pathname !== "/login" && <Footer /> &&
         location.pathname !== "/signup" && <Footer /> &&
-        !location.pathname.includes("/dashboard-admin")  && <Footer />
-      }
+        !location.pathname.includes("/dashboard-admin") && <Footer />}
     </div>
   );
 }

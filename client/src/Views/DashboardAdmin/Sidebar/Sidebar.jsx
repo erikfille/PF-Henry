@@ -18,23 +18,23 @@ const Sidebar = () => {
          <div className="menu ms-5 mt-5 d-flex flex-column gap-30">
             <div className={`${style.item} d-flex gap-15 align-items-center mt-5`}>
                <FaUsers className={style.icons} />
-               <NavLink to="/dashboard-admin/users" className={({ isActive }) => (isActive ? style.active : style.link)}>Usuarios</NavLink>
+               <NavLink to="/adminDashboard/users" className={({ isActive }) => (isActive ? style.active : style.link)}>Usuarios</NavLink>
             </div>
             <div className={`${style.item} d-flex gap-15 align-items-center`}>
                <RiUserStarFill className={style.icons} />
-               <NavLink to="/dashboard-admin/providers" className={({ isActive }) => (isActive ? style.active : style.link)}>Proveedores</NavLink>
+               <NavLink to="/adminDashboard/providers" className={({ isActive }) => (isActive ? style.active : style.link)}>Proveedores</NavLink>
             </div>
             <div className={`${style.item} d-flex gap-15 align-items-center`}>
                <BsFillBoxSeamFill className={style.icons} />   
-               <NavLink to="/dashboard-admin/products" className={({ isActive }) => (isActive ? style.active : style.link)}>Productos</NavLink>
+               <NavLink to="/adminDashboard/products" className={({ isActive }) => (isActive ? style.active : style.link)}>Productos</NavLink>
             </div>
             <div className={`${style.item} d-flex gap-15 align-items-center`}>
                <MdCategory className={style.icons} />
-               <NavLink to="/dashboard-admin/categories" className={({ isActive }) => (isActive ? style.active : style.link)}>Categorías</NavLink>
+               <NavLink to="/adminDashboard/categories" className={({ isActive }) => (isActive ? style.active : style.link)}>Categorías</NavLink>
             </div>
             <div className={`${style.item} d-flex gap-15 align-items-center`}>
                <MdPets className={style.icons} />
-               <NavLink to="/dashboard-admin/animals" className={({ isActive }) => (isActive ? style.active : style.link)}>Animales</NavLink>
+               <NavLink to="/adminDashboard/animals" className={({ isActive }) => (isActive ? style.active : style.link)}>Animales</NavLink>
             </div>
          </div>
          <div className="signout ms-5 mt-5 d-flex align-items-center gap-15">
