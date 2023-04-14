@@ -18,13 +18,13 @@ export default function Footer() {
                                             	<AiFillInstagram className={style.iconRrss}/>
                                         	</button>
                                     	</a>
-                                
+
                                     	<a href="https://www.facebook.com/profile.php?id=100091093042920" target="_blank" rel="noopener noreferrer">
                                         	<button className={style.btnRrss}>
                                             	<BsFacebook className={style.iconRrss} />
                                         	</button>
                                     	</a>
-                                
+
                                     	<a href="https://twitter.com/petcareamerica" target="_blank" rel="noopener noreferrer">
                                         	<button className={style.btnRrss}>
                                             	<BsTwitter className={style.iconRrss} />
