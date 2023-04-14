@@ -43,7 +43,7 @@ const DashCategories = () => {
     }
   }, [inputSearch]);
 
-  const handlerInput = (e) => {
+  const handleInput = (e) => {
     setInputSearch(e.target.value);
   };
 
@@ -90,7 +90,7 @@ const DashCategories = () => {
               name="search"
               id="search"
               placeholder="Ej. Juguete"
-              onChange={handlerInput}
+              onChange={handleInput}
             />
           </div>
         </div>

@@ -306,7 +306,6 @@ export const useAdmin = create((set, get) => ({
     try {
       let response = await axios.get("/especies");
       let species = response.data;
-      console.log(species);
       set((state) => ({ adminSpecies: species }));
       set((state) => ({ adminFilteredSpecies: response.data }));
     } catch (err) {
@@ -314,18 +313,25 @@ export const useAdmin = create((set, get) => ({
     }
   },
   searchAdminCategories: (categories) => {
-    if (typeof categories === "object" && categories.length) {
+    if (typeof categories === "object") {
       set((state) => ({ adminFilteredCategories: categories }));
     }
   },
   searchAdminSpecies: (species) => {
-    if (typeof species === "object" && species.length) {
+    if (typeof species === "object") {
       set((state) => ({ adminFilteredSpecies: species }));
     }
   },
   addCategory: (newCategory) => {
     // try {
     //   axios.post("/categories", newCategory);
+    // } catch (err) {
+    //   console.log(err);
+    // }
+  },
+  addSpecie: (specie) => {
+    // try {
+    //   axios.post("/species", {animal: specie});
     // } catch (err) {
     //   console.log(err);
     // }

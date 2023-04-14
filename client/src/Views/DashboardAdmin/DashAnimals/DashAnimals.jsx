@@ -1,14 +1,62 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import style from "./DashAnimals.module.css";
 import Sidebar from "../Sidebar/Sidebar";
 import DarkMode from "../../../components/DarkMode/DarkMode";
 import { FaUserCircle } from "react-icons/fa";
 import { FaEdit } from "react-icons/fa";
 import { RiDeleteBin6Line } from "react-icons/ri";
+import { BsFillCheckCircleFill } from "react-icons/bs";
+import { BsFillDashCircleFill } from "react-icons/bs";
+import { useAdmin } from "../../../hooks/useStore";
 
 import { Animals } from "../helpers/Animals";
 
 const DashAnimals = () => {
+  const [species, setSpecies] = useState([]);
+
+  const [inputSearch, setInputSearch] = useState("");
+
+  const [newSpecie, setNewSpecie] = useState("");
+
+  const [searchAdminSpecies, adminSpecies, adminFilteredSpecies, addSpecie] =
+    useAdmin((state) => [
+      state.searchAdminSpecies,
+      state.adminSpecies,
+      state.adminFilteredSpecies,
+      state.addSpecie,
+    ]);
+
+  useEffect(() => {
+    setSpecies(adminFilteredSpecies);
+  }, [adminFilteredSpecies]);
+
+  useEffect(() => {
+    if (inputSearch.length > 0) {
+      let result = [];
+      adminSpecies.forEach((s) => {
+        s.animal.toLowerCase().includes(inputSearch.toLowerCase()) &&
+          result.push(s);
+      });
+      searchAdminSpecies(result);
+      console.log(result);
+    } else if (inputSearch.length <= 0) {
+      searchAdminSpecies(adminSpecies);
+    }
+    console.log(adminFilteredSpecies);
+  }, [inputSearch]);
+
+  const handleInput = (e) => {
+    setInputSearch(e.target.value);
+  };
+
+  const handleChange = (e) => {
+    setNewSpecie(e.target.value);
+  };
+
+  const newSpecieSubmit = () => {
+    addSpecie(newSpecie);
+  };
+
   return (
     <div className={`${style.dashboardContaier} sidebar col-9 px-5`}>
       <div className="header d-flex mt-5 align-items-center justify-content-between">
@@ -41,9 +89,10 @@ const DashAnimals = () => {
                 border: "0.5px solid var(--border_color)",
               }}
               type="search"
-              name=""
-              id=""
+              name="search"
+              id="search"
               placeholder="Buscar"
+              onChange={handleInput}
             />
           </div>
         </div>
@@ -55,44 +104,65 @@ const DashAnimals = () => {
               <tr>
                 <th scope="col">#</th>
                 <th scope="col">Nombre</th>
+                <th scope="col">Estado</th>
                 <th scope="col">Acciones</th>
               </tr>
             </thead>
             <tbody>
-              {Animals.map((animal) => (
-                <tr>
-                  <th scope="row">1</th>
-                  <td>{animal.name}</td>
-                  <td>
-                    <div className="icons d-flex gap-10 ms-3">
-                      <div className="delete">
-                        <RiDeleteBin6Line
-                          style={{
-                            cursor: "pointer",
-                            fill: "var(--color-0CC5BA)",
-                          }}
-                        />
-                      </div>
-                      <div className="edit">
-                        <FaEdit
-                          style={{
-                            cursor: "pointer",
-                            fill: "var(--color-0CC5BA)",
-                          }}
-                        />
-                      </div>
-                    </div>
-                  </td>
-                </tr>
-              ))}
+              {adminFilteredSpecies.length
+                ? adminFilteredSpecies.map((specie, idx) => (
+                    <tr>
+                      <th scope="row">{idx + 1}</th>
+                      <td>{specie.animal}</td>
+                      <td className="status">
+                        <div
+                          className={`${style.status} ${
+                            specie.status === 0 ? style.active : style.inactive
+                          } ms-4 mt-2`}
+                        ></div>
+                      </td>
+                      <td>
+                        <div className="icons d-flex gap-10 ms-3">
+                          <div className="modificarActivo">
+                            {specie.status === 1 ? (
+                              <BsFillDashCircleFill
+                                title="Desactivar"
+                                style={{
+                                  cursor: "pointer",
+                                  fill: "var(--color-0CC5BA)",
+                                }}
+                              />
+                            ) : (
+                              <BsFillCheckCircleFill
+                                title="Activar"
+                                style={{
+                                  cursor: "pointer",
+                                  fill: "var(--color-0CC5BA)",
+                                }}
+                              />
+                            )}
+                          </div>
+                          <div className="edit">
+                            <FaEdit
+                              style={{
+                                cursor: "pointer",
+                                fill: "var(--color-0CC5BA)",
+                              }}
+                            />
+                          </div>
+                        </div>
+                      </td>
+                    </tr>
+                  ))
+                : null}
             </tbody>
           </table>
         </div>
         <div className={`${style.addCategory} col-5`}>
           <h1 className="fw-bold mb-0">Agregar nuevo animal</h1>
-          <div class="mb-3 my-5 d-flex gap-30">
+          <div className="mb-3 my-5 d-flex gap-30">
             <div className="name">
-              <label for="especie" className="form-label fw-bold">
+              <label htmlFor="especie" className="form-label fw-bold">
                 Especie:
               </label>
               <input
@@ -105,10 +175,13 @@ const DashAnimals = () => {
                   color: "var(--body_color)",
                   border: "0.5px solid var(--border_color)",
                 }}
+                onChange={handleChange}
               />
             </div>
           </div>
-          <button className="button mt-3">Agregar animal</button>
+          <button className="button mt-3" onClick={newSpecieSubmit}>
+            Agregar animal
+          </button>
         </div>
       </div>
     </div>
