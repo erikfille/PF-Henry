@@ -54,6 +54,7 @@ export default function CreatePet() {
     } catch (err) {
       window.alert(err.error);
     }
+      console.log(newPetData)
   }
 
   function handleInputChange(e) {
@@ -67,6 +68,7 @@ export default function CreatePet() {
         [e.target.name]: e.target.value,
       })
     );
+    console.log(newPetData)
   }
 
   function onUpload(url) {

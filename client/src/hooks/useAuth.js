@@ -106,11 +106,11 @@ export const useLogin = create((set, get) => ({
   },
   receiveLogin(user) {
     if (user.rol === "admin") {
-      window.location.href = "/admin";
+      window.location.href = "admin";
     } else if (user.rol === "provider") {
       window.location.href = "/";
     } else {
-      window.location.href = "/tienda";
+      window.location.href = "tienda";
     }
   },
   logoutUser() {
