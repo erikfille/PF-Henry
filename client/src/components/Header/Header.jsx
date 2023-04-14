@@ -52,7 +52,7 @@ const Header = () => {
 					<div
 						className="navbar-nav align-items-center"
 						style={{
-							backgroundColor: "var(--body_background)",
+							backgroundColor: "transparent",
 							width: "100vw !important",
 						}}>
 						<NavLink to="/tienda" className="nav-item me-3">

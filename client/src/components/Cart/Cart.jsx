@@ -133,7 +133,7 @@ export default function Cart() {
                   href="/tienda"
                   className={`d-flex flex-column align-items-center py-2`}
                 >
-                  <p>Seguir Comprando</p>
+                  <p className={style.navlink}>Seguir Comprando</p>
                 </a>
               </div>
             </div>
