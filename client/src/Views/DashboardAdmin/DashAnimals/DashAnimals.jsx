@@ -9,8 +9,6 @@ import { BsFillCheckCircleFill } from "react-icons/bs";
 import { BsFillDashCircleFill } from "react-icons/bs";
 import { useAdmin } from "../../../hooks/useStore";
 
-import { Animals } from "../helpers/Animals";
-
 const DashAnimals = () => {
   const [inputSearch, setInputSearch] = useState("");
 
