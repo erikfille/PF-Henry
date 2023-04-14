@@ -35,7 +35,9 @@ const DashCategories = () => {
     if (inputSearch.length > 0) {
       let result = [];
       adminCategories.forEach((c) => {
-        c.toLowerCase().includes(inputSearch.toLowerCase()) && result.push(c);
+        (c.nombre.toLowerCase().includes(inputSearch.toLowerCase()) ||
+          c.tipo.toLowerCase().includes(inputSearch.toLowerCase())) &&
+          result.push(c);
       });
       searchAdminCategories(result);
     } else if (inputSearch.length <= 0) {

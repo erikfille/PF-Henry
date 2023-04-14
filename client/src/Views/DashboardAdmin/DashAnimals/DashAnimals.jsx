@@ -12,8 +12,6 @@ import { useAdmin } from "../../../hooks/useStore";
 import { Animals } from "../helpers/Animals";
 
 const DashAnimals = () => {
-  const [species, setSpecies] = useState([]);
-
   const [inputSearch, setInputSearch] = useState("");
 
   const [newSpecie, setNewSpecie] = useState("");
@@ -27,10 +25,6 @@ const DashAnimals = () => {
     ]);
 
   useEffect(() => {
-    setSpecies(adminFilteredSpecies);
-  }, [adminFilteredSpecies]);
-
-  useEffect(() => {
     if (inputSearch.length > 0) {
       let result = [];
       adminSpecies.forEach((s) => {
@@ -38,11 +32,9 @@ const DashAnimals = () => {
           result.push(s);
       });
       searchAdminSpecies(result);
-      console.log(result);
     } else if (inputSearch.length <= 0) {
       searchAdminSpecies(adminSpecies);
     }
-    console.log(adminFilteredSpecies);
   }, [inputSearch]);
 
   const handleInput = (e) => {

@@ -295,9 +295,8 @@ export const useAdmin = create((set, get) => ({
   getAdminCategories: async () => {
     try {
       let response = await axios.get("/categorias");
-      console.log(response.data);
-      set((state) => ({ adminCategories: response.data }));
-      set((state) => ({ adminFilteredCategories: response.data }));
+      set((state) => ({ adminCategories: response.data.categorias }));
+      set((state) => ({ adminFilteredCategories: response.data.categorias }));
     } catch (err) {
       console.log(err);
     }
