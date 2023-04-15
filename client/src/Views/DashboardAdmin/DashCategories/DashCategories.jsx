@@ -22,11 +22,13 @@ const DashCategories = () => {
     adminCategories,
     adminFilteredCategories,
     addCategory,
+    categoryChangeStatus,
   ] = useAdmin((state) => [
     state.searchAdminCategories,
     state.adminCategories,
     state.adminFilteredCategories,
     state.addCategory,
+    state.categoryChangeStatus,
   ]);
 
   useEffect(() => {
@@ -49,10 +51,24 @@ const DashCategories = () => {
 
   const handleChange = (e) => {
     setNewCategory({ ...newCategory, [e.target.name]: e.target.value });
+
+    console.log("newCategory Change: ", newCategory);
   };
 
   const newCategorySubmit = () => {
     addCategory(newCategory);
+  };
+
+  const changeStatus = (item) => {
+    let newItem = {
+      nombre: item.nombre,
+      tipo: item.tipo,
+      status: item.status ? 0 : 1,
+    };
+    let itemId = item._id;
+    console.log("new Item: ", newItem);
+    console.log("new Item Id: ", itemId);
+    categoryChangeStatus(itemId, newItem);
   };
 
   return (
@@ -116,7 +132,7 @@ const DashCategories = () => {
                     <td className="status">
                       <div
                         className={`${style.status} ${
-                          cat.status === 0 ? style.active : style.inactive
+                          cat.status === 1 ? style.active : style.inactive
                         } ms-4 mt-2`}
                       ></div>
                     </td>
@@ -130,6 +146,7 @@ const DashCategories = () => {
                                 cursor: "pointer",
                                 fill: "var(--color-0CC5BA)",
                               }}
+                              onClick={() => changeStatus(cat)}
                             />
                           ) : (
                             <BsFillCheckCircleFill
@@ -138,6 +155,7 @@ const DashCategories = () => {
                                 cursor: "pointer",
                                 fill: "var(--color-0CC5BA)",
                               }}
+                              onClick={() => changeStatus(cat)}
                             />
                           )}
                         </div>
@@ -169,6 +187,7 @@ const DashCategories = () => {
               type="text"
               className="form-control"
               id="nombre"
+              name="nombre"
               placeholder="Ingresa un nombre"
               value={newCategory.nombre}
               style={{
@@ -199,8 +218,8 @@ const DashCategories = () => {
               <option selected disabled>
                 Selecciona el tipo
               </option>
-              <option value="producto">Producto</option>
-              <option value="servicio">Servicio</option>
+              <option value="Producto">Producto</option>
+              <option value="Servicio">Servicio</option>
             </select>
           </div>
         </div>
