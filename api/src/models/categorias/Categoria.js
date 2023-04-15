@@ -23,6 +23,17 @@ const categoriaSchema = new Schema({
         `La categoría "${props.value}" no es válida para el tipo de categoría ${this.tipo}`,
     },
   },
+  status: {
+    type: Number,
+    default: 1,
+    validate: {
+      validator: function (v) {
+        return v === 0 || v === 1;
+      },
+      message: (props) =>
+        `${props.value} debe ser 0 (Desactivado) o 1 (Activo).`,
+    },
+  },
 });
 
 module.exports = model("Categoria", categoriaSchema);
