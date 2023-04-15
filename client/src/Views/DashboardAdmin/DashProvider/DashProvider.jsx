@@ -9,6 +9,7 @@ import { ImUserCheck } from 'react-icons/im';
 import { RiDeleteBin6Line } from 'react-icons/ri';
 import { Providers } from "../helpers/Providers";
 import { BsFillBoxSeamFill } from "react-icons/bs";
+import HeaderDashboard from '../HeaderDashboard/HeaderDashboard';
 
 
 
@@ -21,15 +22,7 @@ const DashProvider = () => {
                <Sidebar />
             </div>
             <div className={`${style.dashboardContaier} dashboard col-9 px-5`}>
-               <div className="header d-flex mt-5 align-items-center justify-content-between">
-                  <h1 className={`${style.h1} fw-bold mb-0`}>Dashboard Administrador</h1>
-                  <div className="div">
-                     <div className="circleUse d-flex align-items-center gap-30">
-                        <DarkMode />
-                        <FaUserCircle className={style.iconProfle} />
-                     </div>
-                  </div>
-               </div>
+               <HeaderDashboard />
                <div className={`${style.userBar} px-4 userbar py-4 d-flex justify-content-between align-items-center mt-5`}>
                   <div className="type">
                      <h1 className='fw-bold mb-0'>Proveedores</h1>
