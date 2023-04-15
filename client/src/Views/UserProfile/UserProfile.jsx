@@ -21,10 +21,11 @@ export default function UserProfile() {
 
   const [selectedPet, setSelectedPet] = useState({});
 
-  const [userInfo, getUserInfo, compras, visited] = useUser((state) => [
+  const [userInfo, getUserInfo, compras, getCompras] = useUser((state) => [
     state.userInfo,
     state.getUserInfo,
     state.compras,
+    state.getCompras
   ]);
 
   const [pets, setPetAddModal, setPets] = usePets((state) => [
@@ -36,6 +37,7 @@ export default function UserProfile() {
   useEffect(() => {
       if(!userId) navigate("/")
       getUserInfo(userId);
+      getCompras(userId)
   }, []);
 
   useEffect(() => {
@@ -135,10 +137,10 @@ export default function UserProfile() {
             </div>
             <div className={`${style.comprasContainer} col-10 p-5 my-5`}>
               <h4>Mis Compras:</h4>
-              {userInfo.productosComprados && userInfo.productosComprados.length ? (
+              {compras && compras.length ? (
                 <>
                   <div className={`${style.pets} d-flex flex-wrap gap-5 py-5`}>
-                    {userInfo.productosComprados.map((p, i) => (
+                    {compras.map((p, i) => (
                       <Link key={i}to={`/productos/${p._id}`} className={style.link}>
                         {p.titulo}
                       </Link>
