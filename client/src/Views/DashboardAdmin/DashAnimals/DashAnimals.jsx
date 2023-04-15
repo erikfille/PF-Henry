@@ -14,13 +14,21 @@ const DashAnimals = () => {
 
   const [newSpecie, setNewSpecie] = useState("");
 
-  const [searchAdminSpecies, adminSpecies, adminFilteredSpecies, addSpecie] =
-    useAdmin((state) => [
-      state.searchAdminSpecies,
-      state.adminSpecies,
-      state.adminFilteredSpecies,
-      state.addSpecie,
-    ]);
+  const [
+    searchAdminSpecies,
+    adminSpecies,
+    adminFilteredSpecies,
+    addSpecie,
+    specieChangeStatus,
+    setSpecieEditModal,
+  ] = useAdmin((state) => [
+    state.searchAdminSpecies,
+    state.adminSpecies,
+    state.adminFilteredSpecies,
+    state.addSpecie,
+    state.specieChangeStatus,
+    state.setSpecieEditModal,
+  ]);
 
   useEffect(() => {
     if (inputSearch.length > 0) {
@@ -45,6 +53,15 @@ const DashAnimals = () => {
 
   const newSpecieSubmit = () => {
     addSpecie(newSpecie);
+  };
+
+  const changeStatus = (item) => {
+    let newItem = {
+      animal: item.animal,
+      status: item.status ? 0 : 1,
+    };
+    let itemId = item._id;
+    specieChangeStatus(itemId, newItem);
   };
 
   return (
@@ -121,6 +138,7 @@ const DashAnimals = () => {
                                   cursor: "pointer",
                                   fill: "var(--color-0CC5BA)",
                                 }}
+                                onClick={() => changeStatus(specie)}
                               />
                             ) : (
                               <BsFillCheckCircleFill
@@ -129,6 +147,7 @@ const DashAnimals = () => {
                                   cursor: "pointer",
                                   fill: "var(--color-0CC5BA)",
                                 }}
+                                onClick={() => changeStatus(specie)}
                               />
                             )}
                           </div>
@@ -138,6 +157,7 @@ const DashAnimals = () => {
                                 cursor: "pointer",
                                 fill: "var(--color-0CC5BA)",
                               }}
+                              onClick={() => setSpecieEditModal(specie)}
                             />
                           </div>
                         </div>
