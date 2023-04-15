@@ -261,6 +261,14 @@ export const useUser = create((set, get) => ({
       window.alert("No se encontró el usuario");
     }
   },
+  getCompras: async (id) => {
+    try {
+      let response = await axios.get(`/compras/${id}`);
+      set((state) => ({ compras: response.data }));
+    } catch (error) {
+      window.alert('No se encontraron las compras del usuario')
+    }
+  },
 }));
 
 export const usePets = create((set, get) => ({
