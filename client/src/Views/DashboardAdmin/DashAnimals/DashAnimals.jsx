@@ -107,7 +107,7 @@ const DashAnimals = () => {
                       <td className="status">
                         <div
                           className={`${style.status} ${
-                            specie.status === 0 ? style.active : style.inactive
+                            specie.status === 1 ? style.active : style.inactive
                           } ms-4 mt-2`}
                         ></div>
                       </td>

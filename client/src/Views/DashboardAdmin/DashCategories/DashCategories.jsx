@@ -23,12 +23,14 @@ const DashCategories = () => {
     adminFilteredCategories,
     addCategory,
     categoryChangeStatus,
+    setCategoryEditModal,
   ] = useAdmin((state) => [
     state.searchAdminCategories,
     state.adminCategories,
     state.adminFilteredCategories,
     state.addCategory,
     state.categoryChangeStatus,
+    state.setCategoryEditModal,
   ]);
 
   useEffect(() => {
@@ -51,8 +53,6 @@ const DashCategories = () => {
 
   const handleChange = (e) => {
     setNewCategory({ ...newCategory, [e.target.name]: e.target.value });
-
-    console.log("newCategory Change: ", newCategory);
   };
 
   const newCategorySubmit = () => {
@@ -166,6 +166,7 @@ const DashCategories = () => {
                               cursor: "pointer",
                               fill: "var(--color-0CC5BA)",
                             }}
+                            onClick={() => setCategoryEditModal(cat)}
                           />
                         </div>
                       </div>

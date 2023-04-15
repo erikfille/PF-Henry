@@ -10,6 +10,7 @@ import ModalConsultaGenerico from "./components/ModalGenerico/ModalConsultaGener
 import ModalCreatePet from "./components/ModalCreatePet/ModalCreatePet";
 import ModalPetDetail from "./components/ModalPetDetail/ModalPetDetail";
 import ModalInfoGenerico from "./components/ModalInfoGenerico/ModalInfoGenerico";
+import ModalEditCategory from "./Views/DashboardAdmin/DashCategories/ModalEditCategory"
 
 //? Views
 import Home from "./Views/Home/Home";
@@ -30,7 +31,6 @@ import Terminos from "./Views/Terminos/Terminos";
 
 //? Styles
 import "./App.css";
-import { useModal } from "./hooks/useStore";
 
 import AdminDashboard from "./Views/DashboardAdmin/AdminDashboard";
 import DashUser from "./Views/DashboardAdmin/DashUser/DashUser";
@@ -82,6 +82,7 @@ function App() {
       <ModalCreatePet />
       <ModalPetDetail />
       <ModalInfoGenerico />
+      <ModalEditCategory />
       {location.pathname !== "/login" && <Footer /> &&
         location.pathname !== "/signup" && <Footer /> &&
         !location.pathname.includes("/adminDashboard") && <Footer />}

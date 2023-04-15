@@ -310,6 +310,9 @@ export const useAdmin = create((set, get) => ({
   adminFilteredCategories: [],
   adminSpecies: [],
   adminFilteredSpecies: [],
+  selectedCategory: "",
+  categoryEditModal: false,
+  speciesEditModal: false,
   getAdminCategories: async () => {
     try {
       let response = await axios.get("/categorias");
@@ -340,12 +343,12 @@ export const useAdmin = create((set, get) => ({
     }
   },
   addCategory: async (newCategory) => {
-    const { getAdminCategories } = get()
-    
+    const { getAdminCategories } = get();
+
     try {
-      console.log(newCategory)
+      console.log(newCategory);
       await axios.post("/crearCategoria", newCategory);
-      await getAdminCategories()
+      await getAdminCategories();
     } catch (err) {
       console.log(err);
     }
@@ -379,4 +382,19 @@ export const useAdmin = create((set, get) => ({
       console.log(err);
     }
   },
+  setCategoryEditModal: (cat) => {
+    const { categoryEditModal } = get();
+    if (cat) {
+      set((state) => ({ selectedCategory: cat }));
+    }
+    set((state) => ({ categoryEditModal: categoryEditModal ? false : true }));
+  },
+  editCategory: async (id, editedCategory) => {
+    try {
+      let response = await axios.put(`/categoria/${id}`, editedCategory);
+    } catch (err) {
+      console.log(err);
+    }
+  },
+  setSpecieEditModal: () => {},
 }));
