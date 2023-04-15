@@ -269,14 +269,6 @@ export const useUser = create((set, get) => ({
       window.alert('No se encontraron las compras del usuario')
     }
   },
-  getCompras: async (id) => {
-    try {
-      let response = await axios.get(`/compras/${id}`);
-      set((state) => ({ compras: response.data }));
-    } catch (error) {
-      window.alert('No se encontraron las compras del usuario')
-    }
-  },
 }));
 
 export const usePets = create((set, get) => ({
@@ -285,9 +277,7 @@ export const usePets = create((set, get) => ({
   petAddModal: false,
   petDetailModal: false,
   petHistory: [],
-  setPetAddModal: () => {
-    set((state) => ({ petAddModal: state.petAddModal ? false : true }));
-  },
+  setPetAddModal: () => set((state) => ({ petAddModal: state.petAddModal ? false : true })),
   setPetDetailModal: (petInfo) => {
     if (petInfo) {
       set((state) => ({ selectedPet: petInfo }));
