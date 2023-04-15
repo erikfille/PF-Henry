@@ -1,14 +1,26 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import DarkMode from '../../../components/DarkMode/DarkMode';
 import { FaUserCircle } from 'react-icons/fa'
 import style from './HeaderDashboard.module.css';
 import { Link } from 'react-router-dom';
+import { useLogin } from '../../../hooks/useAuth';
 
 
 
 const HeaderDashboard = () => {
 
+	const [logoutUser] = useLogin((state) => [state.logoutUser]);
+	const [user, setUser] = useState({});
+
 	const [ userLogged, setUserLogged ] = useState(true);
+
+	useEffect(() => {
+		const localUser = JSON.parse(localStorage.getItem("user"));
+		if (localUser && !user.id) {
+			setUserLogged(true);
+			setUser(localUser);
+		}
+	}, [window.location])
 
 	return (
 		<div className="header d-flex mt-5 align-items-center justify-content-between">
@@ -21,9 +33,8 @@ const HeaderDashboard = () => {
 							role="button"
 							data-bs-toggle="dropdown">
 							{userLogged ? (
-								// traer la imagen del admin logeado y mostrarla en el src.
 								<img
-									// src={user.image}
+									src={user.image}
 									alt="user-pic"
 									className={`rounded-circle me-1 ${style.imgProfile}`}
 								/>
@@ -65,13 +76,14 @@ const HeaderDashboard = () => {
 									</li>
 									<li>
 										<Link
-											// to={`/perfil/${user.id}`} // sacar el ID del admin logeado.
+											to={`/perfil/${user.id}`}
 											className={`${style.li} dropdown-item`}>
 											Ver perfil
 										</Link>
 									</li>
 									<li>
 										<Link
+											onClick={() => logoutUser()}
 											className={`${style.li} dropdown-item`}>
 											Cerrar sesión
 										</Link>

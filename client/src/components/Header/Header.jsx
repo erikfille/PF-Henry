@@ -12,7 +12,10 @@ import styles from "./Header.module.css";
 import DarkMode from "../DarkMode/DarkMode";
 
 const Header = () => {
+
 	const [userLogged, setUserLogged] = useState(false); // estado hardcodeado solo para trabajar lo que muestra el boton de User.
+	const [ isAdmin, setIsAdmin ] = useState(true); // estado hardc para mostrar el link al dashb
+
 	const [setActiveCart, cartProducts] = useProduct((state) => [
 		state.setActiveCart,
 		state.cartProducts,
@@ -115,6 +118,15 @@ const Header = () => {
 													Cerrar sesión
 												</Link>
 											</li>
+											{
+											<li>
+												<Link
+													to="/dashboard-admin/users"
+													className={`${styles.li} dropdown-item`}>
+													Dashboard Admin
+												</Link>
+											</li>
+											}
 										</ul>
 									</>
 								)}
