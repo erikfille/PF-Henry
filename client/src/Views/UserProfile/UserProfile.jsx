@@ -37,7 +37,7 @@ export default function UserProfile() {
   useEffect(() => {
       if(!userId) navigate("/")
       getUserInfo(userId);
-      getCompras(userId)
+      // getCompras(userId)
   }, []);
 
   useEffect(() => {
