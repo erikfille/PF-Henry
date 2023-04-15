@@ -312,6 +312,7 @@ export const useAdmin = create((set, get) => ({
   adminFilteredSpecies: [],
   selectedCategory: "",
   categoryEditModal: false,
+  selectedSpecie: "",
   speciesEditModal: false,
   getAdminCategories: async () => {
     try {
@@ -373,11 +374,11 @@ export const useAdmin = create((set, get) => ({
       console.log(err);
     }
   },
-  specieChangeStatus: (id) => {
+  specieChangeStatus: async (id, newItem) => {
     const { getAdminSpecies } = get();
     try {
-      axios.put(`/especies/status/${id}`);
-      getAdminSpecies();
+      await axios.put(`/especies/status/${id}`, newItem);
+      await getAdminSpecies();
     } catch (err) {
       console.log(err);
     }
@@ -396,5 +397,18 @@ export const useAdmin = create((set, get) => ({
       console.log(err);
     }
   },
-  setSpecieEditModal: () => {},
+  editSpecie: async (id, editedSpecie) => {
+    try {
+      let response = await axios.put(`/especie/status/${id}`, editedSpecie);
+    } catch (err) {
+      console.log(err);
+    }
+  },
+  setSpecieEditModal: (specie) => {
+    const { speciesEditModal } = get();
+    if (specie) {
+      set((state) => ({ selectedSpecie: specie }));
+    }
+    set((state) => ({ speciesEditModal: speciesEditModal ? false : true }));
+  },
 }));

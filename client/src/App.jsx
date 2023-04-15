@@ -10,7 +10,8 @@ import ModalConsultaGenerico from "./components/ModalGenerico/ModalConsultaGener
 import ModalCreatePet from "./components/ModalCreatePet/ModalCreatePet";
 import ModalPetDetail from "./components/ModalPetDetail/ModalPetDetail";
 import ModalInfoGenerico from "./components/ModalInfoGenerico/ModalInfoGenerico";
-import ModalEditCategory from "./Views/DashboardAdmin/DashCategories/ModalEditCategory"
+import ModalEditCategory from "./Views/DashboardAdmin/DashCategories/ModalEditCategory";
+import ModalEditAnimals from "./Views/DashboardAdmin/DashAnimals/ModalEditAnimals";
 
 //? Views
 import Home from "./Views/Home/Home";
@@ -55,7 +56,10 @@ function App() {
           <Route path="/adminDashboard/users" element={<DashUser />} />
           <Route path="/adminDashboard/providers" element={<DashProvider />} />
           <Route path="/adminDashboard/products" element={<DashProduct />} />
-          <Route path="/adminDashboard/categories" element={<DashCategories />} />
+          <Route
+            path="/adminDashboard/categories"
+            element={<DashCategories />}
+          />
           <Route path="/adminDashboard/animals" element={<DashAnimals />} />
         </Route>
 
@@ -83,6 +87,7 @@ function App() {
       <ModalPetDetail />
       <ModalInfoGenerico />
       <ModalEditCategory />
+      <ModalEditAnimals />
       {location.pathname !== "/login" && <Footer /> &&
         location.pathname !== "/signup" && <Footer /> &&
         !location.pathname.includes("/adminDashboard") && <Footer />}
