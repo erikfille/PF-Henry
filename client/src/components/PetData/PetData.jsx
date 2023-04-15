@@ -12,11 +12,16 @@ const PetData = (props) => {
 
   const [setPetDetailModal] = usePets((state) => [state.setPetDetailModal]);
 
+  const { id, name, especie, nac, imagen, historial, descripcion } = props;
+
   return (
     <>
       <div className={`${style.pet} d-flex gap-80`}>
         <div className="d-none d-md-flex flex-column align-items-center gap-3">
-          <div className={props.imagen ? style.imgMascota : style.circle} style={{backgroundImage: `url(${props.imagen})`}}>
+          <div
+            className={props.imagen ? style.imgMascota : style.circle}
+            style={{ backgroundImage: `url(${props.imagen})` }}
+          >
             {!props.imagen && (
               <TbPawFilled style={{ width: "80px", height: "80px" }} />
             )}
@@ -28,7 +33,17 @@ const PetData = (props) => {
           <p className={`${style.especie} mb-0`}>{props.especie}</p>
           <p className={`${style.nac} mb-0`}>{fechaFormateada}</p>
           <button
-            onClick={() => setPetDetailModal(props)}
+            onClick={() =>
+              setPetDetailModal({
+                id,
+                name,
+                especie,
+                nac,
+                imagen,
+                historial,
+                descripcion,
+              })
+            }
             className={style.info}
           >
             + Información

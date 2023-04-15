@@ -11,7 +11,6 @@ import { registerLocale, setDefaultLocale } from "react-datepicker";
 import es from "date-fns/locale/es";
 registerLocale("es", es);
 
-
 export default function CreatePet() {
   const user = JSON.parse(localStorage.getItem("user"));
 
@@ -37,20 +36,9 @@ export default function CreatePet() {
     state.addPet,
   ]);
 
-  // useEffect(() => {
-  //   setNewPetData({
-  //     nombre: "",
-  //     especie: "",
-  //     fechaDeNacimiento: Date.now(),
-  //     descripcion: "",
-  //     imagen: "",
-  //     historial: [],
-  //   });
-  // }, [petAddModal]);
-
   async function onSubmit() {
     try {
-      addPet(newPetData, user)
+      addPet(newPetData, user);
     } catch (err) {
       window.alert(err.error);
     }
@@ -92,9 +80,7 @@ export default function CreatePet() {
                     name="nombre"
                     value={newPetData.nombre}
                     onChange={handleInputChange}
-                    className={`${
-                      errors.nombre && 'is-invalid'
-                    } form-control`}
+                    className={`${errors.nombre && "is-invalid"} form-control`}
                     placeholder="Nombre de tu mascota"
                   />
                   {errors.nombre && (
@@ -111,16 +97,14 @@ export default function CreatePet() {
                   name="especie"
                   value={newPetData.especie}
                   onChange={handleInputChange}
-                  className={`${
-                    errors.especie && 'is-invalid'
-                  } form-control`}
+                  className={`${errors.especie && "is-invalid"} form-control`}
                 />
                 {errors.especie && (
-                    <span className={styles.errorSpan}>
-                      {errors.especie}
-                      <br />
-                    </span>
-                  )}
+                  <span className={styles.errorSpan}>
+                    {errors.especie}
+                    <br />
+                  </span>
+                )}
                 <br />
                 <div>
                   <DatePicker
@@ -142,7 +126,7 @@ export default function CreatePet() {
                     value={newPetData.descripcion}
                     onChange={handleInputChange}
                     className={`${
-                      errors.descripcion && 'is-invalid'
+                      errors.descripcion && "is-invalid"
                     } form-control`}
                   />
                   {errors.descripcion && (
@@ -179,7 +163,10 @@ export default function CreatePet() {
                 </div>
               </div>
               <div>
-                <button className="button mt-3" disabled={Object.values(errors).length}>
+                <button
+                  className="button mt-3"
+                  disabled={Object.values(errors).length}
+                >
                   Agregar Mascota
                 </button>
               </div>

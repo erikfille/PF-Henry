@@ -29,7 +29,6 @@ export const useProduct = create((set, get) => ({
   getCategories: async () => {
     try {
       let response = await axios.get("/categorias");
-      console.log(response.data);
       let categorias = [
         ...new Set(response.data.categorias.map((c) => c.nombre)),
       ];
@@ -266,6 +265,7 @@ export const usePets = create((set, get) => ({
   selectedPet: {},
   petAddModal: false,
   petDetailModal: false,
+  petHistory: [],
   setPetAddModal: () => {
     set((state) => ({ petAddModal: state.petAddModal ? false : true }));
   },
@@ -284,6 +284,21 @@ export const usePets = create((set, get) => ({
   },
   setPets: (pets) => {
     set((state) => ({ pets: pets }));
+  },
+  getHistory: async (petId) => {
+    try {
+      let response = await axios.get(`/historial/${petId}`);
+      set((state) => ({ petHistory: response.data }));
+    } catch (err) {
+      console.log(err);
+    }
+  },
+  addNewHistory: async (newHistory, petId) => {
+    try {
+      let response = await axios.post(`/historial/${petId}`, newHistory);
+    } catch (err) {
+      console.log(err);
+    }
   },
 }));
 
