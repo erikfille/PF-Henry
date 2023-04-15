@@ -26,6 +26,8 @@ import UserProfile from "./Views/UserProfile/UserProfile";
 import CheckOut from "./Views/Checkout/Checkout";
 import ProviderDashboard from "./Views/ProviderDashboard/ProviderDashboard";
 import PayPal from "./Views/Checkout/PayPal";
+import Terminos from "./Views/Terminos/Terminos";
+
 //? Styles
 import "./App.css";
 import { useModal } from "./hooks/useStore";
@@ -66,6 +68,7 @@ function App() {
         <Route path="/contacto" element={<Contacto />} />
         <Route path="/servicios" element={<Servicios />} />
         <Route path="/paypal" element={<PayPal />} />
+        <Route path="/terminos" element={<Terminos />} />
         <Route path="/productos/:productId" element={<Detail />} />
         <Route path="/crearProducto" element={<CreateProduct />} />
         <Route path="/perfil" element={<UserProfile />}>
