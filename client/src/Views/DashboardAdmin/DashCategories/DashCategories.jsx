@@ -8,6 +8,7 @@ import { RiDeleteBin6Line } from "react-icons/ri";
 import { BsFillCheckCircleFill } from "react-icons/bs";
 import { BsFillDashCircleFill } from "react-icons/bs";
 import { useAdmin } from "../../../hooks/useStore";
+import HeaderDashboard from '../HeaderDashboard/HeaderDashboard';
 
 const DashCategories = () => {
   const [inputSearch, setInputSearch] = useState("");
@@ -73,15 +74,7 @@ const DashCategories = () => {
 
   return (
     <div className={`${style.dashboardContaier} sidebar col-9 px-5`}>
-      <div className="header d-flex mt-5 align-items-center justify-content-between">
-        <h1 className={`${style.h1} fw-bold mb-0`}>Dashboard Administrador</h1>
-        <div className="div">
-          <div className="circleUse d-flex align-items-center gap-30">
-            <DarkMode />
-            <FaUserCircle className={style.iconProfle} />
-          </div>
-        </div>
-      </div>
+      <HeaderDashboard />
       <div
         className={`${style.userBar} px-4 userbar py-4 d-flex align-items-center mt-5`}
       >
