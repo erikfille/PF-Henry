@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import ReactStars from "react-stars";
 import styles from "./ProductReviews.module.css";
-import { useProduct, useModal } from "../../hooks/useStore";
+import { useProduct, useModal, useUser } from "../../hooks/useStore";
 
 export default function ProductReviews(props) {
   const { updateComments } = props;
@@ -15,6 +15,15 @@ export default function ProductReviews(props) {
   let [sendReview] = useProduct((state) => [state.sendReview]);
   let [setModalInfo] = useModal((state) => [state.setModalInfo]);
 
+  const [userInfo, getUserInfo, compras, getCompras] = useUser((state) => [
+    state.userInfo,
+    state.getUserInfo,
+    state.compras,
+    state.getCompras,
+  ]);
+
+  console.log(userInfo)
+
   useEffect(() => {
     setUser(JSON.parse(localStorage.getItem("user")));
   }, []);
@@ -24,8 +33,8 @@ export default function ProductReviews(props) {
       comentarios.forEach((c) => {
         if (c.usuario._id === user.id) setAbleToComment(false);
       });
-    } else setAbleToComment(false)
-  }, [updateComments, comentarios]);
+    }
+  }, [updateComments, comentarios, ableToComment]);
 
   function handleInputChange(e) {
     setReview(e.target.value);
@@ -45,6 +54,7 @@ export default function ProductReviews(props) {
       updateComments,
       []
     );
+    setAbleToComment(false)
   }
 
   function returnMessage() {
@@ -114,7 +124,7 @@ export default function ProductReviews(props) {
                 comentarios.map(
                   (r) =>
                     r.usuario.name && (
-                      <div className="mt-5">
+                      <div key={r._id || r.id} className="mt-5">
                         <div className="d-sm-flex align-items-end mt-0">
                           <h1 className={`${styles.fColor} fw-bold fs-3 me-3`}>
                             {`${r.usuario.name[0].toUpperCase()}${r.usuario.name.slice(
