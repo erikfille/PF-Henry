@@ -84,7 +84,7 @@ function App() {
       <ModalInfoGenerico />
       {location.pathname !== "/login" && <Footer /> &&
         location.pathname !== "/signup" && <Footer /> &&
-        !location.pathname.includes("/dashboard-admin") && <Footer />}
+        !location.pathname.includes("/adminDashboard") && <Footer />}
     </div>
   );
 }

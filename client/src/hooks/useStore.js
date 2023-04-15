@@ -29,8 +29,11 @@ export const useProduct = create((set, get) => ({
   getCategories: async () => {
     try {
       let response = await axios.get("/categorias");
+      let filtrarCategoriasActivas = response.data.categorias.filter(
+        (c) => c.status === 1
+      );
       let categorias = [
-        ...new Set(response.data.categorias.map((c) => c.nombre)),
+        ...new Set(filtrarCategoriasActivas.map((c) => c.nombre)),
       ];
       set((state) => ({ categories: categorias }));
       set((state) => ({ filteredCategories: categorias }));
@@ -41,7 +44,7 @@ export const useProduct = create((set, get) => ({
   getSpecies: async () => {
     try {
       let response = await axios.get("/especies");
-      let especies = response.data;
+      let especies = response.data.filter((s) => s.status === 1);
       set((state) => ({ species: especies }));
     } catch (err) {
       console.log(err);
@@ -336,18 +339,44 @@ export const useAdmin = create((set, get) => ({
       set((state) => ({ adminFilteredSpecies: species }));
     }
   },
-  addCategory: (newCategory) => {
+  addCategory: async (newCategory) => {
+    const { getAdminCategories } = get()
+    
+    try {
+      console.log(newCategory)
+      await axios.post("/crearCategoria", newCategory);
+      await getAdminCategories()
+    } catch (err) {
+      console.log(err);
+    }
+  },
+  addSpecie: (specie) => {
+    // const { getAdminSpecies } = get()
     // try {
-    //   axios.post("/categories", newCategory);
+    //   axios.post("/species", {animal: specie});
+    //   getAdminSpecies()
     // } catch (err) {
     //   console.log(err);
     // }
   },
-  addSpecie: (specie) => {
-    // try {
-    //   axios.post("/species", {animal: specie});
-    // } catch (err) {
-    //   console.log(err);
-    // }
+  categoryChangeStatus: async (id, newItem) => {
+    const { getAdminCategories } = get();
+
+    try {
+      let response = await axios.put(`/categorias/status/${id}`, newItem);
+      console.log(response);
+      getAdminCategories();
+    } catch (err) {
+      console.log(err);
+    }
+  },
+  specieChangeStatus: (id) => {
+    const { getAdminSpecies } = get();
+    try {
+      axios.put(`/especies/status/${id}`);
+      getAdminSpecies();
+    } catch (err) {
+      console.log(err);
+    }
   },
 }));
