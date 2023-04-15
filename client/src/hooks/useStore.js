@@ -355,13 +355,14 @@ export const useAdmin = create((set, get) => ({
     }
   },
   addSpecie: (specie) => {
-    // const { getAdminSpecies } = get()
-    // try {
-    //   axios.post("/species", {animal: specie});
-    //   getAdminSpecies()
-    // } catch (err) {
-    //   console.log(err);
-    // }
+    const { getAdminSpecies } = get();
+    console.log(specie)
+    try {
+      axios.post("/especies", { animal: specie });
+      getAdminSpecies();
+    } catch (err) {
+      console.log(err);
+    }
   },
   categoryChangeStatus: async (id, newItem) => {
     const { getAdminCategories } = get();
@@ -391,15 +392,23 @@ export const useAdmin = create((set, get) => ({
     set((state) => ({ categoryEditModal: categoryEditModal ? false : true }));
   },
   editCategory: async (id, editedCategory) => {
+    const { setCategoryEditModal, getAdminSpecies } = get();
     try {
       let response = await axios.put(`/categoria/${id}`, editedCategory);
+      setCategoryEditModal();
+      await getAdminSpecies();
     } catch (err) {
       console.log(err);
     }
   },
   editSpecie: async (id, editedSpecie) => {
+    const { setSpecieEditModal, getAdminSpecies } = get();
     try {
-      let response = await axios.put(`/especie/status/${id}`, editedSpecie);
+      console.log(id);
+      console.log(editedSpecie);
+      let response = await axios.put(`/especies/status/${id}`, editedSpecie);
+      setSpecieEditModal();
+      await getAdminSpecies();
     } catch (err) {
       console.log(err);
     }

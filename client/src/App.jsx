@@ -49,7 +49,7 @@ function App() {
     <div className="App">
       {location.pathname !== "/login" && <Header /> &&
         location.pathname !== "/signup" && <Header /> &&
-        !location.pathname.includes("/adminDashboard") && <Header />}
+        !location.pathname.toLowerCase().includes("/admindashboard") && <Header />}
 
       <Routes>
         <Route path="/adminDashboard" element={<AdminDashboard />}>
@@ -90,7 +90,7 @@ function App() {
       <ModalEditAnimals />
       {location.pathname !== "/login" && <Footer /> &&
         location.pathname !== "/signup" && <Footer /> &&
-        !location.pathname.includes("/adminDashboard") && <Footer />}
+        !location.pathname.toLowerCase().includes("/admindashboard") && <Footer />}
     </div>
   );
 }

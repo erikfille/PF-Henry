@@ -8,7 +8,7 @@ import { RiDeleteBin6Line } from "react-icons/ri";
 import { BsFillCheckCircleFill } from "react-icons/bs";
 import { BsFillDashCircleFill } from "react-icons/bs";
 import { useAdmin } from "../../../hooks/useStore";
-import HeaderDashboard from '../HeaderDashboard/HeaderDashboard';
+import HeaderDashboard from "../HeaderDashboard/HeaderDashboard";
 const DashAnimals = () => {
   const [inputSearch, setInputSearch] = useState("");
 
@@ -52,10 +52,12 @@ const DashAnimals = () => {
   };
 
   const newSpecieSubmit = () => {
+    console.log(newSpecie)
     addSpecie(newSpecie);
   };
 
   const changeStatus = (item) => {
+    console.log(item)
     let newItem = {
       animal: item.animal,
       status: item.status ? 0 : 1,
@@ -66,8 +68,7 @@ const DashAnimals = () => {
 
   return (
     <div className={`${style.dashboardContaier} sidebar col-9 px-5`}>
-    <HeaderDashboard />
-      </div>
+      <HeaderDashboard />
       <div
         className={`${style.userBar} px-4 userbar py-4 d-flex align-items-center mt-5`}
       >
