@@ -21,7 +21,7 @@ export default function UserProfile() {
 
   const [selectedPet, setSelectedPet] = useState({});
 
-  const [userInfo, getUserInfo, compras, getCompras] = useUser((state) => [
+  const [userInfo, getUserInfo, compras, visited] = useUser((state) => [
     state.userInfo,
     state.getUserInfo,
     state.compras,
