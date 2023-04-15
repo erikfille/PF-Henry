@@ -110,15 +110,9 @@ export default function ProductDetail(props) {
               />
             </div>
             <div>
-              {Number(quantity) > 0 ? (
-                <button className="button" onClick={() => addToCart()}>
+              <button className="button" onClick={() => addToCart()} disabled={Number(quantity) < 0}>
                   Agregar al Carrito
-                </button>
-              ) : (
-                <button className="button" disabled>
-                  Agregar al Carrito
-                </button>
-              )}
+              </button>
             </div>
           </div>
         </div>

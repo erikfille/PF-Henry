@@ -14,6 +14,10 @@
 	color: var(--color-0CC5BA) !important;
 }
 
+.buttonGoogle span {
+  color: black;
+}
+
 .link {
 	font-weight: bold;
 	color: var(--color-0CC5BA);
