@@ -62,7 +62,7 @@ const ModalPetDetail = (props) => {
       console.log(err);
     }
   }
-  console.log(selectedPet)
+
   return (
     <div
       className={`${style.modalContainer} col-md-8 px-5 py-4`}
@@ -107,12 +107,12 @@ const ModalPetDetail = (props) => {
       <div className="historial py-3 d-flex justify-content-center">
         <h1 style={{ color: "var(--body_color)" }}>Historial</h1>
       </div>
-      {selectedPet.historial.length && selectedPet.historial
+      {selectedPet.historial && selectedPet.historial.length
         ? selectedPet.historial.map((h) => (
             <div className="hist1">
-              <span className={style.data}>Fecha: </span> <span>{h.fecha}</span>{" "}
+              <span className={style.data}>Fecha: </span> <span>{h.fecha}</span>
               <br />
-              <span className={style.data}>Motivo: </span>{" "}
+              <span className={style.data}>Motivo: </span>
               <span>{h.titulo}</span>
               <p className={`${style.data} mt-3 mb-0`}>Descripción: </p>
               <p style={{ color: "var(--body_color)" }}>{h.descripcion}</p>
