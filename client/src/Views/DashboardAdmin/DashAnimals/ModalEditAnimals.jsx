@@ -19,21 +19,23 @@ export default function ModalEditAnimals() {
   });
 
   useEffect(() => {
-    setEditedSpecie({
-      animal: selectedSpecie.animal,
-    });
-  }, [selectedSpecie]);
-
-  useEffect(() => {
     setIsOpen(speciesEditModal);
   }, [speciesEditModal]);
+
+  useEffect(() => {
+    setEditedSpecie(selectedSpecie);
+  }, [selectedSpecie]);
 
   const handleChange = (e) => {
     setEditedSpecie({ ...editedSpecie, [e.target.name]: e.target.value });
   };
 
   const editSpecieSubmit = () => {
-    editCategory(selectedSpecie._id, editedSpecie);
+    let edited = {
+      animal: editedSpecie.animal,
+      status: editedSpecie.status,
+    };
+    editSpecie(selectedSpecie._id, edited);
   };
 
   return (

@@ -52,10 +52,12 @@ const DashAnimals = () => {
   };
 
   const newSpecieSubmit = () => {
+    console.log(newSpecie)
     addSpecie(newSpecie);
   };
 
   const changeStatus = (item) => {
+    console.log(item)
     let newItem = {
       animal: item.animal,
       status: item.status ? 0 : 1,
