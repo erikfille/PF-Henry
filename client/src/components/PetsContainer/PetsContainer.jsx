@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import { usePets } from "../../hooks/useStore";
 
 const PetsContainer = (props) => {
-  const { setPetDetailModal, setPetAddModal, pets } = props;
+  const { setPetDetailModal, pets } = props;
 
   // useEffect(() => {}, []);
 

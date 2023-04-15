@@ -15,13 +15,12 @@ const Header = () => {
 
 	const [userLogged, setUserLogged] = useState(false); // estado hardcodeado solo para trabajar lo que muestra el boton de User.
 	const [ isAdmin, setIsAdmin ] = useState(true); // estado hardc para mostrar el link al dashb
-
-	const [setActiveCart, cartProducts] = useProduct((state) => [
-		state.setActiveCart,
-		state.cartProducts,
-	]);
-	const [logoutUser] = useLogin((state) => [state.logoutUser]);
-	const [user, setUser] = useState({});
+  const [setActiveCart, cartProducts] = useProduct((state) => [
+    state.setActiveCart,
+    state.cartProducts,
+  ]);
+  const [logoutUser] = useLogin((state) => [state.logoutUser]);
+  const [user, setUser] = useState({});
 
   useEffect(() => {
     const localUser = JSON.parse(localStorage.getItem("user"));

@@ -4,10 +4,10 @@ import style from "./Cart.module.css";
 import { useState, useEffect } from "react";
 import { useProduct } from "../../hooks/useStore";
 import { NavLink } from "react-router-dom";
-import { v4 as uuidv4 } from "uuid";
 
 export default function Cart() {
   const [isOpen, setIsOpen] = useState(false); // El boton de CART del header debe modificar este estado. inicalmente debe estar en False.
+  const [user, setUser] = useState(false); // El boton de CART del header debe modificar este estado. inicalmente debe estar en False.
   const [
     cartProducts,
     cartState,
@@ -25,13 +25,15 @@ export default function Cart() {
   ]);
 
   useEffect(() => {
+    let cart = JSON.parse(window.localStorage.getItem("cart"));
+    let localUser = JSON.parse(window.localStorage.getItem("user"));
 
-    let cart = JSON.parse(window.localStorage.getItem("cart"))
+    setUser(localUser);
 
-    if(!cart) {
-      window.localStorage.setItem("cart", JSON.stringify([]))
+    if (!cart) {
+      window.localStorage.setItem("cart", JSON.stringify([]));
     }
-  })
+  }, []);
 
   useEffect(() => {
     setIsOpen(cartState);
@@ -121,14 +123,20 @@ export default function Cart() {
                 </div>
               </div>
               <div className="d-flex flex-column align-items-center gap-10 justify-content-center">
-                <NavLink to="/checkout">
-                  <button
-                    className="button"
-                    onClick={() => setActiveCart(false)}
-                  >
-                    Confirmar pedido
-                  </button>
-                </NavLink>
+                {user && user.id ? (
+                  <NavLink to="/checkout">
+                    <button
+                      className="button"
+                      onClick={() => setActiveCart(false)}
+                    >
+                      Confirmar pedido
+                    </button>
+                  </NavLink>
+                ) : (
+                  <p>
+                    <strong><a href="/login" className={style.resaltar}>Logueate</a></strong> para poder comprar
+                  </p>
+                )}
                 <a
                   href="/tienda"
                   className={`d-flex flex-column align-items-center py-2`}

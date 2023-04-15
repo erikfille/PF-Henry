@@ -24,7 +24,7 @@ export default function ProductReviews(props) {
       comentarios.forEach((c) => {
         if (c.usuario._id === user.id) setAbleToComment(false);
       });
-    } else setAbleToComment(false)
+    } else setAbleToComment(true)
   }, [updateComments, comentarios]);
 
   function handleInputChange(e) {

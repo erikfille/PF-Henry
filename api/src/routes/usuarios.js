@@ -63,65 +63,65 @@ const usuariosRoutes = [
           expiresIn: 60 * 60 * 72, // 72 horas
         });
 
-        // // Enviar un correo electrónico de bienvenida al usuario
-        // const accountTransport = {
-        //   service: "gmail",
-        //   auth: {
-        //     type: "OAuth2",
-        //     user: process.env.EMAIL_ADDRESS,
-        //     clientId: process.env.CLIENT_ID,
-        //     clientSecret: process.env.CLIENT_SECRET,
-        //     refreshToken: process.env.REFRESH_TOKEN,
-        //   },
-        // };
+        // Enviar un correo electrónico de bienvenida al usuario
+        const accountTransport = {
+          service: "gmail",
+          auth: {
+            type: "OAuth2",
+            user: process.env.EMAIL_ADDRESS,
+            clientId: process.env.CLIENT_ID,
+            clientSecret: process.env.CLIENT_SECRET,
+            refreshToken: process.env.REFRESH_TOKEN,
+          },
+        };
 
-        // const mail_rover = async (callback) => {
-        //   try {
-        //     const oauth2Client = new OAuth2(
-        //       accountTransport.auth.clientId,
-        //       accountTransport.auth.clientSecret,
-        //       "https://developers.google.com/oauthplayground"
-        //     );
-        //     oauth2Client.setCredentials({
-        //       refresh_token: accountTransport.auth.refreshToken,
-        //       tls: {
-        //         rejectUnauthorized: false,
-        //       },
-        //     });
-        //     oauth2Client.getAccessToken((err, token) => {
-        //       if (err) {
-        //         console.log(err);
-        //         return callback(err);
-        //       }
-        //       accountTransport.auth.accessToken = token;
-        //       const transporter = nodemailer.createTransport(accountTransport);
-        //       callback(transporter);
-        //     });
-        //   } catch (error) {
-        //     console.log(error);
-        //     throw new Error("Error al crear el transportador de correo.");
-        //   }
-        // };
+        const mail_rover = async (callback) => {
+          try {
+            const oauth2Client = new OAuth2(
+              accountTransport.auth.clientId,
+              accountTransport.auth.clientSecret,
+              "https://developers.google.com/oauthplayground"
+            );
+            oauth2Client.setCredentials({
+              refresh_token: accountTransport.auth.refreshToken,
+              tls: {
+                rejectUnauthorized: false,
+              },
+            });
+            oauth2Client.getAccessToken((err, token) => {
+              if (err) {
+                console.log(err);
+                return callback(err);
+              }
+              accountTransport.auth.accessToken = token;
+              const transporter = nodemailer.createTransport(accountTransport);
+              callback(transporter);
+            });
+          } catch (error) {
+            console.log(error);
+            throw new Error("Error al crear el transportador de correo.");
+          }
+        };
 
-        // const transporter = await new Promise((resolve, reject) => {
-        //   mail_rover(resolve);
-        // });
+        const transporter = await new Promise((resolve, reject) => {
+          mail_rover(resolve);
+        });
 
-        // const html = fs.readFileSync(
-        //   Path.join(__dirname, "../emails/bienvenida.html"),
-        //   "utf-8",
-        //   {base:__dirname}
-        // )
-        // const emailHtml = html.replace("{{name}}", name);
+        const html = fs.readFileSync(
+          Path.join(__dirname, "../emails/bienvenida.html"),
+          "utf-8",
+          {base:__dirname}
+        )
+        const emailHtml = html.replace("{{name}}", name);
 
-        // const mailOptions = {
-        //   from: process.env.EMAIL_ADDRESS,
-        //   to: email,
-        //   subject: "¡Bienvenido a nuestra aplicación!",
-        //   html: emailHtml,
-        // };
+        const mailOptions = {
+          from: process.env.EMAIL_ADDRESS,
+          to: email,
+          subject: "¡Bienvenido a nuestra aplicación!",
+          html: emailHtml,
+        };
 
-        // await transporter.sendMail(mailOptions);
+        await transporter.sendMail(mailOptions);
 
         return h.response({
           user: {
@@ -218,6 +218,69 @@ const usuariosRoutes = [
             const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
               expiresIn: 60 * 60 * 72, // 72 horas
             });
+
+            // Enviar un correo electrónico de bienvenida al usuario
+          const accountTransport = {
+            service: "gmail",
+            auth: {
+              type: "OAuth2",
+              user: process.env.EMAIL_ADDRESS,
+              clientId: process.env.CLIENT_ID,
+              clientSecret: process.env.CLIENT_SECRET,
+              refreshToken: process.env.REFRESH_TOKEN,
+            },
+          };
+
+          const mail_rover = async (callback) => {
+            try {
+              const oauth2Client = new OAuth2(
+                accountTransport.auth.clientId,
+                accountTransport.auth.clientSecret,
+                "https://developers.google.com/oauthplayground"
+              );
+              oauth2Client.setCredentials({
+                refresh_token: accountTransport.auth.refreshToken,
+                tls: {
+                  rejectUnauthorized: false,
+                },
+              });
+              oauth2Client.getAccessToken((err, token) => {
+                if (err) {
+                  console.log(err);
+                  return callback(err);
+                }
+                accountTransport.auth.accessToken = token;
+                const transporter =
+                  nodemailer.createTransport(accountTransport);
+                callback(transporter);
+              });
+            } catch (error) {
+              console.log(error);
+              throw new Error("Error al crear el transportador de correo.");
+            }
+          };
+
+          const transporter = await new Promise((resolve, reject) => {
+            mail_rover(resolve);
+          });
+
+          const html = fs.readFileSync(
+            Path.join(__dirname, "../emails/bienvenida.html"),
+            "utf-8",
+            {base:__dirname}
+          )
+          const emailHtml = html.replace("{{name}}", name);
+  
+
+          const mailOptions = {
+            from: process.env.EMAIL_ADDRESS,
+            to: email,
+            subject: "¡Bienvenido a nuestra aplicación!",
+            html: emailHtml,
+          };
+
+          await transporter.sendMail(mailOptions);
+
             // Devolvemos objeto user con su info + el token generado
             return h.response({
               user: {
@@ -247,67 +310,7 @@ const usuariosRoutes = [
             expiresIn: 60 * 60 * 72, // 72 horas
           });
 
-          // // Enviar un correo electrónico de bienvenida al usuario
-          // const accountTransport = {
-          //   service: "gmail",
-          //   auth: {
-          //     type: "OAuth2",
-          //     user: process.env.EMAIL_ADDRESS,
-          //     clientId: process.env.CLIENT_ID,
-          //     clientSecret: process.env.CLIENT_SECRET,
-          //     refreshToken: process.env.REFRESH_TOKEN,
-          //   },
-          // };
-
-          // const mail_rover = async (callback) => {
-          //   try {
-          //     const oauth2Client = new OAuth2(
-          //       accountTransport.auth.clientId,
-          //       accountTransport.auth.clientSecret,
-          //       "https://developers.google.com/oauthplayground"
-          //     );
-          //     oauth2Client.setCredentials({
-          //       refresh_token: accountTransport.auth.refreshToken,
-          //       tls: {
-          //         rejectUnauthorized: false,
-          //       },
-          //     });
-          //     oauth2Client.getAccessToken((err, token) => {
-          //       if (err) {
-          //         console.log(err);
-          //         return callback(err);
-          //       }
-          //       accountTransport.auth.accessToken = token;
-          //       const transporter =
-          //         nodemailer.createTransport(accountTransport);
-          //       callback(transporter);
-          //     });
-          //   } catch (error) {
-          //     console.log(error);
-          //     throw new Error("Error al crear el transportador de correo.");
-          //   }
-          // };
-
-          // const transporter = await new Promise((resolve, reject) => {
-          //   mail_rover(resolve);
-          // });
-
-          // const html = fs.readFileSync(
-          //   Path.join(__dirname, "../emails/bienvenida.html"),
-          //   "utf-8",
-          //   {base:__dirname}
-          // )
-          // const emailHtml = html.replace("{{name}}", name);
-  
-
-          // const mailOptions = {
-          //   from: process.env.EMAIL_ADDRESS,
-          //   to: email,
-          //   subject: "¡Bienvenido a nuestra aplicación!",
-          //   text: emailHtml,
-          // };
-
-          // await transporter.sendMail(mailOptions);
+          
 
           // Si sus credenciales son validas respondemos con la data del user + el token generado
           return h.response({
