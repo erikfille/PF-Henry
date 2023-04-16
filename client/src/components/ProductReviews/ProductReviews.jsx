@@ -22,7 +22,7 @@ export default function ProductReviews(props) {
     state.getCompras,
   ]);
 
-  console.log(userInfo)
+  // console.log(userInfo)
 
   useEffect(() => {
     setUser(JSON.parse(localStorage.getItem("user")));
