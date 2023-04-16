@@ -45,7 +45,7 @@ const ModalPetDetail = () => {
   }, [selectedPet]);
 
   useEffect(() => {
-    getHistory(selectedPet.id);
+    if(selectedPet.id) getHistory(selectedPet.id);
   }, [selectedPet]);
 
   useEffect(() => {
@@ -123,6 +123,9 @@ const ModalPetDetail = () => {
         history.map((h, i) => (
           <div key={i} className="hist1">
             <span className={style.data}>Fecha: </span> <span>{h.fecha}</span>
+            <br />
+            <span className={style.data}>Titulo: </span>
+            <span>{h.titulo}</span>
             <br />
             <span className={style.data}>Descripción: </span>
             <span>{h.descripcion}</span>
