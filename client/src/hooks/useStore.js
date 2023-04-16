@@ -307,13 +307,26 @@ export const usePets = create((set, get) => ({
 
 export const useAdmin = create((set, get) => ({
   adminCategories: [],
+  selectedCategory: "",
   adminFilteredCategories: [],
+  categoryEditModal: false,
   adminSpecies: [],
   adminFilteredSpecies: [],
-  selectedCategory: "",
-  categoryEditModal: false,
   selectedSpecie: "",
   speciesEditModal: false,
+  adminUsers: [],
+  adminFilteredUsers: [],
+  selectedUser: {},
+  usersEditModal: false,
+  adminProducts: [],
+  adminFilteredProducts: [],
+  selectedProducts: {},
+  productsEditModal: false,
+  adminProviders: [],
+  adminFilteredProviders: [],
+  adminFilteredProvidersWOSearch: [],
+  selectedProvider: {},
+  providersEditModal: false,
   getAdminCategories: async () => {
     try {
       let response = await axios.get("/categorias");
@@ -345,7 +358,6 @@ export const useAdmin = create((set, get) => ({
   },
   addCategory: async (newCategory) => {
     const { getAdminCategories } = get();
-
     try {
       console.log(newCategory);
       await axios.post("/crearCategoria", newCategory);
@@ -356,7 +368,7 @@ export const useAdmin = create((set, get) => ({
   },
   addSpecie: (specie) => {
     const { getAdminSpecies } = get();
-    console.log(specie)
+    console.log(specie);
     try {
       axios.post("/especies", { animal: specie });
       getAdminSpecies();
@@ -366,7 +378,6 @@ export const useAdmin = create((set, get) => ({
   },
   categoryChangeStatus: async (id, newItem) => {
     const { getAdminCategories } = get();
-
     try {
       let response = await axios.put(`/categorias/status/${id}`, newItem);
       console.log(response);
@@ -419,5 +430,111 @@ export const useAdmin = create((set, get) => ({
       set((state) => ({ selectedSpecie: specie }));
     }
     set((state) => ({ speciesEditModal: speciesEditModal ? false : true }));
+  },
+  getAdminUsers: async () => {
+    try {
+      // let response = await axios.get("/categorias");
+      // set((state) => ({ adminCategories: response.data.categorias }));
+      // set((state) => ({ adminFilteredCategories: response.data.categorias }));
+    } catch (err) {
+      console.log(err);
+    }
+  },
+  searchAdminUsers: (users) => {
+    if (typeof users === "object") {
+      set((state) => ({ adminFilteredUsers: users }));
+    }
+  },
+  modifyUser: async (newUser) => {
+    const { getAdminUsers } = get();
+    try {
+      // console.log(newUser);
+      // await axios.post("/crearCategoria", newUser);
+      // await getAdminCategories();
+    } catch (err) {
+      console.log(err);
+    }
+  },
+  userChangeStatus: async (id, newUser) => {
+    const { getAdminUsers } = get();
+    try {
+      // await axios.put(`/especies/status/${id}`, newUser);
+      // await getAdminUsers();
+    } catch (err) {
+      console.log(err);
+    }
+  },
+  getAdminProducts: async () => {
+    try {
+      // let response = await axios.get("/categorias");
+      // set((state) => ({ adminCategories: response.data.categorias }));
+      // set((state) => ({ adminFilteredCategories: response.data.categorias }));
+    } catch (err) {
+      console.log(err);
+    }
+  },
+  searchAdminProducts: (users) => {
+    if (typeof users === "object") {
+      set((state) => ({ adminFilteredUsers: users }));
+    }
+  },
+  modifyProducts: async (newUser) => {
+    const { getAdminUsers } = get();
+    try {
+      // console.log(newUser);
+      // await axios.post("/crearCategoria", newUser);
+      // await getAdminCategories();
+    } catch (err) {
+      console.log(err);
+    }
+  },
+  productsChangeStatus: async (id, newUser) => {
+    const { getAdminUsers } = get();
+    try {
+      // await axios.put(`/especies/status/${id}`, newUser);
+      // await getAdminUsers();
+    } catch (err) {
+      console.log(err);
+    }
+  },
+  getAdminProviders: async () => {
+    try {
+      let response = await axios.get("/proveedores");
+      console.log(response.data);
+      set((state) => ({ adminProviders: response.data }));
+      set((state) => ({ adminFilteredProviders: response.data }));
+      set((state) => ({ adminFilteredProvidersWOSearch: response.data }));
+    } catch (err) {
+      console.log(err);
+    }
+  },
+  searchAdminProviders: (users) => {
+    if (typeof users === "object") {
+      set((state) => ({ adminFilteredProviders: users }));
+    }
+  },
+  filterAdminProviders: (users) => {
+    if (typeof users === "object") {
+      set((state) => ({ adminFilteredProvidersWOSearch: users }));
+    }
+  },
+  modifyProvider: async (newUser) => {
+    const { getAdminProviders } = get();
+    try {
+      // console.log(newUser);
+      // await axios.post("/crearCategoria", newUser);
+      // await getAdminCategories();
+    } catch (err) {
+      console.log(err);
+    }
+  },
+  providerChangeStatus: async (id, newUser) => {
+    const { getAdminProviders } = get();
+    try {
+      // await axios.put(`/proveedor/${id}`, newUser);
+      // await getAdminProviders();
+    } catch (err) {
+      console.log(err);
+    }
   },
 }));
