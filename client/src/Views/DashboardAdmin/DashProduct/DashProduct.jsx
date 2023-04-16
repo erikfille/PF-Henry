@@ -1,17 +1,13 @@
 import React from "react";
 import style from "./DashProduct.module.css";
-import Sidebar from "../Sidebar/Sidebar";
-import DarkMode from "../../../components/DarkMode/DarkMode";
-import { FaUserCircle } from "react-icons/fa";
 import { FaEdit } from "react-icons/fa";
 import { ImUserMinus } from "react-icons/im";
 import { ImUserCheck } from "react-icons/im";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { Products } from "../helpers/Products";
-import HeaderDashboard from '../HeaderDashboard/HeaderDashboard';
+import HeaderDashboard from "../HeaderDashboard/HeaderDashboard";
 
 const DashProduct = () => {
-
   return (
     <div className={`${style.dashboardContaier} sidebar col-9 px-5`}>
       <HeaderDashboard />

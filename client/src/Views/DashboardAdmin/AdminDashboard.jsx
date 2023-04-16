@@ -5,17 +5,23 @@ import style from "./Sidebar/Sidebar.module.css";
 import { useAdmin } from "../../hooks/useStore";
 
 export default function AdminDashboard() {
-
-  const [getAdminProducts, getAdminCategories, getAdminSpecies] = useAdmin((state) => [
+  const [
+    getAdminProducts,
+    getAdminCategories,
+    getAdminSpecies,
+    getAdminProviders,
+  ] = useAdmin((state) => [
     state.getAdminProducts,
     state.getAdminCategories,
     state.getAdminSpecies,
+    state.getAdminProviders,
   ]);
 
   useEffect(() => {
     // getAdminProducts();
     getAdminCategories();
     getAdminSpecies();
+    getAdminProviders();
   }, []);
 
   return (

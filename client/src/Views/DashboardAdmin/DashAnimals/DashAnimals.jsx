@@ -1,10 +1,6 @@
 import React, { useState, useEffect } from "react";
 import style from "./DashAnimals.module.css";
-import Sidebar from "../Sidebar/Sidebar";
-import DarkMode from "../../../components/DarkMode/DarkMode";
-import { FaUserCircle } from "react-icons/fa";
 import { FaEdit } from "react-icons/fa";
-import { RiDeleteBin6Line } from "react-icons/ri";
 import { BsFillCheckCircleFill } from "react-icons/bs";
 import { BsFillDashCircleFill } from "react-icons/bs";
 import { useAdmin } from "../../../hooks/useStore";
@@ -52,12 +48,12 @@ const DashAnimals = () => {
   };
 
   const newSpecieSubmit = () => {
-    console.log(newSpecie)
+    console.log(newSpecie);
     addSpecie(newSpecie);
   };
 
   const changeStatus = (item) => {
-    console.log(item)
+    console.log(item);
     let newItem = {
       animal: item.animal,
       status: item.status ? 0 : 1,
