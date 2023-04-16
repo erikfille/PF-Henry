@@ -2,13 +2,7 @@ import { useEffect, useState } from "react";
 import style from "./ModalPetDetail.module.css";
 import { TbPawFilled } from "react-icons/tb";
 import { usePets } from "../../hooks/useStore";
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
-import { registerLocale, setDefaultLocale } from "react-datepicker";
-import es from "date-fns/locale/es";
 import validation from "./validation";
-import axios from "axios";
-registerLocale("es", es);
 
 const ModalPetDetail = () => {
   const [
@@ -30,7 +24,7 @@ const ModalPetDetail = () => {
   const [historyModal, setHistoryModal] = useState(false);
 
   const [newHistory, setNewHistory] = useState({
-    fecha: Date.now(),
+    fecha: "",
     titulo: "",
     descripcion: "",
   });
@@ -46,35 +40,17 @@ const ModalPetDetail = () => {
 
   const user = JSON.parse(localStorage.getItem("user"));
 
-  const fecha = new Date(selectedPet.nac);
-  const dia = fecha.getUTCDate().toString().padStart(2, "0");
-  const mes = (fecha.getUTCMonth() + 1).toString().padStart(2, "0");
-  const anio = fecha.getUTCFullYear().toString();
-  const fechaFormateada = `${dia}/${mes}/${anio}`;
-
   useEffect(() => {
     setPet(selectedPet);
   }, [selectedPet]);
 
   useEffect(() => {
-    getHistory(selectedPet.id);
+    if(selectedPet.id) getHistory(selectedPet.id);
   }, [selectedPet]);
 
   useEffect(() => {
     let history = [...petHistory];
-    history.forEach((h) => {
-      console.log(h.fecha);
-      const fecha = new Date(h.fecha * 1000);
-      console.log("fecha: ", fecha);
-      // Formatear la fecha legible por la computadora en el formato dd/MM/yyyy
-      const dia = fecha.getUTCDate();
-      const mes = fecha.getUTCMonth() + 1; // agregar 1 porque los meses en JavaScript comienzan en 0
-      const anio = fecha.getUTCFullYear();
-      const fechaFormateada = `${dia}/${mes}/${anio}`;
-      h.fecha = fechaFormateada;
-    });
     setHistory(history);
-    console.log(history);
   }, [petHistory]);
 
   function openModal() {
@@ -92,6 +68,7 @@ const ModalPetDetail = () => {
   }
 
   function handleDate(date) {
+    date = date.split('-').reverse().join('-')
     setNewHistory({ ...newHistory, fecha: date });
   }
 
@@ -130,7 +107,7 @@ const ModalPetDetail = () => {
         </div>
         <div className="d-flex flex-column align-items-center">
           <p className={style.data}>Fecha de Nac</p>
-          <p style={{ color: "var(--body_color)" }}>{fechaFormateada}</p>
+          <p style={{ color: "var(--body_color)" }}>{selectedPet.nac}</p>
         </div>
       </div>
       <hr style={{ opacity: "1", height: "2px" }} />
@@ -143,11 +120,14 @@ const ModalPetDetail = () => {
         <h1 style={{ color: "var(--body_color)" }}>Historial</h1>
       </div>
       {typeof history === "object" && history.length ? (
-        history.map((h) => (
-          <div className="hist1">
-            <span className={style.data}>Fecha: </span> <span>{h.fecha}</span>{" "}
+        history.map((h, i) => (
+          <div key={i} className="hist1">
+            <span className={style.data}>Fecha: </span> <span>{h.fecha}</span>
             <br />
-            <span className={style.data}>Descripción: </span>{" "}
+            <span className={style.data}>Titulo: </span>
+            <span>{h.titulo}</span>
+            <br />
+            <span className={style.data}>Descripción: </span>
             <span>{h.descripcion}</span>
             <hr />
           </div>
@@ -166,14 +146,15 @@ const ModalPetDetail = () => {
             onSubmit={() => {}}
             className="d-flex flex-column align-items-center justify-content-center"
           >
-            <DatePicker
-              locale="es"
-              dateFormat="dd/MM/yyyy"
-              selected={newHistory.fecha}
-              name="fecha"
-              onChange={(date) => handleDate(date)}
+            <input
+              type="date"
+              onChange={(e) => handleDate(e.target.value)}
               className={style.date}
+              required
             />
+            {errors.fecha && (
+              <span className={style.errorSpan}>{errors.fecha}</span>
+            )}
             <br />
             <input
               type="text"

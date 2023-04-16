@@ -3,6 +3,7 @@ import { AiFillInstagram } from 'react-icons/ai';
 import { BsFacebook, BsTwitter, BsTelephone } from 'react-icons/bs';
 import { FaTiktok } from 'react-icons/fa';
 import { HiOutlineLocationMarker, HiOutlineMail } from 'react-icons/hi';
+import logo from '../../images/logo-pet.png'
 import style from './Footer.module.css';
 
 export default function Footer() {
@@ -18,13 +19,13 @@ export default function Footer() {
                                             	<AiFillInstagram className={style.iconRrss}/>
                                         	</button>
                                     	</a>
-                                
+
                                     	<a href="https://www.facebook.com/profile.php?id=100091093042920" target="_blank" rel="noopener noreferrer">
                                         	<button className={style.btnRrss}>
                                             	<BsFacebook className={style.iconRrss} />
                                         	</button>
                                     	</a>
-                                
+
                                     	<a href="https://twitter.com/petcareamerica" target="_blank" rel="noopener noreferrer">
                                         	<button className={style.btnRrss}>
                                             	<BsTwitter className={style.iconRrss} />
