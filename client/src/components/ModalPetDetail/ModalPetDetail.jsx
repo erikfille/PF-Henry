@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import style from "./ModalPetDetail.module.css";
 import { TbPawFilled } from "react-icons/tb";
 import { usePets } from "../../hooks/useStore";
-import "react-datepicker/dist/react-datepicker.css";
 import validation from "./validation";
 
 const ModalPetDetail = () => {
@@ -121,8 +120,8 @@ const ModalPetDetail = () => {
         <h1 style={{ color: "var(--body_color)" }}>Historial</h1>
       </div>
       {typeof history === "object" && history.length ? (
-        history.map((h) => (
-          <div className="hist1">
+        history.map((h, i) => (
+          <div key={i} className="hist1">
             <span className={style.data}>Fecha: </span> <span>{h.fecha}</span>
             <br />
             <span className={style.data}>Descripción: </span>
