@@ -1,30 +1,26 @@
 import React, { useState, useEffect } from "react";
 import style from "./DashAnimals.module.css";
+import Sidebar from "../Sidebar/Sidebar";
+import DarkMode from "../../../components/DarkMode/DarkMode";
+import { FaUserCircle } from "react-icons/fa";
 import { FaEdit } from "react-icons/fa";
+import { RiDeleteBin6Line } from "react-icons/ri";
 import { BsFillCheckCircleFill } from "react-icons/bs";
 import { BsFillDashCircleFill } from "react-icons/bs";
 import { useAdmin } from "../../../hooks/useStore";
-import HeaderDashboard from "../HeaderDashboard/HeaderDashboard";
+
 const DashAnimals = () => {
   const [inputSearch, setInputSearch] = useState("");
 
   const [newSpecie, setNewSpecie] = useState("");
 
-  const [
-    searchAdminSpecies,
-    adminSpecies,
-    adminFilteredSpecies,
-    addSpecie,
-    specieChangeStatus,
-    setSpecieEditModal,
-  ] = useAdmin((state) => [
-    state.searchAdminSpecies,
-    state.adminSpecies,
-    state.adminFilteredSpecies,
-    state.addSpecie,
-    state.specieChangeStatus,
-    state.setSpecieEditModal,
-  ]);
+  const [searchAdminSpecies, adminSpecies, adminFilteredSpecies, addSpecie] =
+    useAdmin((state) => [
+      state.searchAdminSpecies,
+      state.adminSpecies,
+      state.adminFilteredSpecies,
+      state.addSpecie,
+    ]);
 
   useEffect(() => {
     if (inputSearch.length > 0) {
@@ -48,23 +44,20 @@ const DashAnimals = () => {
   };
 
   const newSpecieSubmit = () => {
-    console.log(newSpecie);
     addSpecie(newSpecie);
-  };
-
-  const changeStatus = (item) => {
-    console.log(item);
-    let newItem = {
-      animal: item.animal,
-      status: item.status ? 0 : 1,
-    };
-    let itemId = item._id;
-    specieChangeStatus(itemId, newItem);
   };
 
   return (
     <div className={`${style.dashboardContaier} sidebar col-9 px-5`}>
-      <HeaderDashboard />
+      <div className="header d-flex mt-5 align-items-center justify-content-between">
+        <h1 className={`${style.h1} fw-bold mb-0`}>Dashboard Administrador</h1>
+        <div className="div">
+          <div className="circleUse d-flex align-items-center gap-30">
+            <DarkMode />
+            <FaUserCircle className={style.iconProfle} />
+          </div>
+        </div>
+      </div>
       <div
         className={`${style.userBar} px-4 userbar py-4 d-flex align-items-center mt-5`}
       >
@@ -114,7 +107,7 @@ const DashAnimals = () => {
                       <td className="status">
                         <div
                           className={`${style.status} ${
-                            specie.status === 1 ? style.active : style.inactive
+                            specie.status === 0 ? style.active : style.inactive
                           } ms-4 mt-2`}
                         ></div>
                       </td>
@@ -128,7 +121,6 @@ const DashAnimals = () => {
                                   cursor: "pointer",
                                   fill: "var(--color-0CC5BA)",
                                 }}
-                                onClick={() => changeStatus(specie)}
                               />
                             ) : (
                               <BsFillCheckCircleFill
@@ -137,7 +129,6 @@ const DashAnimals = () => {
                                   cursor: "pointer",
                                   fill: "var(--color-0CC5BA)",
                                 }}
-                                onClick={() => changeStatus(specie)}
                               />
                             )}
                           </div>
@@ -147,7 +138,6 @@ const DashAnimals = () => {
                                 cursor: "pointer",
                                 fill: "var(--color-0CC5BA)",
                               }}
-                              onClick={() => setSpecieEditModal(specie)}
                             />
                           </div>
                         </div>

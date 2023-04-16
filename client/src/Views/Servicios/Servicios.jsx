@@ -43,7 +43,7 @@ export default function Servicios() {
 		let filtered = allServices;
 
 		if (locacion !== "All") {
-			filtered = filtered.filter((s) => s.pais === locacion);
+			filtered = filtered.filter((s) => s.pais == locacion);
 		}
 		if (tipo !== "All") {
 			filtered = filtered.filter((s) => s.tipo === tipo);
@@ -54,13 +54,13 @@ export default function Servicios() {
 
 	// Busqueda
 	useEffect(() => {
-		if (inputSearch.length) {
+		if (inputSearch.length > 0) {
 			let result = [];
 			filteredServices.forEach((s) => {
 				s.nombre.toLowerCase().includes(inputSearch.toLowerCase()) && result.push(s);
 			});
 			searchServices(result);
-		} else {
+		} else if (inputSearch.length <= 0) {
 			searchServices(filteredServicesWOSearch);
 		}
 	}, [inputSearch]);

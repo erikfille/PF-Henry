@@ -41,7 +41,7 @@ const historialRoutes = [
           
         return h.response(historial).code(200);
       } catch (error) {
-        return h.response({ error: "Error al obtener el historial" }).code(500);
+        return h.response(error).code(500);
       }
     },
   }

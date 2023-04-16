@@ -16,9 +16,6 @@ export default function validation(inputs) {
   if (inputs.descripcion.length > 500) {
     errors.descripcion = "Tu descripcion no puede contener más de 500 caracteres";
   }
-  if (!inputs.fechaDeNacimiento) {
-    errors.fechaDeNacimiento = "Elegi una fecha";
-  }
 
   return errors;
 }

@@ -7,12 +7,10 @@ export default function validation(inputs) {
   if (!EMAIL_REGEX.test(inputs.email) || !inputs.email) {
     errors.email = "Debe introducir un email válido";
   }
-  if (!inputs.name ) errors.name = "Debes introducir un nombre"
-  else if (inputs.name.length > 35) {
+  if (inputs.name.length > 35 || !inputs.name ) {
     errors.name = "El nombre no puede ser mayor a 35 caracteres";
   }
-  if (!inputs.surname ) errors.surname = "Debes introducir un apellido"
-  else if (inputs.surname.length > 35) {
+  if (inputs.surname.length > 35 || !inputs.surname ) {
     errors.surname = "El apellido no puede ser mayor a 35 caracteres";
   }
   if (!PASSWORD_REGEX.test(inputs.password)) {

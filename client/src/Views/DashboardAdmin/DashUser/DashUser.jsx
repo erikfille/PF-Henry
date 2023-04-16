@@ -1,38 +1,26 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import style from "./DashUser.module.css";
+import Sidebar from "../Sidebar/Sidebar";
+import DarkMode from "../../../components/DarkMode/DarkMode";
+import { FaUserCircle } from "react-icons/fa";
 import { FaEdit } from "react-icons/fa";
 import { ImUserMinus } from "react-icons/im";
 import { ImUserCheck } from "react-icons/im";
-import { useAdmin } from "../../../hooks/useStore";
+import { RiDeleteBin6Line } from "react-icons/ri";
 import { Users } from "../helpers/User";
-import HeaderDashboard from "../HeaderDashboard/HeaderDashboard";
 
 const DashUser = () => {
-  const [inputSearch, setInputSearch] = useState("");
-
-  const [
-    adminUsers,
-    adminFilteredUsers,
-    selectedUser,
-    usersEditModal,
-    getAdminUsers,
-    searchAdminUsers,
-    modifyUser,
-    userChangeStatus,
-  ] = useAdmin((state) => [
-    state.adminUsers,
-    state.adminFilteredUsers,
-    state.selectedUser,
-    state.usersEditModal,
-    state.getAdminUsers,
-    state.searchAdminUsers,
-    state.modifyUser,
-    state.userChangeStatus,
-  ]);
-
   return (
     <div className={`${style.dashboardContaier} sidebar col-9 px-5`}>
-      <HeaderDashboard />
+      <div className="header d-flex mt-5 align-items-center justify-content-between">
+        <h1 className={`${style.h1} fw-bold mb-0`}>Dashboard Administrador</h1>
+        <div className="div">
+          <div className="circleUse d-flex align-items-center gap-30">
+            <DarkMode />
+            <FaUserCircle className={style.iconProfle} />
+          </div>
+        </div>
+      </div>
       <div
         className={`${style.userBar} px-4 userbar py-4 d-flex justify-content-between align-items-center mt-5`}
       >
@@ -105,7 +93,7 @@ const DashUser = () => {
                 <td className="status">
                   <div
                     className={`${style.status} ${
-                      user.status === 1 ? style.active : style.inactive
+                      user.status === "activo" ? style.active : style.inactive
                     } ms-4 mt-2`}
                   ></div>
                 </td>
@@ -115,9 +103,8 @@ const DashUser = () => {
                 <td>
                   <div className="icons d-flex gap-10">
                     <div className="modificarActivo">
-                      {user.status === 0 ? (
+                      {user.status === "activo" ? (
                         <ImUserMinus
-                          title="Desactivar"
                           style={{
                             cursor: "pointer",
                             fill: "var(--color-0CC5BA)",
@@ -125,13 +112,20 @@ const DashUser = () => {
                         />
                       ) : (
                         <ImUserCheck
-                          title="Activar"
                           style={{
                             cursor: "pointer",
                             fill: "var(--color-0CC5BA)",
                           }}
                         />
                       )}
+                    </div>
+                    <div className="delete">
+                      <RiDeleteBin6Line
+                        style={{
+                          cursor: "pointer",
+                          fill: "var(--color-0CC5BA)",
+                        }}
+                      />
                     </div>
                     <div className="edit">
                       <FaEdit

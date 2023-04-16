@@ -6,6 +6,9 @@ import { FaUserAlt } from "react-icons/fa";
 import PetsContainer from "../../components/PetsContainer/PetsContainer";
 import { usePets, useUser } from "../../hooks/useStore";
 
+// objetos hardcodeados solo para saber si los array tienen algo o estan vacios
+// Esto para el renderizado condicional.
+// import { pets, compras } from "../../components/PetData/petHelp";
 import { useState, useEffect } from "react";
 
 export default function UserProfile() {
@@ -25,7 +28,7 @@ export default function UserProfile() {
     state.userInfo,
     state.getUserInfo,
     state.compras,
-    state.getCompras
+    state.getCompras,
   ]);
 
   const [pets, setPetAddModal, setPets] = usePets((state) => [
@@ -37,7 +40,6 @@ export default function UserProfile() {
   useEffect(() => {
       if(!userId) navigate("/")
       getUserInfo(userId);
-      // getCompras(userId)
   }, []);
 
   useEffect(() => {
@@ -137,14 +139,10 @@ export default function UserProfile() {
             </div>
             <div className={`${style.comprasContainer} col-10 p-5 my-5`}>
               <h4>Mis Compras:</h4>
-              {compras && compras.length ? (
+              {compras.length ? (
                 <>
                   <div className={`${style.pets} d-flex flex-wrap gap-5 py-5`}>
-                    {compras.map((p, i) => (
-                      <Link key={i}to={`/productos/${p._id}`} className={style.link}>
-                        {p.titulo}
-                      </Link>
-                    ))}
+                    {/* renderizar las compras hechas por el cliente */}
                   </div>
                 </>
               ) : (

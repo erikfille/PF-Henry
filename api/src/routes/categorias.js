@@ -42,7 +42,7 @@ const categoriasRoutes = [
   },
   {
     method: "PUT",
-    path: "/categorias/status/{id}",
+    path: "/categoria/{id}",
     handler: async (request, h) => {
       try {
         const id = request.params.id;

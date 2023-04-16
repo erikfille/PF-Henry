@@ -2,16 +2,7 @@ import BreadCrump from "../../components/BreadCrump/BreadCrump";
 import Meta from "../../components/Meta/Meta";
 import styles from "./Contacto.module.css";
 
-import { useModal } from "../../hooks/useStore";
-
 export default function Contacto() {
-	const [setModalInfo] = useModal((state) => [state.setModalInfo]);
-
-
-	const onContinue = (arg) => {
-		window.location.href = arg;
-	  };
-  
 	return (
 		<div>
 			<Meta title={"Contacto"} />
@@ -60,24 +51,6 @@ export default function Contacto() {
 									}}
 								/>
 							</div>
-							<div className="mb-3 col-12 col-md-9 ">
-								<label
-									htmlFor="formGroupExampleInput"
-									className={`${styles.label} form-label fw-bold`}>
-									Email
-								</label>
-								<input
-									type="email"
-									className="form-control"
-									id="formGroupExampleInput"
-									placeholder="Ingresa tu email"
-									style={{
-										backgroundColor: "var(--body_background)",
-										color: "var(--body_color)",
-										border: "0.5px solid var(--border_color)",
-									}}
-								/>
-							</div>
 							<div class="mb-3 col-12 col-md-9">
 								<label
 									htmlFor="exampleFormControlTextarea1"
@@ -98,21 +71,10 @@ export default function Contacto() {
 									placeholder="Dejanos tu mensaje"></textarea>
 							</div>
 							<button
-  type="submit"
-  className={`btn btn-primary col-12 col-md-9 fw-bold ${styles.button}`}
-  onClick={(event) => {
-    event.preventDefault(); // Evita que se envíe el formulario automáticamente
-    setModalInfo(
-      "Mensaje enviado con éxito",
-      "Gracias por ponerte en contacto con PetsAmérica.",
-      onContinue,
-      ["/"]
-    );
-  }}
->
-  Enviar
-</button>
-
+								type="submit"
+								className={`btn btn-primary col-12 col-md-9 fw-bold ${styles.button}`}>
+								Enviar
+							</button>
 						</form>
 						<div
 							className={`col-12 col-md-6 col-xxl-5 d-none d-sm-block ${styles.imageContainer}`}>

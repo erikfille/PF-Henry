@@ -13,7 +13,6 @@ import DarkMode from "../DarkMode/DarkMode";
 
 const Header = () => {
   const [userLogged, setUserLogged] = useState(false); // estado hardcodeado solo para trabajar lo que muestra el boton de User.
-  const [isAdmin, setIsAdmin] = useState(true); // estado hardc para mostrar el link al dashb
   const [setActiveCart, cartProducts] = useProduct((state) => [
     state.setActiveCart,
     state.cartProducts,
@@ -136,16 +135,6 @@ const Header = () => {
                           Cerrar sesión
                         </Link>
                       </li>
-                      {
-                        <li>
-                          <Link
-                            to="/adminDashboard/users"
-                            className={`${styles.li} dropdown-item`}
-                          >
-                            Dashboard Admin
-                          </Link>
-                        </li>
-                      }
                     </ul>
                   </>
                 )}

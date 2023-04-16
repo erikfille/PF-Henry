@@ -8,7 +8,6 @@ import { RiDeleteBin6Line } from "react-icons/ri";
 import { BsFillCheckCircleFill } from "react-icons/bs";
 import { BsFillDashCircleFill } from "react-icons/bs";
 import { useAdmin } from "../../../hooks/useStore";
-import HeaderDashboard from '../HeaderDashboard/HeaderDashboard';
 
 const DashCategories = () => {
   const [inputSearch, setInputSearch] = useState("");
@@ -23,15 +22,11 @@ const DashCategories = () => {
     adminCategories,
     adminFilteredCategories,
     addCategory,
-    categoryChangeStatus,
-    setCategoryEditModal,
   ] = useAdmin((state) => [
     state.searchAdminCategories,
     state.adminCategories,
     state.adminFilteredCategories,
     state.addCategory,
-    state.categoryChangeStatus,
-    state.setCategoryEditModal,
   ]);
 
   useEffect(() => {
@@ -60,21 +55,17 @@ const DashCategories = () => {
     addCategory(newCategory);
   };
 
-  const changeStatus = (item) => {
-    let newItem = {
-      nombre: item.nombre,
-      tipo: item.tipo,
-      status: item.status ? 0 : 1,
-    };
-    let itemId = item._id;
-    console.log("new Item: ", newItem);
-    console.log("new Item Id: ", itemId);
-    categoryChangeStatus(itemId, newItem);
-  };
-
   return (
     <div className={`${style.dashboardContaier} sidebar col-9 px-5`}>
-      <HeaderDashboard />
+      <div className="header d-flex mt-5 align-items-center justify-content-between">
+        <h1 className={`${style.h1} fw-bold mb-0`}>Dashboard Administrador</h1>
+        <div className="div">
+          <div className="circleUse d-flex align-items-center gap-30">
+            <DarkMode />
+            <FaUserCircle className={style.iconProfle} />
+          </div>
+        </div>
+      </div>
       <div
         className={`${style.userBar} px-4 userbar py-4 d-flex align-items-center mt-5`}
       >
@@ -125,7 +116,7 @@ const DashCategories = () => {
                     <td className="status">
                       <div
                         className={`${style.status} ${
-                          cat.status === 1 ? style.active : style.inactive
+                          cat.status === 0 ? style.active : style.inactive
                         } ms-4 mt-2`}
                       ></div>
                     </td>
@@ -139,7 +130,6 @@ const DashCategories = () => {
                                 cursor: "pointer",
                                 fill: "var(--color-0CC5BA)",
                               }}
-                              onClick={() => changeStatus(cat)}
                             />
                           ) : (
                             <BsFillCheckCircleFill
@@ -148,7 +138,6 @@ const DashCategories = () => {
                                 cursor: "pointer",
                                 fill: "var(--color-0CC5BA)",
                               }}
-                              onClick={() => changeStatus(cat)}
                             />
                           )}
                         </div>
@@ -159,7 +148,6 @@ const DashCategories = () => {
                               cursor: "pointer",
                               fill: "var(--color-0CC5BA)",
                             }}
-                            onClick={() => setCategoryEditModal(cat)}
                           />
                         </div>
                       </div>
@@ -181,7 +169,6 @@ const DashCategories = () => {
               type="text"
               className="form-control"
               id="nombre"
-              name="nombre"
               placeholder="Ingresa un nombre"
               value={newCategory.nombre}
               style={{
@@ -212,8 +199,8 @@ const DashCategories = () => {
               <option selected disabled>
                 Selecciona el tipo
               </option>
-              <option value="Producto">Producto</option>
-              <option value="Servicio">Servicio</option>
+              <option value="producto">Producto</option>
+              <option value="servicio">Servicio</option>
             </select>
           </div>
         </div>

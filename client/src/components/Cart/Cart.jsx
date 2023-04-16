@@ -1,6 +1,5 @@
 import ProductCard from "../ProductCard/ProductCard";
-import logoPet from "../../images/logo-pet.png"
-import logoBgProduct from "../../images/logo-bg-product.png"
+// import { products } from '../../Views/Tienda/helper';
 import style from "./Cart.module.css";
 import { useState, useEffect } from "react";
 import { useProduct } from "../../hooks/useStore";
@@ -66,7 +65,7 @@ export default function Cart() {
           className={`${style.titleCart} d-flex flex-column align-items-center my-5 gap-2`}
         >
           <img
-            src={logoPet}
+            src="src/images/logo-pet.png"
             alt="logo-pet"
             style={{ width: "30px", height: "30px" }}
           />
@@ -75,7 +74,7 @@ export default function Cart() {
 
         <div className={style.imgBg}>
           <img
-            src={logoBgProduct}
+            src="src/images/logo-bg-product.png"
             alt="img-logo"
             style={{ width: "330px" }}
           />
