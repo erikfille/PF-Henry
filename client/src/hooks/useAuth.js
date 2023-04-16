@@ -64,7 +64,6 @@ export const useLogin = create((set, get) => ({
   },
   setUserRole: async (role) => {
     const { user, receiveToken } = get();
-
     try {
       let token = user.token;
       let response = await axios.put(`/users/${user.id}/role`, { role: role });

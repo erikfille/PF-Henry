@@ -1,27 +1,85 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import style from "./DashProvider.module.css";
-import Sidebar from "../Sidebar/Sidebar";
-import DarkMode from "../../../components/DarkMode/DarkMode";
-import { FaUserCircle } from "react-icons/fa";
 import { FaEdit } from "react-icons/fa";
 import { ImUserMinus } from "react-icons/im";
 import { ImUserCheck } from "react-icons/im";
 import { RiDeleteBin6Line } from "react-icons/ri";
-import { Providers } from "../helpers/Providers";
+import { useAdmin } from "../../../hooks/useStore";
 import { BsFillBoxSeamFill } from "react-icons/bs";
+import HeaderDashboard from "../HeaderDashboard/HeaderDashboard";
 
 const DashProvider = () => {
+  const [inputSearch, setInputSearch] = useState("");
+  const [filter, setFilter] = useState("all");
+
+  const [
+    adminProviders,
+    adminFilteredProviders,
+    adminFilteredProvidersWOSearch,
+    selectedProvider,
+    providersEditModal,
+    getAdminProviders,
+    searchAdminProviders,
+    filterAdminProviders,
+    modifyProvider,
+    providerChangeStatus,
+  ] = useAdmin((state) => [
+    state.adminProviders,
+    state.adminFilteredProviders,
+    state.adminFilteredProvidersWOSearch,
+    state.selectedProvider,
+    state.providersEditModal,
+    state.getAdminProviders,
+    state.searchAdminProviders,
+    state.filterAdminProviders,
+    state.modifyProvider,
+    state.providerChangeStatus,
+  ]);
+
+  useEffect(() => {
+    if (inputSearch.length > 0) {
+      let result = [];
+      adminFilteredProvidersWOSearch.forEach((p) => {
+        ((p.nombre &&
+          p.nombre.toLowerCase().includes(inputSearch.toLowerCase())) ||
+          (p.pais &&
+            p.pais.toLowerCase().includes(inputSearch.toLowerCase())) ||
+          (p.subscripcion &&
+            p.subscripcion
+              .toLowerCase()
+              .includes(inputSearch.toLowerCase()))) &&
+          result.push(p);
+      });
+      searchAdminProviders(result);
+    } else if (inputSearch.length <= 0) {
+      searchAdminProviders(adminFilteredProvidersWOSearch);
+    }
+  }, [inputSearch]);
+
+  useEffect(() => {
+    let filtered = adminProviders;
+    if (filter !== "all") {
+      if (filter === "1" || filter === "0") {
+        filtered = filtered.filter(
+          (p) => p.status.toLowerCase() === filter.toLowerCase()
+        );
+      }
+      if (filter === "platinum" || filter === "gold" || filter === "silver") {
+        filtered = filtered.filter(
+          (p) => p.subscripcion.toLowerCase() === filter.toLowerCase()
+        );
+      }
+    }
+    filterAdminProviders(filtered);
+  }, [filter]);
+
+  const handleInput = (e) => {
+    setInputSearch(e.target.value);
+  };
+
   return (
     <div className={`${style.dashboardContaier} dashboard col-9 px-5`}>
-      <div className="header d-flex mt-5 align-items-center justify-content-between">
-        <h1 className={`${style.h1} fw-bold mb-0`}>Dashboard Administrador</h1>
-        <div className="div">
-          <div className="circleUse d-flex align-items-center gap-30">
-            <DarkMode />
-            <FaUserCircle className={style.iconProfle} />
-          </div>
-        </div>
-      </div>
+      <HeaderDashboard />
       <div
         className={`${style.userBar} px-4 userbar py-4 d-flex justify-content-between align-items-center mt-5`}
       >
@@ -46,8 +104,9 @@ const DashProvider = () => {
               <option value="default" defaultValue disabled selected>
                 Selecciona
               </option>
-              <option value="activo">Activo</option>
-              <option value="inactivo">Inactivo</option>
+              <option value="all">Todos</option>
+              <option value="1">Activo</option>
+              <option value="0">Inactivo</option>
               <option value="silver">Silver</option>
               <option value="gold">Gold</option>
               <option value="platinum">Platinum</option>
@@ -67,8 +126,10 @@ const DashProvider = () => {
                 border: "0.5px solid var(--border_color)",
               }}
               type="search"
-              name=""
-              id=""
+              name="search"
+              id="search"
+              value={inputSearch}
+              onChange={handleInput}
               placeholder="Ej. Juan"
             />
           </div>
@@ -79,78 +140,82 @@ const DashProvider = () => {
           <thead>
             <tr>
               <th scope="col">#</th>
-              <th scope="col">Nombre</th>
-              <th scope="col">Apellido</th>
+              <th scope="col">Razon Social</th>
               <th scope="col">Email</th>
+              <th scope="col">Locacion</th>
               <th scope="col">Estatus</th>
               <th scope="col">Suscripción</th>
               <th scope="col">Acciones</th>
             </tr>
           </thead>
           <tbody>
-            {Providers.map((prov) => (
-              <tr>
-                <th scope="row">1</th>
-                <td>{prov.name}</td>
-                <td>{prov.surname}</td>
-                <td>{prov.email}</td>
-                <td className="status">
-                  <div
-                    className={`${style.status} ${
-                      prov.status === "activo" ? style.active : style.inactive
-                    } ms-4 mt-2`}
-                  ></div>
-                </td>
-                <td>
-                  <p className="mb-0">{prov.suscription}</p>
-                </td>
-                <td>
-                  <div className="icons d-flex gap-10">
-                    <div className="modificarActivo">
-                      {prov.status === "activo" ? (
-                        <ImUserMinus
-                          style={{
-                            cursor: "pointer",
-                            fill: "var(--color-0CC5BA)",
-                          }}
-                        />
-                      ) : (
-                        <ImUserCheck
-                          style={{
-                            cursor: "pointer",
-                            fill: "var(--color-0CC5BA)",
-                          }}
-                        />
-                      )}
-                    </div>
-                    <div className="delete">
-                      <RiDeleteBin6Line
-                        style={{
-                          cursor: "pointer",
-                          fill: "var(--color-0CC5BA)",
-                        }}
-                      />
-                    </div>
-                    <div className="edit">
-                      <FaEdit
-                        style={{
-                          cursor: "pointer",
-                          fill: "var(--color-0CC5BA)",
-                        }}
-                      />
-                    </div>
-                    <div className="product">
-                      <BsFillBoxSeamFill
-                        style={{
-                          cursor: "pointer",
-                          fill: "var(--color-0CC5BA)",
-                        }}
-                      />
-                    </div>
-                  </div>
-                </td>
-              </tr>
-            ))}
+            {adminFilteredProviders.length
+              ? adminFilteredProviders.map((prov) => (
+                  <tr>
+                    <th scope="row">1</th>
+                    <td>{prov.nombre}</td>
+                    <td>{prov.email}</td>
+                    <td>{prov.pais}</td>
+                    <td className="status">
+                      <div
+                        className={`${style.status} ${
+                          prov.status === "activo"
+                            ? style.active
+                            : style.inactive
+                        } ms-4 mt-2`}
+                      ></div>
+                    </td>
+                    <td>
+                      <p className="mb-0">{prov.subscripcion}</p>
+                    </td>
+                    <td>
+                      <div className="icons d-flex gap-10">
+                        <div className="modificarActivo">
+                          {prov.status === "activo" ? (
+                            <ImUserMinus
+                              style={{
+                                cursor: "pointer",
+                                fill: "var(--color-0CC5BA)",
+                              }}
+                            />
+                          ) : (
+                            <ImUserCheck
+                              style={{
+                                cursor: "pointer",
+                                fill: "var(--color-0CC5BA)",
+                              }}
+                            />
+                          )}
+                        </div>
+                        <div className="delete">
+                          <RiDeleteBin6Line
+                            style={{
+                              cursor: "pointer",
+                              fill: "var(--color-0CC5BA)",
+                            }}
+                          />
+                        </div>
+                        <div className="edit">
+                          <FaEdit
+                            style={{
+                              cursor: "pointer",
+                              fill: "var(--color-0CC5BA)",
+                            }}
+                          />
+                        </div>
+                        <div className="product">
+                          <BsFillBoxSeamFill
+                            style={{
+                              cursor: "pointer",
+                              fill: "var(--color-0CC5BA)",
+                            }}
+                          />
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+                ))
+              : null}
           </tbody>
         </table>
       </div>

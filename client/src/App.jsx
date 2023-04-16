@@ -10,6 +10,8 @@ import ModalConsultaGenerico from "./components/ModalGenerico/ModalConsultaGener
 import ModalCreatePet from "./components/ModalCreatePet/ModalCreatePet";
 import ModalPetDetail from "./components/ModalPetDetail/ModalPetDetail";
 import ModalInfoGenerico from "./components/ModalInfoGenerico/ModalInfoGenerico";
+import ModalEditCategory from "./Views/DashboardAdmin/DashCategories/ModalEditCategory";
+import ModalEditAnimals from "./Views/DashboardAdmin/DashAnimals/ModalEditAnimals";
 
 //? Views
 import Home from "./Views/Home/Home";
@@ -26,9 +28,11 @@ import UserProfile from "./Views/UserProfile/UserProfile";
 import CheckOut from "./Views/Checkout/Checkout";
 import ProviderDashboard from "./Views/ProviderDashboard/ProviderDashboard";
 import PayPal from "./Views/Checkout/PayPal";
+import Terminos from "./Views/Terminos/Terminos";
+import Ubicacion from "./Views/Ubicacion/Ubicacion";
+
 //? Styles
 import "./App.css";
-import { useModal } from "./hooks/useStore";
 
 import AdminDashboard from "./Views/DashboardAdmin/AdminDashboard";
 import DashUser from "./Views/DashboardAdmin/DashUser/DashUser";
@@ -46,14 +50,17 @@ function App() {
     <div className="App">
       {location.pathname !== "/login" && <Header /> &&
         location.pathname !== "/signup" && <Header /> &&
-        !location.pathname.includes("/adminDashboard") && <Header />}
+        !location.pathname.toLowerCase().includes("/admindashboard") && <Header />}
 
       <Routes>
         <Route path="/adminDashboard" element={<AdminDashboard />}>
           <Route path="/adminDashboard/users" element={<DashUser />} />
           <Route path="/adminDashboard/providers" element={<DashProvider />} />
           <Route path="/adminDashboard/products" element={<DashProduct />} />
-          <Route path="/adminDashboard/categories" element={<DashCategories />} />
+          <Route
+            path="/adminDashboard/categories"
+            element={<DashCategories />}
+          />
           <Route path="/adminDashboard/animals" element={<DashAnimals />} />
         </Route>
 
@@ -66,6 +73,8 @@ function App() {
         <Route path="/contacto" element={<Contacto />} />
         <Route path="/servicios" element={<Servicios />} />
         <Route path="/paypal" element={<PayPal />} />
+        <Route path="/terminos" element={<Terminos />} />
+        <Route path="/ubicacion" element={<Ubicacion />} />
         <Route path="/productos/:productId" element={<Detail />} />
         <Route path="/crearProducto" element={<CreateProduct />} />
         <Route path="/perfil" element={<UserProfile />}>
@@ -79,9 +88,11 @@ function App() {
       <ModalCreatePet />
       <ModalPetDetail />
       <ModalInfoGenerico />
+      <ModalEditCategory />
+      <ModalEditAnimals />
       {location.pathname !== "/login" && <Footer /> &&
         location.pathname !== "/signup" && <Footer /> &&
-        !location.pathname.includes("/dashboard-admin") && <Footer />}
+        !location.pathname.toLowerCase().includes("/admindashboard") && <Footer />}
     </div>
   );
 }

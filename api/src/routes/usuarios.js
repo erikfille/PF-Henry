@@ -276,7 +276,7 @@ const usuariosRoutes = [
             from: process.env.EMAIL_ADDRESS,
             to: email,
             subject: "¡Bienvenido a nuestra aplicación!",
-            text: emailHtml,
+            html: emailHtml,
           };
 
           await transporter.sendMail(mailOptions);
