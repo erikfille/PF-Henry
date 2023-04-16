@@ -1,15 +1,8 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import validation from "./validation";
 import UploadWidget from "../UploadWidget/UploadWidget";
 import { usePets } from "../../hooks/useStore";
-import axios from "axios";
 import styles from "./CreatePet.module.css";
-
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
-import { registerLocale, setDefaultLocale } from "react-datepicker";
-import es from "date-fns/locale/es";
-registerLocale("es", es);
 
 export default function CreatePet() {
   const user = JSON.parse(localStorage.getItem("user"));
@@ -17,7 +10,7 @@ export default function CreatePet() {
   const [newPetData, setNewPetData] = useState({
     nombre: "",
     especie: "",
-    fechaDeNacimiento: Date.now(),
+    fechaDeNacimiento: "",
     descripcion: "",
     imagen: "",
     historial: [],
@@ -55,6 +48,12 @@ export default function CreatePet() {
         [e.target.name]: e.target.value,
       })
     );
+  }
+
+  function handleDate(e) {
+    let date = e.target.value.split('-').reverse().join('-')
+    console.log(date)
+    setNewPetData({ ...newPetData, fechaDeNacimiento: date });
   }
 
   function onUpload(url) {
@@ -107,15 +106,18 @@ export default function CreatePet() {
                 )}
                 <br />
                 <div>
-                  <DatePicker
-                    locale="es"
-                    dateFormat="dd/MM/yyyy"
-                    selected={newPetData.fechaDeNacimiento}
-                    onChange={(date) =>
-                      setNewPetData({ ...newPetData, fechaDeNacimiento: date })
-                    }
-                    className={styles.date}
+                  <input
+                    type="date"
+                    name="fechaDeNacimiento"
+                    onChange={handleDate}
+                    className={`${
+                      errors.fechaDeNacimiento && "is-invalid"
+                    } form-control`}
+                    required
                   />
+                  {errors.fechaDeNacimiento && (
+                    <span className={styles.errorSpan}>{errors.fechaDeNacimiento}</span>
+                  )}
                 </div>
                 <br />
                 <div>
