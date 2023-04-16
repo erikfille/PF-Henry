@@ -51,6 +51,24 @@ export default function Contacto() {
 									}}
 								/>
 							</div>
+							<div className="mb-3 col-12 col-md-9 ">
+								<label
+									htmlFor="formGroupExampleInput"
+									className={`${styles.label} form-label fw-bold`}>
+									Email
+								</label>
+								<input
+									type="email"
+									className="form-control"
+									id="formGroupExampleInput"
+									placeholder="Ingresa tu email"
+									style={{
+										backgroundColor: "var(--body_background)",
+										color: "var(--body_color)",
+										border: "0.5px solid var(--border_color)",
+									}}
+								/>
+							</div>
 							<div class="mb-3 col-12 col-md-9">
 								<label
 									htmlFor="exampleFormControlTextarea1"
