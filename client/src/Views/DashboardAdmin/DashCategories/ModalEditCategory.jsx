@@ -44,13 +44,15 @@ export default function ModalEditCategory() {
 
   return (
     <div
-      className={`${style.modalContainer} col-md-4 px-3 py-4`}
+      className={`${style.modalContainer} col-md-4 px-3 py-4 d-flex align-items-center justify-content-center`}
       style={{ display: isOpen ? "block" : "none" }}
     >
       <div className={style.addCategory}>
-        <h1 className="fw-bold mb-0">Agregar nueva categoría</h1>
-        <div className="mb-3 my-5 d-flex gap-30">
-          <div className="name">
+        <h1 className={`${style.title} text-center mb-4`}>
+          Modificar categoría
+        </h1>
+        <div className="mb-3 my-4 d-flex gap-30 justify-content-center">
+          <div >
             <label htmlFor="nombre" className="form-label">
               Nombre
             </label>
@@ -69,7 +71,7 @@ export default function ModalEditCategory() {
               onChange={handleChange}
             />
           </div>
-          <div className="tipo">
+          <div>
             <label htmlFor="tipo" className="form-label">
               Tipo
             </label>
@@ -91,12 +93,14 @@ export default function ModalEditCategory() {
             </select>
           </div>
         </div>
-        <button className="button mt-3" onClick={editCategorySubmit}>
-          Modificar categoría
+        <div className="d-flex justify-content-center">   
+        <button className="button mt-3 mx-2" onClick={editCategorySubmit}>
+          Aceptar
         </button>
-        <button onClick={() => setCategoryEditModal()} className="button mt-3">
+        <button onClick={() => setCategoryEditModal()} className="button mt-3 mx-2">
           Cancelar
-        </button>
+        </button></div>
+     
       </div>
     </div>
   );
