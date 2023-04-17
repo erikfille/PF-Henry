@@ -98,7 +98,7 @@ export const useLogin = create((set, get) => ({
 
     modal(
       "¡Login Exitoso!",
-      `¡Bienvenido a PetApp, ${user.name}!`,
+      `¡Bienvenido a PetsAmérica, ${user.name}!`,
       receiveLogin,
       [user]
     );
