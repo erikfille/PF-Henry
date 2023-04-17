@@ -409,11 +409,11 @@ const usuariosRoutes = [
   },
   {
     method: 'GET',
-    path: '/users/',
+    path: '/users',
     handler: async (request, h) => {
         try {
           const users = await Usuario.find()
-          .select("name surname email image password address")
+          .select("name surname email image password address status")
            return h.response(users);
         } catch (err) {
             return h.response(err).code(500);

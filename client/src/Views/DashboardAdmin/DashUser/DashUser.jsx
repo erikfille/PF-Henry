@@ -4,17 +4,20 @@ import { FaEdit } from "react-icons/fa";
 import { ImUserMinus } from "react-icons/im";
 import { ImUserCheck } from "react-icons/im";
 import { useAdmin } from "../../../hooks/useStore";
-import { Users } from "../helpers/User";
 import HeaderDashboard from "../HeaderDashboard/HeaderDashboard";
 
 const DashUser = () => {
-  const [inputSearch, setInputSearch] = useState("");
-
+  const [inputSearch, setInputSearch] = useState("all");
+  const [filter, setFilter] = useState("all");
   const [
     adminUsers,
     adminFilteredUsers,
+    adminFilteredUsersWOSearch,
     selectedUser,
     usersEditModal,
+    usersDetailModal,
+    setUserEditModal,
+    setUserDetailModal,
     getAdminUsers,
     searchAdminUsers,
     modifyUser,
@@ -22,13 +25,40 @@ const DashUser = () => {
   ] = useAdmin((state) => [
     state.adminUsers,
     state.adminFilteredUsers,
+    state.adminFilteredUsersWOSearch,
     state.selectedUser,
     state.usersEditModal,
+    state.usersDetailModal,
+    state.setUserEditModal,
+    state.setUserDetailModal,
     state.getAdminUsers,
     state.searchAdminUsers,
     state.modifyUser,
     state.userChangeStatus,
   ]);
+
+  useEffect(() => {
+    if (inputSearch.length > 0) {
+      let result = [];
+      adminFilteredUsersWOSearch.forEach((u) => {
+        ((u.name && u.name.toLowerCase().includes(inputSearch.toLowerCase())) ||
+          (u.surname &&
+            u.surname.toLowerCase().includes(inputSearch.toLowerCase())) ||
+          (u.email &&
+            u.email.toLowerCase().includes(inputSearch.toLowerCase()))) &&
+          result.push(p);
+      });
+      searchAdminUsers(result);
+    } else if (inputSearch.length <= 0) {
+      searchAdminUsers(adminFilteredUsersWOSearch);
+    }
+  }, [inputSearch]);
+
+  const changeStatus = (item) => {
+    let newUser = { ...item, status: item.status ? 0 : 1 };
+    let userId = item._id;
+    userChangeStatus(userId, newUser);
+  };
 
   return (
     <div className={`${style.dashboardContaier} sidebar col-9 px-5`}>
@@ -54,11 +84,11 @@ const DashUser = () => {
               name="filtrar_por"
               id="filtrar_por"
             >
-              <option value="default" defaultValue disabled selected>
+              <option value="all" defaultValue disabled selected>
                 Selecciona
               </option>
-              <option value="activo">Activo</option>
-              <option value="inactivo">Inactivo</option>
+              <option value="1">Activo</option>
+              <option value="0">Inactivo</option>
             </select>
           </div>
           <div
@@ -96,55 +126,65 @@ const DashUser = () => {
             </tr>
           </thead>
           <tbody>
-            {Users.map((user) => (
-              <tr>
-                <th scope="row">1</th>
-                <td>{user.name}</td>
-                <td>{user.surname}</td>
-                <td>{user.email}</td>
-                <td className="status">
-                  <div
-                    className={`${style.status} ${
-                      user.status === 1 ? style.active : style.inactive
-                    } ms-4 mt-2`}
-                  ></div>
-                </td>
-                <td>
-                  <button className={style.linkDetalle}>ver detalle</button>
-                </td>
-                <td>
-                  <div className="icons d-flex gap-10">
-                    <div className="modificarActivo">
-                      {user.status === 0 ? (
-                        <ImUserMinus
-                          title="Desactivar"
-                          style={{
-                            cursor: "pointer",
-                            fill: "var(--color-0CC5BA)",
-                          }}
-                        />
-                      ) : (
-                        <ImUserCheck
-                          title="Activar"
-                          style={{
-                            cursor: "pointer",
-                            fill: "var(--color-0CC5BA)",
-                          }}
-                        />
-                      )}
-                    </div>
-                    <div className="edit">
-                      <FaEdit
-                        style={{
-                          cursor: "pointer",
-                          fill: "var(--color-0CC5BA)",
-                        }}
-                      />
-                    </div>
-                  </div>
-                </td>
-              </tr>
-            ))}
+            {adminFilteredUsers
+              ? adminFilteredUsers.map((user) => (
+                  <tr>
+                    <th scope="row">1</th>
+                    <td>{user.name}</td>
+                    <td>{user.surname}</td>
+                    <td>{user.email}</td>
+                    <td className="status">
+                      <div
+                        className={`${style.status} ${
+                          user.status === 1 ? style.active : style.inactive
+                        } ms-4 mt-2`}
+                      ></div>
+                    </td>
+                    <td>
+                      <button
+                        className={style.linkDetalle}
+                        onClick={() => setUserDetailModal()}
+                      >
+                        Ver detalle
+                      </button>
+                    </td>
+                    <td>
+                      <div className="icons d-flex gap-10">
+                        <div className="modificarActivo">
+                          {user.status === 0 ? (
+                            <ImUserMinus
+                              title="Desactivar"
+                              style={{
+                                cursor: "pointer",
+                                fill: "var(--color-0CC5BA)",
+                              }}
+                              onClick={() => changeStatus(user)}
+                            />
+                          ) : (
+                            <ImUserCheck
+                              title="Activar"
+                              style={{
+                                cursor: "pointer",
+                                fill: "var(--color-0CC5BA)",
+                              }}
+                              onClick={() => changeStatus(user)}
+                            />
+                          )}
+                        </div>
+                        <div className="edit">
+                          <FaEdit
+                            style={{
+                              cursor: "pointer",
+                              fill: "var(--color-0CC5BA)",
+                            }}
+                            onClick={() => setUserEditModal(user._id)}
+                          />
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+                ))
+              : null}
           </tbody>
         </table>
       </div>
