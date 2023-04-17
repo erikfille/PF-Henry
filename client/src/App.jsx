@@ -29,6 +29,7 @@ import CheckOut from "./Views/Checkout/Checkout";
 import ProviderDashboard from "./Views/ProviderDashboard/ProviderDashboard";
 import PayPal from "./Views/Checkout/PayPal";
 import Terminos from "./Views/Terminos/Terminos";
+import Ubicacion from "./Views/Ubicacion/Ubicacion";
 
 //? Styles
 import "./App.css";
@@ -73,6 +74,7 @@ function App() {
         <Route path="/servicios" element={<Servicios />} />
         <Route path="/paypal" element={<PayPal />} />
         <Route path="/terminos" element={<Terminos />} />
+        <Route path="/ubicacion" element={<Ubicacion />} />
         <Route path="/productos/:productId" element={<Detail />} />
         <Route path="/crearProducto" element={<CreateProduct />} />
         <Route path="/perfil" element={<UserProfile />}>

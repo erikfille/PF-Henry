@@ -56,7 +56,7 @@ export default function Footer() {
 						<div className="col-3 py-4 text-center">
 							<div className="contact d-flex flex-column justify-content-center gap-10">
 								<h4 className={`${style.h4} mb-4`}>Nuestro Contacto</h4>
-								<Link to=""><span className={style.spans}> <HiOutlineLocationMarker className={style.iconContact}/> Ubicacion</span></Link>
+								<Link to="/ubicacion"><span className={style.spans}> <HiOutlineLocationMarker className={style.iconContact}/> Ubicacion</span></Link>
 								<a className={style.spans} href='tel:584146482412'><BsTelephone className={style.iconContact} /> +58 4146482412</a>
 								<a className={style.spans} href='mailto:info@petsamerica.com'><HiOutlineMail className={style.iconContact} /> info@petsamerica.com</a>
 							</div>
