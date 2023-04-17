@@ -127,15 +127,6 @@ const Header = () => {
                           Ver perfil
                         </Link>
                       </li>
-                      <li>
-                        <Link
-                          to=""
-                          onClick={() => logoutUser()}
-                          className={`${styles.li} dropdown-item`}
-                        >
-                          Cerrar sesión
-                        </Link>
-                      </li>
                       {
                         <li>
                           <Link
@@ -146,6 +137,16 @@ const Header = () => {
                           </Link>
                         </li>
                       }
+                      <li>
+                        <Link
+                          to=""
+                          onClick={() => logoutUser()}
+                          className={`${styles.li} dropdown-item`}
+                        >
+                          Cerrar sesión
+                        </Link>
+                      </li>
+                   
                     </ul>
                   </>
                 )}
