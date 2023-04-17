@@ -407,6 +407,35 @@ const usuariosRoutes = [
       }
     },
   },
+  {
+    method: 'GET',
+    path: '/users/',
+    handler: async (request, h) => {
+        try {
+          const users = await Usuario.find()
+          .select("name surname email image password address")
+           return h.response(users);
+        } catch (err) {
+            return h.response(err).code(500);
+        }
+    }
+  },
+  {
+    method: "PUT",
+    path: "/users/{id}",
+    handler: async (request, h) => {
+      try {
+        const id = request.params.id;
+        const update = request.payload;
+        const users = await Usuario.findByIdAndUpdate(id, update, {
+          new: true,
+        });
+        return users;
+      } catch (error) {
+        return h.response(error).code(500);
+      }
+    },
+  }
 ];
 
 module.exports = usuariosRoutes;
