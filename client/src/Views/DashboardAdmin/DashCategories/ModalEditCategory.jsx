@@ -44,12 +44,12 @@ export default function ModalEditCategory() {
 
   return (
     <div
-      className={`${style.modalContainer} col-md-4 px-3 py-4`}
+    className={`${style.modalContainer} col-md-4 px-3 py-4`}
       style={{ display: isOpen ? "block" : "none" }}
     >
-      <div className={style.addCategory}>
-        <h1 className="fw-bold mb-0">Agregar nueva categoría</h1>
-        <div className="mb-3 my-5 d-flex gap-30">
+      <div className="d-flex flex-column align-items-center gap-20">
+        <h1 className={style.title}>Editar categoría</h1>
+        <div className="mb-2 my-4 d-flex gap-30">
           <div className="name">
             <label htmlFor="nombre" className="form-label">
               Nombre
@@ -91,12 +91,15 @@ export default function ModalEditCategory() {
             </select>
           </div>
         </div>
-        <button className="button mt-3" onClick={editCategorySubmit}>
-          Modificar categoría
-        </button>
-        <button onClick={() => setCategoryEditModal()} className="button mt-3">
-          Cancelar
-        </button>
+        <div className="d-flex gap-15">
+          <button className="button mt-3 mx-2"  onClick={editCategorySubmit}>
+            Aceptar
+          </button>
+          <button onClick={() => setCategoryEditModal()} className="button mt-3 mx-2" >
+            Cancelar
+          </button>
+        </div>
+   
       </div>
     </div>
   );

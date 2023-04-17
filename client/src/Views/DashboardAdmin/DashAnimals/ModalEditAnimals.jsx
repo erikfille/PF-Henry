@@ -40,12 +40,12 @@ export default function ModalEditAnimals() {
 
   return (
     <div
-      className={`${style.modalContainer} col-md-4 px-3 py-4`}
+    className={`${style.modalContainer} col-md-4 px-3 py-4`}
       style={{ display: isOpen ? "block" : "none" }}
     >
-      <div className={style.addCategory}>
-        <h1 className="fw-bold mb-0">Agregar nuevo animal</h1>
-        <div className="mb-3 my-5 d-flex gap-30">
+      <div className="d-flex flex-column align-items-center gap-20">
+        <h1 className={style.title}>Agregar nuevo animal</h1>
+        <div className="mb-2 my-4 d-flex gap-30">
           <div className="name">
             <label htmlFor="especie" className="form-label fw-bold">
               Especie:
@@ -66,12 +66,15 @@ export default function ModalEditAnimals() {
             />
           </div>
         </div>
-        <button className="button mt-3" onClick={editSpecieSubmit}>
-          Modificar especie
-        </button>
-        <button onClick={() => setSpecieEditModal()} className="button mt-3">
-          Cancelar
-        </button>
+        <div className="d-flex gap-15">
+          <button className="button mt-3 mx-2" onClick={editSpecieSubmit}>
+            Modificar especie
+          </button>
+          <button onClick={() => setSpecieEditModal()} className="button mt-3 mx-2">
+            Cancelar
+          </button>
+        </div>
+       
       </div>
     </div>
   );
