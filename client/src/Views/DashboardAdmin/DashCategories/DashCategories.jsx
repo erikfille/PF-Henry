@@ -82,7 +82,7 @@ const DashCategories = () => {
           <h1 className="fw-bold mb-0">Categorías</h1>
         </div>
         <div className="d-flex gap-30 w-100 justify-content-end">
-          <div
+        <div
             className={`${style.search} d-flex align-items-center col col-md-6 m-1`}
           >
             <p className={`${style.p} mb-0 d-none d-lg-inline fw-bold`}>
@@ -104,8 +104,9 @@ const DashCategories = () => {
           </div>
         </div>
       </div>
-      <div className={style.table}>
-        <table className="table table-striped table-hover">
+      <div className="d-flex flex-wrap gap-30">
+      <div className={`${style.table} col-6`}>
+      <table className="table table-striped table-hover">
           <thead>
             <tr>
               <th scope="col">#</th>
@@ -170,11 +171,11 @@ const DashCategories = () => {
           </tbody>
         </table>
       </div>
-      <div className={style.addCategory}>
-        <h1 className="fw-bold mb-0">Agregar nueva categoría</h1>
-        <div className="mb-3 my-5 d-flex gap-30">
+      <div className={`${style.addCategory} col-5`}>
+      <h1 className="fw-bold mb-0 text-center ">Agregar nueva categoría</h1>
+      <div className="mb-3 my-5 d-flex gap-30">
           <div className="name">
-            <label htmlFor="nombre" className="form-label">
+            <label htmlFor="nombre" className="form-label fw-bold">
               Nombre
             </label>
             <input
@@ -192,7 +193,7 @@ const DashCategories = () => {
               onChange={handleChange}
             />
           </div>
-          <div className="tipo">
+          <div className="tipo" >
             <label htmlFor="tipo" className="form-label">
               Tipo
             </label>
@@ -217,9 +218,13 @@ const DashCategories = () => {
             </select>
           </div>
         </div>
-        <button className="button mt-3" onClick={newCategorySubmit}>
+        <div className="d-flex gap-15 ">
+           <button className="button mt-3 my-3" onClick={newCategorySubmit}>
           Agregar categoría
         </button>
+        </div>
+        </div>
+       
       </div>
     </div>
   );
