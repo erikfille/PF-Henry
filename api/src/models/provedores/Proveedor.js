@@ -27,37 +27,51 @@ const ProveedorSchema = new Schema({
     enum: ["VIP", "Normal", "Gratuito"],
     required: true,
   },
-  pais:{
-     type:String
+  pais: {
+    type: String,
   },
   tipo: {
-    type:String
+    type: String,
   },
   descripcion: {
-    type:String
+    type: String,
   },
   email: {
-    type:String
+    type: String,
   },
   telefono: {
-    type:String
+    type: String,
   },
   horarioAtencion: {
     type: {
       semana: [
-        { type: String }, // abre
-        { type: String }, // cierra
+        { type: String },
+        { type: String },
       ],
       sabado: [
-        { type: String }, // abre
-        { type: String }, // cierra
+        { type: String },
+        { type: String },
       ],
       domingo: [
-        { type: String }, // abre
-        { type: String }, // cierra
+        { type: String },
+        { type: String },
       ],
     },
     required: true,
+  },
+  status: {
+    type: Number,
+    default: 1,
+    validate: {
+      validator: function (v) {
+        return v === 0 || v === 1;
+      },
+      message: (props) =>
+        `${props.value} debe ser 0 (Desactivado) o 1 (Activo).`,
+    },
+  },
+  image: {
+    type: String,
   },
 });
 

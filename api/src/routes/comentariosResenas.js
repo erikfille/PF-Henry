@@ -32,7 +32,7 @@ const createComentarioResenaRoute = [
 
         return h.response(comentarioResena).code(201);
       } catch (error) {
-        console.error(error); // Imprimir el error en la consola para depuración
+        console.error(error);
         return h
           .response({
             statusCode: 500,
