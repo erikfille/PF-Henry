@@ -79,6 +79,27 @@ const createMascotaRoutes = [
       }
     },
   },
+  {
+    method: "DELETE",
+    path: "/mascotas/{mascotaId}",
+    handler: async (request, h) => {
+      try {
+        const mascotaId = request.params.mascotaId;
+
+        const deletedMascota = await Mascota.findByIdAndDelete(mascotaId);
+
+        await Usuario.findByIdAndUpdate(
+          deletedMascota.usuario,
+          { $pull: { id_mascota: mascotaId } },
+          { new: true }
+        );
+
+        return h.response(deletedMascota).code(200);
+      } catch (error) {
+        return h.response(error).code(500);
+      }
+    },
+  },
 ];
 
 module.exports = createMascotaRoutes;
