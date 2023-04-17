@@ -10,11 +10,13 @@ export default function AdminDashboard() {
     getAdminCategories,
     getAdminSpecies,
     getAdminProviders,
+    getAdminUsers,
   ] = useAdmin((state) => [
     state.getAdminProducts,
     state.getAdminCategories,
     state.getAdminSpecies,
     state.getAdminProviders,
+    state.getAdminUsers,
   ]);
 
   useEffect(() => {
@@ -22,6 +24,7 @@ export default function AdminDashboard() {
     getAdminCategories();
     getAdminSpecies();
     getAdminProviders();
+    getAdminUsers();
   }, []);
 
   return (
