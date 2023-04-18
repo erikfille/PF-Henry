@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom";
 import { AiFillInstagram } from 'react-icons/ai';
 import { BsFacebook, BsTwitter, BsTelephone } from 'react-icons/bs';
-import { FaTiktok } from 'react-icons/fa';
 import { HiOutlineLocationMarker, HiOutlineMail } from 'react-icons/hi';
 import logo from '../../images/logo-pet.png'
 import style from './Footer.module.css';
@@ -12,32 +11,29 @@ export default function Footer() {
 			<div className={style.footerWrapper}>
 				<div className="container-xxl">
 					<div className="row">
-						<div className="col-3 py-4">
-						<div className="d-flex gap-30">
-                                    	<a href="https://www.instagram.com/pets.america/" target="_blank" rel="noopener noreferrer" >
-                                        	<button className={style.btnRrss}>
-                                            	<AiFillInstagram className={style.iconRrss}/>
-                                        	</button>
-                                    	</a>
+						<div className="col-3 py-4 d-flex flex-column align-items-center gap-30 mt-2">
+							<div>
+								<img src={logo} alt="logo" style={{width: "100px"}} />
+							</div>
+							<div className="d-flex gap-30">
+								<a href="https://www.instagram.com/pets.america/" target="_blank" rel="noopener noreferrer" >
+									<button className={style.btnRrss}>
+										<AiFillInstagram className={style.iconRrss}/>
+									</button>
+								</a>
 
-                                    	<a href="https://www.facebook.com/profile.php?id=100091093042920" target="_blank" rel="noopener noreferrer">
-                                        	<button className={style.btnRrss}>
-                                            	<BsFacebook className={style.iconRrss} />
-                                        	</button>
-                                    	</a>
+								<a href="https://www.facebook.com/profile.php?id=100091093042920" target="_blank" rel="noopener noreferrer">
+									<button className={style.btnRrss}>
+										<BsFacebook className={style.iconRrss} />
+									</button>
+								</a>
 
-                                    	<a href="https://twitter.com/petcareamerica" target="_blank" rel="noopener noreferrer">
-                                        	<button className={style.btnRrss}>
-                                            	<BsTwitter className={style.iconRrss} />
-                                        	</button>
-                                    	</a>
-
-                                	{/* <a href="">
-                                    		<button className={style.btnRrss}>
-                                        		<FaTiktok className={style.iconRrss} />
-                                    		</button>
-                                		</a> */}
-                                </div>
+								<a href="https://twitter.com/petcareamerica" target="_blank" rel="noopener noreferrer">
+									<button className={style.btnRrss}>
+										<BsTwitter className={style.iconRrss} />
+									</button>
+								</a>
+							</div>
 						</div>
 						<div className="col-3 py-4 text-center">
 							<div className="policy d-flex flex-column justify-content-center gap-10">
