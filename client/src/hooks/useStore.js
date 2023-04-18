@@ -340,6 +340,7 @@ export const useAdmin = create((set, get) => ({
   getAdminCategories: async () => {
     try {
       let response = await axios.get("/categorias");
+      response.data.categorias.sort((a, b) => b.status - a.status);
       set((state) => ({ adminCategories: response.data.categorias }));
       set((state) => ({ adminFilteredCategories: response.data.categorias }));
     } catch (err) {
@@ -349,6 +350,7 @@ export const useAdmin = create((set, get) => ({
   getAdminSpecies: async () => {
     try {
       let response = await axios.get("/especies");
+      response.data.sort((a, b) => b.status - a.status);
       let species = response.data;
       set((state) => ({ adminSpecies: species }));
       set((state) => ({ adminFilteredSpecies: response.data }));
@@ -447,9 +449,9 @@ export const useAdmin = create((set, get) => ({
         u.name = `${u.name[0].toUpperCase()}${u.name.slice(1)}`;
         u.surname = `${u.surname[0].toUpperCase()}${u.surname.slice(1)}`;
       });
+      response.data.sort((a, b) => b.status - a.status);
       set((state) => ({ adminUsers: response.data }));
       set((state) => ({ adminFilteredUsers: response.data }));
-      set((state) => ({ adminFilteredWOSUsers: response.data }));
     } catch (err) {
       console.log(err);
     }
@@ -494,7 +496,13 @@ export const useAdmin = create((set, get) => ({
           console.log(e);
         });
     }
-    set((state) => ({ usersDetailModal: state.usersDetailModal ? false : true }));
+    set((state) => ({
+      usersDetailModal: state.usersDetailModal ? false : true,
+    }));
+  },
+  setFilterUsers: (users) => {
+    set((state) => ({ adminFilteredUsers: users }));
+    set((state) => ({ adminFilteredUsersWOSearch: users }));
   },
   userChangeStatus: async (id, newUser) => {
     const { getAdminUsers } = get();
