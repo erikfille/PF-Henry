@@ -325,7 +325,7 @@ export const useAdmin = create((set, get) => ({
   adminFilteredUsers: [],
   adminFilteredUsersWOSearch: [],
   selectedUser: {},
-  specificUser: {},
+  userBuyedProducts: [],
   usersEditModal: false,
   usersDetailModal: false,
   adminProducts: [],
@@ -340,6 +340,7 @@ export const useAdmin = create((set, get) => ({
   getAdminCategories: async () => {
     try {
       let response = await axios.get("/categorias");
+      response.data.categorias.sort((a, b) => b.status - a.status);
       set((state) => ({ adminCategories: response.data.categorias }));
       set((state) => ({ adminFilteredCategories: response.data.categorias }));
     } catch (err) {
@@ -349,6 +350,7 @@ export const useAdmin = create((set, get) => ({
   getAdminSpecies: async () => {
     try {
       let response = await axios.get("/especies");
+      response.data.sort((a, b) => b.status - a.status);
       let species = response.data;
       set((state) => ({ adminSpecies: species }));
       set((state) => ({ adminFilteredSpecies: response.data }));
@@ -377,7 +379,6 @@ export const useAdmin = create((set, get) => ({
   },
   addSpecie: (specie) => {
     const { getAdminSpecies } = get();
-    console.log(specie);
     try {
       axios.post("/especies", { animal: specie });
       getAdminSpecies();
@@ -434,11 +435,12 @@ export const useAdmin = create((set, get) => ({
     }
   },
   setSpecieEditModal: (specie) => {
-    const { speciesEditModal } = get();
     if (specie) {
       set((state) => ({ selectedSpecie: specie }));
     }
-    set((state) => ({ speciesEditModal: speciesEditModal ? false : true }));
+    set((state) => ({
+      speciesEditModal: state.speciesEditModal ? false : true,
+    }));
   },
   getAdminUsers: async () => {
     try {
@@ -447,9 +449,9 @@ export const useAdmin = create((set, get) => ({
         u.name = `${u.name[0].toUpperCase()}${u.name.slice(1)}`;
         u.surname = `${u.surname[0].toUpperCase()}${u.surname.slice(1)}`;
       });
+      response.data.sort((a, b) => b.status - a.status);
       set((state) => ({ adminUsers: response.data }));
       set((state) => ({ adminFilteredUsers: response.data }));
-      set((state) => ({ adminFilteredWOSUsers: response.data }));
     } catch (err) {
       console.log(err);
     }
@@ -459,34 +461,62 @@ export const useAdmin = create((set, get) => ({
       set((state) => ({ adminFilteredUsers: users }));
     }
   },
-  modifyUser: async (newUser) => {
-    const { getAdminUsers } = get();
-    try {
-      // console.log(newUser);
-      // await axios.post("/crearCategoria", newUser);
-      // await getAdminCategories();
-    } catch (err) {
-      console.log(err);
+  setUserEditModal: async (userId) => {
+    if (userId) {
+      let response = await axios.get(`users/${userId}`);
+      set((state) => ({ selectedUser: response.data }));
     }
+    set((state) => ({ usersEditModal: state.usersEditModal ? false : true }));
   },
-  getSpecificUser: async (id) => {
-    let response = await axios.get(`users/${id}`);
-    console.log(response.data);
-    set((state) => ({ specificUser: response.data }));
-  },
-  setUserEditModal: (userId) => {
-    const { getSpecificUser } = get();
-    getSpecificUser(userId);
-    if (user) {
-      set((state) => ({ selectedUser: user }));
+  setUserDetailModal: async (userId) => {
+    if (userId) {
+      let response = await axios.get(`users/${userId}`);
+      response.data.name = `${response.data.name[0].toUpperCase()}${response.data.name.slice(
+        1
+      )}`;
+      response.data.surname = `${response.data.surname[0].toUpperCase()}${response.data.surname.slice(
+        1
+      )}`;
+      set((state) => ({ selectedUser: response.data }));
+
+      let promisifiedProducts = [];
+      let buyedProducts = [];
+      response.data.productosComprados.forEach((p) => {
+        promisifiedProducts.push(
+          axios.get(`/product-detail/${p._id}`).then((response) => {
+            buyedProducts.push(response.data);
+          })
+        );
+      });
+      Promise.all(promisifiedProducts)
+        .then(() => {
+          set((state) => ({ userBuyedProducts: buyedProducts }));
+        })
+        .catch((e) => {
+          console.log(e);
+        });
     }
-    set((state) => ({ userEditModal: userEditModal ? false : true }));
+    set((state) => ({
+      usersDetailModal: state.usersDetailModal ? false : true,
+    }));
   },
-  setUserDetailModal: () => {},
+  setFilterUsers: (users) => {
+    set((state) => ({ adminFilteredUsers: users }));
+    set((state) => ({ adminFilteredUsersWOSearch: users }));
+  },
   userChangeStatus: async (id, newUser) => {
     const { getAdminUsers } = get();
     try {
       await axios.put(`/users/${id}`, newUser);
+      await getAdminUsers();
+    } catch (err) {
+      console.log(err);
+    }
+  },
+  userChangeRole: async (id, role) => {
+    const { getAdminUsers } = get();
+    try {
+      let response = await axios.put(`/users/${id}/role`, { role: role });
       await getAdminUsers();
     } catch (err) {
       console.log(err);

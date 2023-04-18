@@ -4,7 +4,7 @@ import bgPaw from "../../images/bg-paw.png"
 
 const Home = () => {
    return (
-      <>
+      <> 
          <div className={`home-wrapper home-wrapper-2 ${style.homeContainer}`}>
             <div className={style.bgImage}>
                <img src={bgPaw} alt="logo=patas" />

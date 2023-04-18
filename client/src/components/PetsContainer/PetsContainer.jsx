@@ -17,6 +17,7 @@ const PetsContainer = (props) => {
             historial={p.historial}
             descripcion={p.descripcion}
             setPetDetailModal={setPetDetailModal}
+            origin={props.origin}
           />
         ))
       ) : (

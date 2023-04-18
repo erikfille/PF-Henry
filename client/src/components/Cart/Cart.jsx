@@ -1,6 +1,6 @@
 import ProductCard from "../ProductCard/ProductCard";
-import logoPet from "../../images/logo-pet.png"
-import logoBgProduct from "../../images/logo-bg-product.png"
+import logoPet from "../../images/logo-pet.png";
+import logoBgProduct from "../../images/logo-bg-product.png";
 import style from "./Cart.module.css";
 import { useState, useEffect } from "react";
 import { useProduct } from "../../hooks/useStore";
@@ -74,11 +74,7 @@ export default function Cart() {
         </div>
 
         <div className={style.imgBg}>
-          <img
-            src={logoBgProduct}
-            alt="img-logo"
-            style={{ width: "330px" }}
-          />
+          <img src={logoBgProduct} alt="img-logo" style={{ width: "330px" }} />
         </div>
         {!cartProducts.length ? (
           <>
@@ -135,7 +131,12 @@ export default function Cart() {
                   </NavLink>
                 ) : (
                   <p>
-                    <strong><a href="/login" className={style.resaltar}>Logueate</a></strong> para poder comprar
+                    <strong>
+                      <a href="/login" className={style.resaltar}>
+                        Logueate
+                      </a>
+                    </strong>{" "}
+                    para poder comprar
                   </p>
                 )}
                 <a

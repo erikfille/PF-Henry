@@ -12,6 +12,8 @@ import ModalPetDetail from "./components/ModalPetDetail/ModalPetDetail";
 import ModalInfoGenerico from "./components/ModalInfoGenerico/ModalInfoGenerico";
 import ModalEditCategory from "./Views/DashboardAdmin/DashCategories/ModalEditCategory";
 import ModalEditAnimals from "./Views/DashboardAdmin/DashAnimals/ModalEditAnimals";
+import ModalUserDetail from "./Views/DashboardAdmin/DashUser/ModalUserDetail";
+import ModalUserEdit from "./Views/DashboardAdmin/DashUser/ModalUserEdit";
 
 //? Views
 import Home from "./Views/Home/Home";
@@ -57,7 +59,7 @@ function App() {
         !location.pathname.toLowerCase().includes("/providerdashboard") && <Header />} 
 
       <Routes>
-        <Route path="/adminDashboard" element={<AdminDashboard />}>
+        <Route path="/adminDashboard/" element={<AdminDashboard />}>
           <Route path="/adminDashboard/users" element={<DashUser />} />
           <Route path="/adminDashboard/providers" element={<DashProvider />} />
           <Route path="/adminDashboard/products" element={<DashProduct />} />
@@ -98,8 +100,10 @@ function App() {
       <ModalCreatePet />
       <ModalPetDetail />
       <ModalInfoGenerico />
-      <ModalEditCategory />
-      <ModalEditAnimals />
+      {location.pathname === "/adminDashboard/users" && <ModalUserDetail />}
+      {location.pathname === "/adminDashboard/users" && <ModalUserEdit />}
+      {location.pathname === "/adminDashboard/categories" && <ModalEditCategory />}
+      {location.pathname === "/adminDashboard/animals" && <ModalEditAnimals />}
       {location.pathname !== "/login" && <Footer /> &&
         location.pathname !== "/signup" && <Footer /> &&
         !location.pathname.toLowerCase().includes("/admindashboard") && <Footer />&&

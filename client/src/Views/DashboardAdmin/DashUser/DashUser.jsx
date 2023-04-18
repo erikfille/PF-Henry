@@ -5,59 +5,86 @@ import { ImUserMinus } from "react-icons/im";
 import { ImUserCheck } from "react-icons/im";
 import { useAdmin } from "../../../hooks/useStore";
 import HeaderDashboard from "../HeaderDashboard/HeaderDashboard";
+import Loader from "../../../components/Loader/Loader";
 
 const DashUser = () => {
   const [inputSearch, setInputSearch] = useState("all");
   const [filter, setFilter] = useState("all");
+  const [loading, setLoading] = useState(true);
+  const [users, setUsers] = useState([]);
+
   const [
     adminUsers,
     adminFilteredUsers,
     adminFilteredUsersWOSearch,
     selectedUser,
-    usersEditModal,
-    usersDetailModal,
     setUserEditModal,
     setUserDetailModal,
-    getAdminUsers,
     searchAdminUsers,
-    modifyUser,
     userChangeStatus,
+    setFilterUsers,
+    getAdminUsers
   ] = useAdmin((state) => [
     state.adminUsers,
     state.adminFilteredUsers,
     state.adminFilteredUsersWOSearch,
     state.selectedUser,
-    state.usersEditModal,
-    state.usersDetailModal,
     state.setUserEditModal,
     state.setUserDetailModal,
-    state.getAdminUsers,
     state.searchAdminUsers,
-    state.modifyUser,
     state.userChangeStatus,
+    state.setFilterUsers,
+    state.getAdminUsers,
   ]);
+
+  useEffect(() => {
+    getAdminUsers();
+    setLoading(true);
+    if (adminUsers.length) {
+      setUsers(adminUsers);
+      setLoading(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    let filtered = adminUsers;
+    if (filter !== "all") {
+      filtered = filtered.filter((u) => u.status === Number(filter));
+    }
+    setFilterUsers(filtered);
+  }, [filter, adminUsers]);
 
   useEffect(() => {
     if (inputSearch.length > 0) {
       let result = [];
       adminFilteredUsersWOSearch.forEach((u) => {
-        ((u.name && u.name.toLowerCase().includes(inputSearch.toLowerCase())) ||
+        if (
+          (u.name &&
+            u.name.toLowerCase().includes(inputSearch.toLowerCase())) ||
           (u.surname &&
             u.surname.toLowerCase().includes(inputSearch.toLowerCase())) ||
-          (u.email &&
-            u.email.toLowerCase().includes(inputSearch.toLowerCase()))) &&
-          result.push(p);
+          (u.email && u.email.toLowerCase().includes(inputSearch.toLowerCase()))
+        )
+          result.push(u);
       });
       searchAdminUsers(result);
     } else if (inputSearch.length <= 0) {
       searchAdminUsers(adminFilteredUsersWOSearch);
     }
-  }, [inputSearch]);
+  }, [inputSearch, adminFilteredUsersWOSearch]);
 
   const changeStatus = (item) => {
     let newUser = { ...item, status: item.status ? 0 : 1 };
     let userId = item._id;
     userChangeStatus(userId, newUser);
+  };
+
+  const handleInput = (e) => {
+    setInputSearch(e.target.value);
+  };
+
+  const handleChange = (e) => {
+    setFilter(e.target.value);
   };
 
   return (
@@ -83,9 +110,10 @@ const DashUser = () => {
               }}
               name="filtrar_por"
               id="filtrar_por"
+              onChange={handleChange}
             >
-              <option value="all" defaultValue disabled selected>
-                Selecciona
+              <option value="all" defaultValue selected>
+                Todos
               </option>
               <option value="1">Activo</option>
               <option value="0">Inactivo</option>
@@ -108,6 +136,7 @@ const DashUser = () => {
               name=""
               id=""
               placeholder="Ej. Juan"
+              onChange={handleInput}
             />
           </div>
         </div>
@@ -125,67 +154,71 @@ const DashUser = () => {
               <th scope="col">Acciones</th>
             </tr>
           </thead>
-          <tbody>
-            {adminFilteredUsers
-              ? adminFilteredUsers.map((user) => (
-                  <tr>
-                    <th scope="row">1</th>
-                    <td>{user.name}</td>
-                    <td>{user.surname}</td>
-                    <td>{user.email}</td>
-                    <td className="status">
-                      <div
-                        className={`${style.status} ${
-                          user.status === 1 ? style.active : style.inactive
-                        } ms-4 mt-2`}
-                      ></div>
-                    </td>
-                    <td>
-                      <button
-                        className={style.linkDetalle}
-                        onClick={() => setUserDetailModal()}
-                      >
-                        Ver detalle
-                      </button>
-                    </td>
-                    <td>
-                      <div className="icons d-flex gap-10">
-                        <div className="modificarActivo">
-                          {user.status === 0 ? (
-                            <ImUserMinus
-                              title="Desactivar"
+          {loading ? (
+            <Loader />
+          ) : (
+            <tbody>
+              {adminFilteredUsers
+                ? adminFilteredUsers.map((user, idx) => (
+                    <tr>
+                      <th scope="row">{idx + 1}</th>
+                      <td>{user.name}</td>
+                      <td>{user.surname}</td>
+                      <td>{user.email}</td>
+                      <td className="status">
+                        <div
+                          className={`${style.status} ${
+                            user.status === 1 ? style.active : style.inactive
+                          } ms-4 mt-2`}
+                        ></div>
+                      </td>
+                      <td>
+                        <button
+                          className={style.linkDetalle}
+                          onClick={() => setUserDetailModal(user._id)}
+                        >
+                          Ver detalle
+                        </button>
+                      </td>
+                      <td>
+                        <div className="icons d-flex gap-10">
+                          <div className="modificarActivo">
+                            {user.status === 1 ? (
+                              <ImUserMinus
+                                title="Desactivar"
+                                style={{
+                                  cursor: "pointer",
+                                  fill: "var(--color-0CC5BA)",
+                                }}
+                                onClick={() => changeStatus(user)}
+                              />
+                            ) : (
+                              <ImUserCheck
+                                title="Activar"
+                                style={{
+                                  cursor: "pointer",
+                                  fill: "var(--color-0CC5BA)",
+                                }}
+                                onClick={() => changeStatus(user)}
+                              />
+                            )}
+                          </div>
+                          <div className="edit">
+                            <FaEdit
                               style={{
                                 cursor: "pointer",
                                 fill: "var(--color-0CC5BA)",
                               }}
-                              onClick={() => changeStatus(user)}
+                              onClick={() => setUserEditModal(user._id)}
                             />
-                          ) : (
-                            <ImUserCheck
-                              title="Activar"
-                              style={{
-                                cursor: "pointer",
-                                fill: "var(--color-0CC5BA)",
-                              }}
-                              onClick={() => changeStatus(user)}
-                            />
-                          )}
+                          </div>
                         </div>
-                        <div className="edit">
-                          <FaEdit
-                            style={{
-                              cursor: "pointer",
-                              fill: "var(--color-0CC5BA)",
-                            }}
-                            onClick={() => setUserEditModal(user._id)}
-                          />
-                        </div>
-                      </div>
-                    </td>
-                  </tr>
-                ))
-              : null}
-          </tbody>
+                      </td>
+                    </tr>
+                  ))
+                : null}
+            </tbody>
+          )}
         </table>
       </div>
     </div>
