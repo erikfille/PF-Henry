@@ -35,7 +35,7 @@ export default function Detail() {
     return () => setProductDetail({});
   }, [productId]);
 
-  console.log(productDetail);
+  // console.log(productDetail);
 
   async function updateComments() {
     let response = await axios

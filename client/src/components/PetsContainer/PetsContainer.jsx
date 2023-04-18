@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import PetData from "../PetData/PetData";
 
 const PetsContainer = (props) => {
