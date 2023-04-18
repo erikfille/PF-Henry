@@ -137,6 +137,10 @@ export default function Tienda() {
     if (currentPage < totalPages) setCurrentPage(currentPage + 1);
   };
 
+
+    window.scrollTo(0, 0);
+
+
   return (
     <>
       <Meta title={"Tienda"} />

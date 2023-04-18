@@ -16,7 +16,12 @@ export default function Detail() {
   const [loading, setLoading] = useState(true);
 
   const { productId } = useParams();
+  useEffect(() => {
+    // Añade esta llamada para volver al inicio de la página
+    window.scrollTo(0, 0);
+  }, []);
 
+  
   useEffect(() => {
     setLoading(true);
     let response = axios
