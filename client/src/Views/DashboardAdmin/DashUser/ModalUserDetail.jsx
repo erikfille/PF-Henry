@@ -11,14 +11,12 @@ export default function ModalUserDetail() {
   const [
     setUserDetailModal,
     usersEditModal,
-    usersDetailModal,
     selectedUser,
     setUserEditModal,
     userBuyedProducts,
   ] = useAdmin((state) => [
     state.setUserDetailModal,
     state.usersEditModal,
-    state.usersDetailModal,
     state.selectedUser,
     state.setUserEditModal,
     state.userBuyedProducts,
@@ -38,8 +36,8 @@ export default function ModalUserDetail() {
   }, [selectedUser]);
 
   useEffect(() => {
-    setIsOpen(usersDetailModal);
-  }, [usersDetailModal]);
+    setIsOpen(usersEditModal);
+  }, [usersEditModal]);
 
   return (
     <div
