@@ -4,6 +4,7 @@ import { useAdmin } from "../../../hooks/useStore";
 import PetsContainer from "../../../components/PetsContainer/PetsContainer";
 import ProductCard from "../../../components/ProductCard/ProductCard";
 import style from "./ModalUserDetail.module.css";
+import {Modal} from "react-bootstrap"
 
 export default function ModalUserDetail() {
   const [isOpen, setIsOpen] = useState(false);
@@ -11,12 +12,14 @@ export default function ModalUserDetail() {
   const [
     setUserDetailModal,
     usersEditModal,
+    usersDetailModal,
     selectedUser,
     setUserEditModal,
     userBuyedProducts,
   ] = useAdmin((state) => [
     state.setUserDetailModal,
     state.usersEditModal,
+    state.usersDetailModal,
     state.selectedUser,
     state.setUserEditModal,
     state.userBuyedProducts,
@@ -36,62 +39,71 @@ export default function ModalUserDetail() {
   }, [selectedUser]);
 
   useEffect(() => {
-    setIsOpen(usersEditModal);
-  }, [usersEditModal]);
+    setIsOpen(usersDetailModal);
+  }, [usersDetailModal]);
 
   return (
-    <div
-      className={`${style.modalContainer} col-md-4 px-3 py-4`}
-      style={{ display: isOpen ? "block" : "none" }}
-    >
-      <div className="d-flex flex-column align-items-center gap-20">
-        <h1 className={style.title}>
+    <Modal show={isOpen} onHide={() => setUserDetailModal()} centered>
+      <Modal.Header closeButton>
+        <Modal.Title>
           <b>Detalle de Usuario</b>
-        </h1>
-        <div className="mb-2 my-4 d-flex gap-30">
-          <div className="name">
-            <span>
-              <b>Nombre: </b>
-            </span>{" "}
-            <span>
-              {userDetail.name} {userDetail.surname}
-            </span>
-          </div>
-          <div className="address">
-            {" "}
-            <span>
-              <b>Domicilio: </b>
-            </span>{" "}
-            <span>{userDetail.address}</span>
-          </div>
-          <div className="email">
-            {" "}
-            <span>
-              <b>email: </b>
-            </span>{" "}
-            <span>{userDetail.email}</span>
-          </div>
+        </Modal.Title>
+      </Modal.Header>
+      <Modal.Body>
+        <div>
+          <span>
+            <b>Nombre: </b>
+          </span>{" "}
+          <span>
+            {userDetail.name} {userDetail.surname}
+          </span>
+        </div>
+        <div>
+          {" "}
+          <span>
+            <b>Domicilio: </b>
+          </span>{" "}
+          <span>{userDetail.address}</span>
+        </div>
+        <div>
+          {" "}
+          <span>
+            <b>email: </b>
+          </span>{" "}
+          <span>{userDetail.email}</span>
         </div>
         <hr />
         <div>
           <b>Mascotas</b>
         </div>
-        <hr />
+        <br />
         <PetsContainer pets={userDetail.id_mascota} origin="admin" />
         <hr />
-        {products && products.length
-          ? products.map((p) => {
-              <ProductCard // y por cada item renderiza una card con el estilo para el carrito.
-                key={p._id}
-                id={p._id}
-                titulo={p.titulo}
-                price={p.precio}
-                imagen={p.imagen}
-                cant={p.quantity}
-                showAs="adminDetail"
-              />;
-            })
-          : "El usuario no tiene productos comprados"}
+        <div>
+          <b>Historial de Compras</b>
+        </div>
+        {products && products.length ? (
+          products.map((p) => (
+            <div key={p._id} className="d-flex justify-content-between align-items-center">
+              <div>
+                <ProductCard
+                  id={p._id}
+                  titulo={p.titulo}
+                  imagen={p.imagen}
+                  cant={p.quantity}
+                  showAs="adminDetail"
+                />
+              </div>
+              <div>
+                <span className="text-end">${p.precio}</span>
+              </div>
+            </div>
+          ))
+        ) : (
+          <div>El usuario no tiene productos comprados</div>
+        )}
+      </Modal.Body>
+      <Modal.Footer>
         <div className="d-flex gap-15">
           <button
             className="button mt-3 mx-2"
@@ -102,14 +114,12 @@ export default function ModalUserDetail() {
           >
             Editar
           </button>
-          <button
-            onClick={() => setUserDetailModal()}
-            className="button mt-3 mx-2"
-          >
+          <button onClick={() => setUserDetailModal()} className="button mt-3 mx-2">
             Volver
           </button>
         </div>
-      </div>
-    </div>
+      </Modal.Footer>
+    </Modal>
+
   );
 }
