@@ -40,6 +40,9 @@ import DashProvider from "./Views/DashboardAdmin/DashProvider/DashProvider";
 import DashProduct from "./Views/DashboardAdmin/DashProduct/DashProduct";
 import DashCategories from "./Views/DashboardAdmin/DashCategories/DashCategories";
 import DashAnimals from "./Views/DashboardAdmin/DashAnimals/DashAnimals";
+import DashProfile from "./Views/ProviderDashboard/DashPerfil/DashPerfil";
+import DashProductos from "./Views/ProviderDashboard/DashProductos/DashProductos";
+import DashActividades from "./Views/ProviderDashboard/DashActividades/DashActividades";
 
 axios.defaults.baseURL = "http://localhost:3000";
 
@@ -50,7 +53,8 @@ function App() {
     <div className="App">
       {location.pathname !== "/login" && <Header /> &&
         location.pathname !== "/signup" && <Header /> &&
-        !location.pathname.toLowerCase().includes("/admindashboard") && <Header />}
+        !location.pathname.toLowerCase().includes("/admindashboard") && <Header /> &&
+        !location.pathname.toLowerCase().includes("/providerdashboard") && <Header />} 
 
       <Routes>
         <Route path="/adminDashboard" element={<AdminDashboard />}>
@@ -62,6 +66,12 @@ function App() {
             element={<DashCategories />}
           />
           <Route path="/adminDashboard/animals" element={<DashAnimals />} />
+        </Route>
+        
+        <Route path="/providerDashboard" element={<ProviderDashboard />}>
+          <Route path="/providerDashboard/profile" element={<DashProfile />} />
+          <Route path="/providerDashboard/products" element={<DashProductos />} />
+          <Route path="/providerDashboard/activities" element={<DashActividades />} />
         </Route>
 
         <Route path="/login" element={<Login />} />
@@ -92,7 +102,8 @@ function App() {
       <ModalEditAnimals />
       {location.pathname !== "/login" && <Footer /> &&
         location.pathname !== "/signup" && <Footer /> &&
-        !location.pathname.toLowerCase().includes("/admindashboard") && <Footer />}
+        !location.pathname.toLowerCase().includes("/admindashboard") && <Footer />&&
+        !location.pathname.toLowerCase().includes("/providerdashboard") && <Footer />}
     </div>
   );
 }
