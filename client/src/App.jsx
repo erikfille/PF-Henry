@@ -40,6 +40,7 @@ import DashProvider from "./Views/DashboardAdmin/DashProvider/DashProvider";
 import DashProduct from "./Views/DashboardAdmin/DashProduct/DashProduct";
 import DashCategories from "./Views/DashboardAdmin/DashCategories/DashCategories";
 import DashAnimals from "./Views/DashboardAdmin/DashAnimals/DashAnimals";
+import ModalUserDetail from "./Views/DashboardAdmin/DashUser/ModalUserDetail";
 
 axios.defaults.baseURL = "http://localhost:3000";
 
@@ -50,7 +51,9 @@ function App() {
     <div className="App">
       {location.pathname !== "/login" && <Header /> &&
         location.pathname !== "/signup" && <Header /> &&
-        !location.pathname.toLowerCase().includes("/admindashboard") && <Header />}
+        !location.pathname.toLowerCase().includes("/admindashboard") && (
+          <Header />
+        )}
 
       <Routes>
         <Route path="/adminDashboard" element={<AdminDashboard />}>
@@ -90,9 +93,13 @@ function App() {
       <ModalInfoGenerico />
       <ModalEditCategory />
       <ModalEditAnimals />
+      <ModalUserDetail />
+      {/* <ModalUserEdit /> */}
       {location.pathname !== "/login" && <Footer /> &&
         location.pathname !== "/signup" && <Footer /> &&
-        !location.pathname.toLowerCase().includes("/admindashboard") && <Footer />}
+        !location.pathname.toLowerCase().includes("/admindashboard") && (
+          <Footer />
+        )}
     </div>
   );
 }
