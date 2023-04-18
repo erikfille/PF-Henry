@@ -307,13 +307,14 @@ export const usePets = create((set, get) => ({
       // window.alert("No se pudo editar la mascota");
     }
   },
-  deletePet: async (petId) => {
-    console.log(petId);
+  deletePet: async (petId, userId) => {
     try {
       await axios.delete(`/mascotas/${petId}`);
+      set((state) => ({petEditModal: false }))
+      await axios.get(`/users/${userId}`)
     } catch (err) {
-      console.log(err);
-      // window.alert("No se pudo editar la mascota");
+      // console.log(err);
+      window.alert("No se pudo editar la mascota");
     }
   },
   setPets: (pets) => {

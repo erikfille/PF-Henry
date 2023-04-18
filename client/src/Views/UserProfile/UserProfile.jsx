@@ -42,9 +42,8 @@ export default function UserProfile() {
 
   useEffect(() => {
     setUser(userInfo);
-    // console.log(userInfo.id_mascota);
     setPets(userInfo.id_mascota);
-  }, [userInfo]);
+  }, [userInfo, userInfo.id_mascota]);
 
   const setPetDetailModal = (id) => {
     if (id) {

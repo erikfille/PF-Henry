@@ -1,10 +1,12 @@
 import { useState } from "react";
 import validation from "./validation";
 import UploadWidget from "../UploadWidget/UploadWidget";
-import { usePets } from "../../hooks/useStore";
+import { usePets,useModal } from "../../hooks/useStore";
 import styles from "./EditPet.module.css";
 
 export default function EditPet() {
+  const user = JSON.parse(localStorage.getItem("user"))
+
   const [petEditModal, setPetEditModal, selectedPet, editPet, deletePet] = usePets((state) => [
       state.petEditModal,
       state.setPetEditModal,
@@ -12,6 +14,8 @@ export default function EditPet() {
       state.editPet,
       state.deletePet
     ]);
+
+    const [setModal] = useModal(state => [state.setModal])
 
     const [newPetData, setNewPetData] = useState({
       nombre: selectedPet.name,
@@ -67,9 +71,16 @@ export default function EditPet() {
 		<div className={`container-xl ${styles.modalContainer}`} style={{ display: petEditModal ? "block" : "none" }}>
       <div className={`home-wrapper-2 ${styles.createProductContainer}`}>
         <div className="boton-close d-flex justify-content-between">
-          <button onClick={() => deletePet(selectedPet.id || selectedPet._id)} className="button mt-3">
+          <button onClick={() => {
+            setModal('Eliminar mascota', 'Estas seguro que deseas eliminar esta mascota?', deletePet, [selectedPet.id, user.id])
+
+          }
+          } className="button mt-3">
             Eliminar mascota
           </button>
+          {/* <button onClick={() => deletePet(selectedPet.id || selectedPet._id)} className="button mt-3">
+            Eliminar mascota
+          </button> */}
           <button onClick={() => setPetEditModal()} className={styles.buttonLink}>
             Cerrar
           </button>
