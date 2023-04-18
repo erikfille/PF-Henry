@@ -459,22 +459,12 @@ export const useAdmin = create((set, get) => ({
       set((state) => ({ adminFilteredUsers: users }));
     }
   },
-  modifyUser: async (newUser) => {
-    const { getAdminUsers } = get();
-    try {
-      // console.log(newUser);
-      // await axios.post("/crearCategoria", newUser);
-      // await getAdminCategories();
-    } catch (err) {
-      console.log(err);
-    }
-  },
   setUserEditModal: async (userId) => {
     if (userId) {
       let response = await axios.get(`users/${userId}`);
       set((state) => ({ selectedUser: response.data }));
     }
-    set((state) => ({ userEditModal: state.userEditModal ? false : true }));
+    set((state) => ({ usersEditModal: state.usersEditModal ? false : true }));
   },
   setUserDetailModal: async (userId) => {
     if (userId) {
@@ -504,12 +494,21 @@ export const useAdmin = create((set, get) => ({
           console.log(e);
         });
     }
-    set((state) => ({ usersEditModal: state.usersEditModal ? false : true }));
+    set((state) => ({ usersDetailModal: state.usersDetailModal ? false : true }));
   },
   userChangeStatus: async (id, newUser) => {
     const { getAdminUsers } = get();
     try {
       await axios.put(`/users/${id}`, newUser);
+      await getAdminUsers();
+    } catch (err) {
+      console.log(err);
+    }
+  },
+  userChangeRole: async (id, role) => {
+    const { getAdminUsers } = get();
+    try {
+      let response = await axios.put(`/users/${id}/role`, { role: role });
       await getAdminUsers();
     } catch (err) {
       console.log(err);

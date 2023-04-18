@@ -12,6 +12,8 @@ import ModalPetDetail from "./components/ModalPetDetail/ModalPetDetail";
 import ModalInfoGenerico from "./components/ModalInfoGenerico/ModalInfoGenerico";
 import ModalEditCategory from "./Views/DashboardAdmin/DashCategories/ModalEditCategory";
 import ModalEditAnimals from "./Views/DashboardAdmin/DashAnimals/ModalEditAnimals";
+import ModalUserDetail from "./Views/DashboardAdmin/DashUser/ModalUserDetail";
+import ModalUserEdit from "./Views/DashboardAdmin/DashUser/ModalUserEdit";
 
 //? Views
 import Home from "./Views/Home/Home";
@@ -40,7 +42,6 @@ import DashProvider from "./Views/DashboardAdmin/DashProvider/DashProvider";
 import DashProduct from "./Views/DashboardAdmin/DashProduct/DashProduct";
 import DashCategories from "./Views/DashboardAdmin/DashCategories/DashCategories";
 import DashAnimals from "./Views/DashboardAdmin/DashAnimals/DashAnimals";
-import ModalUserDetail from "./Views/DashboardAdmin/DashUser/ModalUserDetail";
 
 axios.defaults.baseURL = "http://localhost:3000";
 
@@ -94,7 +95,7 @@ function App() {
       <ModalEditCategory />
       <ModalEditAnimals />
       <ModalUserDetail />
-      {/* <ModalUserEdit /> */}
+      <ModalUserEdit />
       {location.pathname !== "/login" && <Footer /> &&
         location.pathname !== "/signup" && <Footer /> &&
         !location.pathname.toLowerCase().includes("/admindashboard") && (
