@@ -44,82 +44,83 @@ export default function ModalUserDetail() {
 
   return (
     <Modal show={isOpen} onHide={() => setUserDetailModal()} centered>
-      <Modal.Header closeButton>
-        <Modal.Title>
-          <b>Detalle de Usuario</b>
-        </Modal.Title>
-      </Modal.Header>
-      <Modal.Body>
-        <div>
-          <span>
-            <b>Nombre: </b>
-          </span>{" "}
-          <span>
-            {userDetail.name} {userDetail.surname}
-          </span>
-        </div>
-        <div>
-          {" "}
-          <span>
-            <b>Domicilio: </b>
-          </span>{" "}
-          <span>{userDetail.address}</span>
-        </div>
-        <div>
-          {" "}
-          <span>
-            <b>email: </b>
-          </span>{" "}
-          <span>{userDetail.email}</span>
-        </div>
-        <hr />
-        <div>
-          <b>Mascotas</b>
-        </div>
-        <br />
-        <PetsContainer pets={userDetail.id_mascota} origin="admin" />
-        <hr />
-        <div>
-          <b>Historial de Compras</b>
-        </div>
-        {products && products.length ? (
-          products.map((p) => (
-            <div key={p._id} className="d-flex justify-content-between align-items-center">
-              <div>
-                <ProductCard
-                  id={p._id}
-                  titulo={p.titulo}
-                  imagen={p.imagen}
-                  cant={p.quantity}
-                  showAs="adminDetail"
-                />
-              </div>
-              <div>
-                <span className="text-end">${p.precio}</span>
-              </div>
+    <Modal.Header closeButton>
+      <Modal.Title>
+        <b>Detalle de Usuario</b>
+      </Modal.Title>
+    </Modal.Header>
+    <Modal.Body>
+      <div>
+        <span>
+          <b>Nombre: </b>
+        </span>{" "}
+        <span>
+          {userDetail.name} {userDetail.surname}
+        </span>
+      </div>
+      <div>
+        {" "}
+        <span>
+          <b>Domicilio: </b>
+        </span>{" "}
+        <span>{userDetail.address}</span>
+      </div>
+      <div>
+        {" "}
+        <span>
+          <b>email: </b>
+        </span>{" "}
+        <span>{userDetail.email}</span>
+      </div>
+      <hr />
+      <div>
+        <b>Mascotas</b>
+      </div>
+      <br />
+      <PetsContainer pets={userDetail.id_mascota} origin="admin" />
+      <hr />
+      <div>
+        <b>Historial de Compras</b>
+      </div>
+      {products && products.length ? (
+        products.map((p) => (
+          <div key={p._id} className="d-flex justify-content-between align-items-center">
+            <div>
+              <ProductCard
+                id={p._id}
+                titulo={p.titulo}
+                imagen={p.imagen}
+                cant={p.quantity}
+                showAs="adminDetail"
+              />
             </div>
-          ))
-        ) : (
-          <div>El usuario no tiene productos comprados</div>
-        )}
-      </Modal.Body>
-      <Modal.Footer>
-        <div className="d-flex gap-15">
-          <button
-            className="button mt-3 mx-2"
-            onClick={() => {
-              setUserEditModal(selectedUser._id);
-              setUserDetailModal();
-            }}
-          >
-            Editar
-          </button>
-          <button onClick={() => setUserDetailModal()} className="button mt-3 mx-2">
-            Volver
-          </button>
-        </div>
-      </Modal.Footer>
-    </Modal>
+            <div>
+              <span className="text-end">${p.precio}</span>
+            </div>
+          </div>
+        ))
+      ) : (
+        <div>El usuario no tiene productos comprados</div>
+      )}
+    </Modal.Body>
+    <Modal.Footer>
+      <div className="d-flex gap-15">
+        <button
+          className="button mt-3 mx-2"
+          onClick={() => {
+            setUserEditModal(selectedUser._id);
+            setUserDetailModal();
+          }}
+        >
+          Editar
+        </button>
+        <button onClick={() => setUserDetailModal()} className="button mt-3 mx-2">
+          Volver
+        </button>
+      </div>
+    </Modal.Footer>
+  </Modal>
+
 
   );
 }
