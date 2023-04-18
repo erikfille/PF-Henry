@@ -138,7 +138,7 @@ export default function Tienda() {
   };
 
 
-  window.scrollTo(0, 0);
+    window.scrollTo(0, 0);
 
 
   return (
