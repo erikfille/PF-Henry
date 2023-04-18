@@ -275,6 +275,7 @@ export const usePets = create((set, get) => ({
   pets: [],
   selectedPet: {},
   petAddModal: false,
+  petEditModal: false,
   petDetailModal: false,
   petHistory: [],
   setPetAddModal: () =>
@@ -285,11 +286,34 @@ export const usePets = create((set, get) => ({
     }
     set((state) => ({ petDetailModal: state.petDetailModal ? false : true }));
   },
+  setPetEditModal: (petInfo) => {
+    if (petInfo) {
+      set((state) => ({ selectedPet: petInfo }));
+    }
+    set((state) => ({ petEditModal: state.petEditModal ? false : true }));
+  },
   addPet: async (formData, user) => {
     try {
       let response = await axios.post(`/mascotas/${user.id}`, formData);
     } catch (err) {
       console.log(err);
+    }
+  },
+  editPet: async (formData, petId) => {
+    try {
+      await axios.put(`/mascotas/${petId}`, formData);
+    } catch (err) {
+      console.log(err);
+      // window.alert("No se pudo editar la mascota");
+    }
+  },
+  deletePet: async (petId) => {
+    console.log(petId);
+    try {
+      await axios.delete(`/mascotas/${petId}`);
+    } catch (err) {
+      console.log(err);
+      // window.alert("No se pudo editar la mascota");
     }
   },
   setPets: (pets) => {

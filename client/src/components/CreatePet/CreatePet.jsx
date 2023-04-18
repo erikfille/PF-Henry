@@ -52,7 +52,7 @@ export default function CreatePet() {
 
 	function handleDate(e) {
 		let date = e.target.value.split("-").reverse().join("-");
-		console.log(date);
+
 		setNewPetData({ ...newPetData, fechaDeNacimiento: date });
 		setErrors(
 			validation({
