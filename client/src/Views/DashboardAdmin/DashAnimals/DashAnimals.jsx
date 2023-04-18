@@ -17,6 +17,7 @@ const DashAnimals = () => {
     addSpecie,
     specieChangeStatus,
     setSpecieEditModal,
+    speciesEditModal,
   ] = useAdmin((state) => [
     state.searchAdminSpecies,
     state.adminSpecies,
@@ -24,6 +25,7 @@ const DashAnimals = () => {
     state.addSpecie,
     state.specieChangeStatus,
     state.setSpecieEditModal,
+    state.speciesEditModal,
   ]);
 
   useEffect(() => {
@@ -162,28 +164,28 @@ const DashAnimals = () => {
           <div>
             <h1 className="fw-bold mb-0 text-center ">Agregar nuevo animal</h1>
             <div className="mb-3 my-5 d-flex gap-30">
-                <div className="name">
-                  <label htmlFor="especie" className="form-label fw-bold">
-                    Especie:
-                  </label>
-                    <input
-                      type="text"
-                      className="form-control"
-                      id="especie"
-                      placeholder="Ingresa la especie"
-                      style={{
-                      backgroundColor: "transparent",
-                      color: "var(--body_color)",
-                      border: "0.5px solid var(--border_color)",
-                      }}
-                      onChange={handleChange}
-                    />
-                </div>
+              <div className="name">
+                <label htmlFor="especie" className="form-label fw-bold">
+                  Especie:
+                </label>
+                <input
+                  type="text"
+                  className="form-control"
+                  id="especie"
+                  placeholder="Ingresa la especie"
+                  style={{
+                    backgroundColor: "transparent",
+                    color: "var(--body_color)",
+                    border: "0.5px solid var(--border_color)",
+                  }}
+                  onChange={handleChange}
+                />
+              </div>
             </div>
             <div className="d-flex gap-15 ">
               <button className="button mt-3 my-3" onClick={newSpecieSubmit}>
                 Agregar animal
-              </button> 
+              </button>
             </div>
           </div>
         </div>

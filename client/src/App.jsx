@@ -57,7 +57,7 @@ function App() {
         )}
 
       <Routes>
-        <Route path="/adminDashboard" element={<AdminDashboard />}>
+        <Route path="/adminDashboard/" element={<AdminDashboard />}>
           <Route path="/adminDashboard/users" element={<DashUser />} />
           <Route path="/adminDashboard/providers" element={<DashProvider />} />
           <Route path="/adminDashboard/products" element={<DashProduct />} />
@@ -92,10 +92,10 @@ function App() {
       <ModalCreatePet />
       <ModalPetDetail />
       <ModalInfoGenerico />
-      <ModalEditCategory />
-      <ModalEditAnimals />
-      <ModalUserDetail />
-      <ModalUserEdit />
+      {location.pathname === "/adminDashboard/users" && <ModalUserDetail />}
+      {location.pathname === "/adminDashboard/users" && <ModalUserEdit />}
+      {location.pathname === "/adminDashboard/categories" && <ModalEditCategory />}
+      {location.pathname === "/adminDashboard/animals" && <ModalEditAnimals />}
       {location.pathname !== "/login" && <Footer /> &&
         location.pathname !== "/signup" && <Footer /> &&
         !location.pathname.toLowerCase().includes("/admindashboard") && (

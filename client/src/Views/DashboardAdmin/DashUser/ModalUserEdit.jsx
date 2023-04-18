@@ -18,14 +18,29 @@ export default function ModalUserEdit() {
     state.userChangeRole,
   ]);
 
-  const [editedUser, setEditedUser] = useState({});
+  const [editedUser, setEditedUser] = useState({
+    name: "",
+    surname: "",
+    address: "",
+    mail: "",
+    password: "",
+    verifyPassword: "",
+    role: "",
+    status: 0,
+  });
 
   useEffect(() => {
     setEditedUser(selectedUser);
+    return () => {
+      setEditedUser({});
+    };
   }, [selectedUser]);
 
   useEffect(() => {
     setIsOpen(usersEditModal);
+    return () => {
+      setIsOpen(false);
+    };
   }, [usersEditModal]);
 
   const handleChange = (e) => {
@@ -33,7 +48,14 @@ export default function ModalUserEdit() {
   };
 
   const editUserSubmit = () => {
-    userChangeStatus(selectedUser._id, editedUser);
+    let user = {
+      name: editedUser.name,
+      surname: editedUser.surname,
+      address: editedUser.address,
+      status: editedUser.status,
+    };
+    userChangeRole(selectedUser._id, user);
+    if (editedUser.role) userChangeRole(editedUser._id, editedUser.role);
   };
 
   return (

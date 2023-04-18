@@ -44,7 +44,7 @@ export default function ModalEditAnimals() {
       style={{ display: isOpen ? "block" : "none" }}
     >
       <div className="d-flex flex-column align-items-center gap-20">
-        <h1 className={style.title}>Agregar nuevo animal</h1>
+        <h1 className={style.title}>Editar animal</h1>
         <div className="mb-2 my-4 d-flex gap-30">
           <div className="name">
             <label htmlFor="especie" className="form-label fw-bold">
