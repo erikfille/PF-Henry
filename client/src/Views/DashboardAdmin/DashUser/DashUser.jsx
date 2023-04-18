@@ -127,9 +127,9 @@ const DashUser = () => {
           </thead>
           <tbody>
             {adminFilteredUsers
-              ? adminFilteredUsers.map((user) => (
+              ? adminFilteredUsers.map((user, idx) => (
                   <tr>
-                    <th scope="row">1</th>
+                    <th scope="row">{idx}</th>
                     <td>{user.name}</td>
                     <td>{user.surname}</td>
                     <td>{user.email}</td>
@@ -143,7 +143,7 @@ const DashUser = () => {
                     <td>
                       <button
                         className={style.linkDetalle}
-                        onClick={() => setUserDetailModal()}
+                        onClick={() => setUserDetailModal(user._id)}
                       >
                         Ver detalle
                       </button>

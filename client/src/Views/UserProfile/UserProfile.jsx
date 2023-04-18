@@ -130,6 +130,7 @@ export default function UserProfile() {
                       pets={pets}
                       setPetDetailModal={setPetDetailModal}
                       setPetAddModal={setPetAddModal}
+                      origin="user"
                     />
                   </div>
                 </>
