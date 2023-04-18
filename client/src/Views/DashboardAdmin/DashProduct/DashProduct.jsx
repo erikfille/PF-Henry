@@ -8,6 +8,7 @@ import { Products } from "../helpers/Products";
 import HeaderDashboard from "../HeaderDashboard/HeaderDashboard";
 
 const DashProduct = () => {
+  
   return (
     <div className={`${style.dashboardContaier} sidebar col-9 px-5`}>
       <HeaderDashboard />
