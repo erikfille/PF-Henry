@@ -1,0 +1,15 @@
+.dashboardContaier {
+    background-color: var(--wrapper_background);
+    height: 100vh;
+    overflow: auto;
+}
+
+.titleContainer {
+    background-color: var(--body_background);
+    border-radius: 10px;
+}
+
+.activitiesContainer {
+    background-color: var(--body_background);
+    border-radius: 10px;
+}
