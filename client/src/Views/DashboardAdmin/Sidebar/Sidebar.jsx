@@ -15,7 +15,7 @@ const Sidebar = () => {
 
   return (
     <>
-      <NavLink to={'/'} >
+      <NavLink to="/">
         <div className="logo-container d-flex align-items-center mt-5 ms-5 gap-15">
           <h1 className={`${style.h1} fw-bold mb-0`}>PetsAmerica</h1>
           <img className={style.imgLogo} src={logo} alt="logo" />
