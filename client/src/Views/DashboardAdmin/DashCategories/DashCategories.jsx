@@ -7,7 +7,7 @@ import { FaEdit } from "react-icons/fa";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { BsFillCheckCircleFill } from "react-icons/bs";
 import { BsFillDashCircleFill } from "react-icons/bs";
-import { useAdmin } from "../../../hooks/useStore";
+import { useAdmin, useModal } from "../../../hooks/useStore";
 import HeaderDashboard from "../HeaderDashboard/HeaderDashboard";
 import Loader from "../../../components/Loader/Loader";
 
@@ -38,6 +38,8 @@ const DashCategories = () => {
     state.setCategoryEditModal,
     state.getAdminCategories,
   ]);
+
+  const [setModalInfo] = useModal((state) => [state.setModalInfo]);
 
   useEffect(() => {
     setLoading(true);
@@ -233,7 +235,15 @@ const DashCategories = () => {
             </div>
           </div>
           <div className="d-flex gap-15 ">
-            <button className="button mt-3 my-3" onClick={newCategorySubmit}>
+            <button className="button mt-3 my-3" 
+            onClick={() =>
+              setModalInfo(
+                "¡Exito!",
+                "La especie se ha agregado correctamente",
+                newCategorySubmit,
+                []
+              )
+            }>
               Agregar categoría
             </button>
           </div>

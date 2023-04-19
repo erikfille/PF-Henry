@@ -3,7 +3,7 @@ import style from "./DashAnimals.module.css";
 import { FaEdit } from "react-icons/fa";
 import { BsFillCheckCircleFill } from "react-icons/bs";
 import { BsFillDashCircleFill } from "react-icons/bs";
-import { useAdmin } from "../../../hooks/useStore";
+import { useAdmin, useModal } from "../../../hooks/useStore";
 import HeaderDashboard from "../HeaderDashboard/HeaderDashboard";
 import Loader from "../../../components/Loader/Loader";
 
@@ -31,6 +31,8 @@ const DashAnimals = () => {
     state.setSpecieEditModal,
     state.getAdminSpecies,
   ]);
+
+  const [setModalInfo] = useModal((state) => [state.setModalInfo]);
 
   useEffect(() => {
     setLoading(true);
@@ -62,6 +64,7 @@ const DashAnimals = () => {
 
   const newSpecieSubmit = () => {
     addSpecie(newSpecie);
+    setNewSpecie("")
   };
 
   const changeStatus = (item) => {
@@ -199,7 +202,17 @@ const DashAnimals = () => {
               </div>
             </div>
             <div className="d-flex gap-15 ">
-              <button className="button mt-3 my-3" onClick={newSpecieSubmit}>
+              <button
+                className="button mt-3 my-3"
+                onClick={() =>
+                  setModalInfo(
+                    "¡Exito!",
+                    "La especie se ha agregado correctamente",
+                    newSpecieSubmit,
+                    []
+                  )
+                }
+              >
                 Agregar animal
               </button>
             </div>
