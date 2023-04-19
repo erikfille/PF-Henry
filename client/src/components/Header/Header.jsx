@@ -67,7 +67,7 @@ const Header = () => {
               Tienda
             </NavLink>
             <NavLink to="/servicios" className="nav-item me-3">
-              Servicios
+              Proveedores
             </NavLink>
             <div
               className={`d-flex flex-column flex-md-row align-items-center justify-content-center ${styles.buttonContainer}`}
