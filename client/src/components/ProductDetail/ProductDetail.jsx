@@ -111,32 +111,34 @@ export default function ProductDetail(props) {
             </span>
             <span className={`fw-bold ${styles.span}`}>{stock}</span>
           </div>
-          <div className="d-flex justify-content-between mb-3">
-            <div>
-              <span className={`${styles.fColor} fw-bold me-3 fs-5`}>
-                Cantidad:
-              </span>
-              <input
-                placeholder="Cantidad"
-                type="number"
-                min="0"
-                max={stock}
-                name="cantidad"
-                value={quantity}
-                onChange={handleInputChange}
-                className={styles.inputNumber}
-              />
+          {from !== "admin" ? (
+            <div className="d-flex justify-content-between mb-3">
+              <div>
+                <span className={`${styles.fColor} fw-bold me-3 fs-5`}>
+                  Cantidad:
+                </span>
+                <input
+                  placeholder="Cantidad"
+                  type="number"
+                  min="0"
+                  max={stock}
+                  name="cantidad"
+                  value={quantity}
+                  onChange={handleInputChange}
+                  className={styles.inputNumber}
+                />
+              </div>
+              <div>
+                <button
+                  className="button"
+                  onClick={() => addToCart()}
+                  disabled={Number(quantity) < 0}
+                >
+                  Agregar al Carrito
+                </button>
+              </div>
             </div>
-            <div>
-              <button
-                className="button"
-                onClick={() => addToCart()}
-                disabled={Number(quantity) < 0}
-              >
-                Agregar al Carrito
-              </button>
-            </div>
-          </div>
+          ) : null}
         </div>
       </div>
     </div>

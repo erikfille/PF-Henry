@@ -20,7 +20,6 @@ const Header = () => {
   ]);
   const [logoutUser] = useLogin((state) => [state.logoutUser]);
   const [user, setUser] = useState({});
-  console.log(user)
   useEffect(() => {
     const localUser = JSON.parse(localStorage.getItem("user"));
     if (localUser && !user.id) {

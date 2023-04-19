@@ -17,7 +17,7 @@ export const useProduct = create((set, get) => ({
     const { maxPage } = get();
 
     try {
-      let response = await axios.get("/allProductos");
+      let response = await axios.get("/activeProducts");
       response.data.filter((p) => p.activo);
       let products = response.data;
       set((state) => ({ allProducts: products }));
@@ -453,7 +453,7 @@ export const useAdmin = create((set, get) => ({
   },
   getAdminProducts: async () => {
     try {
-      let response = await axios.get("/allProductos");
+      let response = await axios.get("/allProducts");
       response.data.sort((a, b) => b.activo - a.activo);
       set((state) => ({ adminProducts: response.data }));
       set((state) => ({ adminFilteredProducts: response.data }));
