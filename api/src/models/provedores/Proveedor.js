@@ -8,11 +8,11 @@ const ProveedorSchema = new Schema({
   },
   vendeProductos: {
     type: Boolean,
-    required: true,
+   
   },
   vendeServicios: {
     type: Boolean,
-    required: true,
+   
   },
   productos: [{ type: Schema.Types.ObjectId, ref: "ProductoServicio" }],
   rating: {
