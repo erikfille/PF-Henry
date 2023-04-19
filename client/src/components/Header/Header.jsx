@@ -123,7 +123,7 @@ const Header = () => {
                           Ver perfil
                         </Link>
                       </li>
-                      {
+                      { user.rol === 'admin' &&
                         <li>
                           <Link
                             to="/adminDashboard/users"

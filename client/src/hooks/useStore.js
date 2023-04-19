@@ -257,16 +257,20 @@ export const useUser = create((set, get) => ({
     try {
       let response = await axios.get(`/users/${id}`);
       set((state) => ({ userInfo: response.data }));
-    } catch (error) {
-      window.alert("No se encontró el usuario");
+    } catch (err) {
+      window.alert(err.response.data.message || err.response.data.error)
+      console.log(err)
+      window.location.assign("/")
     }
   },
   getCompras: async (id) => {
     try {
       let response = await axios.get(`/compras/${id}`);
       set((state) => ({ compras: response.data }));
-    } catch (error) {
-      window.alert("No se encontraron las compras del usuario");
+    } catch (err) {
+      console.log(err)
+      window.alert(err.response.data.message || err.response.data.error)
+      window.location.assign("/tienda")
     }
   },
 }));
@@ -294,9 +298,10 @@ export const usePets = create((set, get) => ({
   },
   addPet: async (formData, user) => {
     try {
-      let response = await axios.post(`/mascotas/${user.id}`, formData);
+      await axios.post(`/mascotas/${user.id}`, formData);
     } catch (err) {
       console.log(err);
+      window.alert(err.response.data.message || err.response.data.error)
     }
   },
   editPet: async (formData, petId) => {
@@ -304,7 +309,7 @@ export const usePets = create((set, get) => ({
       await axios.put(`/mascotas/${petId}`, formData);
     } catch (err) {
       console.log(err);
-      // window.alert("No se pudo editar la mascota");
+      window.alert(err.response.data.message || err.response.data.error)
     }
   },
   deletePet: async (petId, userId) => {
@@ -313,8 +318,8 @@ export const usePets = create((set, get) => ({
       set((state) => ({petEditModal: false }))
       await axios.get(`/users/${userId}`)
     } catch (err) {
-      // console.log(err);
-      window.alert("No se pudo editar la mascota");
+      console.log(err);
+      window.alert(err.response.data.message || err.response.data.error)
     }
   },
   setPets: (pets) => {
@@ -326,6 +331,7 @@ export const usePets = create((set, get) => ({
       set((state) => ({ petHistory: response.data }));
     } catch (err) {
       console.log(err);
+      window.alert(err.response.data.message || err.response.data.error)
     }
   },
   addNewHistory: async (newHistory, petId) => {
@@ -333,6 +339,7 @@ export const usePets = create((set, get) => ({
       let response = await axios.post(`/historial/${petId}`, newHistory);
     } catch (err) {
       console.log(err);
+      window.alert(err.response.data.message || err.response.data.error)
     }
   },
 }));
