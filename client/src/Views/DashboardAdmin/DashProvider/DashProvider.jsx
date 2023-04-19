@@ -3,7 +3,6 @@ import style from "./DashProvider.module.css";
 import { FaEdit } from "react-icons/fa";
 import { ImUserMinus } from "react-icons/im";
 import { ImUserCheck } from "react-icons/im";
-import { RiDeleteBin6Line } from "react-icons/ri";
 import { useAdmin } from "../../../hooks/useStore";
 import { BsFillBoxSeamFill } from "react-icons/bs";
 import HeaderDashboard from "../HeaderDashboard/HeaderDashboard";
@@ -13,7 +12,6 @@ const DashProvider = () => {
   const [filter, setFilter] = useState("all");
 
   const [loading, setLoading] = useState(true);
-
 
   const [
     adminProviders,
@@ -64,15 +62,13 @@ const DashProvider = () => {
     } else if (inputSearch.length <= 0) {
       searchAdminProviders(adminFilteredProvidersWOSearch);
     }
-  }, [inputSearch]);
+  }, [inputSearch, adminFilteredProvidersWOSearch]);
 
   useEffect(() => {
     let filtered = adminProviders;
     if (filter !== "all") {
       if (filter === "1" || filter === "0") {
-        filtered = filtered.filter(
-          (p) => p.status.toLowerCase() === filter.toLowerCase()
-        );
+        filtered = filtered.filter((p) => p.status === Number(filter));
       }
       if (filter === "platinum" || filter === "gold" || filter === "silver") {
         filtered = filtered.filter(
@@ -85,6 +81,16 @@ const DashProvider = () => {
 
   const handleInput = (e) => {
     setInputSearch(e.target.value);
+  };
+
+  const handleChange = (e) => {
+    setFilter(e.target.value);
+  };
+
+  const changeStatus = (item) => {
+    let newProvider = { ...item, status: item.status ? 0 : 1 };
+    let providerId = item._id;
+    providerChangeStatus(providerId, newProvider);
   };
 
   return (
@@ -110,11 +116,11 @@ const DashProvider = () => {
               }}
               name="filtrar_por"
               id="filtrar_por"
+              onChange={handleChange}
             >
-              <option value="default" defaultValue disabled selected>
-                Selecciona
+              <option value="all" defaultValue selected>
+                Todos
               </option>
-              <option value="all">Todos</option>
               <option value="1">Activo</option>
               <option value="0">Inactivo</option>
               <option value="silver">Silver</option>
@@ -160,18 +166,16 @@ const DashProvider = () => {
           </thead>
           <tbody>
             {adminFilteredProviders.length
-              ? adminFilteredProviders.map((prov) => (
+              ? adminFilteredProviders.map((prov, idx) => (
                   <tr>
-                    <th scope="row">1</th>
+                    <th scope="row">{idx + 1}</th>
                     <td>{prov.nombre}</td>
                     <td>{prov.email}</td>
                     <td>{prov.pais}</td>
                     <td className="status">
                       <div
                         className={`${style.status} ${
-                          prov.status === "activo"
-                            ? style.active
-                            : style.inactive
+                          prov.status === 1 ? style.active : style.inactive
                         } ms-4 mt-2`}
                       ></div>
                     </td>
@@ -181,32 +185,29 @@ const DashProvider = () => {
                     <td>
                       <div className="icons d-flex gap-10">
                         <div className="modificarActivo">
-                          {prov.status === "activo" ? (
+                          {prov.status === 1 ? (
                             <ImUserMinus
+                              title="Desactivar"
                               style={{
                                 cursor: "pointer",
                                 fill: "var(--color-0CC5BA)",
                               }}
+                              onClick={() => changeStatus(prov)}
                             />
                           ) : (
                             <ImUserCheck
+                              title="Activar"
                               style={{
                                 cursor: "pointer",
                                 fill: "var(--color-0CC5BA)",
                               }}
+                              onClick={() => changeStatus(prov)}
                             />
                           )}
                         </div>
-                        <div className="delete">
-                          <RiDeleteBin6Line
-                            style={{
-                              cursor: "pointer",
-                              fill: "var(--color-0CC5BA)",
-                            }}
-                          />
-                        </div>
                         <div className="edit">
                           <FaEdit
+                            title="Editar"
                             style={{
                               cursor: "pointer",
                               fill: "var(--color-0CC5BA)",
@@ -215,6 +216,7 @@ const DashProvider = () => {
                         </div>
                         <div className="product">
                           <BsFillBoxSeamFill
+                            title="Ver Productos"
                             style={{
                               cursor: "pointer",
                               fill: "var(--color-0CC5BA)",

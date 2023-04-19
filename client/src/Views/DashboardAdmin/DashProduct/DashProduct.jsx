@@ -183,7 +183,7 @@ const DashProduct = () => {
                             />
                           ) : (
                             <BsFillCheckCircleFill
-                              title="activar"
+                              title="Activar"
                               style={{
                                 cursor: "pointer",
                                 fill: "var(--color-0CC5BA)",
