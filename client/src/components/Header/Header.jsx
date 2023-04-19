@@ -133,6 +133,16 @@ const Header = () => {
                           </Link>
                         </li>
                       }
+                      {
+                        <li>
+                          <Link
+                            to="/providerDashboard/profile"
+                            className={`${styles.li} dropdown-item`}
+                          >
+                            Dashboard Proveedor
+                          </Link>
+                        </li>
+                      }
                       <li>
                         <Link
                           to=""

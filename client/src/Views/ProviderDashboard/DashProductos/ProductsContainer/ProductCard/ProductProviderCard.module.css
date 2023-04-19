@@ -1,0 +1,10 @@
+.cardProduct {
+    background-color: var(--body_background);
+    margin-bottom: 10px;
+    border-radius: 10px;
+}
+
+.icons {
+    fill: var(--color-0CC5BA);
+    cursor: pointer;
+}
