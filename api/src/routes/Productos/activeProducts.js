@@ -1,8 +1,9 @@
+const allProductos = require('../../models/productos_servicios/Producto_servicio');
 
 const activeProductosRoutes = [
     {
         method: 'GET',
-        path: '/activProducts',
+        path: '/activeProducts',
         handler: async (request, h) => {
             try {
                 const productosActivos = await allProductos.find({ activo: true })

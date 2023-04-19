@@ -111,33 +111,35 @@ export default function ProductDetail(props) {
             </span>
             <span className={`fw-bold ${styles.span}`}>{stock}</span>
           </div>
-          <div className="d-flex justify-content-between mb-3">
-            <div>
-              <span className={`${styles.fColor} fw-bold me-3 fs-5`}>
-                Cantidad:
-              </span>
-              <input
-                placeholder="Cantidad"
-                type="number"
-                min="0"
-                max={stock}
-                name="cantidad"
-                value={quantity}
-                onChange={handleInputChange}
-                className={styles.inputNumber}
-                required
-              />
+          {props.from !== "admin" ? (
+            <div className="d-flex justify-content-between mb-3">
+              <div>
+                <span className={`${styles.fColor} fw-bold me-3 fs-5`}>
+                  Cantidad:
+                </span>
+                <input
+                  placeholder="Cantidad"
+                  type="number"
+                  min="1"
+                  max={stock}
+                  name="cantidad"
+                  value={quantity}
+                  onChange={handleInputChange}
+                  className={styles.inputNumber}
+                  required
+                />
+              </div>
+              <div>
+                <button
+                  className="button"
+                  onClick={() => addToCart()}
+                  disabled={quantity < 1 || stock ? quantity > stock : quantity > 20}
+                >
+                  Agregar al Carrito
+                </button>
+              </div>
             </div>
-            <div>
-              <button
-                className="button"
-                onClick={() => addToCart()}
-                disabled={!quantity || Number(quantity) < 1 || Number(quantity) > stock}
-              >
-                Agregar al Carrito
-              </button>
-            </div>
-          </div>
+          ) : null}
         </div>
       </div>
     </div>
