@@ -4,7 +4,7 @@ const allProductos = require('../../models/productos_servicios/Producto_servicio
 const allProductosRoutes = [
     {
         method: 'GET',
-        path: '/AllProducts',
+        path: '/allProducts',
         handler: async (request, h) => {
             try {
                 const productosActivos = await allProductos.find()

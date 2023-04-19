@@ -20,7 +20,6 @@ export default function Tienda() {
   const [
     getProducts,
     allProducts,
-    filteredProducts,
     filteredProductsWOSearch,
     ordered,
     searchProduct,
@@ -32,7 +31,6 @@ export default function Tienda() {
   ] = useProduct((state) => [
     state.getProducts,
     state.allProducts,
-    state.filteredProducts,
     state.filteredProductsWOSearch,
     state.ordered,
     state.searchProduct,

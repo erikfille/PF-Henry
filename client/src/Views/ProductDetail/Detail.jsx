@@ -53,7 +53,7 @@ export default function Detail() {
           <Loader />
         ) : (
           <div>
-            <ProductDetail productDetail={productDetail} />
+            <ProductDetail productDetail={productDetail} from={from} />
             {/* <ProviderDetail providerDetail={providerDetail} /> */}
             <ProductReviews
               productDetail={productDetail}
