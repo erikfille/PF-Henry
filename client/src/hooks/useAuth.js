@@ -14,7 +14,8 @@ export const useLogin = create((set, get) => ({
       set((state) => ({ user: response.data.user }));
       receiveToken(response.data.user.token, response.data.user);
     } catch (err) {
-      console.log(err.message);
+      console.log(err);
+      window.alert(err.response.data.message || err.response.data.error)
     }
   },
   loginGoogleUser: async (userData) => {
@@ -29,7 +30,8 @@ export const useLogin = create((set, get) => ({
       }
       receiveToken(response.data.user.token, response.data.user);
     } catch (err) {
-      console.log(err.message);
+      console.log(err);
+      window.alert(err.response.data.message || err.response.data.error)
     }
     // Hago el post al back
     // Recibo el usuario de vuelta
@@ -41,7 +43,7 @@ export const useLogin = create((set, get) => ({
   loginUser: async (userData) => {
     const { receiveToken } = get();
     try {
-      /* 
+      /*
       Se envía el email y password
       Tres posibles respuestas:
       - Success: Se recibe la info del usuario y el token y se setean en el store y se ejecuta receiveToken.
@@ -53,7 +55,7 @@ export const useLogin = create((set, get) => ({
       set((state) => ({ user: response.data.user }));
       receiveToken(response.data.user.token, response.data.user);
     } catch (err) {
-      console.log(err.message);
+      window.alert(err.response.data.message || err.response.data.error)
     }
     // Hago el post al back
     // Recibo el usuario de vuelta
@@ -73,7 +75,7 @@ export const useLogin = create((set, get) => ({
 
       receiveToken(token, response.data);
     } catch (err) {
-      console.log(err.message);
+      window.alert(err.response.data.message || err.response.data.error)
     }
   },
   receiveToken(token, user) {
@@ -133,7 +135,8 @@ export const useLogin = create((set, get) => ({
         // Si el token no se valida, lo mando al login
       }
     } catch (err) {
-      console.log(err.message);
+      console.log(err)
+      window.alert(err.response.data.message || err.response.data.error);
     }
   },
   setModal: () => {

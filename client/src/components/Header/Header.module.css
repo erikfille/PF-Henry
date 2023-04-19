@@ -95,8 +95,14 @@ nav a:hover {
 }
 
 .imgProfile {
+  position: relative;
+  top: 11px;
 	width: 40px;
+  height: 40px;
 	border: 2px solid var(--color-0CC5BA);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 .totalCart {

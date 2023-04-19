@@ -116,7 +116,7 @@ export default function LoginWidget(props) {
 
   function onUpload(url) {
     setUserData({ ...userData, image: url });
-    console.log(url);
+    // console.log(url);
   }
 
   return (
@@ -202,7 +202,7 @@ export default function LoginWidget(props) {
                 value={userData.password}
                 onChange={handleInputChange}
                 className={`form-control ${!errors.verifyPassword && !errors.password && userData.password ? "is-valid" : errors.password && "is-invalid"}`}
-              />{errors.password && <p className={`text-danger text-center ${styles.error}`}>{errors.password}</p>}
+              />{childProps.type === "signup" && errors.password && <p className={`text-danger text-center ${styles.error}`}>{errors.password}</p>}
             </div>
           </div>
           <div className="d-flex flex-column flex-sm-row gap-10">

@@ -20,7 +20,7 @@ const Header = () => {
   ]);
   const [logoutUser] = useLogin((state) => [state.logoutUser]);
   const [user, setUser] = useState({});
-
+  console.log(user)
   useEffect(() => {
     const localUser = JSON.parse(localStorage.getItem("user"));
     if (localUser && !user.id) {
@@ -80,11 +80,7 @@ const Header = () => {
                   data-bs-toggle="dropdown"
                 >
                   {userLogged ? (
-                    <img
-                      src={user.image}
-                      alt="user-pic"
-                      className={`rounded-circle me-1 ${styles.imgProfile}`}
-                    />
+                    <div style={{backgroundImage: `url(${user.image})`}} className={`rounded-circle me-1 ${styles.imgProfile}`}></div>
                   ) : (
                     <HiOutlineUserCircle className={styles.buttonUser} />
                   )}
@@ -127,7 +123,7 @@ const Header = () => {
                           Ver perfil
                         </Link>
                       </li>
-                      {
+                      { user.rol === 'admin' &&
                         <li>
                           <Link
                             to="/adminDashboard/users"
@@ -146,7 +142,7 @@ const Header = () => {
                           Cerrar sesión
                         </Link>
                       </li>
-                   
+
                     </ul>
                   </>
                 )}
