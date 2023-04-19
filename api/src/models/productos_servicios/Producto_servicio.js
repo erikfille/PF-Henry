@@ -8,7 +8,6 @@ const productoServicioSchema = new Schema({
   tipo: {
     type: String,
     enum: ['Producto', 'Servicio'],
-    required: true,
   },
   precio: {
     type: Number,
