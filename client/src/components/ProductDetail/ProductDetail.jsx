@@ -37,7 +37,7 @@ export default function ProductDetail(props) {
       setActiveCart();
     } else window.alert("Necesitas indicar una cantidad");
   }
-  console.log(props.productDetail)
+  console.log(quantity)
   return (
     <div className="container mb-5">
       <div className="row gx-5">
@@ -133,7 +133,7 @@ export default function ProductDetail(props) {
                 <button
                   className="button"
                   onClick={() => addToCart()}
-                  disabled={quantity < 1 || stock ? quantity > stock : quantity > 20}
+                  disabled={quantity < 1 || (stock ? quantity > stock : quantity > 20)}
                 >
                   Agregar al Carrito
                 </button>
