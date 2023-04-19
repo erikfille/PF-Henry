@@ -14,7 +14,8 @@ export const useLogin = create((set, get) => ({
       set((state) => ({ user: response.data.user }));
       receiveToken(response.data.user.token, response.data.user);
     } catch (err) {
-      console.log(err.message);
+      console.log(err);
+      window.alert(err.response.data.message)
     }
   },
   loginGoogleUser: async (userData) => {
@@ -41,7 +42,7 @@ export const useLogin = create((set, get) => ({
   loginUser: async (userData) => {
     const { receiveToken } = get();
     try {
-      /* 
+      /*
       Se envía el email y password
       Tres posibles respuestas:
       - Success: Se recibe la info del usuario y el token y se setean en el store y se ejecuta receiveToken.
@@ -52,8 +53,8 @@ export const useLogin = create((set, get) => ({
       console.log("Response Login Normal: ", response);
       set((state) => ({ user: response.data.user }));
       receiveToken(response.data.user.token, response.data.user);
-    } catch (err) {
-      console.log(err.message);
+    } catch (error) {
+      window.alert(error.response.data.message || error.response.data.error)
     }
     // Hago el post al back
     // Recibo el usuario de vuelta
