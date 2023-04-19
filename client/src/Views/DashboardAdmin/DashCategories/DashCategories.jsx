@@ -9,6 +9,7 @@ import { BsFillCheckCircleFill } from "react-icons/bs";
 import { BsFillDashCircleFill } from "react-icons/bs";
 import { useAdmin } from "../../../hooks/useStore";
 import HeaderDashboard from "../HeaderDashboard/HeaderDashboard";
+import Loader from "../../../components/Loader/Loader";
 
 const DashCategories = () => {
   const [inputSearch, setInputSearch] = useState("");
@@ -18,6 +19,8 @@ const DashCategories = () => {
     tipo: "",
   });
 
+  const [loading, setLoading] = useState(true);
+
   const [
     searchAdminCategories,
     adminCategories,
@@ -25,7 +28,7 @@ const DashCategories = () => {
     addCategory,
     categoryChangeStatus,
     setCategoryEditModal,
-    categoryEditModal,
+    getAdminCategories,
   ] = useAdmin((state) => [
     state.searchAdminCategories,
     state.adminCategories,
@@ -33,8 +36,15 @@ const DashCategories = () => {
     state.addCategory,
     state.categoryChangeStatus,
     state.setCategoryEditModal,
-    state.categoryEditModal,
+    state.getAdminCategories,
   ]);
+
+  useEffect(() => {
+    setLoading(true);
+    if (typeof adminCategories === "object" && adminCategories.length) {
+      setLoading(false);
+    }
+  }, [adminCategories]);
 
   useEffect(() => {
     if (inputSearch.length > 0) {
@@ -69,8 +79,6 @@ const DashCategories = () => {
       status: item.status ? 0 : 1,
     };
     let itemId = item._id;
-    console.log("new Item: ", newItem);
-    console.log("new Item Id: ", itemId);
     categoryChangeStatus(itemId, newItem);
   };
 
@@ -118,59 +126,63 @@ const DashCategories = () => {
                 <th scope="col">Acciones</th>
               </tr>
             </thead>
-            <tbody>
-              {adminFilteredCategories.length
-                ? adminFilteredCategories.map((cat, idx) => (
-                    <tr>
-                      <th scope="row">{idx + 1}</th>
-                      <td>{cat.nombre}</td>
-                      <td>{cat.tipo}</td>
-                      <td className="status">
-                        <div
-                          className={`${style.status} ${
-                            cat.status === 1 ? style.active : style.inactive
-                          } ms-4 mt-2`}
-                        ></div>
-                      </td>
-                      <td>
-                        <div className="icons d-flex gap-10">
-                          <div className="modificarActivo">
-                            {cat.status === 1 ? (
-                              <BsFillDashCircleFill
-                                title="Desactivar"
+            {loading ? (
+              <Loader />
+            ) : (
+              <tbody>
+                {adminFilteredCategories.length
+                  ? adminFilteredCategories.map((cat, idx) => (
+                      <tr>
+                        <th scope="row">{idx + 1}</th>
+                        <td>{cat.nombre}</td>
+                        <td>{cat.tipo}</td>
+                        <td className="status">
+                          <div
+                            className={`${style.status} ${
+                              cat.status === 1 ? style.active : style.inactive
+                            } ms-4 mt-2`}
+                          ></div>
+                        </td>
+                        <td>
+                          <div className="icons d-flex gap-10">
+                            <div className="modificarActivo">
+                              {cat.status === 1 ? (
+                                <BsFillDashCircleFill
+                                  title="Desactivar"
+                                  style={{
+                                    cursor: "pointer",
+                                    fill: "var(--color-0CC5BA)",
+                                  }}
+                                  onClick={() => changeStatus(cat)}
+                                />
+                              ) : (
+                                <BsFillCheckCircleFill
+                                  title="Activar"
+                                  style={{
+                                    cursor: "pointer",
+                                    fill: "var(--color-0CC5BA)",
+                                  }}
+                                  onClick={() => changeStatus(cat)}
+                                />
+                              )}
+                            </div>
+                            <div className="edit">
+                              <FaEdit
+                                title="Editar"
                                 style={{
                                   cursor: "pointer",
                                   fill: "var(--color-0CC5BA)",
                                 }}
-                                onClick={() => changeStatus(cat)}
+                                onClick={() => setCategoryEditModal(cat)}
                               />
-                            ) : (
-                              <BsFillCheckCircleFill
-                                title="Activar"
-                                style={{
-                                  cursor: "pointer",
-                                  fill: "var(--color-0CC5BA)",
-                                }}
-                                onClick={() => changeStatus(cat)}
-                              />
-                            )}
+                            </div>
                           </div>
-                          <div className="edit">
-                            <FaEdit
-                              title="Editar"
-                              style={{
-                                cursor: "pointer",
-                                fill: "var(--color-0CC5BA)",
-                              }}
-                              onClick={() => setCategoryEditModal(cat)}
-                            />
-                          </div>
-                        </div>
-                      </td>
-                    </tr>
-                  ))
-                : null}
-            </tbody>
+                        </td>
+                      </tr>
+                    ))
+                  : null}
+              </tbody>
+            )}
           </table>
         </div>
         <div className={`${style.addCategory} col-5`}>

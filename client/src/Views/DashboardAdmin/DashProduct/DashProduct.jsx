@@ -1,14 +1,43 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import style from "./DashProduct.module.css";
 import { FaEdit } from "react-icons/fa";
 import { ImUserMinus } from "react-icons/im";
 import { ImUserCheck } from "react-icons/im";
-import { RiDeleteBin6Line } from "react-icons/ri";
 import { Products } from "../helpers/Products";
+import { useAdmin } from "../../../hooks/useStore";
 import HeaderDashboard from "../HeaderDashboard/HeaderDashboard";
+import Loader from "../../../components/Loader/Loader";
 
 const DashProduct = () => {
-  
+  const [loading, setLoading] = useState(true);
+
+  const [
+    adminProducts,
+    adminFilteredProducts,
+    adminFilteredProductsWOSearch,
+    selectedProducts,
+    searchAdminProducts,
+    productsChangeStatus,
+    setFilterProducts,
+    getAdminProducts,
+  ] = useAdmin((state) => [
+    state.adminProducts,
+    state.adminFilteredProducts,
+    state.adminFilteredProductsWOSearch,
+    state.selectedProducts,
+    state.searchAdminProducts,
+    state.productsChangeStatus,
+    state.setFilterProducts,
+    state.getAdminProducts,
+  ]);
+
+  useEffect(() => {
+    setLoading(true);
+    if (typeof adminProducts === "object" && adminProducts.length) {
+      setLoading(false);
+    }
+  }, [adminProducts]);
+
   return (
     <div className={`${style.dashboardContaier} sidebar col-9 px-5`}>
       <HeaderDashboard />
@@ -73,60 +102,56 @@ const DashProduct = () => {
               <th scope="col">Acciones</th>
             </tr>
           </thead>
-          <tbody>
-            {Products.map((prod) => (
-              <tr>
-                <th scope="row">1</th>
-                <td>{prod.name}</td>
-                <td>$ {prod.price}</td>
-                <td>{prod.stock}</td>
-                <td className="status">
-                  <div
-                    className={`${style.status} ${
-                      prod.status === "activo" ? style.active : style.inactive
-                    } ms-4 mt-2`}
-                  ></div>
-                </td>
-                <td>
-                  <div className="icons d-flex gap-10">
-                    <div className="modificarActivo">
-                      {prod.status === "activo" ? (
-                        <ImUserMinus
+          {loading ? (
+            <Loader />
+          ) : (
+            <tbody>
+              {Products.map((prod) => (
+                <tr>
+                  <th scope="row">1</th>
+                  <td>{prod.name}</td>
+                  <td>$ {prod.price}</td>
+                  <td>{prod.stock}</td>
+                  <td className="status">
+                    <div
+                      className={`${style.status} ${
+                        prod.status === "activo" ? style.active : style.inactive
+                      } ms-4 mt-2`}
+                    ></div>
+                  </td>
+                  <td>
+                    <div className="icons d-flex gap-10">
+                      <div className="modificarActivo">
+                        {prod.status === "activo" ? (
+                          <ImUserMinus
+                            style={{
+                              cursor: "pointer",
+                              fill: "var(--color-0CC5BA)",
+                            }}
+                          />
+                        ) : (
+                          <ImUserCheck
+                            style={{
+                              cursor: "pointer",
+                              fill: "var(--color-0CC5BA)",
+                            }}
+                          />
+                        )}
+                      </div>
+                      <div className="edit">
+                        <FaEdit
                           style={{
                             cursor: "pointer",
                             fill: "var(--color-0CC5BA)",
                           }}
                         />
-                      ) : (
-                        <ImUserCheck
-                          style={{
-                            cursor: "pointer",
-                            fill: "var(--color-0CC5BA)",
-                          }}
-                        />
-                      )}
+                      </div>
                     </div>
-                    <div className="delete">
-                      <RiDeleteBin6Line
-                        style={{
-                          cursor: "pointer",
-                          fill: "var(--color-0CC5BA)",
-                        }}
-                      />
-                    </div>
-                    <div className="edit">
-                      <FaEdit
-                        style={{
-                          cursor: "pointer",
-                          fill: "var(--color-0CC5BA)",
-                        }}
-                      />
-                    </div>
-                  </div>
-                </td>
-              </tr>
-            ))}
-          </tbody>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          )}
         </table>
       </div>
     </div>

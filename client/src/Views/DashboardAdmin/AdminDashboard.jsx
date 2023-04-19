@@ -20,8 +20,8 @@ export default function AdminDashboard() {
   ]);
 
   useEffect(() => {
-    // getAdminProducts();
-    // getAdminUsers();
+    getAdminProducts();
+    getAdminUsers();
     getAdminCategories();
     getAdminSpecies();
     getAdminProviders();

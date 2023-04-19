@@ -107,7 +107,7 @@ export const useLogin = create((set, get) => ({
   },
   receiveLogin(user) {
     if (user.rol === "admin") {
-      window.location.assign("/admin");
+      window.location.assign("/adminDashboard/users");
     } else if (user.rol === "provider") {
       window.location.assign("/");
     } else {

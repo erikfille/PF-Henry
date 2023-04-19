@@ -8,10 +8,9 @@ import HeaderDashboard from "../HeaderDashboard/HeaderDashboard";
 import Loader from "../../../components/Loader/Loader";
 
 const DashUser = () => {
-  const [inputSearch, setInputSearch] = useState("all");
+  const [inputSearch, setInputSearch] = useState("");
   const [filter, setFilter] = useState("all");
   const [loading, setLoading] = useState(true);
-  const [users, setUsers] = useState([]);
 
   const [
     adminUsers,
@@ -23,7 +22,7 @@ const DashUser = () => {
     searchAdminUsers,
     userChangeStatus,
     setFilterUsers,
-    getAdminUsers
+    getAdminUsers,
   ] = useAdmin((state) => [
     state.adminUsers,
     state.adminFilteredUsers,
@@ -38,13 +37,11 @@ const DashUser = () => {
   ]);
 
   useEffect(() => {
-    getAdminUsers();
     setLoading(true);
-    if (adminUsers.length) {
-      setUsers(adminUsers);
+    if (typeof adminUsers === "object" && adminUsers.length) {
       setLoading(false);
     }
-  }, []);
+  }, [adminUsers]);
 
   useEffect(() => {
     let filtered = adminUsers;
