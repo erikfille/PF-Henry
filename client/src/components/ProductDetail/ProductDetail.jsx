@@ -111,7 +111,7 @@ export default function ProductDetail(props) {
             </span>
             <span className={`fw-bold ${styles.span}`}>{stock}</span>
           </div>
-          {from !== "admin" ? (
+          {props.from !== "admin" ? (
             <div className="d-flex justify-content-between mb-3">
               <div>
                 <span className={`${styles.fColor} fw-bold me-3 fs-5`}>

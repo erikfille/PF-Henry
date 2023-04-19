@@ -108,7 +108,22 @@ export default function CreateProduct() {
     e.preventDefault();
     // getProveedor()
     console.log(productData);
-    await createProduct(productData);
+
+    let newProduct = {};
+    newProduct.titulo = productData.titulo;
+    newProduct.tipo = productData.tipo.label;
+    newProduct.precio = productData.precio;
+    productData.stock
+      ? (newProduct.stock = productData.stock)
+      : (newProduct.stock = null);
+    productData.imagen && (newProduct.imagen = productData.imagen);
+    productData.descripcion &&
+      (newProduct.descripcion = productData.descripcion);
+    productData.animal && (newProduct.animal = productData.animal);
+    productData.categorias && (newProduct.categorias = productData.categorias);
+    productData.proveedor && (newProduct.proveedor = productData.proveedor);
+
+    await createProduct(newProduct);
     /*
     - Agrego la propiedad Proveedor, sacando el id de proveedor desde el token de localStorage
     - Posteo la info
@@ -119,8 +134,8 @@ export default function CreateProduct() {
     setProductData({ ...productData, imagen: url });
   }
 
-  async function createProduct() {
-    // Hace el post al back
+  async function createProduct(newProduct) {
+    let response = await axios.post(`/crearProducto`, { newProduct });
   }
 
   return (
