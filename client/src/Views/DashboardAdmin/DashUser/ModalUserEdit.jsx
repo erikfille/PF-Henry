@@ -22,11 +22,11 @@ export default function ModalUserEdit() {
     name: "",
     surname: "",
     address: "",
-    mail: "",
+    email: "",
     password: "",
     verifyPassword: "",
     role: "",
-    status: 0,
+    status: "",
   });
 
   useEffect(() => {
@@ -47,7 +47,8 @@ export default function ModalUserEdit() {
     setEditedUser({ ...editedUser, [e.target.name]: e.target.value });
   };
 
-  const editUserSubmit = () => {
+  const editUserSubmit = (e) => {
+    e.preventDefault()
     let user = {
       name: editedUser.name,
       surname: editedUser.surname,
@@ -65,7 +66,7 @@ export default function ModalUserEdit() {
     >
       <div className="d-flex flex-column align-items-center gap-20">
         <h1 className={style.title}>Editar Datos de Usuario</h1>
-        <div className="mb-2 my-4 d-flex gap-30">
+        <form onSubmit={editUserSubmit} className="mb-2 my-4 d-flex gap-30">
           <div className="name">
             <label htmlFor="name" className="form-label">
               Nombre
@@ -75,7 +76,7 @@ export default function ModalUserEdit() {
               className="form-control"
               id="name"
               name="name"
-              placeholder="Ingresa un name"
+              placeholder="Ingresa un nombre"
               value={editedUser.name}
               style={{
                 backgroundColor: "transparent",
@@ -94,7 +95,7 @@ export default function ModalUserEdit() {
               className="form-control"
               id="surname"
               name="surname"
-              placeholder="Ingresa un surname"
+              placeholder="Ingresa un Apellido"
               value={editedUser.surname}
               style={{
                 backgroundColor: "transparent",
@@ -132,7 +133,7 @@ export default function ModalUserEdit() {
               className="form-control"
               id="address"
               name="address"
-              placeholder="Ingresa un address"
+              placeholder="Ingresa una dirección"
               value={editedUser.address}
               style={{
                 backgroundColor: "transparent",
@@ -151,7 +152,7 @@ export default function ModalUserEdit() {
               className="form-control"
               id="password"
               name="password"
-              placeholder="Ingresa un password"
+              placeholder="Ingresa una contraseña"
               value={editedUser.password}
               style={{
                 backgroundColor: "transparent",
@@ -170,7 +171,7 @@ export default function ModalUserEdit() {
               className="form-control"
               id="verifyPassword"
               name="verifyPassword"
-              placeholder="Ingresa un verifyPassword"
+              placeholder="Vuelve a ingresar la contraseña"
               value={editedUser.verifyPassword}
               style={{
                 backgroundColor: "transparent",
@@ -203,7 +204,7 @@ export default function ModalUserEdit() {
               <option value="admin">Administrador</option>
             </select>
           </div>
-        </div>
+        </form>
         <div className="d-flex gap-15">
           <button className="button mt-3 mx-2" onClick={editUserSubmit}>
             Aceptar
