@@ -25,7 +25,7 @@ const userSchema = Joi.object({
     password: Joi.string().required(),
     adress: Joi.string().min(3).max(18),
     rol: Joi.string().min(4),
-    image: Joi.string().required()
+    image: Joi.string().allow('')
   });
   
 

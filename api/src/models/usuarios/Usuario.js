@@ -45,7 +45,7 @@ const userSchema = new mongoose.Schema({
   }],
   image: {
     type: String,
-    required: true
+   
   },
   status: {
     type: Number,
@@ -64,6 +64,5 @@ userSchema.statics.comparePassword = async (password, receivedPassword) => {
   const result = await bcrypt.compare(password, receivedPassword); 
   return result;
 };
-
 
 module.exports = mongoose.model('Usuario', userSchema);
