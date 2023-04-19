@@ -18,7 +18,6 @@ export const useProduct = create((set, get) => ({
 
     try {
       let response = await axios.get("/allProductos");
-      console.log(response.data);
       response.data.filter((p) => p.activo);
       let products = response.data;
       set((state) => ({ allProducts: products }));
@@ -454,8 +453,7 @@ export const useAdmin = create((set, get) => ({
   },
   getAdminProducts: async () => {
     try {
-      let response = await axios.get('/allProductos')
-      console.log(response.data)
+      let response = await axios.get("/allProductos");
       response.data.sort((a, b) => b.activo - a.activo);
       set((state) => ({ adminProducts: response.data }));
       set((state) => ({ adminFilteredProducts: response.data }));
