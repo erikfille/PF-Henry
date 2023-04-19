@@ -1,17 +1,11 @@
 const Usuario = require("../models/usuarios/Usuario");
-const ProductoServicio = ("../models/productos_servicios/Producto_servicio.js");
-const productoVendido = ("../models/productosVendido/productoVendido.js");
 const Rol = require("../models/roles/Rol");
-const nodemailer = require("nodemailer");
-const { google } = require("googleapis");
-const OAuth2 = google.auth.OAuth2;
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
 const { validateUser } = require("../libs/validateFunction");
 const Boom = require("@hapi/boom");
-const fs = require("fs");
-const Path = require("path");
+const { bienvenidaEmail } = require("../libs/emailFunctions");
 
 const usuariosRoutes = [
   {
@@ -24,6 +18,8 @@ const usuariosRoutes = [
       try {
         // HAY Q AGREGAR EL ROL
         const { name, surname, email, password, image, rol } = request.payload;
+
+      
 
         // Verifico credenciales con Joi
         await validateUser(request.payload);
@@ -56,6 +52,11 @@ const usuariosRoutes = [
           image,
           rol: rolEncontrado ? rolEncontrado._id : null,
         });
+
+        if (user.image === '') {
+          // Si es un string vacío, asignamos el valor por defecto
+          user.image = "https://st.depositphotos.com/1146092/3960/i/950/depositphotos_39605893-stock-photo-silly-computer-dog.jpg";
+        }
         await user.save();
 
         // Crear un token JWT
@@ -63,65 +64,8 @@ const usuariosRoutes = [
           expiresIn: 60 * 60 * 72, // 72 horas
         });
 
-        // Enviar un correo electrónico de bienvenida al usuario
-        const accountTransport = {
-          service: "gmail",
-          auth: {
-            type: "OAuth2",
-            user: process.env.EMAIL_ADDRESS,
-            clientId: process.env.CLIENT_ID,
-            clientSecret: process.env.CLIENT_SECRET,
-            refreshToken: process.env.REFRESH_TOKEN,
-          },
-        };
-
-        const mail_rover = async (callback) => {
-          try {
-            const oauth2Client = new OAuth2(
-              accountTransport.auth.clientId,
-              accountTransport.auth.clientSecret,
-              "https://developers.google.com/oauthplayground"
-            );
-            oauth2Client.setCredentials({
-              refresh_token: accountTransport.auth.refreshToken,
-              tls: {
-                rejectUnauthorized: false,
-              },
-            });
-            oauth2Client.getAccessToken((err, token) => {
-              if (err) {
-                console.log(err);
-                return callback(err);
-              }
-              accountTransport.auth.accessToken = token;
-              const transporter = nodemailer.createTransport(accountTransport);
-              callback(transporter);
-            });
-          } catch (error) {
-            console.log(error);
-            throw new Error("Error al crear el transportador de correo.");
-          }
-        };
-
-        const transporter = await new Promise((resolve, reject) => {
-          mail_rover(resolve);
-        });
-
-        const html = fs.readFileSync(
-          Path.join(__dirname, "../emails/bienvenida.html"),
-          "utf-8",
-          {base:__dirname}
-        )
-        const emailHtml = html.replace("{{name}}", name);
-
-        const mailOptions = {
-          from: process.env.EMAIL_ADDRESS,
-          to: email,
-          subject: "¡Bienvenido a nuestra aplicación!",
-          html: emailHtml,
-        };
-
-        await transporter.sendMail(mailOptions);
+        
+        bienvenidaEmail(email, name);
 
         return h.response({
           user: {
@@ -129,11 +73,12 @@ const usuariosRoutes = [
             name: user.name,
             id: user.id,
             email: user.email,
-            image: user.image,
+            image:user.image,
             rol,
           },
         });
       } catch (error) {
+        console.log(error)
         if (Boom.isBoom(error)) {
           return error;
         }
@@ -144,19 +89,33 @@ const usuariosRoutes = [
     method: "POST",
     path: "/users/login",
     options: {
+      payload: {
+        allow: ["application/json"],
+        parse: true,
+      },
       async handler(request, h) {
+        // El usuario ya está autenticado en este punto, puedes usar la información del usuario en "request.user"
+        
         const { email, password } = request.payload;
-
+  
         try {
           // Buscar el usuario por su email y contraseña y hacer el populate del campo "rol"
           const usuario = await Usuario.findOne({ email }).populate("rol");
-
+  
           if (!usuario) {
             return h
               .response({ error: "El correo electrónico no coincide" })
               .code(401);
           }
-
+  
+          // Verificar si el usuario está activo
+          if (usuario.status === 0) {
+            return h
+              .response({ error: "El usuario está desactivado" })
+              .code(401);
+          }
+  
+          // Validar la contraseña normalmente
           const validatePass = await Usuario.comparePassword(
             password,
             usuario.password
@@ -164,11 +123,14 @@ const usuariosRoutes = [
           if (!validatePass) {
             throw Boom.unauthorized("Invalid Password");
           }
-          // Crear un token JWT
-          const token = jwt.sign({ id: usuario._id }, process.env.JWT_SECRET, {
-            expiresIn: 60 * 60 * 72, // 72 horas
-          });
 
+          // Crear un token JWT con información del usuario
+          const token = jwt.sign(
+            { id: usuario._id, email: usuario.email },
+            process.env.JWT_SECRET,
+            { expiresIn: 60 * 60 * 72 } // 72 horas
+          );
+  
           return h.response({
             user: {
               token: token,
@@ -186,10 +148,6 @@ const usuariosRoutes = [
             return h.response({ error: "Error al crear el usuario" }).code(404);
           }
         }
-      },
-      payload: {
-        allow: ["application/json"],
-        parse: true,
       },
     },
   },
@@ -219,67 +177,7 @@ const usuariosRoutes = [
               expiresIn: 60 * 60 * 72, // 72 horas
             });
 
-            // Enviar un correo electrónico de bienvenida al usuario
-          const accountTransport = {
-            service: "gmail",
-            auth: {
-              type: "OAuth2",
-              user: process.env.EMAIL_ADDRESS,
-              clientId: process.env.CLIENT_ID,
-              clientSecret: process.env.CLIENT_SECRET,
-              refreshToken: process.env.REFRESH_TOKEN,
-            },
-          };
-
-          const mail_rover = async (callback) => {
-            try {
-              const oauth2Client = new OAuth2(
-                accountTransport.auth.clientId,
-                accountTransport.auth.clientSecret,
-                "https://developers.google.com/oauthplayground"
-              );
-              oauth2Client.setCredentials({
-                refresh_token: accountTransport.auth.refreshToken,
-                tls: {
-                  rejectUnauthorized: false,
-                },
-              });
-              oauth2Client.getAccessToken((err, token) => {
-                if (err) {
-                  console.log(err);
-                  return callback(err);
-                }
-                accountTransport.auth.accessToken = token;
-                const transporter =
-                  nodemailer.createTransport(accountTransport);
-                callback(transporter);
-              });
-            } catch (error) {
-              console.log(error);
-              throw new Error("Error al crear el transportador de correo.");
-            }
-          };
-
-          const transporter = await new Promise((resolve, reject) => {
-            mail_rover(resolve);
-          });
-
-          const html = fs.readFileSync(
-            Path.join(__dirname, "../emails/bienvenida.html"),
-            "utf-8",
-            {base:__dirname}
-          )
-          const emailHtml = html.replace("{{name}}", name);
-  
-
-          const mailOptions = {
-            from: process.env.EMAIL_ADDRESS,
-            to: email,
-            subject: "¡Bienvenido a nuestra aplicación!",
-            html: emailHtml,
-          };
-
-          await transporter.sendMail(mailOptions);
+            bienvenidaEmail(email, name);
 
             // Devolvemos objeto user con su info + el token generado
             return h.response({
@@ -309,8 +207,6 @@ const usuariosRoutes = [
           const token = jwt.sign({ id: usuario._id }, process.env.JWT_SECRET, {
             expiresIn: 60 * 60 * 72, // 72 horas
           });
-
-          
 
           // Si sus credenciales son validas respondemos con la data del user + el token generado
           return h.response({
@@ -350,8 +246,8 @@ const usuariosRoutes = [
             .populate({
               path: "id_mascota",
               populate: {
-                path:"historial"
-              }
+                path: "historial",
+              },
             })
             .populate({
               path: "productosComprados",
@@ -408,6 +304,7 @@ const usuariosRoutes = [
     },
   },
   {
+
     method: 'GET',
     path: '/users',
     handler: async (request, h) => {
@@ -419,6 +316,7 @@ const usuariosRoutes = [
             return h.response(err).code(500);
         }
     }
+
   },
   {
     method: "PUT",
@@ -435,7 +333,7 @@ const usuariosRoutes = [
         return h.response(error).code(500);
       }
     },
-  }
+  },
 ];
 
 module.exports = usuariosRoutes;
