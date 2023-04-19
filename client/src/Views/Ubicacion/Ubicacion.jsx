@@ -55,6 +55,9 @@ function Bandera({ pais}) {
                 
                         <span>Córdoba</span>
                         <p>La casa de Santi</p>
+
+                        <span>Villa Regina</span>
+                        <p>La casa de Max</p>
                 </div>
               
                 <div className="col-6 col-sm-3">
@@ -72,7 +75,7 @@ function Bandera({ pais}) {
                 <div className="col-6 col-sm-3">
                     <Bandera ciudad="España" pais="España"/>
                         <span>España</span>    
-                        <p>Donde sea que esté Nacho</p> 
+                        <p>La casa de Nacho en Madrid</p> 
                 </div>
             </div>
           </div>
