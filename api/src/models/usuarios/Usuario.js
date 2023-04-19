@@ -51,7 +51,11 @@ const userSchema = new mongoose.Schema({
     type: Number,
     default:1
 
-  }
+  },
+  proveedores: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Proveedor',
+  }]
 });
 
 userSchema.statics.encryptPassword = async (password) => {
