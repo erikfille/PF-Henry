@@ -1,15 +1,18 @@
 import React, { useState, useEffect } from "react";
-import style from "./DashProduct.module.css";
-import { FaEdit } from "react-icons/fa";
-import { ImUserMinus } from "react-icons/im";
-import { ImUserCheck } from "react-icons/im";
-import { Products } from "../helpers/Products";
+import { NavLink } from "react-router-dom";
+import { HiMagnifyingGlass } from "react-icons/hi2";
+import { BsFillCheckCircleFill } from "react-icons/bs";
+import { BsFillDashCircleFill } from "react-icons/bs";
 import { useAdmin } from "../../../hooks/useStore";
 import HeaderDashboard from "../HeaderDashboard/HeaderDashboard";
 import Loader from "../../../components/Loader/Loader";
+import style from "./DashProduct.module.css";
 
 const DashProduct = () => {
   const [loading, setLoading] = useState(true);
+
+  const [inputSearch, setInputSearch] = useState("");
+  const [filter, setFilter] = useState("all");
 
   const [
     adminProducts,
@@ -38,6 +41,50 @@ const DashProduct = () => {
     }
   }, [adminProducts]);
 
+  useEffect(() => {
+    let filtered = adminProducts;
+    if (filter !== "all") {
+      filtered = filtered.filter((p) => p.activo);
+    }
+    setFilterProducts(filtered);
+  }, [filter, adminProducts]);
+
+  useEffect(() => {
+    if (inputSearch.length > 0) {
+      let result = [];
+      adminFilteredProductsWOSearch.forEach((p) => {
+        if (
+          (p.titulo &&
+            p.titulo.toLowerCase().includes(inputSearch.toLowerCase())) ||
+          // (p.proveedor &&
+          //   p.proveedor.toLowerCase().includes(inputSearch.toLowerCase())) ||
+          (p.tipo && p.tipo.toLowerCase().includes(inputSearch.toLowerCase()))
+        )
+          result.push(p);
+      });
+      searchAdminProducts(result);
+    } else if (inputSearch.length <= 0) {
+      searchAdminProducts(adminFilteredProductsWOSearch);
+    }
+  }, [inputSearch, adminFilteredProductsWOSearch]);
+
+  const changeStatus = (item) => {
+    let newItem = {
+      ...item,
+      activo: item.activo ? 0 : 1,
+    };
+    let itemId = item._id;
+    productsChangeStatus(itemId, newItem);
+  };
+
+  const handleChange = (e) => {
+    setFilter(e.target.value);
+  };
+
+  const handleInput = (e) => {
+    setInputSearch(e.target.value);
+  };
+
   return (
     <div className={`${style.dashboardContaier} sidebar col-9 px-5`}>
       <HeaderDashboard />
@@ -61,12 +108,13 @@ const DashProduct = () => {
               }}
               name="filtrar_por"
               id="filtrar_por"
+              onChange={handleChange}
             >
-              <option value="default" defaultValue disabled selected>
-                Selecciona
+              <option value="all" defaultValue selected>
+                Todos
               </option>
-              <option value="activo">Activo</option>
-              <option value="inactivo">Inactivo</option>
+              <option value={true}>Activo</option>
+              <option value={false}>Inactivo</option>
             </select>
           </div>
           <div
@@ -83,9 +131,10 @@ const DashProduct = () => {
                 border: "0.5px solid var(--border_color)",
               }}
               type="search"
-              name=""
-              id=""
-              placeholder="Buscar"
+              name="search"
+              id="search"
+              placeholder="Ej: Comida para Perros"
+              onChange={handleInput}
             />
           </div>
         </div>
@@ -106,50 +155,58 @@ const DashProduct = () => {
             <Loader />
           ) : (
             <tbody>
-              {Products.map((prod) => (
-                <tr>
-                  <th scope="row">1</th>
-                  <td>{prod.name}</td>
-                  <td>$ {prod.price}</td>
-                  <td>{prod.stock}</td>
-                  <td className="status">
-                    <div
-                      className={`${style.status} ${
-                        prod.status === "activo" ? style.active : style.inactive
-                      } ms-4 mt-2`}
-                    ></div>
-                  </td>
-                  <td>
-                    <div className="icons d-flex gap-10">
-                      <div className="modificarActivo">
-                        {prod.status === "activo" ? (
-                          <ImUserMinus
-                            style={{
-                              cursor: "pointer",
-                              fill: "var(--color-0CC5BA)",
-                            }}
-                          />
-                        ) : (
-                          <ImUserCheck
-                            style={{
-                              cursor: "pointer",
-                              fill: "var(--color-0CC5BA)",
-                            }}
-                          />
-                        )}
+              {adminFilteredProducts &&
+                adminFilteredProducts.map((prod, idx) => (
+                  <tr>
+                    <th scope="row">{idx + 1}</th>
+                    <td>{prod.titulo}</td>
+                    <td>$ {prod.precio}</td>
+                    <td>{prod.stock}</td>
+                    <td className="status">
+                      <div
+                        className={`${style.activo} ${
+                          prod.activo ? style.active : style.inactive
+                        } ms-4 mt-2`}
+                      ></div>
+                    </td>
+                    <td>
+                      <div className="icons d-flex gap-10">
+                        <div className="modificarActivo">
+                          {prod.activo ? (
+                            <BsFillDashCircleFill
+                              title="Desactivar"
+                              style={{
+                                cursor: "pointer",
+                                fill: "var(--color-0CC5BA)",
+                              }}
+                              onClick={() => changeStatus(prod)}
+                            />
+                          ) : (
+                            <BsFillCheckCircleFill
+                              title="activar"
+                              style={{
+                                cursor: "pointer",
+                                fill: "var(--color-0CC5BA)",
+                              }}
+                              onClick={() => changeStatus(prod)}
+                            />
+                          )}
+                        </div>
+                        <div className="edit">
+                          <NavLink to={`/productos/${prod._id}/admin`}>
+                            <HiMagnifyingGlass
+                              title="Detalle"
+                              style={{
+                                cursor: "pointer",
+                                fill: "var(--color-0CC5BA)",
+                              }}
+                            />
+                          </NavLink>
+                        </div>
                       </div>
-                      <div className="edit">
-                        <FaEdit
-                          style={{
-                            cursor: "pointer",
-                            fill: "var(--color-0CC5BA)",
-                          }}
-                        />
-                      </div>
-                    </div>
-                  </td>
-                </tr>
-              ))}
+                    </td>
+                  </tr>
+                ))}
             </tbody>
           )}
         </table>

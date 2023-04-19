@@ -55,8 +55,12 @@ function App() {
     <div className="App">
       {location.pathname !== "/login" && <Header /> &&
         location.pathname !== "/signup" && <Header /> &&
-        !location.pathname.toLowerCase().includes("/admindashboard") && <Header /> &&
-        !location.pathname.toLowerCase().includes("/providerdashboard") && <Header />} 
+        !location.pathname.toLowerCase().includes("/admindashboard") && (
+          <Header />
+        ) &&
+        !location.pathname.toLowerCase().includes("/providerdashboard") && (
+          <Header />
+        )}
 
       <Routes>
         <Route path="/adminDashboard/" element={<AdminDashboard />}>
@@ -69,11 +73,20 @@ function App() {
           />
           <Route path="/adminDashboard/animals" element={<DashAnimals />} />
         </Route>
-        
+
         <Route path="/providerDashboard" element={<ProviderDashboard />}>
-          <Route path="/providerDashboard/perfil/:providerId" element={<DashProfile />} />
-          <Route path="/providerDashboard/products" element={<DashProductos />} />
-          <Route path="/providerDashboard/activities" element={<DashActividades />} />
+          <Route
+            path="/providerDashboard/perfil/:providerId"
+            element={<DashProfile />}
+          />
+          <Route
+            path="/providerDashboard/products"
+            element={<DashProductos />}
+          />
+          <Route
+            path="/providerDashboard/activities"
+            element={<DashActividades />}
+          />
         </Route>
 
         <Route path="/login" element={<Login />} />
@@ -87,7 +100,7 @@ function App() {
         <Route path="/paypal" element={<PayPal />} />
         <Route path="/terminos" element={<Terminos />} />
         <Route path="/ubicacion" element={<Ubicacion />} />
-        <Route path="/productos/:productId" element={<Detail />} />
+        <Route path="/productos/:productId/:from" element={<Detail />} />
         <Route path="/crearProducto" element={<CreateProduct />} />
         <Route path="/perfil" element={<UserProfile />}>
           <Route path="/perfil/:userId" element={<UserProfile />} />
@@ -102,12 +115,18 @@ function App() {
       <ModalInfoGenerico />
       {location.pathname === "/adminDashboard/users" && <ModalUserDetail />}
       {location.pathname === "/adminDashboard/users" && <ModalUserEdit />}
-      {location.pathname === "/adminDashboard/categories" && <ModalEditCategory />}
+      {location.pathname === "/adminDashboard/categories" && (
+        <ModalEditCategory />
+      )}
       {location.pathname === "/adminDashboard/animals" && <ModalEditAnimals />}
       {location.pathname !== "/login" && <Footer /> &&
         location.pathname !== "/signup" && <Footer /> &&
-        !location.pathname.toLowerCase().includes("/admindashboard") && <Footer />&&
-        !location.pathname.toLowerCase().includes("/providerdashboard") && <Footer />}
+        !location.pathname.toLowerCase().includes("/admindashboard") && (
+          <Footer />
+        ) &&
+        !location.pathname.toLowerCase().includes("/providerdashboard") && (
+          <Footer />
+        )}
     </div>
   );
 }

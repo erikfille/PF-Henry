@@ -130,8 +130,8 @@ const DashUser = () => {
                 border: "0.5px solid var(--border_color)",
               }}
               type="search"
-              name=""
-              id=""
+              name="search"
+              id="search"
               placeholder="Ej. Juan"
               onChange={handleInput}
             />

@@ -4,7 +4,7 @@ import styles from "./ProductReviews.module.css";
 import { useProduct, useModal, useUser } from "../../hooks/useStore";
 
 export default function ProductReviews(props) {
-  const { updateComments } = props;
+  const { updateComments, from } = props;
   const { _id, rating, comentarios } = props.productDetail;
 
   const [qualify, setQualify] = useState(0);
@@ -22,8 +22,6 @@ export default function ProductReviews(props) {
     state.getCompras,
   ]);
 
-  // console.log(userInfo)
-
   useEffect(() => {
     setUser(JSON.parse(localStorage.getItem("user")));
   }, []);
@@ -33,7 +31,10 @@ export default function ProductReviews(props) {
       comentarios.forEach((c) => {
         if (c.usuario._id === user.id) setAbleToComment(false);
       });
-    } else setAbleToComment(true)
+    }
+    else if (from === "admin") {
+      setAbleToComment(false);
+    } else setAbleToComment(true);
   }, [updateComments, comentarios]);
 
   function handleInputChange(e) {
@@ -54,13 +55,14 @@ export default function ProductReviews(props) {
       updateComments,
       []
     );
-    setAbleToComment(false)
+    setAbleToComment(false);
   }
 
   function returnMessage() {
+    if (!user) return "Debes estar logueado para poder dejar un comentario";
+    if (from === "admin") return "";
     if (user && user.id && !ableToComment)
       return "Ya has reseñado este producto";
-    if (!user) return "Debes estar logueado para poder dejar un comentario";
   }
 
   return (
