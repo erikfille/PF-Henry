@@ -159,6 +159,7 @@ const DashAnimals = () => {
                             </div>
                             <div className="edit">
                               <FaEdit
+                                title="Editar"
                                 style={{
                                   cursor: "pointer",
                                   fill: "var(--color-0CC5BA)",

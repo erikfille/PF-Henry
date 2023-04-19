@@ -587,6 +587,7 @@ export const useAdmin = create((set, get) => ({
   getAdminProviders: async () => {
     try {
       let response = await axios.get("/proveedores");
+      response.data.sort((a, b) => b.status - a.status);
       set((state) => ({ adminProviders: response.data }));
       set((state) => ({ adminFilteredProviders: response.data }));
       set((state) => ({ adminFilteredProvidersWOSearch: response.data }));
@@ -594,14 +595,15 @@ export const useAdmin = create((set, get) => ({
       console.log(err);
     }
   },
-  searchAdminProviders: (users) => {
-    if (typeof users === "object") {
-      set((state) => ({ adminFilteredProviders: users }));
+  searchAdminProviders: (providers) => {
+    if (typeof providers === "object") {
+      set((state) => ({ adminFilteredProviders: providers }));
     }
   },
-  filterAdminProviders: (users) => {
-    if (typeof users === "object") {
-      set((state) => ({ adminFilteredProvidersWOSearch: users }));
+  filterAdminProviders: (providers) => {
+    if (typeof providers === "object") {
+      set((state) => ({ adminFilteredProviders: providers }));
+      set((state) => ({ adminFilteredProvidersWOSearch: providers }));
     }
   },
   modifyProvider: async (newUser) => {
@@ -614,11 +616,11 @@ export const useAdmin = create((set, get) => ({
       console.log(err);
     }
   },
-  providerChangeStatus: async (id, newUser) => {
+  providerChangeStatus: async (id, newProvider) => {
     const { getAdminProviders } = get();
     try {
-      // await axios.put(`/proveedor/${id}`, newUser);
-      // await getAdminProviders();
+      await axios.put(`/proveedor/${id}`, newProvider);
+      await getAdminProviders();
     } catch (err) {
       console.log(err);
     }
