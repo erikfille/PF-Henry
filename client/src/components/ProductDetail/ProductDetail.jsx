@@ -37,7 +37,7 @@ export default function ProductDetail(props) {
       setActiveCart();
     } else window.alert("Necesitas indicar una cantidad");
   }
-
+  console.log(props.productDetail)
   return (
     <div className="container mb-5">
       <div className="row gx-5">
@@ -125,13 +125,14 @@ export default function ProductDetail(props) {
                 value={quantity}
                 onChange={handleInputChange}
                 className={styles.inputNumber}
+                required
               />
             </div>
             <div>
               <button
                 className="button"
                 onClick={() => addToCart()}
-                disabled={Number(quantity) < 0}
+                disabled={!quantity || Number(quantity) < 1 || Number(quantity) > stock}
               >
                 Agregar al Carrito
               </button>
