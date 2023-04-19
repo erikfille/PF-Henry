@@ -46,7 +46,7 @@ import DashProfile from "./Views/ProviderDashboard/DashPerfil/DashPerfil";
 import DashProductos from "./Views/ProviderDashboard/DashProductos/DashProductos";
 import DashActividades from "./Views/ProviderDashboard/DashActividades/DashActividades";
 
-axios.defaults.baseURL = "http://localhost:3000";
+axios.defaults.baseURL = "https://pf-henry-production.up.railway.app/";
 
 function App() {
   const location = useLocation();
@@ -132,3 +132,4 @@ function App() {
 }
 
 export default App;
+

@@ -109,9 +109,9 @@ export const useLogin = create((set, get) => ({
     if (user.rol === "admin") {
       window.location.assign("/adminDashboard/users");
     } else if (user.rol === "provider") {
-      window.location.assign("/");
+      window.location.href = "/";
     } else {
-      window.location.assign("/tienda");
+      window.location.href = "tienda";
     }
   },
   logoutUser() {

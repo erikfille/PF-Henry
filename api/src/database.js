@@ -1,11 +1,12 @@
 const mongoose = require("mongoose");
+require("dotenv").config();
 
-mongoose.connect("mongodb+srv://PetCare:HenryVip@petcare.krjtdtk.mongodb.net/test", {
+const { MONGO_URL } = process.env;
+
+mongoose
+  .connect(MONGO_URL, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
-    
-    
-})
-.then(() => console.log("la base de datos esta conectada"))
-    .catch(err => console.log(err))
-    
+  })
+  .then(() => console.log("la base de datos esta conectada"))
+  .catch((err) => console.log(err));
