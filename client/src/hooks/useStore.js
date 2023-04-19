@@ -274,6 +274,21 @@ export const useUser = create((set, get) => ({
       window.location.assign("/tienda");
     }
   },
+  setCompras: (compras, userId) => {
+    let compraRealizada = compras.map(c => ({id_usuario: userId, id_producto: c._id}))
+    try {
+      let productosComprados = []
+      compraRealizada.forEach((c) => {
+        productosComprados.push(
+          axios.post('/compraUsuario', c)
+        )
+      })
+      Promise.all(productosComprados).then(res => console.log(res))
+    } catch (error) {
+      console.log(error)
+      // window.alert(error)
+    }
+  }
 }));
 
 export const usePets = create((set, get) => ({

@@ -1,8 +1,9 @@
 import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
-import { useModal, useProduct } from "../../hooks/useStore";
+import { useModal, useProduct, useUser } from "../../hooks/useStore";
 
 export default function PayPal(props) {
   const [setModalInfo] = useModal((state) => [state.setModalInfo]);
+  const [setCompras, userInfo] = useUser((state) => [state.setCompras, state.userInfo]);
 
   const [cartProducts, deleteCartContent, updateStock] = useProduct((state) => [
     state.cartProducts,
@@ -48,6 +49,7 @@ export default function PayPal(props) {
                   onContinue,
                   [`/perfil/${user.id}`]
                 );
+                setCompras(cartProducts, userInfo._id)
                 updateStock(cartProducts);
                 deleteCartContent();
 

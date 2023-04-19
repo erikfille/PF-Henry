@@ -2,7 +2,7 @@ import ProductsContainer from "../../components/ProductsContainer/ProductsContai
 import Meta from "../../components/Meta/Meta";
 import BreadCrump from "../../components/BreadCrump/BreadCrump";
 import { useState, useEffect } from "react";
-import { useProduct } from "../../hooks/useStore";
+import { useProduct, useUser } from "../../hooks/useStore";
 import Loader from "../../components/Loader/Loader";
 
 import style from "./Tienda.module.css";
@@ -16,7 +16,7 @@ export default function Tienda() {
     animal: "all",
     price: 300,
   });
-
+  const [getUserInfo] = useUser((state) => [state.getUserInfo])
   const [
     getProducts,
     allProducts,
@@ -46,10 +46,13 @@ export default function Tienda() {
     if (allProducts.length) setLoading(false);
   }, [allProducts]);
 
+  const user = JSON.parse(localStorage.getItem("user"))
+
   useEffect(() => {
     getProducts();
     getCategories();
     getSpecies();
+    getUserInfo(user.id)
   }, []);
 
   useEffect(() => {
