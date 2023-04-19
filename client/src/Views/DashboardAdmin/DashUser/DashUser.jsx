@@ -11,7 +11,6 @@ const DashUser = () => {
   const [inputSearch, setInputSearch] = useState("");
   const [filter, setFilter] = useState("all");
   const [loading, setLoading] = useState(true);
-  const [users, setUsers] = useState([]);
 
   const [
     adminUsers,
@@ -23,7 +22,7 @@ const DashUser = () => {
     searchAdminUsers,
     userChangeStatus,
     setFilterUsers,
-    getAdminUsers
+    getAdminUsers,
   ] = useAdmin((state) => [
     state.adminUsers,
     state.adminFilteredUsers,
@@ -38,10 +37,8 @@ const DashUser = () => {
   ]);
 
   useEffect(() => {
-    getAdminUsers();
     setLoading(true);
     if (typeof adminUsers === "object" && adminUsers.length) {
-      setUsers(adminUsers);
       setLoading(false);
     }
   }, [adminUsers]);

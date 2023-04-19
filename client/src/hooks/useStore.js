@@ -18,6 +18,8 @@ export const useProduct = create((set, get) => ({
 
     try {
       let response = await axios.get("/allProductos");
+      console.log(response.data);
+      response.data.filter((p) => p.activo);
       let products = response.data;
       set((state) => ({ allProducts: products }));
       set((state) => ({ filteredProducts: products }));
@@ -258,9 +260,9 @@ export const useUser = create((set, get) => ({
       let response = await axios.get(`/users/${id}`);
       set((state) => ({ userInfo: response.data }));
     } catch (err) {
-      window.alert(err.response.data.message || err.response.data.error)
-      console.log(err)
-      window.location.assign("/")
+      window.alert(err.response.data.message || err.response.data.error);
+      console.log(err);
+      window.location.assign("/");
     }
   },
   getCompras: async (id) => {
@@ -268,9 +270,9 @@ export const useUser = create((set, get) => ({
       let response = await axios.get(`/compras/${id}`);
       set((state) => ({ compras: response.data }));
     } catch (err) {
-      console.log(err)
-      window.alert(err.response.data.message || err.response.data.error)
-      window.location.assign("/tienda")
+      console.log(err);
+      window.alert(err.response.data.message || err.response.data.error);
+      window.location.assign("/tienda");
     }
   },
 }));
@@ -301,7 +303,7 @@ export const usePets = create((set, get) => ({
       await axios.post(`/mascotas/${user.id}`, formData);
     } catch (err) {
       console.log(err);
-      window.alert(err.response.data.message || err.response.data.error)
+      window.alert(err.response.data.message || err.response.data.error);
     }
   },
   editPet: async (formData, petId) => {
@@ -309,17 +311,17 @@ export const usePets = create((set, get) => ({
       await axios.put(`/mascotas/${petId}`, formData);
     } catch (err) {
       console.log(err);
-      window.alert(err.response.data.message || err.response.data.error)
+      window.alert(err.response.data.message || err.response.data.error);
     }
   },
   deletePet: async (petId, userId) => {
     try {
       await axios.delete(`/mascotas/${petId}`);
-      set((state) => ({petEditModal: false }))
-      await axios.get(`/users/${userId}`)
+      set((state) => ({ petEditModal: false }));
+      await axios.get(`/users/${userId}`);
     } catch (err) {
       console.log(err);
-      window.alert(err.response.data.message || err.response.data.error)
+      window.alert(err.response.data.message || err.response.data.error);
     }
   },
   setPets: (pets) => {
@@ -331,7 +333,7 @@ export const usePets = create((set, get) => ({
       set((state) => ({ petHistory: response.data }));
     } catch (err) {
       console.log(err);
-      window.alert(err.response.data.message || err.response.data.error)
+      window.alert(err.response.data.message || err.response.data.error);
     }
   },
   addNewHistory: async (newHistory, petId) => {
@@ -339,7 +341,7 @@ export const usePets = create((set, get) => ({
       let response = await axios.post(`/historial/${petId}`, newHistory);
     } catch (err) {
       console.log(err);
-      window.alert(err.response.data.message || err.response.data.error)
+      window.alert(err.response.data.message || err.response.data.error);
     }
   },
 }));
@@ -362,6 +364,7 @@ export const useAdmin = create((set, get) => ({
   usersDetailModal: false,
   adminProducts: [],
   adminFilteredProducts: [],
+  adminFilteredProductsWOSearch: [],
   selectedProducts: {},
   productsEditModal: false,
   adminProviders: [],
@@ -369,111 +372,6 @@ export const useAdmin = create((set, get) => ({
   adminFilteredProvidersWOSearch: [],
   selectedProvider: {},
   providersEditModal: false,
-  getAdminCategories: async () => {
-    try {
-      let response = await axios.get("/categorias");
-      response.data.categorias.sort((a, b) => b.status - a.status);
-      set((state) => ({ adminCategories: response.data.categorias }));
-      set((state) => ({ adminFilteredCategories: response.data.categorias }));
-    } catch (err) {
-      console.log(err);
-    }
-  },
-  getAdminSpecies: async () => {
-    try {
-      let response = await axios.get("/especies");
-      response.data.sort((a, b) => b.status - a.status);
-      let species = response.data;
-      set((state) => ({ adminSpecies: species }));
-      set((state) => ({ adminFilteredSpecies: response.data }));
-    } catch (err) {
-      console.log(err);
-    }
-  },
-  searchAdminCategories: (categories) => {
-    if (typeof categories === "object") {
-      set((state) => ({ adminFilteredCategories: categories }));
-    }
-  },
-  searchAdminSpecies: (species) => {
-    if (typeof species === "object") {
-      set((state) => ({ adminFilteredSpecies: species }));
-    }
-  },
-  addCategory: async (newCategory) => {
-    const { getAdminCategories } = get();
-    try {
-      await axios.post("/crearCategoria", newCategory);
-      await getAdminCategories();
-    } catch (err) {
-      console.log(err);
-    }
-  },
-  addSpecie: (specie) => {
-    const { getAdminSpecies } = get();
-    try {
-      axios.post("/especies", { animal: specie });
-      getAdminSpecies();
-    } catch (err) {
-      console.log(err);
-    }
-  },
-  categoryChangeStatus: async (id, newItem) => {
-    const { getAdminCategories } = get();
-    try {
-      let response = await axios.put(`/categorias/status/${id}`, newItem);
-      getAdminCategories();
-    } catch (err) {
-      console.log(err);
-    }
-  },
-  specieChangeStatus: async (id, newItem) => {
-    const { getAdminSpecies } = get();
-    try {
-      await axios.put(`/especies/status/${id}`, newItem);
-      await getAdminSpecies();
-    } catch (err) {
-      console.log(err);
-    }
-  },
-  setCategoryEditModal: (cat) => {
-    const { categoryEditModal } = get();
-    if (cat) {
-      set((state) => ({ selectedCategory: cat }));
-    }
-    set((state) => ({ categoryEditModal: categoryEditModal ? false : true }));
-  },
-  editCategory: async (id, editedCategory) => {
-    const { setCategoryEditModal, getAdminCategories } = get();
-    try {
-      let response = await axios.put(
-        `/categorias/status/${id}`,
-        editedCategory
-      );
-      setCategoryEditModal();
-      await getAdminCategories();
-    } catch (err) {
-      console.log(err);
-    }
-  },
-  editSpecie: async (id, editedSpecie) => {
-    const { setSpecieEditModal, getAdminSpecies } = get();
-    try {
-      let response = await axios.put(`/especies/status/${id}`, editedSpecie);
-      setSpecieEditModal();
-      await getAdminSpecies();
-    } catch (err) {
-      console.log(err);
-    }
-  },
-  setSpecieEditModal: (specie) => {
-    if (specie) {
-      set((state) => ({ selectedSpecie: specie }));
-    }
-    set((state) => ({
-      speciesEditModal: state.speciesEditModal ? false : true,
-    }));
-  },
   getAdminUsers: async () => {
     try {
       let response = await axios.get("/users");
@@ -556,36 +454,137 @@ export const useAdmin = create((set, get) => ({
   },
   getAdminProducts: async () => {
     try {
-      // let response = await axios.get("/categorias");
-      // set((state) => ({ adminCategories: response.data.categorias }));
-      // set((state) => ({ adminFilteredCategories: response.data.categorias }));
+      let response = await axios.get('/allProductos')
+      console.log(response.data)
+      response.data.sort((a, b) => b.activo - a.activo);
+      set((state) => ({ adminProducts: response.data }));
+      set((state) => ({ adminFilteredProducts: response.data }));
     } catch (err) {
       console.log(err);
     }
   },
   searchAdminProducts: (users) => {
     if (typeof users === "object") {
-      set((state) => ({ adminFilteredUsers: users }));
+      set((state) => ({ adminFilteredProducts: users }));
     }
   },
-  modifyProducts: async (newUser) => {
-    const { getAdminUsers } = get();
+  setFilterProducts: (users) => {
+    set((state) => ({ adminFilteredProducts: users }));
+    set((state) => ({ adminFilteredProductsWOSearch: users }));
+  },
+  productsChangeStatus: async (id, newProduct) => {
+    const { getAdminProducts } = get();
     try {
-      // console.log(newUser);
-      // await axios.post("/crearCategoria", newUser);
-      // await getAdminCategories();
+      await axios.put(`/producto-servicio/${id}`, newProduct);
+      await getAdminProducts();
     } catch (err) {
       console.log(err);
     }
   },
-  productsChangeStatus: async (id, newUser) => {
-    const { getAdminUsers } = get();
+  getAdminCategories: async () => {
     try {
-      // await axios.put(`/especies/status/${id}`, newUser);
-      // await getAdminUsers();
+      let response = await axios.get("/categorias");
+      response.data.categorias.sort((a, b) => b.status - a.status);
+      set((state) => ({ adminCategories: response.data.categorias }));
+      set((state) => ({ adminFilteredCategories: response.data.categorias }));
     } catch (err) {
       console.log(err);
     }
+  },
+  searchAdminCategories: (categories) => {
+    if (typeof categories === "object") {
+      set((state) => ({ adminFilteredCategories: categories }));
+    }
+  },
+  addCategory: async (newCategory) => {
+    const { getAdminCategories } = get();
+    try {
+      await axios.post("/crearCategoria", newCategory);
+      await getAdminCategories();
+    } catch (err) {
+      console.log(err);
+    }
+  },
+  categoryChangeStatus: async (id, newItem) => {
+    const { getAdminCategories } = get();
+    try {
+      let response = await axios.put(`/categorias/status/${id}`, newItem);
+      getAdminCategories();
+    } catch (err) {
+      console.log(err);
+    }
+  },
+  setCategoryEditModal: (cat) => {
+    const { categoryEditModal } = get();
+    if (cat) {
+      set((state) => ({ selectedCategory: cat }));
+    }
+    set((state) => ({ categoryEditModal: categoryEditModal ? false : true }));
+  },
+  editCategory: async (id, editedCategory) => {
+    const { setCategoryEditModal, getAdminCategories } = get();
+    try {
+      let response = await axios.put(
+        `/categorias/status/${id}`,
+        editedCategory
+      );
+      setCategoryEditModal();
+      await getAdminCategories();
+    } catch (err) {
+      console.log(err);
+    }
+  },
+  getAdminSpecies: async () => {
+    try {
+      let response = await axios.get("/especies");
+      response.data.sort((a, b) => b.status - a.status);
+      let species = response.data;
+      set((state) => ({ adminSpecies: species }));
+      set((state) => ({ adminFilteredSpecies: response.data }));
+    } catch (err) {
+      console.log(err);
+    }
+  },
+  searchAdminSpecies: (species) => {
+    if (typeof species === "object") {
+      set((state) => ({ adminFilteredSpecies: species }));
+    }
+  },
+  addSpecie: (specie) => {
+    const { getAdminSpecies } = get();
+    try {
+      axios.post("/especies", { animal: specie });
+      getAdminSpecies();
+    } catch (err) {
+      console.log(err);
+    }
+  },
+  specieChangeStatus: async (id, newItem) => {
+    const { getAdminSpecies } = get();
+    try {
+      await axios.put(`/especies/status/${id}`, newItem);
+      await getAdminSpecies();
+    } catch (err) {
+      console.log(err);
+    }
+  },
+  editSpecie: async (id, editedSpecie) => {
+    const { setSpecieEditModal, getAdminSpecies } = get();
+    try {
+      let response = await axios.put(`/especies/status/${id}`, editedSpecie);
+      setSpecieEditModal();
+      await getAdminSpecies();
+    } catch (err) {
+      console.log(err);
+    }
+  },
+  setSpecieEditModal: (specie) => {
+    if (specie) {
+      set((state) => ({ selectedSpecie: specie }));
+    }
+    set((state) => ({
+      speciesEditModal: state.speciesEditModal ? false : true,
+    }));
   },
   getAdminProviders: async () => {
     try {

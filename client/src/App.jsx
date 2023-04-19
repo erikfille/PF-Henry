@@ -71,7 +71,7 @@ function App() {
         </Route>
         
         <Route path="/providerDashboard" element={<ProviderDashboard />}>
-          <Route path="/providerDashboard/profile" element={<DashProfile />} />
+          <Route path="/providerDashboard/perfil/:providerId" element={<DashProfile />} />
           <Route path="/providerDashboard/products" element={<DashProductos />} />
           <Route path="/providerDashboard/activities" element={<DashActividades />} />
         </Route>

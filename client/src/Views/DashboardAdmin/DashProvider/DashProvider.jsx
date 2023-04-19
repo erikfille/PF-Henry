@@ -12,6 +12,9 @@ const DashProvider = () => {
   const [inputSearch, setInputSearch] = useState("");
   const [filter, setFilter] = useState("all");
 
+  const [loading, setLoading] = useState(true);
+
+
   const [
     adminProviders,
     adminFilteredProviders,
@@ -35,6 +38,13 @@ const DashProvider = () => {
     state.modifyProvider,
     state.providerChangeStatus,
   ]);
+
+  useEffect(() => {
+    setLoading(true);
+    if (typeof adminProviders === "object" && adminProviders.length) {
+      setLoading(false);
+    }
+  }, [adminProviders]);
 
   useEffect(() => {
     if (inputSearch.length > 0) {

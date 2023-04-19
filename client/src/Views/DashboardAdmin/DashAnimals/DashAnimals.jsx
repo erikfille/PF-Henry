@@ -5,10 +5,14 @@ import { BsFillCheckCircleFill } from "react-icons/bs";
 import { BsFillDashCircleFill } from "react-icons/bs";
 import { useAdmin } from "../../../hooks/useStore";
 import HeaderDashboard from "../HeaderDashboard/HeaderDashboard";
+import Loader from "../../../components/Loader/Loader";
+
 const DashAnimals = () => {
   const [inputSearch, setInputSearch] = useState("");
 
   const [newSpecie, setNewSpecie] = useState("");
+
+  const [loading, setLoading] = useState(true);
 
   const [
     searchAdminSpecies,
@@ -17,7 +21,7 @@ const DashAnimals = () => {
     addSpecie,
     specieChangeStatus,
     setSpecieEditModal,
-    speciesEditModal,
+    getAdminSpecies,
   ] = useAdmin((state) => [
     state.searchAdminSpecies,
     state.adminSpecies,
@@ -25,8 +29,15 @@ const DashAnimals = () => {
     state.addSpecie,
     state.specieChangeStatus,
     state.setSpecieEditModal,
-    state.speciesEditModal,
+    state.getAdminSpecies,
   ]);
+
+  useEffect(() => {
+    setLoading(true);
+    if (typeof adminSpecies === "object" && adminSpecies.length) {
+      setLoading(false);
+    }
+  }, [adminSpecies]);
 
   useEffect(() => {
     if (inputSearch.length > 0) {
@@ -107,57 +118,63 @@ const DashAnimals = () => {
                 <th scope="col">Acciones</th>
               </tr>
             </thead>
-            <tbody>
-              {adminFilteredSpecies.length
-                ? adminFilteredSpecies.map((specie, idx) => (
-                    <tr>
-                      <th scope="row">{idx + 1}</th>
-                      <td>{specie.animal}</td>
-                      <td className="status">
-                        <div
-                          className={`${style.status} ${
-                            specie.status === 1 ? style.active : style.inactive
-                          } ms-4 mt-2`}
-                        ></div>
-                      </td>
-                      <td>
-                        <div className="icons d-flex gap-10 ms-3">
-                          <div className="modificarActivo">
-                            {specie.status === 1 ? (
-                              <BsFillDashCircleFill
-                                title="Desactivar"
+            {loading ? (
+              <Loader />
+            ) : (
+              <tbody>
+                {adminFilteredSpecies.length
+                  ? adminFilteredSpecies.map((specie, idx) => (
+                      <tr>
+                        <th scope="row">{idx + 1}</th>
+                        <td>{specie.animal}</td>
+                        <td className="status">
+                          <div
+                            className={`${style.status} ${
+                              specie.status === 1
+                                ? style.active
+                                : style.inactive
+                            } ms-4 mt-2`}
+                          ></div>
+                        </td>
+                        <td>
+                          <div className="icons d-flex gap-10 ms-3">
+                            <div className="modificarActivo">
+                              {specie.status === 1 ? (
+                                <BsFillDashCircleFill
+                                  title="Desactivar"
+                                  style={{
+                                    cursor: "pointer",
+                                    fill: "var(--color-0CC5BA)",
+                                  }}
+                                  onClick={() => changeStatus(specie)}
+                                />
+                              ) : (
+                                <BsFillCheckCircleFill
+                                  title="Activar"
+                                  style={{
+                                    cursor: "pointer",
+                                    fill: "var(--color-0CC5BA)",
+                                  }}
+                                  onClick={() => changeStatus(specie)}
+                                />
+                              )}
+                            </div>
+                            <div className="edit">
+                              <FaEdit
                                 style={{
                                   cursor: "pointer",
                                   fill: "var(--color-0CC5BA)",
                                 }}
-                                onClick={() => changeStatus(specie)}
+                                onClick={() => setSpecieEditModal(specie)}
                               />
-                            ) : (
-                              <BsFillCheckCircleFill
-                                title="Activar"
-                                style={{
-                                  cursor: "pointer",
-                                  fill: "var(--color-0CC5BA)",
-                                }}
-                                onClick={() => changeStatus(specie)}
-                              />
-                            )}
+                            </div>
                           </div>
-                          <div className="edit">
-                            <FaEdit
-                              style={{
-                                cursor: "pointer",
-                                fill: "var(--color-0CC5BA)",
-                              }}
-                              onClick={() => setSpecieEditModal(specie)}
-                            />
-                          </div>
-                        </div>
-                      </td>
-                    </tr>
-                  ))
-                : null}
-            </tbody>
+                        </td>
+                      </tr>
+                    ))
+                  : null}
+              </tbody>
+            )}
           </table>
         </div>
         <div className={`${style.addCategory} col-5`}>

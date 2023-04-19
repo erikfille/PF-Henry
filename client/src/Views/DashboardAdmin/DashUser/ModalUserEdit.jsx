@@ -48,7 +48,7 @@ export default function ModalUserEdit() {
   };
 
   const editUserSubmit = (e) => {
-    e.preventDefault()
+    e.preventDefault();
     let user = {
       name: editedUser.name,
       surname: editedUser.surname,
