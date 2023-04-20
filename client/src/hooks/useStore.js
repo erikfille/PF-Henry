@@ -170,17 +170,11 @@ export const useProduct = create((set, get) => ({
     let promisifiedUpdate = [];
     cartProducts.forEach((p) => {
       promisifiedUpdate.push(
-        axios.get(`/product-detail/${p.id}`).then((response) => {
-          console.log("Stock Previo: ", response.data.stock);
-          console.log("Cantidad a descontar: ", p.quantity);
-          let stock = response.data.stock - p.quantity;
-          axios.put(`/stock/${p.id}`, {
-            stock: stock,
-          });
-        })
+          axios.put(`/stock/${p._id}`, { stock: -p.quantity })
       );
     });
-    await Promise.all(promisifiedUpdate);
+    Promise.all(promisifiedUpdate)
+    .then(res => console.log(res));
   },
 }));
 
