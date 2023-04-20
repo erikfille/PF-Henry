@@ -31,7 +31,7 @@ const Sidebar = () => {
             Usuarios
           </NavLink>
         </div>
-        <div className={`${style.item} d-flex gap-15 align-items-center`}>
+        {/* <div className={`${style.item} d-flex gap-15 align-items-center`}>
           <RiUserStarFill className={style.icons} />
           <NavLink
             to="/adminDashboard/providers"
@@ -39,7 +39,7 @@ const Sidebar = () => {
           >
             Proveedores
           </NavLink>
-        </div>
+        </div> */}
         <div className={`${style.item} d-flex gap-15 align-items-center`}>
           <BsFillBoxSeamFill className={style.icons} />
           <NavLink
