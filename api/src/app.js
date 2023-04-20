@@ -31,11 +31,12 @@ const productoCompradoRoutes = require("./routes/Productos/productoComprado");
 const validacionTokenRoutes = require("./routes/validacionToken.js");
 const activeProductosRoutes = require("./routes/Productos/activeProducts.js");
 
+const port = process.env.PORT
 
 const init = async () => {
   const server = new hapi.Server({
-    port: 3000,
-    host: "localHost",
+    port: port,
+    host: "0.0.0.0",
   });
 
   await server.register({
