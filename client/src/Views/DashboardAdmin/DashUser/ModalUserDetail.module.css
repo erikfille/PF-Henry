@@ -2,7 +2,7 @@
     position: fixed;
     top: 40%;
     right: 30%;
-    z-index: 1000;
+    z-index: 1;
     background-color: var(--body_background);
     border-radius: 10px;
     box-shadow: var(--body_boxshadow)

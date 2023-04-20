@@ -22,18 +22,24 @@ const PetData = (props) => {
 						style={{ backgroundImage: `url(${props.imagen})` }}>
 						{!props.imagen && <TbPawFilled style={{ width: "80px", height: "80px" }} />}
 					</div>
-					<button className={style.info} onClick={() => setPetEditModal({
-								id,
-								name,
-								especie,
-								nac,
-								imagen,
-								historial,
-								descripcion,
-							})}>
-						Editar
-					</button>
-          <EditPet />
+					{
+						props.origin !== "admin" ?
+						<button className={style.info} onClick={() => setPetEditModal({
+							id,
+							name,
+							especie,
+							nac,
+							imagen,
+							historial,
+							descripcion,
+						})}>
+							Editar
+						</button>
+						:
+						null
+					}
+					
+          	<EditPet />
 				</div>
 				<div className={style.detail}>
 					<p className={`${style.name} mb-0`}>{props.name}</p>
