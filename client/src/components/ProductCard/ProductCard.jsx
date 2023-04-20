@@ -13,7 +13,7 @@ export default function ProductCard(props) {
     return (
       <>
         <div className={`${style.productCart} col-12 d-flex gap-3 py-3 align-items-center justify-content-center`}>
-          <Link to={`/productos/${props.id}`}>
+          <Link to={`/productos/${props.id}/customer`}>
             <div className="ms-2 imagen">
               <img
                 src={props.imagen}
