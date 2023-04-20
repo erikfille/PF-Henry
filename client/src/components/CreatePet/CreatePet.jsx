@@ -80,13 +80,14 @@ export default function CreatePet() {
             >
               <div className="mb-3 w-100">
                 <div>
+                  <label>Nombre:</label>
                   <input
                     type="text"
                     name="nombre"
                     value={newPetData.nombre}
                     onChange={handleInputChange}
                     className={`${errors.nombre && "is-invalid"} form-control`}
-                    placeholder="Nombre de tu mascota"
+                    placeholder="Ingresa el nombre de tu mascota"
                   />
                   {errors.nombre && (
                     <span className={styles.errorSpan}>
@@ -96,8 +97,10 @@ export default function CreatePet() {
                   )}
                 </div>
                 <br />
+                <div>
+                    <label>Especie:</label>
                 <input
-                  placeholder="¿A que especie pertenece?"
+                  placeholder="Ej: Perro"
                   type="text"
                   name="especie"
                   value={newPetData.especie}
@@ -111,7 +114,9 @@ export default function CreatePet() {
                   </span>
                 )}
                 <br />
+                </div>
                 <div>
+                  <label>Fecha de nacimiento</label>
                   <input
                     type="date"
                     name="fechaDeNacimiento"
@@ -129,6 +134,7 @@ export default function CreatePet() {
                 </div>
                 <br />
                 <div>
+                  <label>Más información:</label>
                   <textarea
                     placeholder="Cuentanos un poco de tu mascota"
                     type="text"
