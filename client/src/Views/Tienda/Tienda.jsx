@@ -16,7 +16,7 @@ export default function Tienda() {
     animal: "all",
     price: 300,
   });
-  const [getUserInfo] = useUser((state) => [state.getUserInfo])
+  const [getUserInfo, getCompras] = useUser((state) => [state.getUserInfo, state.getCompras])
   const [
     getProducts,
     allProducts,
@@ -52,7 +52,10 @@ export default function Tienda() {
     getProducts();
     getCategories();
     getSpecies();
-    getUserInfo(user.id)
+    if(user) {
+      getUserInfo(user.id)
+      getCompras(user.id)
+    }
   }, []);
 
   useEffect(() => {

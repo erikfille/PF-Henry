@@ -157,7 +157,7 @@ const DashUser = () => {
             <tbody>
               {adminFilteredUsers
                 ? adminFilteredUsers.map((user, idx) => (
-                    <tr>
+                    <tr key={idx}>
                       <th scope="row">{idx + 1}</th>
                       <td>{user.name}</td>
                       <td>{user.surname}</td>
