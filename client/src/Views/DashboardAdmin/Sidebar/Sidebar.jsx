@@ -11,14 +11,16 @@ import logo from "../../../assets/logo.png";
 
 const Sidebar = () => {
 
-   const [logoutUser] = useLogin((state) => [state.logoutUser]);
+  const [logoutUser] = useLogin((state) => [state.logoutUser]);
 
   return (
     <>
-      <div className="logo-container d-flex align-items-center mt-5 ms-5 gap-15">
-        <h1 className={`${style.h1} fw-bold mb-0`}>PetsAmerica</h1>
-        <img className={style.imgLogo} src={logo} alt="logo" />
-      </div>
+      <NavLink to={'/'} >
+        <div className="logo-container d-flex align-items-center mt-5 ms-5 gap-15">
+          <h1 className={`${style.h1} fw-bold mb-0`}>PetsAmerica</h1>
+          <img className={style.imgLogo} src={logo} alt="logo" />
+        </div>
+      </NavLink>
       <div className="menu ms-5 mt-5 d-flex flex-column gap-30">
         <div className={`${style.item} d-flex gap-15 align-items-center mt-5`}>
           <FaUsers className={style.icons} />

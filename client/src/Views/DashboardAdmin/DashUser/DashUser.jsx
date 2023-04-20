@@ -109,7 +109,7 @@ const DashUser = () => {
               id="filtrar_por"
               onChange={handleChange}
             >
-              <option value="all" defaultValue selected>
+              <option value="all" defaultValue>
                 Todos
               </option>
               <option value="1">Activo</option>
@@ -139,6 +139,9 @@ const DashUser = () => {
         </div>
       </div>
       <div className={style.table}>
+          {loading ? (
+            <Loader />
+        ) : (
         <table className="table table-striped table-hover">
           <thead>
             <tr>
@@ -151,13 +154,10 @@ const DashUser = () => {
               <th scope="col">Acciones</th>
             </tr>
           </thead>
-          {loading ? (
-            <Loader />
-          ) : (
             <tbody>
               {adminFilteredUsers
                 ? adminFilteredUsers.map((user, idx) => (
-                    <tr>
+                    <tr key={idx}>
                       <th scope="row">{idx + 1}</th>
                       <td>{user.name}</td>
                       <td>{user.surname}</td>
@@ -216,8 +216,8 @@ const DashUser = () => {
                   ))
                 : null}
             </tbody>
-          )}
         </table>
+        )}
       </div>
     </div>
   );

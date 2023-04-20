@@ -15,12 +15,9 @@ export default function ProductReviews(props) {
   let [sendReview] = useProduct((state) => [state.sendReview]);
   let [setModalInfo] = useModal((state) => [state.setModalInfo]);
 
-  const [userInfo, getUserInfo, compras, getCompras] = useUser((state) => [
-    state.userInfo,
-    state.getUserInfo,
-    state.compras,
-    state.getCompras,
-  ]);
+  const [compras] = useUser((state) => [state.compras]);
+
+  const isPurchased = compras.length && compras.some((c) => c.id_producto._id === _id)
 
   useEffect(() => {
     setUser(JSON.parse(localStorage.getItem("user")));
@@ -60,9 +57,9 @@ export default function ProductReviews(props) {
 
   function returnMessage() {
     if (!user) return "Debes estar logueado para poder dejar un comentario";
+    if (!isPurchased) return "Debes comprar este producto para dejar tu comentario"
+    if (user && user.id && !ableToComment) return "Ya has reseñado este producto";
     if (from === "admin") return "";
-    if (user && user.id && !ableToComment)
-      return "Ya has reseñado este producto";
   }
 
   return (
@@ -86,7 +83,7 @@ export default function ProductReviews(props) {
             </span>
 
             <hr className={styles.hr} />
-            {user && user.id && ableToComment ? (
+            {user && user.id && ableToComment && isPurchased ? (
               <div className="">
                 <h3 className={`${styles.fColor}  fw-bold fs-5`}>
                   Escribe una reseña
@@ -138,7 +135,7 @@ export default function ProductReviews(props) {
                           <ReactStars
                             count={5}
                             size={20}
-                            value={r.puntuacion}
+                            value={r.puntuacion ? r.puntuacion : 0}
                             edit={false}
                             activeColor="#ffd700"
                             className={styles.stars}
@@ -158,7 +155,7 @@ export default function ProductReviews(props) {
               ) : (
                 <>
                   <hr />
-                  <p>"Se el primero en comentar algo de este producto"</p>
+                  <p>Este producto no posee comentarios</p>
                 </>
               )}
             </div>

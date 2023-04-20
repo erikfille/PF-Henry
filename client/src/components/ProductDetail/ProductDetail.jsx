@@ -30,7 +30,6 @@ export default function ProductDetail(props) {
   function handleInputChange(e) {
     setQuantity(e.target.value);
   }
-
   function addToCart() {
     if (quantity > 0) {
       setCartAdd(_id, quantity, stock);
@@ -105,12 +104,12 @@ export default function ProductDetail(props) {
               </span>
             )}
           </div>
-          <div className="mb-3">
+          {tipo !== "Servicio" && <div className="mb-3">
             <span className={`${styles.fColor} fw-bold me-3 fs-5`}>
               Disponibilidad:
             </span>
             <span className={`fw-bold ${styles.span}`}>{stock}</span>
-          </div>
+          </div>}
           {props.from !== "admin" ? (
             <div className="d-flex justify-content-between mb-3">
               <div>
@@ -120,19 +119,20 @@ export default function ProductDetail(props) {
                 <input
                   placeholder="Cantidad"
                   type="number"
-                  min="0"
+                  min="1"
                   max={stock}
                   name="cantidad"
                   value={quantity}
                   onChange={handleInputChange}
                   className={styles.inputNumber}
+                  required
                 />
               </div>
               <div>
                 <button
                   className="button"
                   onClick={() => addToCart()}
-                  disabled={Number(quantity) < 0}
+                  disabled={quantity < 1 || (stock ? quantity > stock : quantity > 20)}
                 >
                   Agregar al Carrito
                 </button>
