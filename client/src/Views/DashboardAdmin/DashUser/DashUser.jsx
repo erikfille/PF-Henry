@@ -100,20 +100,17 @@ const DashUser = () => {
             </p>
             <select
               className="form-control form-select"
-              style={{
-                backgroundColor: "transparent",
-                color: "var(--body_color)",
-                border: "0.5px solid var(--border_color)",
-              }}
+              style={{backgroundColor: "transparent", color: "var(--body_color)", border: "1px solid var(--border_color)"}}
+
               name="filtrar_por"
               id="filtrar_por"
               onChange={handleChange}
             >
-              <option value="all" defaultValue>
+              <option style={{ backgroundColor: "var(--body_background)", }} value="all" defaultValue>
                 Todos
               </option>
-              <option value="1">Activo</option>
-              <option value="0">Inactivo</option>
+              <option style={{ backgroundColor: "var(--body_background)", }} value="1">Activo</option>
+              <option style={{ backgroundColor: "var(--body_background)", }} value="0">Inactivo</option>
             </select>
           </div>
           <div
@@ -124,11 +121,8 @@ const DashUser = () => {
             </p>
             <input
               className="form-control"
-              style={{
-                backgroundColor: "transparent",
-                color: "var(--body_color)",
-                border: "0.5px solid var(--border_color)",
-              }}
+              style={{backgroundColor: "transparent", color: "#838383", border: "1px solid var(--border_color)"}}
+
               type="search"
               name="search"
               id="search"

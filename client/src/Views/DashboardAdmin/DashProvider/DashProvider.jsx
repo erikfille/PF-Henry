@@ -118,14 +118,14 @@ const DashProvider = () => {
               id="filtrar_por"
               onChange={handleChange}
             >
-              <option value="all" defaultValue selected>
+              <option style={{ backgroundColor: "var(--body_background)", }} value="all" defaultValue selected>
                 Todos
               </option>
-              <option value="1">Activo</option>
-              <option value="0">Inactivo</option>
-              <option value="silver">Silver</option>
-              <option value="gold">Gold</option>
-              <option value="platinum">Platinum</option>
+              <option style={{ backgroundColor: "var(--body_background)", }} value="1">Activo</option>
+              <option style={{ backgroundColor: "var(--body_background)", }} value="0">Inactivo</option>
+              <option style={{ backgroundColor: "var(--body_background)", }} value="silver">Silver</option>
+              <option style={{ backgroundColor: "var(--body_background)", }} value="gold">Gold</option>
+              <option style={{ backgroundColor: "var(--body_background)", }} value="platinum">Platinum</option>
             </select>
           </div>
           <div
