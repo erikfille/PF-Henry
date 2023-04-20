@@ -16,23 +16,24 @@ export default function Footer() {
 								<img src={logo} alt="logo" style={{width: "100px"}} />
 							</div>
 							<div className="d-flex gap-30">
-								<a href="https://www.instagram.com/pets.america/" target="_blank" rel="noopener noreferrer" >
+
+								<Link to="https://www.instagram.com/pets.america/" target="_blank" rel="noopener noreferrer" >
 									<button className={style.btnRrss}>
 										<AiFillInstagram className={style.iconRrss}/>
 									</button>
-								</a>
+								</Link>
 
-								<a href="https://www.facebook.com/profile.php?id=100091093042920" target="_blank" rel="noopener noreferrer">
+								<Link to="https://www.facebook.com/profile.php?id=100091093042920" target="_blank" rel="noopener noreferrer">
 									<button className={style.btnRrss}>
 										<BsFacebook className={style.iconRrss} />
 									</button>
-								</a>
+								</Link>
 
-								<a href="https://twitter.com/petcareamerica" target="_blank" rel="noopener noreferrer">
+								<Link to="https://twitter.com/petcareamerica" target="_blank" rel="noopener noreferrer">
 									<button className={style.btnRrss}>
 										<BsTwitter className={style.iconRrss} />
 									</button>
-								</a>
+								</Link>
 							</div>
 						</div>
 						<div className="col-3 py-4 text-center">
@@ -53,8 +54,8 @@ export default function Footer() {
 							<div className="contact d-flex flex-column justify-content-center gap-10">
 								<h4 className={`${style.h4} mb-4`}>Nuestro Contacto</h4>
 								<Link to="/ubicacion"><span className={style.spans}> <HiOutlineLocationMarker className={style.iconContact}/> Ubicacion</span></Link>
-								<a className={style.spans} href='tel:584146482412'><BsTelephone className={style.iconContact} /> +58 4146482412</a>
-								<a className={style.spans} href='mailto:info@petsamerica.com'><HiOutlineMail className={style.iconContact} /> info@petsamerica.com</a>
+								<Link className={style.spans} to='tel:584146482412'><BsTelephone className={style.iconContact} /> +58 4146482412</Link>
+								<Link className={style.spans} to='mailto:info@petsamerica.com'><HiOutlineMail className={style.iconContact} /> info@petsamerica.com</Link>
 							</div>
 						</div>
 					</div>
