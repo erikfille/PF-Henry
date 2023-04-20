@@ -260,7 +260,6 @@ export const useUser = create((set, get) => ({
       set((state) => ({ userInfo: response.data }));
     } catch (err) {
       window.alert(err.response.data.message || err.response.data.error);
-      console.log(err);
       window.location.assign("/");
     }
   },
@@ -275,20 +274,21 @@ export const useUser = create((set, get) => ({
     }
   },
   setCompras: (compras, userId) => {
-    let compraRealizada = compras.map(c => ({id_usuario: userId, id_producto: c._id}))
+    let compraRealizada = compras.map((c) => ({
+      id_usuario: userId,
+      id_producto: c._id,
+    }));
     try {
-      let productosComprados = []
+      let productosComprados = [];
       compraRealizada.forEach((c) => {
-        productosComprados.push(
-          axios.post('/compraUsuario', c)
-        )
-      })
-      Promise.all(productosComprados).then(res => console.log(res))
+        productosComprados.push(axios.post("/compraUsuario", c));
+      });
+      Promise.all(productosComprados).then((res) => console.log(res));
     } catch (error) {
-      console.log(error)
+      console.log(error);
       // window.alert(error)
     }
-  }
+  },
 }));
 
 export const usePets = create((set, get) => ({

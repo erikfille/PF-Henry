@@ -7,6 +7,8 @@ export const useLogin = create((set, get) => ({
   modal: false,
   signUp: async (userData) => {
     const { receiveToken } = get();
+    const modal = useModal.getState().setModalInfo;
+
     console.log(userData);
     try {
       let response = await axios.post("/users", userData);
@@ -14,12 +16,18 @@ export const useLogin = create((set, get) => ({
       set((state) => ({ user: response.data.user }));
       receiveToken(response.data.user.token, response.data.user);
     } catch (err) {
-      console.log(err);
-      window.alert(err.response.data.message || err.response.data.error);
+      modal(
+        "¡Ups... algo ha fallado!",
+        err.response.data.error,
+        logoutUser,
+        []
+      );
     }
   },
   loginGoogleUser: async (userData) => {
     const { setModal, receiveToken } = get();
+    const modal = useModal.getState().setModalInfo;
+
     try {
       let response = await axios.post("/users/GoogleLogin", userData);
       console.log("Post a Users: ", response.data);
@@ -31,7 +39,12 @@ export const useLogin = create((set, get) => ({
       receiveToken(response.data.user.token, response.data.user);
     } catch (err) {
       console.log(err);
-      window.alert(err.response.data.message || err.response.data.error);
+      modal(
+        "¡Ups... algo ha fallado!",
+        err.response.data.error,
+        logoutUser,
+        []
+      );
     }
     // Hago el post al back
     // Recibo el usuario de vuelta
@@ -42,6 +55,8 @@ export const useLogin = create((set, get) => ({
   },
   loginUser: async (userData) => {
     const { receiveToken } = get();
+    const modal = useModal.getState().setModalInfo;
+
     try {
       /*
       Se envía el email y password
@@ -55,7 +70,12 @@ export const useLogin = create((set, get) => ({
       set((state) => ({ user: response.data.user }));
       receiveToken(response.data.user.token, response.data.user);
     } catch (err) {
-      window.alert(err.response.data.message || err.response.data.error);
+      modal(
+        "¡Ups... algo ha fallado!",
+        err.response.data.error,
+        logoutUser,
+        []
+      );
     }
     // Hago el post al back
     // Recibo el usuario de vuelta
@@ -66,6 +86,8 @@ export const useLogin = create((set, get) => ({
   },
   setUserRole: async (role) => {
     const { user, receiveToken } = get();
+    const modal = useModal.getState().setModalInfo;
+
     try {
       let token = user.token;
       let response = await axios.put(`/users/${user.id}/role`, { role: role });
@@ -75,7 +97,12 @@ export const useLogin = create((set, get) => ({
 
       receiveToken(token, response.data);
     } catch (err) {
-      window.alert(err.response.data.message || err.response.data.error);
+      modal(
+        "¡Ups... algo ha fallado!",
+        err.response.data.error,
+        logoutUser,
+        []
+      );
     }
   },
   receiveToken(token, user) {
@@ -96,7 +123,6 @@ export const useLogin = create((set, get) => ({
   loginHi(user) {
     const { receiveLogin } = get();
     const modal = useModal.getState().setModalInfo;
-    const modalState = useModal.getState().modalInfoState;
 
     modal(
       "¡Login Exitoso!",
@@ -122,6 +148,9 @@ export const useLogin = create((set, get) => ({
     window.location.assign("/");
   },
   checkLogin: async () => {
+    const { logoutUser } = get();
+    const modal = useModal.getState().setModalInfo;
+
     try {
       const jwt = localStorage.getItem("token");
 
@@ -129,18 +158,19 @@ export const useLogin = create((set, get) => ({
         // Si existe un token, lo envío a verificar al back
         let response = await axios.post("/validado", { token: jwt });
 
-        console.log(response)
+        console.log(response);
 
         if (response.status !== 200) {
-          localStorage.removeItem("token");
-          localStorage.removeItem("user");
-          document.cookie = "token=;expires=Thu, 01 Jan 1970 00:00:01 GMT;";
-          window.location.assign("/login");
+          logoutUser();
         }
       }
     } catch (err) {
-      console.log(err);
-      window.alert(err.response.data.message || err.response.data.error);
+      modal(
+        "¡Ups... algo ha fallado!",
+        err.response.data.error,
+        logoutUser,
+        []
+      );
     }
   },
   setModal: () => {
