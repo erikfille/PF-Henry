@@ -30,6 +30,8 @@ const historialRoutes = require("./routes/historialAnimal.js")
 const productoCompradoRoutes = require("./routes/Productos/productoComprado");
 const validacionTokenRoutes = require("./routes/validacionToken.js");
 const activeProductosRoutes = require("./routes/Productos/activeProducts.js");
+const contactoFormRoutes = require("./routes/contactoForm.js");
+
 
 
 const init = async () => {
@@ -142,6 +144,8 @@ const init = async () => {
   server.route(productoCompradoRoutes)
   server.route(validacionTokenRoutes)
   server.route(activeProductosRoutes)
+  server.route(contactoFormRoutes)
+
 
 
   await server.start();
