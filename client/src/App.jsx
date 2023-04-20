@@ -48,7 +48,7 @@ import DashActividades from "./Views/ProviderDashboard/DashActividades/DashActiv
 
 import { useLogin } from "./hooks/useAuth";
 
-axios.defaults.baseURL = "http://localhost:3000";
+axios.defaults.baseURL = "https://pf-henry-production.up.railway.app";
 
 function App() {
   const location = useLocation();
