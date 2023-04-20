@@ -48,7 +48,7 @@ export default function PayPal(props) {
                 deleteCartContent();
                 setModalInfo(
                   "Compra Exitosa",
-                  `${details.payer.name.given_name} tu compra se realizó con éxito, en breve serás redirigido a tu panel de usuario`,
+                  `${user.name} tu compra se realizó con éxito, en breve serás redirigido a tu panel de usuario`,
                   onContinue,
                   [`/perfil/${user.id}`]
                 );

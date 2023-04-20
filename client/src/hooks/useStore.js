@@ -168,10 +168,12 @@ export const useProduct = create((set, get) => ({
   },
   updateStock: async (cartProducts) => {
     let promisifiedUpdate = [];
+    console.log(cartProducts)
     cartProducts.forEach((p) => {
-      promisifiedUpdate.push(
+      if(p.stock !== null) {
+        promisifiedUpdate.push(
           axios.put(`/stock/${p._id}`, { stock: -p.quantity })
-      );
+      );}
     });
     Promise.all(promisifiedUpdate)
     .then(res => console.log(res));
