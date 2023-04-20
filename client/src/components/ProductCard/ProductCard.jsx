@@ -53,7 +53,7 @@ export default function ProductCard(props) {
   if (props.showAs === "adminDetail") {
     return (
       <>
-        <div className={`${style.productCart} col-12 d-flex gap-3 py-3 align-items-center justify-content-center`}>
+        <div className={`${style.productCart} col-12 d-flex gap-3 py-2 align-items-center `}>
           <Link to={`/productos/${props.id}`}>
             <div className="ms-2 imagen">
               <img
@@ -63,10 +63,10 @@ export default function ProductCard(props) {
               />
             </div>
           </Link>
-            <div className="d-flex flex-column gap-1 tituloPrecio w-50 ps-4">
-              <h5 className={`${style.title} mb-0`}>{props.titulo}</h5>
-              <p className={`${style.price} mb-0`}>{props.price} U$D</p>
-            </div>
+          <div className="d-flex ps-4 gap-80">
+            <h5 className={`${style.title} mb-0`}>{props.titulo}</h5>
+            <p className={`${style.price} mb-0`}>{props.price}</p>
+          </div>
         </div>
       </>
     );

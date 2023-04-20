@@ -4,7 +4,7 @@
     height: 500px;
     top: 15%;
     right: 17%;
-    z-index: 1000;
+    z-index: 2000;
     background-color: var(--body_background);
     border-radius: 10px;
     box-shadow: var(--body_boxshadow);
