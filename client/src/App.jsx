@@ -46,10 +46,18 @@ import DashProfile from "./Views/ProviderDashboard/DashPerfil/DashPerfil";
 import DashProductos from "./Views/ProviderDashboard/DashProductos/DashProductos";
 import DashActividades from "./Views/ProviderDashboard/DashActividades/DashActividades";
 
+import { useLogin } from "./hooks/useAuth";
+
 axios.defaults.baseURL = "http://localhost:3000";
 
 function App() {
   const location = useLocation();
+
+  const [checkLogin] = useLogin((state) => [state.checkLogin]);
+
+  useEffect(() => {
+    checkLogin();
+  }, [window.location]);
 
   return (
     <div className="App">
@@ -109,9 +117,6 @@ function App() {
         <Route path="/provider/:providerId" element={<ProviderDashboard />} />
       </Routes>
       <Cart />
-      <ModalConsultaGenerico />
-      <ModalCreatePet />
-      <ModalPetDetail />
       <ModalInfoGenerico />
       {location.pathname === "/adminDashboard/users" && <ModalUserDetail />}
       {location.pathname === "/adminDashboard/users" && <ModalUserEdit />}
@@ -127,6 +132,9 @@ function App() {
         !location.pathname.toLowerCase().includes("/providerdashboard") && (
           <Footer />
         )}
+      <ModalConsultaGenerico />
+      <ModalCreatePet />
+      <ModalPetDetail />
     </div>
   );
 }

@@ -24,18 +24,15 @@ export default function CheckOut({ productos, data }) {
   useEffect(() => {
     let localStorageProducts = JSON.parse(localStorage.getItem("cart"));
     setProductsInCart(localStorageProducts);
-    console.log(localStorageProducts)
-  }, []);
+    console.log(localStorageProducts);
+  }, [cartProducts]);
 
   useEffect(() => {
-    if (
-      typeof productsInCart === "object" &&
-      productsInCart.length
-    ) {
+    if (typeof productsInCart === "object" && productsInCart.length) {
       let totalBuy = 0;
       productsInCart.forEach((p) => (totalBuy += p.precio * p.quantity));
       setTotalPrice(totalBuy.toFixed(2));
-      console.log(totalBuy)
+      console.log(totalBuy);
     } else {
       setTotalPrice(0);
     }
@@ -111,14 +108,15 @@ export default function CheckOut({ productos, data }) {
                         >
                           <RiDeleteBin6Line
                             className="ms-5"
-                            onClick={() =>
+                            onClick={() => {
                               setModal(
                                 "Eliminar Producto",
                                 "¿Deseas eliminar este producto?",
                                 setCartRemove,
                                 [p._id]
-                              )
-                            }
+                              );
+
+                            }}
                           />
                         </td>
                       </tr>
