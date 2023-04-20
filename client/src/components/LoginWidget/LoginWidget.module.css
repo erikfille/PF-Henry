@@ -10,6 +10,11 @@
 	overflow: hidden;
 }
 
+.container {
+	background-color: var(--body_background);
+	margin-top: 60px;
+}
+
 .buttonGoogle:hover {
 	color: var(--color-0CC5BA) !important;
 }
