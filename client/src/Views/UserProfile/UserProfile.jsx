@@ -37,7 +37,7 @@ export default function UserProfile() {
   useEffect(() => {
       if(!userId) navigate("/")
       getUserInfo(userId);
-      // getCompras(userId)
+      getCompras(userId)
   }, []);
 
   useEffect(() => {
@@ -138,15 +138,68 @@ export default function UserProfile() {
             <div className={`${style.comprasContainer} col-10 p-5 my-5`}>
               <h4>Mis Compras:</h4>
               {compras && compras.length ? (
-                <>
-                  <div className={`${style.pets} d-flex flex-wrap gap-5 py-5`}>
-                    {compras.map((p, i) => (
-                      <Link key={i}to={`/productos/${p._id}`} className={style.link}>
-                        {p.titulo}
-                      </Link>
-                    ))}
-                  </div>
-                </>
+                <div className="table-responsive-xl">
+                  <table className="table table-hover align-middle table-borderless">
+                    <thead>
+                      <tr>
+                        <th scope="col" className="align-middle text-center fs-5">
+                          Imagen
+                        </th>
+                        <th scope="col" className="align-middle text-center fs-5">
+                          Producto
+                        </th>
+                        <th scope="col" className="align-middle text-center fs-5">
+                          Precio
+                        </th>
+                        <th scope="col" className="align-middle text-center fs-5">
+                          Cantidad
+                        </th>
+                        <th scope="col" className="align-middle text-center fs-5">
+                          Subtotal
+                        </th>
+                        <th scope="col" className="align-middle text-center fs-5">
+                          Fecha
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {compras.map((c) => (
+                        <tr key={c._id}>
+                          <td
+                            colSpan="1"
+                            width="150"
+                            height="70"
+                            className="align-middle text-center"
+                          >
+                            <img
+                              className="img-fluid w-25"
+                              width="40"
+                              src={c.id_producto.imagen}
+                              alt="logo-producto"
+                            />
+                          </td>
+                          <td className="align-middle text-center fw-bold">
+                            <Link to={`/productos/${c.id_producto._id}/customer`} className={style.link}>
+                              {c.id_producto.titulo}
+                            </Link>
+                          </td>
+                          <td className="align-middle text-center fw-bold">
+                            $ {c.id_producto.precio}
+                          </td>
+                          {/* <td className="align-middle text-center fw-bold">
+                            {c.id_producto.quantity}
+                          </td> */}
+                          {/* <td className="align-middle text-center fw-bold">
+                            {(c.id_producto.quantity * c.id_producto.precio).toFixed(2)}
+                          </td> */}
+                          {/* <td className="align-middle text-center fw-bold">
+                            {(c.id_producto.fechaCompra}
+                          </td> */}
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
               ) : (
                 <>
                   <div className="d-flex flex-column justify-content-center align-items-center my-5">

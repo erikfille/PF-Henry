@@ -30,14 +30,13 @@ export default function ProductDetail(props) {
   function handleInputChange(e) {
     setQuantity(e.target.value);
   }
-
   function addToCart() {
     if (quantity > 0) {
       setCartAdd(_id, quantity, stock);
       setActiveCart();
     } else window.alert("Necesitas indicar una cantidad");
   }
-  console.log(quantity)
+
   return (
     <div className="container mb-5">
       <div className="row gx-5">
@@ -105,12 +104,12 @@ export default function ProductDetail(props) {
               </span>
             )}
           </div>
-          <div className="mb-3">
+          {tipo !== "Servicio" && <div className="mb-3">
             <span className={`${styles.fColor} fw-bold me-3 fs-5`}>
               Disponibilidad:
             </span>
             <span className={`fw-bold ${styles.span}`}>{stock}</span>
-          </div>
+          </div>}
           {props.from !== "admin" ? (
             <div className="d-flex justify-content-between mb-3">
               <div>
