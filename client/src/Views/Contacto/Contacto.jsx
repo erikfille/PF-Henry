@@ -79,7 +79,7 @@ export default function Contacto() {
 									}}
 								/>
 							</div>
-							<div class="mb-3 col-12 col-md-9">
+							{/* <div class="mb-3 col-12 col-md-9">
 								<label
 									htmlFor="exampleFormControlTextarea1"
 									class={`${styles.label} form-label fw-bold`}>
@@ -97,7 +97,7 @@ export default function Contacto() {
 										border: "0.5px solid var(--border_color)",
 									}}
 									placeholder="Dejanos tu mensaje"></textarea>
-							</div>
+							</div> */}
 							<button
 								type="submit"
 								className={`btn btn-primary col-12 col-md-9 fw-bold ${styles.button}`}
