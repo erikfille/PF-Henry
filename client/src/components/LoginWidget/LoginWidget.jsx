@@ -10,6 +10,7 @@ import GoogleLogin from "react-google-login";
 
 // Validations
 import validation from "./validation";
+import { Link } from "react-router-dom";
 
 export default function LoginWidget(props) {
   const { childProps } = props;
@@ -120,7 +121,7 @@ export default function LoginWidget(props) {
   }
 
   return (
-    <div className="container d-flex flex-column align-items-center mt-5">
+    <div className={`${styles.container} container d-flex flex-column align-items-center`}>
       <h1 className={`${styles.fColor} fs-3 fw-bold`}>¡Bienvenido!</h1>
       <p className={`${styles.fColor} fs-6 fw-light`}>
         La mejor forma de cuidar a tu mascota
@@ -235,6 +236,7 @@ export default function LoginWidget(props) {
                   ¿Que querés hacer?
                 </label>
                 <select
+                  style={{backgroundColor: "transparent", color: "#838383", border: "1px solid var(--border_color)"}}
                   name="rol"
                   id="rol"
                   onChange={handleSelect}
@@ -287,9 +289,7 @@ export default function LoginWidget(props) {
       </div>
       <div className="text-center mb-5">
         <p className={styles.fColor}>{childProps.message}</p>
-        <a className={styles.link} href={childProps.anchorPath}>
-          <span>{childProps.accountAnchor}</span>
-        </a>
+          <Link to={childProps.anchorPath}><span>{childProps.accountAnchor}</span></Link>
       </div>
       <ModalRolSelector />
     </div>
