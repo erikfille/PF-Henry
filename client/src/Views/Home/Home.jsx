@@ -1,10 +1,12 @@
 import style from "./Home.module.css";
 import bgPaw from "../../images/bg-paw.png"
 import imgPets from "../../images/pets-img.png"
+import Meta from '../../components/Meta/Meta';
 
 const Home = () => {
    return (
       <> 
+         <Meta title={"PetsAmerica"} />
          <div className={`home-wrapper home-wrapper-2 ${style.homeContainer}`}>
             <div className={style.bgImage}>
                <img src={bgPaw} alt="logo=patas" />
