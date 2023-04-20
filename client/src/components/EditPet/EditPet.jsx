@@ -68,30 +68,11 @@ export default function EditPet() {
     setNewPetData({ ...newPetData, imagen: url });
   }
 
-  return (
-    <div
-      className={`container-xl ${styles.modalContainer}`}
-      style={{ display: petEditModal ? "block" : "none" }}
-    >
-      <div className={`home-wrapper-2 ${styles.createProductContainer}`}>
-        <div className="boton-close d-flex justify-content-between">
-          <button
-            onClick={() => {
-              setModal(
-                "Eliminar mascota",
-                "Estas seguro que deseas eliminar esta mascota?",
-                deletePet,
-                [selectedPet.id, user.id]
-              );
-            }}
-            className="button mt-3"
-          >
-            Eliminar mascota
-          </button>
-          <button
-            onClick={() => setPetEditModal()}
-            className={styles.buttonLink}
-          >
+	return (
+		<div className={`container-xl ${styles.modalContainer}`} style={{ display: petEditModal ? "block" : "none" }}>
+      <div className={`home-wrapper-2 ${styles.createProductContainer} p-4`}>
+        <div className="boton-close d-flex justify-content-end">
+          <button onClick={() => setPetEditModal()} className={styles.buttonLink}>
             Cerrar
           </button>
         </div>
@@ -187,6 +168,14 @@ export default function EditPet() {
               </div>
               <div className="floatClear"></div>
             </form>
+          </div>
+          <div className="d-flex justify-content-center">
+            <button 
+              onClick={() => {setModal('Eliminar mascota', 'Estas seguro que deseas eliminar esta mascota?', deletePet, [selectedPet.id, user.id])}}
+              className="button"
+              style={{backgroundColor: "red"}}>
+              Eliminar mascota
+            </button>
           </div>
         </div>
       </div>

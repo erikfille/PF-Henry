@@ -41,6 +41,8 @@ button:disabled {
   border-radius: 10px;
   box-shadow: var(--body_boxshadow);
   overflow: auto;
+  margin: 0;
+  padding: 0;
 }
 
 .title {
