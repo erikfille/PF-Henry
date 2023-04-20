@@ -243,11 +243,11 @@ export default function LoginWidget(props) {
                   className="form-select"
                   aria-label="Default select example"
                 >
-                  <option value="" disabled defaultValue>
+                  <option style={{ backgroundColor: "var(--body_background)", }} value="" disabled defaultValue>
                     ¿Qué quieres hacer?
                   </option>
-                  <option value="customer">Quiero Comprar</option>
-                  <option value="provider">Quiero Vender</option>
+                  <option style={{ backgroundColor: "var(--body_background)", }} value="customer">Quiero Comprar</option>
+                  <option style={{ backgroundColor: "var(--body_background)", }} value="provider">Quiero Vender</option>
                 </select>
               </div>
             )}
