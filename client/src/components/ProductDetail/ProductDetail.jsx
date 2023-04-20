@@ -120,7 +120,7 @@ export default function ProductDetail(props) {
                   placeholder="Cantidad"
                   type="number"
                   min="1"
-                  max={stock}
+                  max={stock === null ? 10 : stock}
                   name="cantidad"
                   value={quantity}
                   onChange={handleInputChange}
@@ -129,13 +129,22 @@ export default function ProductDetail(props) {
                 />
               </div>
               <div>
-                <button
+                {stock === null ?
+                (<button
+                  className="button"
+                  onClick={() => addToCart()}
+                  disabled={quantity < 1 || quantity > 10}
+                >
+                  Agregar al Carrito
+                </button>)
+                :
+                (<button
                   className="button"
                   onClick={() => addToCart()}
                   disabled={!stock || quantity < 1 || (stock ? quantity > stock : quantity > 20)}
                 >
                   Agregar al Carrito
-                </button>
+                </button>)}
               </div>
             </div>
           ) : null}
