@@ -69,7 +69,7 @@ export default function EditPet() {
   }
 
 	return (
-		<div className={`container-xl ${styles.modalContainer}`} style={{ display: petEditModal ? "block" : "none" }}>
+		<div className={`container-l ${styles.modalContainer}`} style={{ display: petEditModal ? "block" : "none" }}>
       <div className={`home-wrapper-2 ${styles.createProductContainer} p-4`}>
         <div className="boton-close d-flex justify-content-end">
           <button onClick={() => setPetEditModal()} className={styles.buttonLink}>
@@ -87,13 +87,14 @@ export default function EditPet() {
             >
               <div className="mb-3 w-100">
                 <div>
+                  <label>Nombre:</label>
                   <input
                     type="text"
                     name="nombre"
                     value={newPetData.nombre}
                     onChange={handleInputChange}
                     className={`${errors.nombre && "is-invalid"} form-control`}
-                    placeholder="Nombre de tu mascota"
+                    placeholder="Ingresa el nombre de tu mascota"
                   />
                   {errors.nombre && (
                     <span className={styles.errorSpan}>
@@ -103,8 +104,10 @@ export default function EditPet() {
                   )}
                 </div>
                 <br />
-                <input
-                  placeholder="¿A que especie pertenece?"
+                <div>
+                  <label>Especie:</label>
+                    <input
+                  placeholder="Ej: Perro"
                   type="text"
                   name="especie"
                   value={newPetData.especie}
@@ -118,7 +121,9 @@ export default function EditPet() {
                   </span>
                 )}
                 <br />
+                </div>
                 <div>
+                  <label>Fecha de Nacimiento:</label>
                   <input
                     type="date"
                     name="fechaDeNacimiento"
@@ -130,6 +135,7 @@ export default function EditPet() {
                 </div>
                 <br />
                 <div>
+                  <label>Más información</label>
                   <textarea
                     placeholder="Cuentanos un poco de tu mascota"
                     type="text"
@@ -165,18 +171,19 @@ export default function EditPet() {
                 >
                   Modificar Mascota
                 </button>
-              </div>
-              <div className="floatClear"></div>
-            </form>
-          </div>
-          <div className="d-flex justify-content-center">
+              </div>  
+              <div className="d-flex justify-content-center">
             <button 
               onClick={() => {setModal('Eliminar mascota', 'Estas seguro que deseas eliminar esta mascota?', deletePet, [selectedPet.id, user.id])}}
-              className="button"
+              className="button mt-3"
               style={{backgroundColor: "red"}}>
               Eliminar mascota
             </button>
           </div>
+              <div className="floatClear"></div>
+            </form>
+          </div>
+        
         </div>
       </div>
     </div>

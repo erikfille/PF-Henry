@@ -9,7 +9,7 @@ export default function Faqs() {
             <BreadCrump title="Faqs" />
             <div className="container-xxl home-wrapper-2 col-12 d-flex flex-column align-items-center">
                 <h1 className={`${styles.h1} fw-bold py-5 text-center mx-5`}>
-                    Ayuda y preguntas frecuentes para cuidar a tu mascota
+                    Preguntas frecuentes
                 </h1>
                 <div className={`${styles.containerFaq} col-12 col-md-10 mb-5 p-md-5`}>
                     <div
