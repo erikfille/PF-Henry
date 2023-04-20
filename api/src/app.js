@@ -45,7 +45,7 @@ const init = async () => {
     plugin: HapiCors,
     options: {
       methods: ["PUT", "POST", "DELETE", "GET"],
-      origins: ["https://pf-henry-production.up.railway.app"],
+      origins: ["*"],
     },
   });
 
