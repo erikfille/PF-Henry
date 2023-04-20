@@ -132,7 +132,7 @@ const Header = () => {
                           </Link>
                         </li>
                       }
-                      {
+                      {/* {
                         <li>
                           <Link
                             to="/providerDashboard/profile"
@@ -141,7 +141,7 @@ const Header = () => {
                             Dashboard Proveedor
                           </Link>
                         </li>
-                      }
+                      } */}
                       <li>
                         <Link
                           to=""

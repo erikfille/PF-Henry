@@ -114,7 +114,7 @@ function App() {
           <Route path="/perfil/:userId" element={<UserProfile />} />
         </Route>
         <Route path="/checkout" element={<CheckOut />} />
-        <Route path="/provider/:providerId" element={<ProviderDashboard />} />
+        {/* <Route path="/provider/:providerId" element={<ProviderDashboard />} /> */}
       </Routes>
       <Cart />
       {location.pathname === "/adminDashboard/users" && <ModalUserDetail />}
