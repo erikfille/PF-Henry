@@ -226,11 +226,11 @@ const DashCategories = () => {
                 }}
                 onChange={handleChange}
               >
-                <option selected disabled>
+                <option style={{ backgroundColor: "var(--body_background)", }} selected disabled>
                   Selecciona el tipo
                 </option>
-                <option value="Producto">Producto</option>
-                <option value="Servicio">Servicio</option>
+                <option style={{ backgroundColor: "var(--body_background)", }} value="Producto">Producto</option>
+                <option style={{ backgroundColor: "var(--body_background)", }} value="Servicio">Servicio</option>
               </select>
             </div>
           </div>

@@ -110,11 +110,11 @@ const DashProduct = () => {
               id="filtrar_por"
               onChange={handleChange}
             >
-              <option value="all" defaultValue selected>
+              <option style={{ backgroundColor: "var(--body_background)", }} value="all" defaultValue selected>
                 Todos
               </option>
-              <option value={true}>Activo</option>
-              <option value={false}>Inactivo</option>
+              <option style={{ backgroundColor: "var(--body_background)", }} value={true}>Activo</option>
+              <option style={{ backgroundColor: "var(--body_background)", }} value={false}>Inactivo</option>
             </select>
           </div>
           <div
