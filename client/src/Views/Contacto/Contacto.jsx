@@ -1,6 +1,7 @@
 import BreadCrump from "../../components/BreadCrump/BreadCrump";
 import Meta from "../../components/Meta/Meta";
 import styles from "./Contacto.module.css";
+import imgCat from "../../images/bg-cat.jpg"
 
 import { useModal } from "../../hooks/useStore";
 
@@ -10,8 +11,8 @@ export default function Contacto() {
 
 	const onContinue = (arg) => {
 		window.location.href = arg;
-	  };
-  
+	};
+
 	return (
 		<div>
 			<Meta title={"Contacto"} />
@@ -98,27 +99,26 @@ export default function Contacto() {
 									placeholder="Dejanos tu mensaje"></textarea>
 							</div>
 							<button
-  type="submit"
-  className={`btn btn-primary col-12 col-md-9 fw-bold ${styles.button}`}
-  onClick={(event) => {
-    event.preventDefault(); // Evita que se envíe el formulario automáticamente
-    setModalInfo(
-      "Mensaje enviado con éxito",
-      "Gracias por ponerte en contacto con PetsAmérica.",
-      onContinue,
-      ["/"]
-    );
-  }}
->
-  Enviar
-</button>
-
+								type="submit"
+								className={`btn btn-primary col-12 col-md-9 fw-bold ${styles.button}`}
+								onClick={(event) => {
+									event.preventDefault(); // Evita que se envíe el formulario automáticamente
+									setModalInfo(
+									"Mensaje enviado con éxito",
+									"Gracias por ponerte en contacto con PetsAmérica.",
+									onContinue,
+									["/"]
+									);
+								}}
+								>
+								Enviar
+							</button>
 						</form>
 						<div
 							className={`col-12 col-md-6 col-xxl-5 d-none d-sm-block ${styles.imageContainer}`}>
 							<img
 								className={`img-fluid ${styles.image}`}
-								src="src/images/bg-cat.jpg"
+								src={imgCat}
 								alt="cat pic"
 							/>
 						</div>
