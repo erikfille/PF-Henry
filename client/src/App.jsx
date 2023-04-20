@@ -57,7 +57,7 @@ function App() {
 
   useEffect(() => {
     checkLogin();
-  }, [window.location]);
+  }, []);
 
   return (
     <div className="App">
@@ -117,9 +117,11 @@ function App() {
         <Route path="/provider/:providerId" element={<ProviderDashboard />} />
       </Routes>
       <Cart />
-      <ModalInfoGenerico />
       {location.pathname === "/adminDashboard/users" && <ModalUserDetail />}
-      {location.pathname === "/adminDashboard/users" && <ModalUserEdit />}
+      {(location.pathname === "/adminDashboard/users" ||
+        location.pathname.toLowerCase().includes("perfil")) && (
+        <ModalUserEdit />
+      )}
       {location.pathname === "/adminDashboard/categories" && (
         <ModalEditCategory />
       )}
@@ -133,6 +135,7 @@ function App() {
           <Footer />
         )}
       <ModalConsultaGenerico />
+      <ModalInfoGenerico />
       <ModalCreatePet />
       <ModalPetDetail />
     </div>

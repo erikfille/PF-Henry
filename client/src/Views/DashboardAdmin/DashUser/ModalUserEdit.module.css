@@ -1,18 +1,28 @@
 .modalContainer {
-    position: fixed;
-    top: 40%;
-    right: 30%;
-    z-index: 1000;
-    background-color: var(--body_background);
-    border-radius: 10px;
-    box-shadow: var(--body_boxshadow)
+  position: fixed;
+  top: 40%;
+  right: 30%;
+  z-index: 1000;
+  background-color: var(--body_background);
+  border-radius: 10px;
+  box-shadow: var(--body_boxshadow);
 }
 
 .title {
-    font-size: 16px;
-    color: var(--color-0CC5BA);
+  font-size: 16px;
+  color: var(--color-0CC5BA);
 }
 
 .text {
-    font-size: 13px;
+  font-size: 13px;
+}
+
+.errorSpan {
+  color: red;
+  font-size: 0.8rem;
+  position: center;
+}
+
+.fColor {
+  color: var(--body_color);
 }

@@ -100,17 +100,34 @@ const DashUser = () => {
             </p>
             <select
               className="form-control form-select"
-              style={{backgroundColor: "transparent", color: "var(--body_color)", border: "1px solid var(--border_color)"}}
-
+              style={{
+                backgroundColor: "transparent",
+                color: "var(--body_color)",
+                border: "1px solid var(--border_color)",
+              }}
               name="filtrar_por"
               id="filtrar_por"
               onChange={handleChange}
             >
-              <option style={{ backgroundColor: "var(--body_background)", }} value="all" defaultValue>
+              <option
+                style={{ backgroundColor: "var(--body_background)" }}
+                value="all"
+                defaultValue
+              >
                 Todos
               </option>
-              <option style={{ backgroundColor: "var(--body_background)", }} value="1">Activo</option>
-              <option style={{ backgroundColor: "var(--body_background)", }} value="0">Inactivo</option>
+              <option
+                style={{ backgroundColor: "var(--body_background)" }}
+                value="1"
+              >
+                Activo
+              </option>
+              <option
+                style={{ backgroundColor: "var(--body_background)" }}
+                value="0"
+              >
+                Inactivo
+              </option>
             </select>
           </div>
           <div
@@ -121,8 +138,11 @@ const DashUser = () => {
             </p>
             <input
               className="form-control"
-              style={{backgroundColor: "transparent", color: "#838383", border: "1px solid var(--border_color)"}}
-
+              style={{
+                backgroundColor: "transparent",
+                color: "#838383",
+                border: "1px solid var(--border_color)",
+              }}
               type="search"
               name="search"
               id="search"
@@ -133,21 +153,21 @@ const DashUser = () => {
         </div>
       </div>
       <div className={style.table}>
-          {loading ? (
-            <Loader />
+        {loading ? (
+          <Loader />
         ) : (
-        <table className="table table-striped table-hover">
-          <thead>
-            <tr>
-              <th scope="col">#</th>
-              <th scope="col">Nombre</th>
-              <th scope="col">Apellido</th>
-              <th scope="col">Email</th>
-              <th scope="col">Estatus</th>
-              <th scope="col">Detalle</th>
-              <th scope="col">Acciones</th>
-            </tr>
-          </thead>
+          <table className="table table-striped table-hover">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Nombre</th>
+                <th scope="col">Apellido</th>
+                <th scope="col">Email</th>
+                <th scope="col">Estatus</th>
+                <th scope="col">Detalle</th>
+                <th scope="col">Acciones</th>
+              </tr>
+            </thead>
             <tbody>
               {adminFilteredUsers
                 ? adminFilteredUsers.map((user, idx) => (
@@ -210,7 +230,7 @@ const DashUser = () => {
                   ))
                 : null}
             </tbody>
-        </table>
+          </table>
         )}
       </div>
     </div>

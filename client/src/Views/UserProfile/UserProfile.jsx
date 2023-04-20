@@ -4,7 +4,7 @@ import style from "./UserProfile.module.css";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { FaUserAlt } from "react-icons/fa";
 import PetsContainer from "../../components/PetsContainer/PetsContainer";
-import { usePets, useUser } from "../../hooks/useStore";
+import { usePets, useUser, useAdmin } from "../../hooks/useStore";
 
 import { useState, useEffect } from "react";
 
@@ -32,6 +32,11 @@ export default function UserProfile() {
     state.pets,
     state.setPetAddModal,
     state.setPets,
+  ]);
+
+  const [setUserEditModal, usersEditModal] = useAdmin((state) => [
+    state.setUserEditModal,
+    state.usersEditModal,
   ]);
 
   useEffect(() => {
@@ -65,7 +70,10 @@ export default function UserProfile() {
           <div className="row d-flex flex-column align-items-center">
             <div className={`${style.userContainer} col-10 p-5 my-5`}>
               <div className="d-flex justify-content-end">
-                <Link to="" className={style.linkEdit}>
+                <Link
+                  className={style.linkEdit}
+                  onClick={() => setUserEditModal(userId)}
+                >
                   Editar perfil
                 </Link>
               </div>

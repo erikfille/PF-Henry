@@ -117,7 +117,6 @@ export default function LoginWidget(props) {
 
   function onUpload(url) {
     setUserData({ ...userData, image: url });
-    // console.log(url);
   }
 
   return (
