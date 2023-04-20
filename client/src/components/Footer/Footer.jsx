@@ -55,7 +55,7 @@ export default function Footer() {
 								<h4 className={`${style.h4} mb-4`}>Nuestro Contacto</h4>
 								<Link to="/ubicacion"><span className={style.spans}> <HiOutlineLocationMarker className={style.iconContact}/> Ubicacion</span></Link>
 								<Link className={style.spans} to='tel:584146482412'><BsTelephone className={style.iconContact} /> +58 4146482412</Link>
-								<Link className={style.spans} to='mailto:info@petsamerica.com'><HiOutlineMail className={style.iconContact} /> info@petsamerica.com</Link>
+								<Link className={style.spans} to='mailto:'><HiOutlineMail className={style.iconContact} /> petcareamerica@gmail.com</Link>
 							</div>
 						</div>
 					</div>
