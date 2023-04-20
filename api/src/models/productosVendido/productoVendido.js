@@ -17,8 +17,9 @@ const productoVendidoSchema = new mongoose.Schema({
       precio: {
         type: Number,
     },
-      fecha: {
-        type: String,
+    fechaDeCreacion: {
+      type: Date,
+      default: Date.now,
     },
 });
 
