@@ -15,7 +15,7 @@ export const useLogin = create((set, get) => ({
       receiveToken(response.data.user.token, response.data.user);
     } catch (err) {
       console.log(err);
-      window.alert(err.response.data.message || err.response.data.error)
+      window.alert(err.response.data.message || err.response.data.error);
     }
   },
   loginGoogleUser: async (userData) => {
@@ -31,7 +31,7 @@ export const useLogin = create((set, get) => ({
       receiveToken(response.data.user.token, response.data.user);
     } catch (err) {
       console.log(err);
-      window.alert(err.response.data.message || err.response.data.error)
+      window.alert(err.response.data.message || err.response.data.error);
     }
     // Hago el post al back
     // Recibo el usuario de vuelta
@@ -55,7 +55,7 @@ export const useLogin = create((set, get) => ({
       set((state) => ({ user: response.data.user }));
       receiveToken(response.data.user.token, response.data.user);
     } catch (err) {
-      window.alert(err.response.data.message || err.response.data.error)
+      window.alert(err.response.data.message || err.response.data.error);
     }
     // Hago el post al back
     // Recibo el usuario de vuelta
@@ -75,7 +75,7 @@ export const useLogin = create((set, get) => ({
 
       receiveToken(token, response.data);
     } catch (err) {
-      window.alert(err.response.data.message || err.response.data.error)
+      window.alert(err.response.data.message || err.response.data.error);
     }
   },
   receiveToken(token, user) {
@@ -121,21 +121,25 @@ export const useLogin = create((set, get) => ({
     axios.defaults.headers.common["Authorization"] = "";
     window.location.assign("/");
   },
-  checkLogin: () => {
+  checkLogin: async () => {
     try {
       const jwt = localStorage.getItem("token");
-      const user = JSON.parse(localStorage.getItem("user"));
 
       if (jwt) {
         // Si existe un token, lo envío a verificar al back
-        axios.get("/user/login");
+        let response = await axios.post("/validado", { token: jwt });
 
-        // Si el token se valida, guardo user en el store y le doy acceso a su dashboard
+        console.log(response)
 
-        // Si el token no se valida, lo mando al login
+        if (response.status !== 200) {
+          localStorage.removeItem("token");
+          localStorage.removeItem("user");
+          document.cookie = "token=;expires=Thu, 01 Jan 1970 00:00:01 GMT;";
+          window.location.assign("/login");
+        }
       }
     } catch (err) {
-      console.log(err)
+      console.log(err);
       window.alert(err.response.data.message || err.response.data.error);
     }
   },

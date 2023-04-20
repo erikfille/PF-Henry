@@ -25,7 +25,7 @@ export default function UserProfile() {
     state.userInfo,
     state.getUserInfo,
     state.compras,
-    state.getCompras
+    state.getCompras,
   ]);
 
   const [pets, setPetAddModal, setPets] = usePets((state) => [
@@ -35,9 +35,8 @@ export default function UserProfile() {
   ]);
 
   useEffect(() => {
-      if(!userId) navigate("/")
-      getUserInfo(userId);
-      getCompras(userId)
+    getUserInfo(userId);
+    getCompras(userId);
   }, []);
 
   useEffect(() => {
@@ -70,10 +69,17 @@ export default function UserProfile() {
                 {user._id ? (
                   <>
                     <div className="col-4">
-                      <div className={user.image ? style.imgUser : style.circle} style={{backgroundImage:`url(${user.image})`}}>
-                        {!user.image ? <FaUserAlt
-                          style={{ width: "140px", height: "140px" }}
-                        /> : <></>}
+                      <div
+                        className={user.image ? style.imgUser : style.circle}
+                        style={{ backgroundImage: `url(${user.image})` }}
+                      >
+                        {!user.image ? (
+                          <FaUserAlt
+                            style={{ width: "140px", height: "140px" }}
+                          />
+                        ) : (
+                          <></>
+                        )}
                       </div>
                     </div>
                     <div className="col-7">
@@ -142,22 +148,40 @@ export default function UserProfile() {
                   <table className="table table-hover align-middle table-borderless">
                     <thead>
                       <tr>
-                        <th scope="col" className="align-middle text-center fs-5">
+                        <th
+                          scope="col"
+                          className="align-middle text-center fs-5"
+                        >
                           Imagen
                         </th>
-                        <th scope="col" className="align-middle text-center fs-5">
+                        <th
+                          scope="col"
+                          className="align-middle text-center fs-5"
+                        >
                           Producto
                         </th>
-                        <th scope="col" className="align-middle text-center fs-5">
+                        <th
+                          scope="col"
+                          className="align-middle text-center fs-5"
+                        >
                           Precio
                         </th>
-                        <th scope="col" className="align-middle text-center fs-5">
+                        <th
+                          scope="col"
+                          className="align-middle text-center fs-5"
+                        >
                           Cantidad
                         </th>
-                        <th scope="col" className="align-middle text-center fs-5">
+                        <th
+                          scope="col"
+                          className="align-middle text-center fs-5"
+                        >
                           Subtotal
                         </th>
-                        <th scope="col" className="align-middle text-center fs-5">
+                        <th
+                          scope="col"
+                          className="align-middle text-center fs-5"
+                        >
                           Fecha
                         </th>
                       </tr>
@@ -179,7 +203,10 @@ export default function UserProfile() {
                             />
                           </td>
                           <td className="align-middle text-center fw-bold">
-                            <Link to={`/productos/${c.id_producto._id}/customer`} className={style.link}>
+                            <Link
+                              to={`/productos/${c.id_producto._id}/customer`}
+                              className={style.link}
+                            >
                               {c.id_producto.titulo}
                             </Link>
                           </td>
