@@ -108,7 +108,7 @@ export default function ProductDetail(props) {
             <span className={`${styles.fColor} fw-bold me-3 fs-5`}>
               Disponibilidad:
             </span>
-            <span className={`fw-bold ${styles.span}`}>{stock}</span>
+            <span className={`fw-bold ${styles.span}`}>{stock ? stock : "Sin stock"}</span>
           </div>}
           {props.from !== "admin" ? (
             <div className="d-flex justify-content-between mb-3">
@@ -132,7 +132,7 @@ export default function ProductDetail(props) {
                 <button
                   className="button"
                   onClick={() => addToCart()}
-                  disabled={quantity < 1 || (stock ? quantity > stock : quantity > 20)}
+                  disabled={!stock || quantity < 1 || (stock ? quantity > stock : quantity > 20)}
                 >
                   Agregar al Carrito
                 </button>

@@ -52,6 +52,10 @@ export default function UserProfile() {
     return modal.newPet ? false : true;
   };
 
+  const toLocalDate = (date) => {
+    return date.slice(0,10).split("-").reverse().join("-")
+  }
+
   return (
     <>
       <Meta title={"Perfil"} />
@@ -170,18 +174,6 @@ export default function UserProfile() {
                           scope="col"
                           className="align-middle text-center fs-5"
                         >
-                          Cantidad
-                        </th>
-                        <th
-                          scope="col"
-                          className="align-middle text-center fs-5"
-                        >
-                          Subtotal
-                        </th>
-                        <th
-                          scope="col"
-                          className="align-middle text-center fs-5"
-                        >
                           Fecha
                         </th>
                       </tr>
@@ -213,15 +205,9 @@ export default function UserProfile() {
                           <td className="align-middle text-center fw-bold">
                             $ {c.id_producto.precio}
                           </td>
-                          {/* <td className="align-middle text-center fw-bold">
-                            {c.id_producto.quantity}
-                          </td> */}
-                          {/* <td className="align-middle text-center fw-bold">
-                            {(c.id_producto.quantity * c.id_producto.precio).toFixed(2)}
-                          </td> */}
-                          {/* <td className="align-middle text-center fw-bold">
-                            {(c.id_producto.fechaCompra}
-                          </td> */}
+                          <td className="align-middle text-center fw-bold">
+                            {toLocalDate(c.fechaDeCreacion)}
+                          </td>
                         </tr>
                       ))}
                     </tbody>
