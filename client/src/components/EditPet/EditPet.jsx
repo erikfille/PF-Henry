@@ -1,11 +1,13 @@
 import { useState } from "react";
-import validation from "./validation";
+// import validation from "./validation";
 import UploadWidget from "../UploadWidget/UploadWidget";
 import { usePets, useModal } from "../../hooks/useStore";
 import styles from "./EditPet.module.css";
+import { useNavigate } from "react-router-dom";
 
 export default function EditPet() {
   const user = JSON.parse(localStorage.getItem("user"));
+  const navigate = useNavigate()
 
   const [petEditModal, setPetEditModal, selectedPet, editPet, deletePet] =
     usePets((state) => [
@@ -16,15 +18,9 @@ export default function EditPet() {
       state.deletePet,
     ]);
 
-  const [setModal] = useModal((state) => [state.setModal]);
+  const [setModal, setModalInfo] = useModal((state) => [state.setModal, state.setModalInfo]);
 
-  const [newPetData, setNewPetData] = useState({
-    nombre: selectedPet.name,
-    especie: selectedPet.especie,
-    // fechaDeNacimiento: "",
-    descripcion: selectedPet.descripcion,
-    imagen: selectedPet.imagen,
-  });
+  const [newPetData, setNewPetData] = useState({});
 
   const [errors, setErrors] = useState({
     nombre: "",
@@ -34,7 +30,10 @@ export default function EditPet() {
   async function onSubmit(e) {
     e.preventDefault();
     try {
-      await editPet(newPetData, selectedPet.id || selectedPet._id);
+      // await editPet(newPetData, selectedPet.id || selectedPet._id)
+      setModalInfo("Mascota modificada", "Mascota modificada con exito!",editPet,[newPetData, selectedPet.id || selectedPet._id])
+      setPetEditModal()
+      navigate(`/perfil/${user.id}`)
     } catch (err) {
       window.alert(err.error);
     }
@@ -45,23 +44,17 @@ export default function EditPet() {
       ...newPetData,
       [e.target.name]: e.target.value,
     });
-    setErrors(
-      validation({
-        ...newPetData,
-        [e.target.name]: e.target.value,
-      })
-    );
   }
 
   function handleDate(e) {
     let date = e.target.value.split("-").reverse().join("-");
     setNewPetData({ ...newPetData, fechaDeNacimiento: date });
-    setErrors(
-      validation({
-        ...newPetData,
-        [e.target.name]: date,
-      })
-    );
+    // setErrors(
+    //   validation({
+    //     ...newPetData,
+    //     [e.target.name]: date,
+    //   })
+    // );
   }
 
   function onUpload(url) {
@@ -70,7 +63,7 @@ export default function EditPet() {
 
 	return (
 		<div className={`container-l ${styles.modalContainer}`} style={{ display: petEditModal ? "block" : "none" }}>
-      <div className={`home-wrapper-2 ${styles.createProductContainer} p-4`}>
+      <div className={`home-wrapper-2 ${styles.createProductContainer} p-4 h-100`}>
         <div className="boton-close d-flex justify-content-end">
           <button onClick={() => setPetEditModal()} className={styles.buttonLink}>
             Cerrar
@@ -85,7 +78,7 @@ export default function EditPet() {
               onSubmit={onSubmit}
               className="d-flex flex-column align-items-center justify-content-center"
             >
-              <div className="mb-3 w-100">
+              {/* <div className="mb-3 w-100">
                 <div>
                   <label>Nombre:</label>
                   <input
@@ -146,7 +139,7 @@ export default function EditPet() {
                   />
                 </div>
                 <br />
-              </div>
+              </div> */}
               <div className="imgContainer ">
                 <div className="widgetButton text-center">
                   <label
@@ -167,13 +160,12 @@ export default function EditPet() {
               <div>
                 <button
                   className="button mt-3"
-                  disabled={Object.values(errors).length}
-                >
+                  disabled={!Object.values(newPetData).length}>
                   Modificar Mascota
                 </button>
-              </div>  
+              </div>
               <div className="d-flex justify-content-center">
-            <button 
+            <button
               onClick={() => {setModal('Eliminar mascota', 'Estas seguro que deseas eliminar esta mascota?', deletePet, [selectedPet.id, user.id])}}
               className="button mt-3"
               style={{backgroundColor: "red"}}>
@@ -183,7 +175,7 @@ export default function EditPet() {
               <div className="floatClear"></div>
             </form>
           </div>
-        
+
         </div>
       </div>
     </div>
