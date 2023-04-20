@@ -4,7 +4,7 @@ import logoBgProduct from "../../images/logo-bg-product.png";
 import style from "./Cart.module.css";
 import { useState, useEffect } from "react";
 import { useProduct } from "../../hooks/useStore";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
 export default function Cart() {
   const [isOpen, setIsOpen] = useState(false); // El boton de CART del header debe modificar este estado. inicalmente debe estar en False.
@@ -132,9 +132,9 @@ export default function Cart() {
                 ) : (
                   <p>
                     <strong>
-                      <a href="/login" className={style.resaltar}>
+                      <Link to="/login" className={style.resaltar}>
                         Logueate
-                      </a>
+                      </Link>
                     </strong>{" "}
                     para poder comprar
                   </p>
