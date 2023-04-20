@@ -7,7 +7,7 @@ const productoCompradoRoutes = [
     path: "/compraUsuario",
     handler: async (request, h) => {
       try {
-        const { id_usuario, id_producto } = request.payload;
+        const { id_usuario, id_producto,fechaDeCreacion } = request.payload;
 
         if (!id_producto) {
           throw new Error(
@@ -18,6 +18,7 @@ const productoCompradoRoutes = [
         const newProductoVendido = new ProductoVendido({
           id_producto,
           id_usuario,
+          fechaDeCreacion
         });
 
         await newProductoVendido.save();
