@@ -43,8 +43,11 @@ const DashProduct = () => {
 
   useEffect(() => {
     let filtered = adminProducts;
-    if (filter !== "all") {
-      filtered = filtered.filter((p) => p.activo === filter);
+    if (filter === "false") {
+      filtered = filtered.filter((p) => p.activo === false);
+    }
+    if (filter === "true") {
+      filtered = filtered.filter((p) => p.activo === true);
     }
     setFilterProducts(filtered);
   }, [filter, adminProducts]);
@@ -120,13 +123,13 @@ const DashProduct = () => {
               </option>
               <option
                 style={{ backgroundColor: "var(--body_background)" }}
-                value={true}
+                value="true"
               >
                 Activo
               </option>
               <option
                 style={{ backgroundColor: "var(--body_background)" }}
-                value={false}
+                value="false"
               >
                 Inactivo
               </option>
