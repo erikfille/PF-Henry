@@ -34,8 +34,6 @@ const contactoFormRoutes = require("./routes/contactoForm.js");
 
 const port = process.env.PORT
 
-const port = process.env.PORT
-
 const init = async () => {
   const server = new hapi.Server({
     port: port,
