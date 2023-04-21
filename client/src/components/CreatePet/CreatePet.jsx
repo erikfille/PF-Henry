@@ -36,6 +36,13 @@ export default function CreatePet() {
     try {
       setModalInfo("Mascota creada", "Mascota creada con exito!", addPet, [newPetData, user.id])
       setPetAddModal()
+      setNewPetData({nombre: "",
+        especie: "",
+        fechaDeNacimiento: "",
+        descripcion: "",
+        imagen: "",
+        historial: [],
+      })
     } catch (err) {
       window.alert(err);
     }
