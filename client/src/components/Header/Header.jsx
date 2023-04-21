@@ -56,13 +56,7 @@ const Header = () => {
           className={`${styles.navContainer} collapse navbar-collapse justify-content-end me-4`}
           id="navbarNav"
         >
-          <div
-            className="navbar-nav align-items-center"
-            style={{
-              backgroundColor: "transparent",
-              width: "100vw !important",
-            }}
-          >
+          <div className="navbar-nav align-items-center">
             <NavLink to="/tienda" className="nav-item me-3">
               Tienda
             </NavLink>
