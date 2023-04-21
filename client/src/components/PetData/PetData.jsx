@@ -38,7 +38,7 @@ const PetData = (props) => {
 						:
 						null
 					}
-					
+
           	<EditPet />
 				</div>
 				<div className={style.detail}>
