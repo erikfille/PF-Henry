@@ -201,19 +201,20 @@ export default function LoginWidget(props) {
                 placeholder="Ingresa tu contraseña"
                 id="password"
                 name="password"
-                type= {show ? "password" : "text"}
+                type= {show ? "text" : "password"}
                 value={userData.password}
                 onChange={handleInputChange}
                 className={`form-control ${!errors.verifyPassword && !errors.password && userData.password ? "is-valid" : errors.password && "is-invalid"}`}
               />
               {show ?
-              <AiFillEye
+              <AiFillEyeInvisible
                 onClick={() => setShow(false)}
                 className={styles.showPassword}/>
-              :
-              <AiFillEyeInvisible
+                :
+              <AiFillEye
                 onClick={() => setShow(true)}
-                className={styles.showPassword}/>}
+                className={styles.showPassword}/>
+              }
               {childProps.type === "signup" && errors.password && <p className={`text-danger text-center ${styles.error}`}>{errors.password}</p>}
             </div>
           </div>
@@ -230,17 +231,17 @@ export default function LoginWidget(props) {
                   placeholder="Verifica tu contraseña"
                   id="verifyPassword"
                   name="verifyPassword"
-                  type={showVerify ? "password" : "text"}
+                  type={showVerify ? "text" : "password"}
                   value={userData.verifyPassword}
                   onChange={handleInputChange}
                   className={`form-control ${!errors.verifyPassword && !errors.password && userData.password ? "is-valid" : errors.verifyPassword && "is-invalid"}`}
                 />
                 {showVerify ?
-              <AiFillEye
+              <AiFillEyeInvisible
                 onClick={() => setShowVerify(false)}
                 className={styles.showPassword}/>
               :
-              <AiFillEyeInvisible
+              <AiFillEye
                 onClick={() => setShowVerify(true)}
                 className={styles.showPassword}/>}
                 {errors.verifyPassword && <p className={`text-danger text-center ${styles.error}`}>{errors.verifyPassword}</p>}
