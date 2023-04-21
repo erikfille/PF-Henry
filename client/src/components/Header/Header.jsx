@@ -108,7 +108,6 @@ const Header = () => {
                       className={`${styles.dropDownMenu} dropdown-menu dropdown-menu-end`}
                       aria-labelledby="dropdownMenuLink"
                     > 
-                      { user.rol !== 'admin' && 
                         <li>
                           <Link
                           to={`/perfil/${user.id}`}
@@ -117,7 +116,6 @@ const Header = () => {
                             Ver perfil
                           </Link>
                           </li>
-                      }
                       { user.rol === 'admin' &&
                         <li>
                           <Link
@@ -128,16 +126,6 @@ const Header = () => {
                           </Link>
                         </li>
                       }
-                      {/* {
-                        <li>
-                          <Link
-                            to="/providerDashboard/profile"
-                            className={`${styles.li} dropdown-item`}
-                          >
-                            Dashboard Proveedor
-                          </Link>
-                        </li>
-                      } */}
                       <li>
                         <Link
                           to=""
