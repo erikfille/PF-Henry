@@ -43,3 +43,10 @@
 .error {
   font-size: 0.8rem;
 }
+
+.showPassword {
+  position: absolute;
+  right: 2rem;
+  top: 2.7rem;
+  fill: var(--body_color);
+}

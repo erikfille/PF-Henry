@@ -3,6 +3,7 @@ import { useLogin } from "../../hooks/useAuth";
 import ModalRolSelector from "../ModalRolSelector/ModalRolSelector";
 import styles from "./LoginWidget.module.css";
 import UploadWidget from "../UploadWidget/UploadWidget";
+import { AiFillEyeInvisible, AiFillEye } from "react-icons/ai"
 
 // Google Auth
 import { gapi } from "gapi-script";
@@ -14,6 +15,8 @@ import { Link } from "react-router-dom";
 
 export default function LoginWidget(props) {
   const { childProps } = props;
+  const [ show, setShow] = useState(false)
+  const [ showVerify, setShowVerify] = useState(false)
 
   const [loginUser, loginGoogleUser, signUp] = useLogin((state) => [
     state.loginUser,
@@ -184,10 +187,10 @@ export default function LoginWidget(props) {
                 onChange={handleInputChange}
                 type="email"
                 aria-describedby="emailHelp"
-              />
+                />
               {errors.email && <p className={`text-danger text-center ${styles.error}`}>{errors.email}</p>}
             </div>
-            <div className="mb-3 w-100">
+            <div className="mb-3 w-100 position-relative">
               <label
                 htmlFor="password"
                 className={`${styles.fColor} form-label fw-bold`}
@@ -198,16 +201,25 @@ export default function LoginWidget(props) {
                 placeholder="Ingresa tu contraseña"
                 id="password"
                 name="password"
-                type="password"
+                type= {show ? "password" : "text"}
                 value={userData.password}
                 onChange={handleInputChange}
                 className={`form-control ${!errors.verifyPassword && !errors.password && userData.password ? "is-valid" : errors.password && "is-invalid"}`}
-              />{childProps.type === "signup" && errors.password && <p className={`text-danger text-center ${styles.error}`}>{errors.password}</p>}
+              />
+              {show ?
+              <AiFillEye
+                onClick={() => setShow(false)}
+                className={styles.showPassword}/>
+              :
+              <AiFillEyeInvisible
+                onClick={() => setShow(true)}
+                className={styles.showPassword}/>}
+              {childProps.type === "signup" && errors.password && <p className={`text-danger text-center ${styles.error}`}>{errors.password}</p>}
             </div>
           </div>
           <div className="d-flex flex-column flex-sm-row gap-10">
           {childProps.type === "signup" && (
-              <div className="mb-3 w-100">
+              <div className="mb-3 w-100 position-relative">
                 <label
                   htmlFor="verifyPassword"
                   className="form-label fw-bold"
@@ -218,11 +230,19 @@ export default function LoginWidget(props) {
                   placeholder="Verifica tu contraseña"
                   id="verifyPassword"
                   name="verifyPassword"
-                  type="password"
+                  type={showVerify ? "password" : "text"}
                   value={userData.verifyPassword}
                   onChange={handleInputChange}
                   className={`form-control ${!errors.verifyPassword && !errors.password && userData.password ? "is-valid" : errors.verifyPassword && "is-invalid"}`}
                 />
+                {showVerify ?
+              <AiFillEye
+                onClick={() => setShowVerify(false)}
+                className={styles.showPassword}/>
+              :
+              <AiFillEyeInvisible
+                onClick={() => setShowVerify(true)}
+                className={styles.showPassword}/>}
                 {errors.verifyPassword && <p className={`text-danger text-center ${styles.error}`}>{errors.verifyPassword}</p>}
               </div>
             )}
