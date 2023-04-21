@@ -60,8 +60,8 @@ const Header = () => {
             <NavLink to="/tienda" className="nav-item me-3">
               Tienda
             </NavLink>
-            <NavLink to="/proveedores" className="nav-item me-3">
-              Proveedores
+            <NavLink to="/servicios" className="nav-item me-3">
+              Servicios
             </NavLink>
             <div
               className={`d-flex flex-column flex-md-row align-items-center justify-content-center ${styles.buttonContainer}`}
@@ -78,7 +78,7 @@ const Header = () => {
                     <HiOutlineUserCircle className={styles.buttonUser} />
                   )}
                 </span>
-                {!userLogged ? (
+                {!userLogged  ? (
                   <>
                     <ul
                       className={`${styles.bgColor} dropdown-menu dropdown-menu-end`}
@@ -107,15 +107,17 @@ const Header = () => {
                     <ul
                       className={`${styles.dropDownMenu} dropdown-menu dropdown-menu-end`}
                       aria-labelledby="dropdownMenuLink"
-                    >
-                      <li>
-                        <Link
+                    > 
+                      { user.rol !== 'admin' && 
+                        <li>
+                          <Link
                           to={`/perfil/${user.id}`}
                           className={`${styles.li} dropdown-item`}
-                        >
-                          Ver perfil
-                        </Link>
-                      </li>
+                          >
+                            Ver perfil
+                          </Link>
+                          </li>
+                      }
                       { user.rol === 'admin' &&
                         <li>
                           <Link

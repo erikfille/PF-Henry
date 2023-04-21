@@ -104,7 +104,7 @@ function App() {
         <Route path="/faqs" element={<Faqs />} />
         <Route path="/tienda" element={<Tienda />} />
         <Route path="/contacto" element={<Contacto />} />
-        <Route path="/proveedores" element={<Servicios />} />
+        <Route path="/servicios" element={<Servicios />} />
         <Route path="/paypal" element={<PayPal />} />
         <Route path="/terminos" element={<Terminos />} />
         <Route path="/ubicacion" element={<Ubicacion />} />
