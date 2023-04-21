@@ -25,7 +25,7 @@ export const useLogin = create((set, get) => ({
     }
   },
   loginGoogleUser: async (userData) => {
-    const { setModal, receiveToken } = get();
+    const { setModal, receiveToken, logoutUser } = get();
     const modal = useModal.getState().setModalInfo;
 
     try {
