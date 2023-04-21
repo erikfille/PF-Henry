@@ -13,7 +13,7 @@ import ModalInfoGenerico from "./components/ModalInfoGenerico/ModalInfoGenerico"
 import ModalEditCategory from "./Views/DashboardAdmin/DashCategories/ModalEditCategory";
 import ModalEditAnimals from "./Views/DashboardAdmin/DashAnimals/ModalEditAnimals";
 import ModalUserDetail from "./Views/DashboardAdmin/DashUser/ModalUserDetail";
-import ModalUserEdit from "./Views/DashboardAdmin/DashUser/ModalUserEdit";
+import ModalUserEdit from "./Views/DashboardAdmin/DashUser/ModalUserEdit"; 
 
 //? Views
 import Home from "./Views/Home/Home";
