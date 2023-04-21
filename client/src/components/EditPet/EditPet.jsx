@@ -171,20 +171,19 @@ export default function EditPet() {
                 >
                   Modificar Mascota
                 </button>
-              </div>  
-              <div className="d-flex justify-content-center">
-            <button 
-              onClick={() => {setModal('Eliminar mascota', 'Estas seguro que deseas eliminar esta mascota?', deletePet, [selectedPet.id, user.id])}}
-              className="button mt-3"
-              style={{backgroundColor: "red"}}>
-              Eliminar mascota
-            </button>
-          </div>
+              </div> 
               <div className="floatClear"></div>
             </form>
           </div>
-        
         </div>
+        <div className="d-flex justify-content-center">
+                <button 
+                  onClick={() => {setModal('Eliminar mascota', 'Estas seguro que deseas eliminar esta mascota?', deletePet, [selectedPet.id, user.id])}}
+                  className="button"
+                  style={{backgroundColor: "red"}}>
+                  Eliminar mascota
+                </button>
+              </div>
       </div>
     </div>
   );
