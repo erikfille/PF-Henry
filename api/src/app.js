@@ -32,6 +32,7 @@ const validacionTokenRoutes = require("./routes/validacionToken.js");
 const activeProductosRoutes = require("./routes/Productos/activeProducts.js");
 const contactoFormRoutes = require("./routes/contactoForm.js");
 
+const port = process.env.PORT
 
 const port = process.env.PORT
 
