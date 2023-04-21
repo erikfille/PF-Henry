@@ -5,7 +5,7 @@ import { useProduct } from "../../hooks/useStore";
 import { useModal } from "../../hooks/useStore";
 import style from "./ProductCard.module.css";
 
-export default function ProductCart(props) {
+export default function ProductCard(props) {
 	const [setCartRemove] = useProduct((state) => [state.setCartRemove]);
 	const [setModal] = useModal((state) => [state.setModal]);
 
@@ -13,7 +13,7 @@ export default function ProductCart(props) {
     return (
       <>
         <div className={`${style.productCart} col-12 d-flex gap-3 py-3 align-items-center justify-content-center`}>
-          <Link to={`/productos/${props.id}`}>
+          <Link to={`/productos/${props.id}/customer`}>
             <div className="ms-2 imagen">
               <img
                 src={props.imagen}
@@ -45,6 +45,27 @@ export default function ProductCart(props) {
             >
               <RiDeleteBin6Line className={style.iconDelete} />
             </button>
+          </div>
+        </div>
+      </>
+    );
+  }
+  if (props.showAs === "adminDetail") {
+    return (
+      <>
+        <div className={`${style.productCart} col-12 d-flex gap-3 py-2 align-items-center `}>
+          <Link to={`/productos/${props.id}`}>
+            <div className="ms-2 imagen">
+              <img
+                src={props.imagen}
+                alt={props.titulo}
+                style={{ width: "50px", height: "50px" }}
+              />
+            </div>
+          </Link>
+          <div className="d-flex ps-4 gap-80">
+            <h5 className={`${style.title} mb-0`}>{props.titulo}</h5>
+            <p className={`${style.price} mb-0`}>{props.price}</p>
           </div>
         </div>
       </>

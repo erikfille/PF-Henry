@@ -1,0 +1,91 @@
+.dashboardContaier {
+    background-color: var(--wrapper_background);
+    height: 100vh;
+    overflow: auto;
+    padding-bottom: 50px;
+}
+
+/* .h1 {
+    color: var(--body_color);
+}
+
+.iconProfle {
+    width: 40px;
+    height: 40px;
+} */
+
+/* Barra navegacion Usuario */
+
+.userBar {
+    background-color: var(--body_background);
+    border-radius: 10px;
+}
+
+.p {
+    color: var(--body_color);
+    font-size: 14px;
+    width: 100%;
+}
+
+.filter {
+    width: 100%;
+}
+
+/* Barra navegacion Usuario end */
+
+/* Tabla */
+
+.table {
+    border-radius: 10px;
+    background-color: var(--body_background);
+    margin-top: 50px;
+    padding: 30px;
+}
+
+.active {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: #14FF00;
+}
+
+.inactive {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: #FF9900;
+}
+
+
+.linkDetalle {
+    background-color: transparent;
+    border: none;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--color-0CC5BA);
+}
+
+/* Tabla end */
+
+
+/* add category */
+
+.addCategory {
+    border-radius: 10px;
+    background-color: var(--body_background);
+    margin-top: 50px;
+    padding: 30px;
+}
+
+
+
+/* add category end */
+
+
+

@@ -1,21 +1,19 @@
 import Meta from "../../components/Meta/Meta";
 import BreadCrump from "../../components/BreadCrump/BreadCrump";
 import style from "./UserProfile.module.css";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { FaUserAlt } from "react-icons/fa";
 import PetsContainer from "../../components/PetsContainer/PetsContainer";
-import { usePets, useUser } from "../../hooks/useStore";
+import { usePets, useUser, useAdmin } from "../../hooks/useStore";
 
-// objetos hardcodeados solo para saber si los array tienen algo o estan vacios
-// Esto para el renderizado condicional.
-// import { pets, compras } from "../../components/PetData/petHelp";
 import { useState, useEffect } from "react";
 
 export default function UserProfile() {
+  const navigate = useNavigate();
+
   const { userId } = useParams();
 
   const [user, setUser] = useState({});
-
   const [modal, setModal] = useState({
     detail: false,
     newPet: false,
@@ -36,15 +34,20 @@ export default function UserProfile() {
     state.setPets,
   ]);
 
+  const [setUserEditModal, usersEditModal] = useAdmin((state) => [
+    state.setUserEditModal,
+    state.usersEditModal,
+  ]);
+
   useEffect(() => {
     getUserInfo(userId);
+    getCompras(userId);
   }, []);
 
   useEffect(() => {
     setUser(userInfo);
-    // console.log(userInfo.id_mascota);
     setPets(userInfo.id_mascota);
-  }, [userInfo]);
+  }, [userInfo, userInfo.id_mascota]);
 
   const setPetDetailModal = (id) => {
     if (id) {
@@ -54,35 +57,44 @@ export default function UserProfile() {
     return modal.newPet ? false : true;
   };
 
+  const toLocalDate = (date) => {
+    return date.slice(0,10).split("-").reverse().join("-")
+  }
+
   return (
     <>
       <Meta title={"Perfil"} />
       <BreadCrump title="Perfil" />
-      <div className="userProfile-wrapper home-wrapper-2 py-5">
+      <div className="userProfile-wrapper home-wrapper-2 pb-5">
         <div className="container-xxl">
           <div className="row d-flex flex-column align-items-center">
             <div className={`${style.userContainer} col-10 p-5 my-5`}>
               <div className="d-flex justify-content-end">
-                <Link to="" className={style.linkEdit}>
+                <Link
+                  className={style.linkEdit}
+                  onClick={() => setUserEditModal(userId)}
+                >
                   Editar perfil
                 </Link>
               </div>
-              <div className="d-flex justify-content-center">
+              <div className="d-flex flex-column flex-lg-row justify-content-center align-content-center flex-wrap">
                 {user._id ? (
                   <>
-                    <div className="col-4">
-                      <div className={style.circle}>
-                        {/* <FaUserAlt
-                          style={{ width: "140px", height: "140px" }}
-                        /> */}
-                        <img
-                          src={user.image}
-                          alt="user-imagen"
-                          className={style.imgUser}
-                        />
+                    <div className="col-12 col-lg-4 d-flex justify-content-center">
+                      <div
+                        className={`${user.image ? style.imgUser : style.circle}`}
+                        style={{ backgroundImage: `url(${user.image})` }}
+                      >
+                        {!user.image ? (
+                          <FaUserAlt
+                            style={{ width: "140px", height: "140px" }}
+                          />
+                        ) : (
+                          <></>
+                        )}
                       </div>
                     </div>
-                    <div className="col-7">
+                    <div className="col-12 col-lg-7 text-center">
                       <div className={style.nameContainer}>
                         <p className={style.name}>
                           {user.name} {user.surname}
@@ -135,6 +147,7 @@ export default function UserProfile() {
                       pets={pets}
                       setPetDetailModal={setPetDetailModal}
                       setPetAddModal={setPetAddModal}
+                      origin="user"
                     />
                   </div>
                 </>
@@ -142,19 +155,79 @@ export default function UserProfile() {
             </div>
             <div className={`${style.comprasContainer} col-10 p-5 my-5`}>
               <h4>Mis Compras:</h4>
-              {compras.length === 0 ? (
+              {compras && compras.length ? (
+                <div className="table-responsive-xl">
+                  <table className="table table-hover align-middle table-borderless">
+                    <thead>
+                      <tr>
+                        <th
+                          scope="col"
+                          className="align-middle text-center fs-5"
+                        >
+                          Imagen
+                        </th>
+                        <th
+                          scope="col"
+                          className="align-middle text-center fs-5"
+                        >
+                          Producto
+                        </th>
+                        <th
+                          scope="col"
+                          className="align-middle text-center fs-5"
+                        >
+                          Precio
+                        </th>
+                        <th
+                          scope="col"
+                          className="align-middle text-center fs-5"
+                        >
+                          Fecha
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {compras.map((c) => (
+                        <tr key={c._id}>
+                          <td
+                            colSpan="1"
+                            width="150"
+                            height="70"
+                            className="align-middle text-center"
+                          >
+                            <img
+                              className="img-fluid w-25"
+                              width="40"
+                              src={c.id_producto.imagen}
+                              alt="logo-producto"
+                            />
+                          </td>
+                          <td className="align-middle text-center fw-bold">
+                            <Link
+                              to={`/productos/${c.id_producto._id}/customer`}
+                              className={style.link}
+                            >
+                              {c.id_producto.titulo}
+                            </Link>
+                          </td>
+                          <td className="align-middle text-center fw-bold">
+                            $ {c.id_producto.precio}
+                          </td>
+                          <td className="align-middle text-center fw-bold">
+                            {toLocalDate(c.fechaDeCreacion)}
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              ) : (
                 <>
                   <div className="d-flex flex-column justify-content-center align-items-center my-5">
                     <h6>Aún no tienes compras</h6>
-                    <Link to="" className={style.link}>
+                    <Link to="/tienda" className={style.link}>
                       Ir a tienda
                     </Link>
-                  </div>
-                </>
-              ) : (
-                <>
-                  <div className={`${style.pets} d-flex flex-wrap gap-5 py-5`}>
-                    {/* renderizar las compras hechas por el cliente */}
                   </div>
                 </>
               )}

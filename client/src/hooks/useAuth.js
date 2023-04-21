@@ -7,32 +7,44 @@ export const useLogin = create((set, get) => ({
   modal: false,
   signUp: async (userData) => {
     const { receiveToken } = get();
-    console.log(userData);
+    const modal = useModal.getState().setModalInfo;
+
+    // console.log(userData);
     try {
       let response = await axios.post("/users", userData);
-      console.log(response);
+      // console.log(response);
       set((state) => ({ user: response.data.user }));
       receiveToken(response.data.user.token, response.data.user);
     } catch (err) {
-      console.log(err.message);
+      modal(
+        "¡Ups... algo ha fallado!",
+        err.response.data.error,
+        logoutUser,
+        []
+      );
     }
   },
   loginGoogleUser: async (userData) => {
     const { setModal, receiveToken } = get();
+    const modal = useModal.getState().setModalInfo;
+
     try {
       let response = await axios.post("/users/GoogleLogin", userData);
-
-      console.log("Post a Users: ", response.data);
-
+      // console.log("Post a Users: ", response.data);
       set((state) => ({ user: response.data.user }));
-
       if (!response.data.user.rol) {
         setModal();
         return;
       }
       receiveToken(response.data.user.token, response.data.user);
     } catch (err) {
-      console.log(err.message);
+      console.log(err);
+      modal(
+        "¡Ups... algo ha fallado!",
+        err.response.data.error,
+        logoutUser,
+        []
+      );
     }
     // Hago el post al back
     // Recibo el usuario de vuelta
@@ -43,8 +55,10 @@ export const useLogin = create((set, get) => ({
   },
   loginUser: async (userData) => {
     const { receiveToken } = get();
+    const modal = useModal.getState().setModalInfo;
+
     try {
-      /* 
+      /*
       Se envía el email y password
       Tres posibles respuestas:
       - Success: Se recibe la info del usuario y el token y se setean en el store y se ejecuta receiveToken.
@@ -52,11 +66,16 @@ export const useLogin = create((set, get) => ({
       - Contraseña Incorrecta: se avisa al usuario que la contraseña no coincide.
       */
       let response = await axios.post("/users/login", userData);
-      console.log("Response Login Normal: ", response);
+      // console.log("Response Login Normal: ", response);
       set((state) => ({ user: response.data.user }));
       receiveToken(response.data.user.token, response.data.user);
     } catch (err) {
-      console.log(err.message);
+      modal(
+        "¡Ups... algo ha fallado!",
+        err.response.data.error,
+        logoutUser,
+        []
+      );
     }
     // Hago el post al back
     // Recibo el usuario de vuelta
@@ -67,22 +86,28 @@ export const useLogin = create((set, get) => ({
   },
   setUserRole: async (role) => {
     const { user, receiveToken } = get();
+    const modal = useModal.getState().setModalInfo;
 
     try {
       let token = user.token;
       let response = await axios.put(`/users/${user.id}/role`, { role: role });
       set((state) => ({ user: response.data }));
 
-      console.log("user with role: ", response.data);
+      // console.log("user with role: ", response.data);
 
       receiveToken(token, response.data);
     } catch (err) {
-      console.log(err.message);
+      modal(
+        "¡Ups... algo ha fallado!",
+        err.response.data.error,
+        logoutUser,
+        []
+      );
     }
   },
   receiveToken(token, user) {
     const { loginHi } = get();
-    console.log("receiveToken: ", user);
+    // console.log("receiveToken: ", user);
     let userData = {
       id: user._id || user.id,
       name: user.name,
@@ -98,18 +123,17 @@ export const useLogin = create((set, get) => ({
   loginHi(user) {
     const { receiveLogin } = get();
     const modal = useModal.getState().setModalInfo;
-    const modalState = useModal.getState().modalInfoState;
 
     modal(
       "¡Login Exitoso!",
-      `¡Bienvenido a PetApp, ${user.name}!`,
+      `¡Bienvenido a PetsAmérica, ${user.name}!`,
       receiveLogin,
       [user]
     );
   },
   receiveLogin(user) {
     if (user.rol === "admin") {
-      window.location.assign("/admin");
+      window.location.assign("/adminDashboard/users");
     } else if (user.rol === "provider") {
       window.location.assign("/");
     } else {
@@ -123,21 +147,30 @@ export const useLogin = create((set, get) => ({
     axios.defaults.headers.common["Authorization"] = "";
     window.location.assign("/");
   },
-  checkLogin: () => {
+  checkLogin: async () => {
+    const { logoutUser } = get();
+    const modal = useModal.getState().setModalInfo;
+
     try {
       const jwt = localStorage.getItem("token");
-      const user = JSON.parse(localStorage.getItem("user"));
 
       if (jwt) {
         // Si existe un token, lo envío a verificar al back
-        axios.get("/user/login");
+        let response = await axios.post("/validado", { token: jwt });
 
-        // Si el token se valida, guardo user en el store y le doy acceso a su dashboard
+        // console.log(response);
 
-        // Si el token no se valida, lo mando al login
+        if (response.status !== 200) {
+          logoutUser();
+        }
       }
     } catch (err) {
-      console.log(err.message);
+      modal(
+        "¡Ups... algo ha fallado!",
+        err.response.data.error,
+        logoutUser,
+        []
+      );
     }
   },
   setModal: () => {

@@ -1,8 +1,9 @@
 import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
-import { useModal, useProduct } from "../../hooks/useStore";
+import { useModal, useProduct, useUser } from "../../hooks/useStore";
 
 export default function PayPal(props) {
   const [setModalInfo] = useModal((state) => [state.setModalInfo]);
+  const [setCompras, userInfo] = useUser((state) => [state.setCompras, state.userInfo]);
 
   const [cartProducts, deleteCartContent, updateStock] = useProduct((state) => [
     state.cartProducts,
@@ -10,9 +11,13 @@ export default function PayPal(props) {
     state.updateStock,
   ]);
 
+  const user = JSON.parse(localStorage.getItem("user"));
+
   const onContinue = (arg) => {
     window.location.href = arg;
   };
+
+  let defaultUrl = "http://localHost:3000";
 
   return (
     <div className="d-flex flex-wrap justify-content-center">
@@ -38,18 +43,18 @@ export default function PayPal(props) {
             }}
             onApprove={(data, actions) => {
               return actions.order.capture().then(function (details) {
+                updateStock(cartProducts);
+                setCompras(cartProducts, userInfo._id)
+                deleteCartContent();
                 setModalInfo(
                   "Compra Exitosa",
-                  `${details.payer.name.given_name} tu compra se realizó con éxito, en breve serás redirigido a tu panel de usuario`,
+                  `${user.name} tu compra se realizó con éxito, haz click en continuar para ser redirigido a tu panel de usuario`,
                   onContinue,
-                  ["/"]
+                  [`/perfil/${user.id}`]
                 );
 
-                updateStock(cartProducts);
-                deleteCartContent();
-
                 // OPTIONAL: Call your server to save the transaction
-                return fetch("/paypal-transaction-complete", {
+                return fetch(`${defaultUrl}/paypal-transaction-complete`, {
                   method: "post",
                   body: JSON.stringify({
                     orderID: data.orderID,

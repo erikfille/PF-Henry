@@ -16,6 +16,15 @@
 	align-items: center;
 }
 
+.imgUser {
+  height: 250px;
+	width: 250px;
+	border-radius: 50%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
 .linkEdit {
 	color: var(--color-0CC5BA);
 	font-weight: 700;
@@ -26,11 +35,6 @@
 	font-weight: 800;
 }
 
-.imgUser {
-	width: 200px;
-	height: 200px;
-	border-radius: 50%;
-}
 
 .nameContainer {
 	border-bottom: 2px solid var(--color-0CC5BA);

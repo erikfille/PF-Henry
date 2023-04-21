@@ -15,7 +15,12 @@ export default function Detail() {
   const [providerDetail, setProviderDetail] = useState({});
   const [loading, setLoading] = useState(true);
 
-  const { productId } = useParams();
+  const { productId, from } = useParams();
+
+  useEffect(() => {
+    // Añade esta llamada para volver al inicio de la página
+    window.scrollTo(0, 0);
+  }, [productId]);
 
   useEffect(() => {
     setLoading(true);
@@ -29,8 +34,6 @@ export default function Detail() {
 
     return () => setProductDetail({});
   }, [productId]);
-
-  console.log(productDetail);
 
   async function updateComments() {
     let response = await axios
@@ -50,11 +53,12 @@ export default function Detail() {
           <Loader />
         ) : (
           <div>
-            <ProductDetail productDetail={productDetail} />
+            <ProductDetail productDetail={productDetail} from={from} />
             {/* <ProviderDetail providerDetail={providerDetail} /> */}
             <ProductReviews
               productDetail={productDetail}
               updateComments={updateComments}
+              from={from}
               id="reseñar"
             />
           </div>

@@ -11,8 +11,10 @@
 .title {
     font-size: 16px;
     color: var(--color-0CC5BA);
+    text-align: center;
 }
 
 .text {
     font-size: 13px;
+    text-align: center;
 }

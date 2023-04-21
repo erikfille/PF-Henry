@@ -1,13 +1,14 @@
 import ProductCard from "../ProductCard/ProductCard";
-// import { products } from '../../Views/Tienda/helper';
+import logoPet from "../../images/logo-pet.png";
+import logoBgProduct from "../../images/logo-bg-product.png";
 import style from "./Cart.module.css";
 import { useState, useEffect } from "react";
 import { useProduct } from "../../hooks/useStore";
-import { NavLink } from "react-router-dom";
-import { v4 as uuidv4 } from "uuid";
+import { Link, NavLink } from "react-router-dom";
 
 export default function Cart() {
   const [isOpen, setIsOpen] = useState(false); // El boton de CART del header debe modificar este estado. inicalmente debe estar en False.
+  const [user, setUser] = useState(false); // El boton de CART del header debe modificar este estado. inicalmente debe estar en False.
   const [
     cartProducts,
     cartState,
@@ -25,13 +26,15 @@ export default function Cart() {
   ]);
 
   useEffect(() => {
+    let cart = JSON.parse(window.localStorage.getItem("cart"));
+    let localUser = JSON.parse(window.localStorage.getItem("user"));
 
-    let cart = JSON.parse(window.localStorage.getItem("cart"))
+    setUser(localUser);
 
-    if(!cart) {
-      window.localStorage.setItem("cart", JSON.stringify([]))
+    if (!cart) {
+      window.localStorage.setItem("cart", JSON.stringify([]));
     }
-  })
+  }, []);
 
   useEffect(() => {
     setIsOpen(cartState);
@@ -63,7 +66,7 @@ export default function Cart() {
           className={`${style.titleCart} d-flex flex-column align-items-center my-5 gap-2`}
         >
           <img
-            src="src/images/logo-pet.png"
+            src={logoPet}
             alt="logo-pet"
             style={{ width: "30px", height: "30px" }}
           />
@@ -71,11 +74,7 @@ export default function Cart() {
         </div>
 
         <div className={style.imgBg}>
-          <img
-            src="src/images/logo-bg-product.png"
-            alt="img-logo"
-            style={{ width: "330px" }}
-          />
+          <img src={logoBgProduct} alt="img-logo" style={{ width: "330px" }} />
         </div>
         {!cartProducts.length ? (
           <>
@@ -121,19 +120,30 @@ export default function Cart() {
                 </div>
               </div>
               <div className="d-flex flex-column align-items-center gap-10 justify-content-center">
-                <NavLink to="/checkout">
-                  <button
-                    className="button"
-                    onClick={() => setActiveCart(false)}
-                  >
-                    Confirmar pedido
-                  </button>
-                </NavLink>
+                {user && user.id ? (
+                  <NavLink to="/checkout">
+                    <button
+                      className="button"
+                      onClick={() => setActiveCart(false)}
+                    >
+                      Confirmar pedido
+                    </button>
+                  </NavLink>
+                ) : (
+                  <p>
+                    <strong>
+                      <Link to="/login" className={style.resaltar}>
+                        Logueate
+                      </Link>
+                    </strong>{" "}
+                    para poder comprar
+                  </p>
+                )}
                 <a
                   href="/tienda"
                   className={`d-flex flex-column align-items-center py-2`}
                 >
-                  <p>Seguir Comprando</p>
+                  <p className={style.navlink}>Seguir Comprando</p>
                 </a>
               </div>
             </div>

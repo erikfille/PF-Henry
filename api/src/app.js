@@ -27,6 +27,12 @@ const nodeMailerRoutes = require("./routes/nodeMailerRoute")
 const mercadoPagoRoutes = require ("./routes/mercadoPago")
 const comprasRoutes = require ("./routes/comprasUsuario.js")
 const historialRoutes = require("./routes/historialAnimal.js")
+const productoCompradoRoutes = require("./routes/Productos/productoComprado");
+const validacionTokenRoutes = require("./routes/validacionToken.js");
+const activeProductosRoutes = require("./routes/Productos/activeProducts.js");
+const contactoFormRoutes = require("./routes/contactoForm.js");
+
+
 
 const init = async () => {
   const server = new hapi.Server({
@@ -135,6 +141,12 @@ const init = async () => {
   server.route(mercadoPagoRoutes)
   server.route(comprasRoutes)
   server.route(historialRoutes)
+  server.route(productoCompradoRoutes)
+  server.route(validacionTokenRoutes)
+  server.route(activeProductosRoutes)
+  server.route(contactoFormRoutes)
+
+
 
   await server.start();
   console.log(`el servidor esta corriendo en ${server.info.uri}`);

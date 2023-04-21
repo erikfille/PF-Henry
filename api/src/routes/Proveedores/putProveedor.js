@@ -8,7 +8,7 @@ const modifyingProveedorRoutes = [
       try {
         const id = request.params.id;
         const update = request.payload;
-        const opciones = { new: true, runValidators: true }; // Opciones para devolver el objeto actualizado y ejecutar las validaciones definidas en el esquema
+        const opciones = { new: true, runValidators: true };
         const proveedorActualizado = await Proveedor.findByIdAndUpdate(
           id,
           update,

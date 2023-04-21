@@ -3,19 +3,19 @@ const { Schema, model } = require('mongoose');
 const mascotaSchema = new Schema({
   nombre: {
     type: String,
-    required: true
+    
   },
   especie: {
     type: String,
-    required: true
+    
   },
   fechaDeNacimiento: {
     type: String,
-    required: true
+    
   },
   descripcion: {
     type: String,
-    required: true,
+    
     validate: {
       validator: function(v) {
         return v.length <= 200;
@@ -26,7 +26,7 @@ const mascotaSchema = new Schema({
   usuario: {
     type: Schema.Types.ObjectId,
     ref: 'Usuario',
-    required: true
+    
   },
   imagen: {
     type:String
@@ -34,7 +34,7 @@ const mascotaSchema = new Schema({
   historial: [{
       type: Schema.Types.ObjectId,
       ref: 'HistorialAnimal',
-      required: true
+      
   }]
 });
 

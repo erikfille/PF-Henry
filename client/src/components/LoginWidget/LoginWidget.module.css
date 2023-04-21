@@ -10,8 +10,17 @@
 	overflow: hidden;
 }
 
+.container {
+	background-color: var(--body_background);
+	margin-top: 60px;
+}
+
 .buttonGoogle:hover {
 	color: var(--color-0CC5BA) !important;
+}
+
+.buttonGoogle span {
+  color: black;
 }
 
 .link {
@@ -29,4 +38,15 @@
 
 .button:disabled {
   color: gray;
+}
+
+.error {
+  font-size: 0.8rem;
+}
+
+.showPassword {
+  position: absolute;
+  right: 2rem;
+  top: 2.7rem;
+  fill: var(--body_color);
 }

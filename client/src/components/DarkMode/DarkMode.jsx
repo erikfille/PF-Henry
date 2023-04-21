@@ -32,16 +32,12 @@ const DarkMode = () => {
 
    return (
       <>
-         <div className="container">
-            <div className="row">
-               <div className="col d-flex flex-column p-0 m-0 align-items-center">
-                  <p className={`${style.fColor} mb-0`}>{modo}</p>
-                  <div className={`${style.darkMode} form-check form-switch m-0 p-0`}>
-                     <input onChange={(e) => toggleTheme(e)} defaultChecked={selectedTheme === "dark"} className={`${style.darkModeInput} form-check-input`} type="checkbox" id="darkmode" />
-                     <label className={`${style.darkModeLabel} form-check-label`} htmlFor="darkmode"></label>
-                  </div>   
-               </div>
-            </div>
+         <div className="d-flex flex-column align-items-center">
+            <p className={`${style.fColor} mb-0`}>{modo}</p>
+            <div className={`${style.darkMode} form-check form-switch m-0 p-0`}>
+               <input onChange={(e) => toggleTheme(e)} defaultChecked={selectedTheme === "dark"} className={`${style.darkModeInput} form-check-input`} type="checkbox" id="darkmode" />
+               <label className={`${style.darkModeLabel} form-check-label`} htmlFor="darkmode"></label>
+            </div>   
          </div>
       </>
    )

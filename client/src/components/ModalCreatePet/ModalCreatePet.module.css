@@ -1,9 +1,10 @@
 .modalContainer {
     position: fixed;
-    width: 800px;
+    width: 70%;
     height: 75vh;
     top: 15%;
-    right: 20%;
+    right: 15%;
+    left: 15%;
     z-index: 1000;
     background-color: var(--body_background);
     border-radius: 10px;
@@ -38,4 +39,13 @@
     background-color: transparent;
     font-weight: 600;
     color: var(--color-0CC5BA);
+}
+
+@media screen and (max-width: 700px) {
+  .modalContainer {
+    padding: 0.5rem !important;
+    width: 80%;
+    right: 10%;
+    left: 10%;
+  }
 }

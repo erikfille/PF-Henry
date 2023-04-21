@@ -3,6 +3,7 @@ import { useLogin } from "../../hooks/useAuth";
 import ModalRolSelector from "../ModalRolSelector/ModalRolSelector";
 import styles from "./LoginWidget.module.css";
 import UploadWidget from "../UploadWidget/UploadWidget";
+import { AiFillEyeInvisible, AiFillEye } from "react-icons/ai"
 
 // Google Auth
 import { gapi } from "gapi-script";
@@ -10,9 +11,12 @@ import GoogleLogin from "react-google-login";
 
 // Validations
 import validation from "./validation";
+import { Link } from "react-router-dom";
 
 export default function LoginWidget(props) {
   const { childProps } = props;
+  const [ show, setShow] = useState(false)
+  const [ showVerify, setShowVerify] = useState(false)
 
   const [loginUser, loginGoogleUser, signUp] = useLogin((state) => [
     state.loginUser,
@@ -52,7 +56,7 @@ export default function LoginWidget(props) {
   }, []);
 
   const onSuccess = async (response) => {
-	console.log("Google User", response.profileObj)
+	// console.log("Google User", response.profileObj)
     // Esto mando al loguear por google.
     // Se verifica el mail y la contraseña y si no existen en la db, se crea el usuario y se devuelve, sin el rol.
     let user = {
@@ -116,19 +120,18 @@ export default function LoginWidget(props) {
 
   function onUpload(url) {
     setUserData({ ...userData, image: url });
-    console.log(url);
   }
 
   return (
-    <div className="container d-flex flex-column align-items-center mt-5">
+    <div className={`${styles.container} container d-flex flex-column align-items-center`}>
       <h1 className={`${styles.fColor} fs-3 fw-bold`}>¡Bienvenido!</h1>
       <p className={`${styles.fColor} fs-6 fw-light`}>
         La mejor forma de cuidar a tu mascota
       </p>
-      <div className="col-10 col-sm-8 col-md-8 col-xl-8">
+      <div className="col-10 col-md-12 col-xl-8">
         <form className="d-flex flex-column" onSubmit={handleSubmit}>
           {childProps.type === "signup" && (
-            <div className="d-flex gap-10">
+            <div className="d-flex flex-column flex-sm-row gap-10">
               <div className="mb-3 w-100">
                 <label
                   htmlFor="exampleInputEmail1"
@@ -145,7 +148,7 @@ export default function LoginWidget(props) {
                   className={`form-control ${errors.name && "is-invalid"}`}
                   type="text"
                 ></input>
-                {errors.name && <p className="text-danger text-center">{errors.name}</p>}
+                {errors.name && <p className={`text-danger text-center ${styles.error}`}>{errors.name}</p>}
               </div>
               <div className="mb-3 w-100">
                 <label
@@ -163,11 +166,11 @@ export default function LoginWidget(props) {
                   className={`form-control ${errors.surname && "is-invalid"}`}
                   type="text"
                 ></input>
-                {errors.surname && <p className="text-danger text-center">{errors.surname}</p>}
+                {errors.surname && <p className={`text-danger text-center ${styles.error}`}>{errors.surname}</p>}
               </div>
             </div>
           )}
-          <div className="d-flex gap-10">
+          <div className="d-flex flex-column flex-sm-row gap-10">
             <div className="mb-3 w-100">
               <label
                 htmlFor="email"
@@ -184,10 +187,10 @@ export default function LoginWidget(props) {
                 onChange={handleInputChange}
                 type="email"
                 aria-describedby="emailHelp"
-              />
-              {errors.email && <p className="text-danger text-center">{errors.email}</p>}
+                />
+              {errors.email && <p className={`text-danger text-center ${styles.error}`}>{errors.email}</p>}
             </div>
-            <div className="mb-3 w-100">
+            <div className="mb-3 w-100 position-relative">
               <label
                 htmlFor="password"
                 className={`${styles.fColor} form-label fw-bold`}
@@ -198,16 +201,25 @@ export default function LoginWidget(props) {
                 placeholder="Ingresa tu contraseña"
                 id="password"
                 name="password"
-                type="password"
+                type= {show ? "password" : "text"}
                 value={userData.password}
                 onChange={handleInputChange}
                 className={`form-control ${!errors.verifyPassword && !errors.password && userData.password ? "is-valid" : errors.password && "is-invalid"}`}
-              />{errors.password && <p className="text-danger text-center">{errors.password}</p>}
+              />
+              {show ?
+              <AiFillEye
+                onClick={() => setShow(false)}
+                className={styles.showPassword}/>
+              :
+              <AiFillEyeInvisible
+                onClick={() => setShow(true)}
+                className={styles.showPassword}/>}
+              {childProps.type === "signup" && errors.password && <p className={`text-danger text-center ${styles.error}`}>{errors.password}</p>}
             </div>
           </div>
-          <div className="d-flex gap-10">
+          <div className="d-flex flex-column flex-sm-row gap-10">
           {childProps.type === "signup" && (
-              <div className="mb-3 w-100">
+              <div className="mb-3 w-100 position-relative">
                 <label
                   htmlFor="verifyPassword"
                   className="form-label fw-bold"
@@ -218,12 +230,20 @@ export default function LoginWidget(props) {
                   placeholder="Verifica tu contraseña"
                   id="verifyPassword"
                   name="verifyPassword"
-                  type="password"
+                  type={showVerify ? "password" : "text"}
                   value={userData.verifyPassword}
                   onChange={handleInputChange}
                   className={`form-control ${!errors.verifyPassword && !errors.password && userData.password ? "is-valid" : errors.verifyPassword && "is-invalid"}`}
                 />
-                {errors.verifyPassword && <p className="text-danger text-center">{errors.verifyPassword}</p>}
+                {showVerify ?
+              <AiFillEye
+                onClick={() => setShowVerify(false)}
+                className={styles.showPassword}/>
+              :
+              <AiFillEyeInvisible
+                onClick={() => setShowVerify(true)}
+                className={styles.showPassword}/>}
+                {errors.verifyPassword && <p className={`text-danger text-center ${styles.error}`}>{errors.verifyPassword}</p>}
               </div>
             )}
             {childProps.type === "signup" && (
@@ -235,17 +255,18 @@ export default function LoginWidget(props) {
                   ¿Que querés hacer?
                 </label>
                 <select
+                  style={{backgroundColor: "transparent", color: "#838383", border: "1px solid var(--border_color)"}}
                   name="rol"
                   id="rol"
                   onChange={handleSelect}
                   className="form-select"
                   aria-label="Default select example"
                 >
-                  <option value="" disabled defaultValue>
+                  <option style={{ backgroundColor: "var(--body_background)", }} value="" disabled defaultValue>
                     ¿Qué quieres hacer?
                   </option>
-                  <option value="customer">Quiero Comprar</option>
-                  <option value="provider">Quiero Vender</option>
+                  <option style={{ backgroundColor: "var(--body_background)", }} value="customer">Quiero Comprar</option>
+                  <option style={{ backgroundColor: "var(--body_background)", }} value="provider">Quiero Vender</option>
                 </select>
               </div>
             )}
@@ -287,9 +308,7 @@ export default function LoginWidget(props) {
       </div>
       <div className="text-center mb-5">
         <p className={styles.fColor}>{childProps.message}</p>
-        <a className={styles.link} href={childProps.anchorPath}>
-          <span>{childProps.accountAnchor}</span>
-        </a>
+          <Link to={childProps.anchorPath}><span>{childProps.accountAnchor}</span></Link>
       </div>
       <ModalRolSelector />
     </div>

@@ -1,74 +1,83 @@
 .shoppingCart {
-	position: fixed;
-	z-index: 1000;
-	right: 0;
-	top: 0%;
-	background-color: var(--body_background);
-	width: 450px;
-	height: 100vh;
-	overflow: auto;
-	padding: 25px;
-	box-sizing: border-box;
-	box-shadow: var(--body_boxshadow);
-	display: flex;
-	flex-direction: column;
-	transition: 0.5s all ease-in-out;
+  position: fixed;
+  z-index: 1000;
+  right: 0;
+  top: 0%;
+  background-color: var(--body_background);
+  width: 450px;
+  height: 100vh;
+  overflow: auto;
+  padding: 25px;
+  box-sizing: border-box;
+  box-shadow: var(--body_boxshadow);
+  display: flex;
+  flex-direction: column;
+  transition: 0.5s all ease-in-out;
 }
 
 .show {
-	transform: none;
-	visibility: visible;
+  transform: none;
+  visibility: visible;
 }
 
 .hidden {
-	visibility: hidden;
-	transform: translateX(500px);
+  visibility: hidden;
+  transform: translateX(500px);
 }
 
 .titleCart > h2 {
-	font-weight: 700;
-	color: var(--body_color)
+  font-weight: 700;
+  color: var(--body_color);
 }
 
 .cartEmpty > a,
 .navlink {
-	font-size: 14px;
-	font-weight: 600;
-	color: var(--color-0CC5BA);
-	position: relative;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-0CC5BA);
+  position: relative;
 }
 
 .cartEmpty > p {
-	color: var(--body_color)
+  color: var(--body_color);
 }
 
 .cartEmpty > a:hover,
 .navlink:hover {
-	font-weight: 700;
-	color: var(--color-0CC5BA);
+  font-weight: 700;
+  color: var(--color-0CC5BA);
 }
 
 .totalContainer {
-	margin-top: 50px;
-	border-bottom: 1px solid var(--color-0CC5BA);
+  margin-top: 50px;
+  border-bottom: 1px solid var(--color-0CC5BA);
 }
 
 .total > h6 {
-	font-weight: 700;
-	color: var(--body_color);
+  font-weight: 700;
+  color: var(--body_color);
 }
 
 .products {
-	position: relative;
-	margin-bottom: 150px;
+  position: relative;
 }
 
 .container {
-	position: relative;
+  position: relative;
 }
 
 .imgBg {
-	position: absolute;
-	top: 80%;
-	left: 0;
+  position: absolute;
+  top: 80%;
+  left: 0;
+}
+
+.resaltar {
+  color: #0cc5ba;
+  font-weight: 600;
+}
+
+.resaltar:hover {
+  color: #0cc5ba;
+  font-weight: 700;
 }
