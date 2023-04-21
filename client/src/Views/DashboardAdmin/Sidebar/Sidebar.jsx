@@ -13,69 +13,69 @@ const Sidebar = () => {
 
   const [logoutUser] = useLogin((state) => [state.logoutUser]);
 
+
   return (
-    <>
-      <NavLink to="/">
-        <div className="logo-container d-flex align-items-center mt-5 ms-5 gap-15">
-          <h1 className={`${style.h1} fw-bold mb-0`}>PetsAmerica</h1>
-          <img className={style.imgLogo} src={logo} alt="logo" />
-        </div>
-      </NavLink>
-      <div className="menu ms-5 mt-5 d-flex flex-column gap-30">
-        <div className={`${style.item} d-flex gap-15 align-items-center mt-5`}>
-          <FaUsers className={style.icons} />
-          <NavLink
-            to="/adminDashboard/users"
-            className={({ isActive }) => (isActive ? style.active : style.link)}
-          >
-            Usuarios
+    <div className="container">
+      <nav className="navbar navbar-expand-sm navbar-light bg-light">
+        <div className="navbar-brand">
+          <NavLink to="/">
+            <div className="logo-container d-flex align-items-center gap-15">
+              <h1 className={`${style.h1} fw-bold mb-0`}>PetsAmerica</h1>
+              <img className={style.imgLogo} src={logo} alt="logo" />
+            </div>
           </NavLink>
         </div>
-        {/* <div className={`${style.item} d-flex gap-15 align-items-center`}>
-          <RiUserStarFill className={style.icons} />
-          <NavLink
-            to="/adminDashboard/providers"
-            className={({ isActive }) => (isActive ? style.active : style.link)}
-          >
-            Proveedores
-          </NavLink>
-        </div> */}
-        <div className={`${style.item} d-flex gap-15 align-items-center`}>
-          <BsFillBoxSeamFill className={style.icons} />
-          <NavLink
-            to="/adminDashboard/products"
-            className={({ isActive }) => (isActive ? style.active : style.link)}
-          >
-            Productos
-          </NavLink>
-        </div>
-        <div className={`${style.item} d-flex gap-15 align-items-center`}>
-          <MdCategory className={style.icons} />
-          <NavLink
-            to="/adminDashboard/categories"
-            className={({ isActive }) => (isActive ? style.active : style.link)}
-          >
-            Categorías
-          </NavLink>
-        </div>
-        <div className={`${style.item} d-flex gap-15 align-items-center`}>
-          <MdPets className={style.icons} />
-          <NavLink
-            to="/adminDashboard/animals"
-            className={({ isActive }) => (isActive ? style.active : style.link)}
-          >
-            Animales
-          </NavLink>
-        </div>
-      </div>
-      <div className="signout ms-5 mt-5 d-flex align-items-center gap-15">
-        <BiLogOut className={`${style.icons} mt-5`} />
-        <button className={`${style.button} mt-5`} onClick={() => logoutUser()}>
-          Cerrar sesión
+        <button className="navbar-toggler collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+          <span className="navbar-toggler-icon"></span>
         </button>
-      </div>
-    </>
+        <div className="collapse navbar-collapse" id="navbarCollapse">
+          <ul className="navbar-nav ms-auto">
+            <li className="nav-item">
+              <NavLink to="/adminDashboard/users" className="nav-link">
+                <div className={`${style.item} d-flex gap-15 align-items-center mt-5`}>
+                  <FaUsers className={style.icons} />
+                  Usuarios
+                </div>
+              </NavLink>
+            </li>
+            <li className="nav-item">
+              <NavLink to="/adminDashboard/products" className="nav-link">
+                <div className={`${style.item} d-flex gap-15 align-items-center`}>
+                  <BsFillBoxSeamFill className={style.icons} />
+                  Productos
+                </div>
+              </NavLink>
+            </li>
+            <li className="nav-item">
+              <NavLink to="/adminDashboard/categories" className="nav-link">
+                <div className={`${style.item} d-flex gap-15 align-items-center`}>
+                  <MdCategory className={style.icons} />
+                  Categorías
+                </div>
+              </NavLink>
+            </li>
+            <li className="nav-item">
+              <NavLink to="/adminDashboard/animals" className="nav-link">
+                <div className={`${style.item} d-flex gap-15 align-items-center`}>
+                  <MdPets className={style.icons} />
+                  Animales
+                </div>
+              </NavLink>
+            </li>
+            <li className="nav-item">
+              <a href="#" className="nav-link" onClick={() => logoutUser()}>
+                <div className="signout d-flex align-items-center gap-15">
+                  <BiLogOut className={`${style.icons} mt-5`} />
+                  Cerrar sesión
+                </div>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </div>
   );
-};
+}
+
 
 export default Sidebar;
