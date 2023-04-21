@@ -77,12 +77,12 @@ export default function UserProfile() {
                   Editar perfil
                 </Link>
               </div>
-              <div className="d-flex justify-content-center">
+              <div className="d-flex flex-column flex-lg-row justify-content-center align-content-center flex-wrap">
                 {user._id ? (
                   <>
-                    <div className="col-4">
+                    <div className="col-12 col-lg-4 d-flex justify-content-center">
                       <div
-                        className={user.image ? style.imgUser : style.circle}
+                        className={`${user.image ? style.imgUser : style.circle}`}
                         style={{ backgroundImage: `url(${user.image})` }}
                       >
                         {!user.image ? (
@@ -94,7 +94,7 @@ export default function UserProfile() {
                         )}
                       </div>
                     </div>
-                    <div className="col-7">
+                    <div className="col-12 col-lg-7 text-center">
                       <div className={style.nameContainer}>
                         <p className={style.name}>
                           {user.name} {user.surname}

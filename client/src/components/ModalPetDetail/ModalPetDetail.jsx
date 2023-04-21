@@ -107,7 +107,7 @@ const ModalPetDetail = () => {
           <h1 className={style.title}>{selectedPet.name}</h1>
         </div>
         <div
-          className={selectedPet.imagen ? style.imgMascota : style.circle}
+          className={`${selectedPet.imagen ? style.imgMascota : style.circle} mb-4`}
           style={{ backgroundImage: `url(${selectedPet.imagen})` }}
         >
           {!selectedPet.imagen ? (
