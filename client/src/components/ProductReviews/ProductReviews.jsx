@@ -10,7 +10,7 @@ export default function ProductReviews(props) {
   const [qualify, setQualify] = useState(0);
   const [review, setReview] = useState("");
   const [user, setUser] = useState({});
-  const [ableToComment, setAbleToComment] = useState(true);
+  const [ableToComment, setAbleToComment] = useState(false);
 
   let [sendReview] = useProduct((state) => [state.sendReview]);
   let [setModalInfo] = useModal((state) => [state.setModalInfo]);
