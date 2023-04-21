@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import style from "./ModalPetDetail.module.css";
 import { TbPawFilled } from "react-icons/tb";
-import { usePets } from "../../hooks/useStore";
+import { usePets, useModal } from "../../hooks/useStore";
 import validation from "./validation";
 
 const ModalPetDetail = () => {
@@ -22,6 +22,7 @@ const ModalPetDetail = () => {
   ]);
 
   const [historyModal, setHistoryModal] = useState(false);
+  const [ setModalInfo ] = useModal((state) => [state.setModalInfo])
 
   const [newHistory, setNewHistory] = useState({
     fecha: "",
@@ -51,7 +52,7 @@ const ModalPetDetail = () => {
   useEffect(() => {
     let history = [...petHistory];
     setHistory(history);
-  }, [petHistory]);
+  }, [petHistory, historyModal]);
 
   function openModal() {
     setHistoryModal(historyModal ? false : true);
@@ -70,6 +71,22 @@ const ModalPetDetail = () => {
   function handleDate(date) {
     date = date.split('-').reverse().join('-')
     setNewHistory({ ...newHistory, fecha: date });
+  }
+
+  function onSubmit(e) {
+    e.preventDefault();
+    try {
+      setModalInfo("Historial agregado", "Se agrego el historial a tu mascota!", addNewHistory, [newHistory, pet.id])
+      setPetDetailModal()
+      setHistoryModal(historyModal ? false : true);
+      setNewHistory({
+        fecha: "",
+        titulo: "",
+        descripcion: "",
+      })
+    } catch (err) {
+      window.alert(err);
+    }
   }
 
   return (
@@ -143,8 +160,8 @@ const ModalPetDetail = () => {
       {historyModal && (
         <div className="d-flex flex-column align-items-center justify-content-center">
           <form
-            onSubmit={() => {}}
-            className="d-flex flex-column align-items-center justify-content-center"
+              onSubmit={onSubmit}
+              className="d-flex flex-column align-items-center justify-content-center"
           >
             <input
               type="date"
@@ -183,7 +200,6 @@ const ModalPetDetail = () => {
             <button
               className="button"
               disabled={Object.values(errors).length}
-              onClick={() => addNewHistory(newHistory, pet.id)}
             >
               Agregar al Historial
             </button>
