@@ -30,8 +30,7 @@ export default function EditPet() {
   async function onSubmit(e) {
     e.preventDefault();
     try {
-      // await editPet(newPetData, selectedPet.id || selectedPet._id)
-      setModalInfo("Mascota modificada", "Mascota modificada con exito!",editPet,[newPetData, selectedPet.id || selectedPet._id])
+      setModalInfo("Mascota modificada", "Mascota modificada con exito!",editPet,[newPetData, selectedPet.id || selectedPet._id, user.id])
       setPetEditModal()
       navigate(`/perfil/${user.id}`)
     } catch (err) {
@@ -163,13 +162,13 @@ export default function EditPet() {
                   disabled={!Object.values(newPetData).length}>
                   Modificar Mascota
                 </button>
-              </div> 
+              </div>
               <div className="floatClear"></div>
             </form>
           </div>
         </div>
         <div className="d-flex justify-content-center">
-                <button 
+                <button
                   onClick={() => {setModal('Eliminar mascota', 'Estas seguro que deseas eliminar esta mascota?', deletePet, [selectedPet.id, user.id])}}
                   className="button"
                   style={{backgroundColor: "red"}}>

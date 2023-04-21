@@ -308,25 +308,31 @@ export const usePets = create((set, get) => ({
     }
     set((state) => ({ petEditModal: state.petEditModal ? false : true }));
   },
-  addPet: async (formData, user) => {
+  addPet: async (formData, userId) => {
     try {
-      await axios.post(`/mascotas/${user.id}`, formData);
+      await axios.post(`/mascotas/${userId}`, formData);
+      const mascotas = await axios.get(`/mascotas/${userId}`);
+      set((state) => ({ pets: mascotas.data}))
     } catch (err) {
       console.log(err);
       window.alert(err.response.data.message || err.response.data.error);
     }
   },
-  editPet: async (formData, petId) => {
+  editPet: async (formData, petId, userId) => {
     try {
       await axios.put(`/mascotas/${petId}`, formData);
+      const mascotas = await axios.get(`/mascotas/${userId}`);
+      set((state) => ({ pets: mascotas.data}))
     } catch (err) {
       console.log(err);
       window.alert(err.response.data.message || err.response.data.error);
     }
   },
   deletePet: async (petId, userId) => {
+    const { pets } = get();
     try {
       await axios.delete(`/mascotas/${petId}`);
+      set((state) => ({ pets: pets.filter((p) => p._id !== petId) }))
       set((state) => ({ petEditModal: false }));
       await axios.get(`/users/${userId}`);
     } catch (err) {
