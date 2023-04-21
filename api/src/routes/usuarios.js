@@ -160,13 +160,6 @@ const usuariosRoutes = [
           // Buscar el usuario por su email.
           const usuario = await Usuario.findOne({ email }).populate("rol");
 
-          // Verificar si el usuario está activo
-          if (usuario.status === 0) {
-            return h
-              .response({ error: "El usuario está desactivado" })
-              .code(401);
-          }
-
           // si no encuentra el email, lo creamos y guardamos en la base de datos.
           if (!usuario) {
             const hashedPassword = await bcrypt.hash(password, 10);
@@ -198,6 +191,9 @@ const usuariosRoutes = [
           }
 
           // En caso que si encuentre el usuario en la base de datos, validamos su password
+
+          // Verificar si el usuario está activo
+
           const validatePass = await Usuario.comparePassword(
             password,
             usuario.password
@@ -208,6 +204,12 @@ const usuariosRoutes = [
 
           if (!usuario.rol) {
             throw Boom.badRequest("Role not selected");
+          }
+
+          if (usuario.status === 0) {
+            return h
+              .response({ error: "El usuario está desactivado" })
+              .code(401);
           }
 
           const token = jwt.sign({ id: usuario._id }, process.env.JWT_SECRET, {
