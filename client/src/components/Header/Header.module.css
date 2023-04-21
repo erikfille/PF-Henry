@@ -8,7 +8,7 @@
 }
 
 .navContainer {
-	background-color: transparent;
+	background-color: var(--body_background);
 }
 
 .buttonUser {
