@@ -1,9 +1,10 @@
 .modalContainer {
     position: fixed;
-    width: 800px;
+    width: 60%;
     height: 500px;
     top: 15%;
-    right: 17%;
+    right: 20%;
+    left: 20%;
     z-index: 2000;
     background-color: var(--body_background);
     border-radius: 10px;
@@ -66,4 +67,12 @@
 
 button:disabled {
   color: gray;
+}
+
+@media screen and (max-width: 700px) {
+  .modalContainer {
+    width: 80%;
+    right: 10%;
+    left: 10%;
+  }
 }
