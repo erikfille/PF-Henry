@@ -73,12 +73,15 @@ const Header = () => {
                   data-bs-toggle="dropdown"
                 >
                   {userLogged ? (
-                    <div style={{backgroundImage: `url(${user.image})`}} className={`rounded-circle me-1 ${styles.imgProfile}`}></div>
+                    <div
+                      style={{ backgroundImage: `url(${user.image})` }}
+                      className={`rounded-circle me-1 ${styles.imgProfile}`}
+                    ></div>
                   ) : (
                     <HiOutlineUserCircle className={styles.buttonUser} />
                   )}
                 </span>
-                {!userLogged  ? (
+                {!userLogged ? (
                   <>
                     <ul
                       className={`${styles.bgColor} dropdown-menu dropdown-menu-end`}
@@ -107,16 +110,16 @@ const Header = () => {
                     <ul
                       className={`${styles.dropDownMenu} dropdown-menu dropdown-menu-end`}
                       aria-labelledby="dropdownMenuLink"
-                    > 
-                        <li>
-                          <Link
+                    >
+                      <li>
+                        <Link
                           to={`/perfil/${user.id}`}
                           className={`${styles.li} dropdown-item`}
-                          >
-                            Ver perfil
-                          </Link>
-                          </li>
-                      { user.rol === 'admin' &&
+                        >
+                          Ver perfil
+                        </Link>
+                      </li>
+                      {user.rol === "admin" && (
                         <li>
                           <Link
                             to="/adminDashboard/users"
@@ -135,7 +138,6 @@ const Header = () => {
                           Cerrar sesión
                         </Link>
                       </li>
-
                     </ul>
                   </>
                 )}
