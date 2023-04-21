@@ -54,7 +54,7 @@ export const useLogin = create((set, get) => ({
     // receiveToken(data);
   },
   loginUser: async (userData) => {
-    const { receiveToken } = get();
+    const { receiveToken, logoutUser } = get();
     const modal = useModal.getState().setModalInfo;
 
     try {
@@ -85,7 +85,7 @@ export const useLogin = create((set, get) => ({
     // receiveToken(data);
   },
   setUserRole: async (role) => {
-    const { user, receiveToken } = get();
+    const { user, receiveToken, logoutUser } = get();
     const modal = useModal.getState().setModalInfo;
 
     try {
