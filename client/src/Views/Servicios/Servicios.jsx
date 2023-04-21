@@ -81,8 +81,8 @@ export default function Servicios() {
 
 	return (
 		<>
-			<Meta title={"Servicios"} />
-			<BreadCrump title="Servicios" />
+			<Meta title={"Proveedores"} />
+			<BreadCrump title="Proveedores" />
 			<div className="store-wrapper home-wrapper-2 py-5">
 				<div className="container-xxl">
 					<div className="row">
