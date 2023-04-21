@@ -1,7 +1,7 @@
 import { useState } from "react";
 import validation from "./validation";
 import UploadWidget from "../UploadWidget/UploadWidget";
-import { usePets } from "../../hooks/useStore";
+import { useModal, usePets } from "../../hooks/useStore";
 import styles from "./CreatePet.module.css";
 
 export default function CreatePet() {
@@ -29,11 +29,15 @@ export default function CreatePet() {
     state.addPet,
   ]);
 
-  function onSubmit() {
+  const [ setModalInfo ] = useModal((state) => [state.setModalInfo])
+
+  function onSubmit(e) {
+    e.preventDefault();
     try {
-      addPet(newPetData, user);
+      setModalInfo("Mascota creada", "Mascota creada con exito!", addPet, [newPetData, user.id])
+      setPetAddModal()
     } catch (err) {
-      window.alert(err.error);
+      window.alert(err);
     }
   }
 
