@@ -22,7 +22,7 @@ const ServiceContainer = () => {
 								pais={service.pais}
 								direccion={service.direccion}
 								image={servicesImage}
-								mail={service.mail}
+								mail={service.email}
 								telefono={service.telefono}
 								descripcion={service.descripcion}
 								rating={service.rating}
