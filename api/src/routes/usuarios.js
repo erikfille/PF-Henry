@@ -19,8 +19,6 @@ const usuariosRoutes = [
         // HAY Q AGREGAR EL ROL
         const { name, surname, email, password, image, rol } = request.payload;
 
-      
-
         // Verifico credenciales con Joi
         await validateUser(request.payload);
 
@@ -53,9 +51,10 @@ const usuariosRoutes = [
           rol: rolEncontrado ? rolEncontrado._id : null,
         });
 
-        if (user.image === '') {
+        if (user.image === "") {
           // Si es un string vacío, asignamos el valor por defecto
-          user.image = "https://st.depositphotos.com/1146092/3960/i/950/depositphotos_39605893-stock-photo-silly-computer-dog.jpg";
+          user.image =
+            "https://st.depositphotos.com/1146092/3960/i/950/depositphotos_39605893-stock-photo-silly-computer-dog.jpg";
         }
         await user.save();
 
@@ -64,7 +63,6 @@ const usuariosRoutes = [
           expiresIn: 60 * 60 * 72, // 72 horas
         });
 
-        
         bienvenidaEmail(email, name);
 
         return h.response({
@@ -73,12 +71,12 @@ const usuariosRoutes = [
             name: user.name,
             id: user.id,
             email: user.email,
-            image:user.image,
+            image: user.image,
             rol,
           },
         });
       } catch (error) {
-        console.log(error)
+        console.log(error);
         if (Boom.isBoom(error)) {
           return error;
         }
@@ -95,26 +93,26 @@ const usuariosRoutes = [
       },
       async handler(request, h) {
         // El usuario ya está autenticado en este punto, puedes usar la información del usuario en "request.user"
-        
+
         const { email, password } = request.payload;
-  
+
         try {
           // Buscar el usuario por su email y contraseña y hacer el populate del campo "rol"
           const usuario = await Usuario.findOne({ email }).populate("rol");
-  
+
           if (!usuario) {
             return h
               .response({ error: "El correo electrónico no coincide" })
               .code(401);
           }
-  
+
           // Verificar si el usuario está activo
           if (usuario.status === 0) {
             return h
               .response({ error: "El usuario está desactivado" })
               .code(401);
           }
-  
+
           // Validar la contraseña normalmente
           const validatePass = await Usuario.comparePassword(
             password,
@@ -130,7 +128,7 @@ const usuariosRoutes = [
             process.env.JWT_SECRET,
             { expiresIn: 60 * 60 * 72 } // 72 horas
           );
-  
+
           return h.response({
             user: {
               token: token,
@@ -161,6 +159,14 @@ const usuariosRoutes = [
         try {
           // Buscar el usuario por su email.
           const usuario = await Usuario.findOne({ email }).populate("rol");
+
+          // Verificar si el usuario está activo
+          if (usuario.status === 0) {
+            return h
+              .response({ error: "El usuario está desactivado" })
+              .code(401);
+          }
+
           // si no encuentra el email, lo creamos y guardamos en la base de datos.
           if (!usuario) {
             const hashedPassword = await bcrypt.hash(password, 10);
@@ -304,19 +310,18 @@ const usuariosRoutes = [
     },
   },
   {
-
-    method: 'GET',
-    path: '/users',
+    method: "GET",
+    path: "/users",
     handler: async (request, h) => {
-        try {
-          const users = await Usuario.find()
-          .select("name surname email image password address status")
-           return h.response(users);
-        } catch (err) {
-            return h.response(err).code(500);
-        }
-    }
-
+      try {
+        const users = await Usuario.find().select(
+          "name surname email image password address status"
+        );
+        return h.response(users);
+      } catch (err) {
+        return h.response(err).code(500);
+      }
+    },
   },
   {
     method: "PUT",
