@@ -49,8 +49,8 @@ export default function ModalEditCategory() {
     >
       <div className="d-flex flex-column align-items-center gap-20">
         <h1 className={style.title}>Editar categoría</h1>
-        <div className="mb-2 my-4 d-flex gap-30">
-          <div className="name">
+        <div className="mb-2 my-4 d-flex flex-column flex-lg-row gap-30">
+          <div className="name col">
             <label htmlFor="nombre" className="form-label">
               Nombre
             </label>
@@ -69,7 +69,7 @@ export default function ModalEditCategory() {
               onChange={handleChange}
             />
           </div>
-          <div className="tipo">
+          <div className="tipo col">
             <label htmlFor="tipo" className="form-label">
               Tipo
             </label>
@@ -99,7 +99,7 @@ export default function ModalEditCategory() {
             Cancelar
           </button>
         </div>
-   
+
       </div>
     </div>
   );

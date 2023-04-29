@@ -66,7 +66,7 @@ export default function ModalEditAnimals() {
             />
           </div>
         </div>
-        <div className="d-flex gap-15">
+        <div className="d-flex gap-15 flex-column flex-lg-row">
           <button className="button mt-3 mx-2" onClick={editSpecieSubmit}>
             Modificar especie
           </button>
@@ -74,7 +74,7 @@ export default function ModalEditAnimals() {
             Cancelar
           </button>
         </div>
-       
+
       </div>
     </div>
   );

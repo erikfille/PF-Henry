@@ -42,13 +42,13 @@ export default function ModalUserDetail() {
   }, [usersDetailModal]);
 
   return (
-    <Modal show={isOpen} onHide={() => setUserDetailModal()}>
-      <Modal.Header closeButton>
+    <Modal show={isOpen} onHide={() => setUserDetailModal()} className={style.modalContainer} >
+      <Modal.Header closeButton className={style.modalColor}>
         <Modal.Title>
           <b>Detalle de Usuario</b>
         </Modal.Title>
       </Modal.Header>
-      <Modal.Body>
+      <Modal.Body className={style.modalColor}>
         <div>
           <span>
             <b>Nombre: </b>
@@ -105,7 +105,7 @@ export default function ModalUserDetail() {
           <div>El usuario no tiene productos comprados</div>
         )}
       </Modal.Body>
-      <Modal.Footer>
+      <Modal.Footer className={style.modalColor}>
         <div className="d-flex gap-30 justify-content-between">
           <button
             className="button"
