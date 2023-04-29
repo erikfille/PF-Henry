@@ -85,19 +85,19 @@ const DashCategories = () => {
   };
 
   return (
-    <div className={`${style.dashboardContaier} sidebar col-9 px-5`}>
+    <div className={`${style.dashboardContaier} sidebar col px-5`}>
       <HeaderDashboard />
       <div
-        className={`${style.userBar} px-4 userbar py-4 d-flex align-items-center mt-5`}
+        className={`${style.userBar} px-4 flex-column flex-md-row userbar py-4 d-flex align-items-center mt-5`}
       >
         <div className="type">
           <h1 className="fw-bold mb-0">Categorías</h1>
         </div>
         <div className="d-flex gap-30 w-100 justify-content-end">
           <div
-            className={`${style.search} d-flex align-items-center col col-md-6 m-1`}
+            className={`${style.search} d-flex align-items-center col col-md-6 m-1 flex-column flex-lg-row`}
           >
-            <p className={`${style.p} mb-0 d-none d-lg-inline fw-bold`}>
+            <p className={`${style.p} mb-0 fw-bold`}>
               Buscar categoría:
             </p>
             <input
@@ -117,7 +117,7 @@ const DashCategories = () => {
         </div>
       </div>
       <div className="d-flex flex-wrap gap-30">
-        <div className={`${style.table} col-6`}>
+        <div className={`${style.table} col-12 col-xl-6 table-responsive`}>
           <table className="table table-striped table-hover">
             <thead>
               <tr>
@@ -187,9 +187,9 @@ const DashCategories = () => {
             )}
           </table>
         </div>
-        <div className={`${style.addCategory} col-5`}>
+        <div className={`${style.addCategory} col-12 col-xl-5`}>
           <h1 className="fw-bold mb-0 text-center ">Agregar nueva categoría</h1>
-          <div className="mb-3 my-5 d-flex gap-30">
+          <div className="mb-3 my-5 d-flex gap-30 d-flex flex-column flex-md-row">
             <div className="name">
               <label htmlFor="nombre" className="form-label fw-bold">
                 Nombre
@@ -235,7 +235,7 @@ const DashCategories = () => {
             </div>
           </div>
           <div className="d-flex gap-15 ">
-            <button className="button mt-3 my-3" 
+            <button className="button mt-3 my-3"
             onClick={() =>
               setModalInfo(
                 "¡Exito!",

@@ -86,17 +86,17 @@ const DashProduct = () => {
   };
 
   return (
-    <div className={`${style.dashboardContaier} sidebar col-9 px-5`}>
+    <div className={`${style.dashboardContaier} sidebar col px-5`}>
       <HeaderDashboard />
       <div
-        className={`${style.userBar} px-4 userbar py-4 d-flex justify-content-between align-items-center mt-5`}
+        className={`${style.userBar} px-4 userbar py-4 flex-column flex-md-row d-flex justify-content-between align-items-center mt-5`}
       >
         <div className="type">
           <h1 className="fw-bold mb-0">Productos</h1>
         </div>
-        <div className="d-flex gap-30">
-          <div className={`${style.filter} d-flex align-items-center`}>
-            <p className={`${style.p} mb-0 d-none d-lg-inline fw-bold`}>
+        <div className="d-flex gap-30 flex-column flex-md-row align-items-center">
+          <div className={`${style.filter} d-flex align-items-center flex-column flex-lg-row`}>
+            <p className={`${style.p} mb-0 fw-bold`}>
               Filtrar por:
             </p>
             <select
@@ -110,7 +110,7 @@ const DashProduct = () => {
               id="filtrar_por"
               onChange={handleChange}
             >
-              <option style={{ backgroundColor: "var(--body_background)", }} value="all" defaultValue selected>
+              <option style={{ backgroundColor: "var(--body_background)", }} value="all" defaultValue>
                 Todos
               </option>
               <option style={{ backgroundColor: "var(--body_background)", }} value={true}>Activo</option>
@@ -118,9 +118,9 @@ const DashProduct = () => {
             </select>
           </div>
           <div
-            className={`${style.search} d-flex align-items-center col col-md-6 m-1`}
+            className={`${style.search} d-flex align-items-center col col-md-6 m-1 flex-column flex-lg-row`}
           >
-            <p className={`${style.p} mb-0 d-none d-lg-inline fw-bold`}>
+            <p className={`${style.p} mb-0 fw-bold`}>
               Buscar producto:
             </p>
             <input
@@ -139,7 +139,7 @@ const DashProduct = () => {
           </div>
         </div>
       </div>
-      <div className={style.table}>
+      <div className={`${style.table} table-responsive`}>
         <table className="table table-striped table-hover">
           <thead>
             <tr>
@@ -157,21 +157,21 @@ const DashProduct = () => {
             <tbody>
               {adminFilteredProducts &&
                 adminFilteredProducts.map((prod, idx) => (
-                  <tr>
+                  <tr key={idx}>
                     <th scope="row">{idx + 1}</th>
                     <td>{prod.titulo}</td>
                     <td>$ {prod.precio}</td>
                     <td>{prod.stock}</td>
                     <td className="status">
-                      <div
+                      <td
                         className={`${style.activo} ${
                           prod.activo ? style.active : style.inactive
                         } ms-4 mt-2`}
-                      ></div>
+                      ></td>
                     </td>
                     <td>
-                      <div className="icons d-flex gap-10">
-                        <div className="modificarActivo">
+                      <td className="icons d-flex gap-10">
+                        <td className="modificarActivo">
                           {prod.activo ? (
                             <BsFillDashCircleFill
                               title="Desactivar"
@@ -191,8 +191,8 @@ const DashProduct = () => {
                               onClick={() => changeStatus(prod)}
                             />
                           )}
-                        </div>
-                        <div className="edit">
+                        </td>
+                        <td className="edit">
                           <NavLink to={`/productos/${prod._id}/admin`}>
                             <HiMagnifyingGlass
                               title="Detalle"
@@ -202,8 +202,8 @@ const DashProduct = () => {
                               }}
                             />
                           </NavLink>
-                        </div>
-                      </div>
+                        </td>
+                      </td>
                     </td>
                   </tr>
                 ))}
