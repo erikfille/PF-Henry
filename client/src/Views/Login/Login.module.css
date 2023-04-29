@@ -1,7 +1,9 @@
-.formContainer,
+.formContainer {
+	background-color: var(--body_background);
+}
+
 .loginContainer {
   overflow: hidden;
-	background-color: var(--body_background);
 }
 
 .imgContainer {
@@ -9,6 +11,7 @@
 	background-size: cover;
 	background-repeat: no-repeat;
 	background-position: center center;
+
 }
 
 .fColor {

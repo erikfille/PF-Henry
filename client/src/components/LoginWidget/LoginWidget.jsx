@@ -131,7 +131,7 @@ export default function LoginWidget(props) {
       <div className="col-10 col-md-12 col-xl-8">
         <form className="d-flex flex-column" onSubmit={handleSubmit}>
           {childProps.type === "signup" && (
-            <div className="d-flex flex-column flex-sm-row gap-10">
+            <div className="d-flex flex-column flex-lg-row gap-10">
               <div className="mb-3 w-100">
                 <label
                   htmlFor="exampleInputEmail1"
@@ -170,7 +170,7 @@ export default function LoginWidget(props) {
               </div>
             </div>
           )}
-          <div className="d-flex flex-column flex-sm-row gap-10">
+          <div className="d-flex flex-column flex-lg-row gap-10">
             <div className="mb-3 w-100">
               <label
                 htmlFor="email"
@@ -218,7 +218,7 @@ export default function LoginWidget(props) {
               {childProps.type === "signup" && errors.password && <p className={`text-danger text-center ${styles.error}`}>{errors.password}</p>}
             </div>
           </div>
-          <div className="d-flex flex-column flex-sm-row gap-10">
+          <div className="d-flex flex-column flex-lg-row gap-10">
           {childProps.type === "signup" && (
               <div className="mb-3 w-100 position-relative">
                 <label
