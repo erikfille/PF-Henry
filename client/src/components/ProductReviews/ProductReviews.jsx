@@ -10,7 +10,7 @@ export default function ProductReviews(props) {
   const [qualify, setQualify] = useState(0);
   const [review, setReview] = useState("");
   const [user, setUser] = useState({});
-  const [ableToComment, setAbleToComment] = useState(true);
+  const [ableToComment, setAbleToComment] = useState(false);
 
   let [sendReview] = useProduct((state) => [state.sendReview]);
   let [setModalInfo] = useModal((state) => [state.setModalInfo]);
@@ -20,7 +20,9 @@ export default function ProductReviews(props) {
   const isPurchased = compras.length && compras.some((c) => c.id_producto._id === _id)
 
   useEffect(() => {
-    setUser(JSON.parse(localStorage.getItem("user")));
+    const localUser = JSON.parse(localStorage.getItem("user")) 
+    console.log(localUser)
+    setUser(localUser);
   }, []);
 
   useEffect(() => {

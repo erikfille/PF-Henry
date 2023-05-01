@@ -132,7 +132,7 @@ export default function Cart() {
                 ) : (
                   <p>
                     <strong>
-                      <Link to="/login" className={style.resaltar}>
+                      <Link to="/login" className={style.resaltar} onClick={() => setActiveCart()}>
                         Logueate
                       </Link>
                     </strong>{" "}

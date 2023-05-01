@@ -60,8 +60,8 @@ const Header = () => {
             <NavLink to="/tienda" className="nav-item me-3">
               Tienda
             </NavLink>
-            <NavLink to="/proveedores" className="nav-item me-3">
-              Proveedores
+            <NavLink to="/servicios" className="nav-item me-3">
+              Servicios
             </NavLink>
             <div
               className={`d-flex flex-column flex-md-row align-items-center justify-content-center ${styles.buttonContainer}`}
@@ -73,7 +73,10 @@ const Header = () => {
                   data-bs-toggle="dropdown"
                 >
                   {userLogged ? (
-                    <div style={{backgroundImage: `url(${user.image})`}} className={`rounded-circle me-1 ${styles.imgProfile}`}></div>
+                    <div
+                      style={{ backgroundImage: `url(${user.image})` }}
+                      className={`rounded-circle me-1 ${styles.imgProfile}`}
+                    ></div>
                   ) : (
                     <HiOutlineUserCircle className={styles.buttonUser} />
                   )}
@@ -116,7 +119,7 @@ const Header = () => {
                           Ver perfil
                         </Link>
                       </li>
-                      { user.rol === 'admin' &&
+                      {user.rol === "admin" && (
                         <li>
                           <Link
                             to="/adminDashboard/users"
@@ -125,17 +128,7 @@ const Header = () => {
                             Dashboard Admin
                           </Link>
                         </li>
-                      }
-                      {/* {
-                        <li>
-                          <Link
-                            to="/providerDashboard/profile"
-                            className={`${styles.li} dropdown-item`}
-                          >
-                            Dashboard Proveedor
-                          </Link>
-                        </li>
-                      } */}
+                      )}
                       <li>
                         <Link
                           to=""
@@ -145,7 +138,6 @@ const Header = () => {
                           Cerrar sesión
                         </Link>
                       </li>
-
                     </ul>
                   </>
                 )}
