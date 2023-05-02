@@ -6,7 +6,7 @@ export const useLogin = create((set, get) => ({
   user: {},
   modal: false,
   signUp: async (userData) => {
-    const { receiveToken } = get();
+    const { receiveToken, logoutUser } = get();
     const modal = useModal.getState().setModalInfo;
 
     // console.log(userData);
@@ -41,7 +41,7 @@ export const useLogin = create((set, get) => ({
       console.log(err);
       modal(
         "¡Ups... algo ha fallado!",
-        err.response.data.error,
+        err.response.data.message,
         logoutUser,
         []
       );
@@ -72,7 +72,7 @@ export const useLogin = create((set, get) => ({
     } catch (err) {
       modal(
         "¡Ups... algo ha fallado!",
-        err.response.data.error,
+        err.response.data.message,
         logoutUser,
         []
       );
@@ -99,7 +99,7 @@ export const useLogin = create((set, get) => ({
     } catch (err) {
       modal(
         "¡Ups... algo ha fallado!",
-        err.response.data.error,
+        err.response.data.message,
         logoutUser,
         []
       );
@@ -167,7 +167,7 @@ export const useLogin = create((set, get) => ({
     } catch (err) {
       modal(
         "¡Ups... algo ha fallado!",
-        err.response.data.error,
+        err.response.data.message,
         logoutUser,
         []
       );

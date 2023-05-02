@@ -85,17 +85,17 @@ const DashUser = () => {
   };
 
   return (
-    <div className={`${style.dashboardContaier} sidebar col-9 px-5`}>
+    <div className={`${style.dashboardContaier} sidebar col px-5`}>
       <HeaderDashboard />
       <div
-        className={`${style.userBar} px-4 userbar py-4 d-flex justify-content-between align-items-center mt-5`}
+        className={`${style.userBar} d-flex flex-column flex-md-row px-4 userbar py-4 d-flex justify-content-between align-items-center mt-5`}
       >
         <div className="type">
           <h1 className="fw-bold mb-0">Usuarios</h1>
         </div>
-        <div className="d-flex gap-30">
-          <div className={`${style.filter} d-flex align-items-center`}>
-            <p className={`${style.p} mb-0 d-none d-lg-inline fw-bold`}>
+        <div className="d-flex gap-30 flex-column flex-md-row align-items-center">
+          <div className={`${style.filter} d-flex align-items-center flex-column flex-lg-row`}>
+            <p className={`${style.p} my-1 fw-bold`}>
               Filtrar por:
             </p>
             <select
@@ -131,9 +131,9 @@ const DashUser = () => {
             </select>
           </div>
           <div
-            className={`${style.search} d-flex align-items-center col col-md-6 m-1`}
+            className={`${style.search} d-flex align-items-center col col-md-6 m-1 flex-column flex-lg-row`}
           >
-            <p className={`${style.p} mb-0 d-none d-lg-inline fw-bold`}>
+            <p className={`${style.p} my-1 fw-bold`}>
               Buscar usuario:
             </p>
             <input
@@ -152,7 +152,7 @@ const DashUser = () => {
           </div>
         </div>
       </div>
-      <div className={style.table}>
+      <div className={`${style.table} table-responsive`}>
         {loading ? (
           <Loader />
         ) : (

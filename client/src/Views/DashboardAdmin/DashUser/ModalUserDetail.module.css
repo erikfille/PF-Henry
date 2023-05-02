@@ -1,11 +1,9 @@
-.modalContainer {
-    position: fixed;
-    top: 40%;
-    right: 30%;
-    z-index: 1;
+.modalColor {
     background-color: var(--body_background);
-    border-radius: 10px;
-    box-shadow: var(--body_boxshadow)
+}
+
+.modalContainer {
+  min-width: 90%;
 }
 
 .title {
