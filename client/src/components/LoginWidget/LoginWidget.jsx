@@ -210,24 +210,24 @@ export default function LoginWidget(props) {
               )}
             </div>
             {childProps.type === "signup" && (
-                <div className="mb-3 w-100">
-                  <label
-                    htmlFor="exampleFormControlTextarea1"
-                    className={`${styles.fColor} form-label fw-bold`}
-                  >
-                    Agregá una imagen de Perfil
-                  </label>
-                  <UploadWidget
-                    onUpload={onUpload}
-                    // style={{ width: "50px", height: "50px" }}
-                  />
-                  <br />
-                  {userData.image && (
-                    <div className="uploadedImage">
-                      <img src={userData.image} alt="Uploaded" width="30%" />
-                    </div>
-                  )}
-                </div>
+              <div className="mb-3 w-100">
+                <label
+                  htmlFor="exampleFormControlTextarea1"
+                  className={`${styles.fColor} form-label fw-bold`}
+                >
+                  Agregá una imagen de Perfil
+                </label>
+                <UploadWidget
+                  onUpload={onUpload}
+                  // style={{ width: "50px", height: "50px" }}
+                />
+                <br />
+                {userData.image && (
+                  <div className="uploadedImage">
+                    <img src={userData.image} alt="Uploaded" width="30%" />
+                  </div>
+                )}
+              </div>
             )}
           </div>
           <div className="d-flex flex-column flex-sm-row gap-10">
@@ -270,8 +270,9 @@ export default function LoginWidget(props) {
                 </p>
               )}
             </div>
+          </div>
           <div className="d-flex flex-column flex-lg-row gap-10">
-          {childProps.type === "signup" && (
+            {childProps.type === "signup" && (
               <div className="mb-3 w-100 position-relative">
                 <label htmlFor="verifyPassword" className="form-label fw-bold">
                   Verificar Contraseña
