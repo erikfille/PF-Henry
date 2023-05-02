@@ -8,7 +8,7 @@ mongoose.connect("mongodb://mongo:Zj4zIGBVGZqdee6mK3WO@containers-us-west-204.ra
     .catch(err => console.log(err))
     
 
-// mongoose.connect("mongodb://mongo:Zj4zIGBVGZqdee6mK3WO@containers-us-west-204.railway.app:7641", {
+// mongoose.connect("mongodb+srv://PetCare:HenryVip@petcare.krjtdtk.mongodb.net/test", {
 //     useNewUrlParser: true,
 //     useUnifiedTopology: true,
 // })
