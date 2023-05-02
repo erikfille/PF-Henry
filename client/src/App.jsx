@@ -48,8 +48,8 @@ import DashActividades from "./Views/ProviderDashboard/DashActividades/DashActiv
 
 import { useLogin } from "./hooks/useAuth";
 
-axios.defaults.baseURL = "http://localhost:3000"; // Local
-// axios.defaults.baseURL = "https://pf-henry-production.up.railway.app" // Production
+// axios.defaults.baseURL = "http://localhost:3000"; // Local
+axios.defaults.baseURL = "https://pf-henry-production.up.railway.app" // Production
 
 function App() {
   const location = useLocation();
