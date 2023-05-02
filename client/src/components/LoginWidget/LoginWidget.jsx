@@ -3,7 +3,7 @@ import { useLogin } from "../../hooks/useAuth";
 import ModalRolSelector from "../ModalRolSelector/ModalRolSelector";
 import styles from "./LoginWidget.module.css";
 import UploadWidget from "../UploadWidget/UploadWidget";
-import { AiFillEyeInvisible, AiFillEye } from "react-icons/ai"
+import { AiFillEyeInvisible, AiFillEye } from "react-icons/ai";
 
 // Google Auth
 import { gapi } from "gapi-script";
@@ -15,8 +15,8 @@ import { Link } from "react-router-dom";
 
 export default function LoginWidget(props) {
   const { childProps } = props;
-  const [ show, setShow] = useState(false)
-  const [ showVerify, setShowVerify] = useState(false)
+  const [show, setShow] = useState(false);
+  const [showVerify, setShowVerify] = useState(false);
 
   const [loginUser, loginGoogleUser, signUp] = useLogin((state) => [
     state.loginUser,
@@ -56,7 +56,7 @@ export default function LoginWidget(props) {
   }, []);
 
   const onSuccess = async (response) => {
-	// console.log("Google User", response.profileObj)
+    // console.log("Google User", response.profileObj)
     // Esto mando al loguear por google.
     // Se verifica el mail y la contraseña y si no existen en la db, se crea el usuario y se devuelve, sin el rol.
     let user = {
@@ -94,9 +94,14 @@ export default function LoginWidget(props) {
   }
 
   // To disabled or not button
-  let isComplete = childProps.type === "signup" ?
-    Object.values(errors).length ? true : false :
-    errors.email || errors.password || !userData.email || !userData.password? true : false
+  let isComplete =
+    childProps.type === "signup"
+      ? Object.values(errors).length
+        ? true
+        : false
+      : errors.email || errors.password || !userData.email || !userData.password
+      ? true
+      : false;
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -123,7 +128,9 @@ export default function LoginWidget(props) {
   }
 
   return (
-    <div className={`${styles.container} container d-flex flex-column align-items-center`}>
+    <div
+      className={`${styles.container} container d-flex flex-column align-items-center`}
+    >
       <h1 className={`${styles.fColor} fs-3 fw-bold`}>¡Bienvenido!</h1>
       <p className={`${styles.fColor} fs-6 fw-light`}>
         La mejor forma de cuidar a tu mascota
@@ -148,7 +155,11 @@ export default function LoginWidget(props) {
                   className={`form-control ${errors.name && "is-invalid"}`}
                   type="text"
                 ></input>
-                {errors.name && <p className={`text-danger text-center ${styles.error}`}>{errors.name}</p>}
+                {errors.name && (
+                  <p className={`text-danger text-center ${styles.error}`}>
+                    {errors.name}
+                  </p>
+                )}
               </div>
               <div className="mb-3 w-100">
                 <label
@@ -166,7 +177,11 @@ export default function LoginWidget(props) {
                   className={`form-control ${errors.surname && "is-invalid"}`}
                   type="text"
                 ></input>
-                {errors.surname && <p className={`text-danger text-center ${styles.error}`}>{errors.surname}</p>}
+                {errors.surname && (
+                  <p className={`text-danger text-center ${styles.error}`}>
+                    {errors.surname}
+                  </p>
+                )}
               </div>
             </div>
           )}
@@ -187,9 +202,35 @@ export default function LoginWidget(props) {
                 onChange={handleInputChange}
                 type="email"
                 aria-describedby="emailHelp"
-                />
-              {errors.email && <p className={`text-danger text-center ${styles.error}`}>{errors.email}</p>}
+              />
+              {errors.email && (
+                <p className={`text-danger text-center ${styles.error}`}>
+                  {errors.email}
+                </p>
+              )}
             </div>
+            {childProps.type === "signup" && (
+                <div className="mb-3 w-100">
+                  <label
+                    htmlFor="exampleFormControlTextarea1"
+                    className={`${styles.fColor} form-label fw-bold`}
+                  >
+                    Agregá una imagen de Perfil
+                  </label>
+                  <UploadWidget
+                    onUpload={onUpload}
+                    // style={{ width: "50px", height: "50px" }}
+                  />
+                  <br />
+                  {userData.image && (
+                    <div className="uploadedImage">
+                      <img src={userData.image} alt="Uploaded" width="30%" />
+                    </div>
+                  )}
+                </div>
+            )}
+          </div>
+          <div className="d-flex flex-column flex-sm-row gap-10">
             <div className="mb-3 w-100 position-relative">
               <label
                 htmlFor="password"
@@ -201,30 +242,37 @@ export default function LoginWidget(props) {
                 placeholder="Ingresa tu contraseña"
                 id="password"
                 name="password"
-                type= {show ? "text" : "password"}
+                type={show ? "text" : "password"}
                 value={userData.password}
                 onChange={handleInputChange}
-                className={`form-control ${!errors.verifyPassword && !errors.password && userData.password ? "is-valid" : errors.password && "is-invalid"}`}
+                className={`form-control ${
+                  !errors.verifyPassword &&
+                  !errors.password &&
+                  userData.password
+                    ? "is-valid"
+                    : errors.password && "is-invalid"
+                }`}
               />
-              {show ?
-              <AiFillEyeInvisible
-                onClick={() => setShow(false)}
-                className={styles.showPassword}/>
-                :
-              <AiFillEye
-                onClick={() => setShow(true)}
-                className={styles.showPassword}/>
-              }
-              {childProps.type === "signup" && errors.password && <p className={`text-danger text-center ${styles.error}`}>{errors.password}</p>}
+              {show ? (
+                <AiFillEyeInvisible
+                  onClick={() => setShow(false)}
+                  className={styles.showPassword}
+                />
+              ) : (
+                <AiFillEye
+                  onClick={() => setShow(true)}
+                  className={styles.showPassword}
+                />
+              )}
+              {childProps.type === "signup" && errors.password && (
+                <p className={`text-danger text-center ${styles.error}`}>
+                  {errors.password}
+                </p>
+              )}
             </div>
-          </div>
-          <div className="d-flex flex-column flex-sm-row gap-10">
-          {childProps.type === "signup" && (
+            {childProps.type === "signup" && (
               <div className="mb-3 w-100 position-relative">
-                <label
-                  htmlFor="verifyPassword"
-                  className="form-label fw-bold"
-                >
+                <label htmlFor="verifyPassword" className="form-label fw-bold">
                   Verificar Contraseña
                 </label>
                 <input
@@ -234,20 +282,33 @@ export default function LoginWidget(props) {
                   type={showVerify ? "text" : "password"}
                   value={userData.verifyPassword}
                   onChange={handleInputChange}
-                  className={`form-control ${!errors.verifyPassword && !errors.password && userData.password ? "is-valid" : errors.verifyPassword && "is-invalid"}`}
+                  className={`form-control ${
+                    !errors.verifyPassword &&
+                    !errors.password &&
+                    userData.password
+                      ? "is-valid"
+                      : errors.verifyPassword && "is-invalid"
+                  }`}
                 />
-                {showVerify ?
-              <AiFillEyeInvisible
-                onClick={() => setShowVerify(false)}
-                className={styles.showPassword}/>
-              :
-              <AiFillEye
-                onClick={() => setShowVerify(true)}
-                className={styles.showPassword}/>}
-                {errors.verifyPassword && <p className={`text-danger text-center ${styles.error}`}>{errors.verifyPassword}</p>}
+                {showVerify ? (
+                  <AiFillEyeInvisible
+                    onClick={() => setShowVerify(false)}
+                    className={styles.showPassword}
+                  />
+                ) : (
+                  <AiFillEye
+                    onClick={() => setShowVerify(true)}
+                    className={styles.showPassword}
+                  />
+                )}
+                {errors.verifyPassword && (
+                  <p className={`text-danger text-center ${styles.error}`}>
+                    {errors.verifyPassword}
+                  </p>
+                )}
               </div>
             )}
-            {childProps.type === "signup" && (
+            {/* {childProps.type === "signup" && (
               <div className=" w-100 mb-3">
                 <label
                   htmlFor="exampleInputPassword1"
@@ -270,32 +331,14 @@ export default function LoginWidget(props) {
                   <option style={{ backgroundColor: "var(--body_background)", }} value="provider">Quiero Vender</option>
                 </select>
               </div>
-            )}
-
+            )} */}
           </div>
-          {childProps.type === "signup" && (
-            <div className="mb-3 w-100">
-              <div className="widgetButton">
-                <label
-                  htmlFor="exampleFormControlTextarea1"
-                  className={`${styles.fColor} form-label fw-bold`}
-                >
-                  Agregá una imagen de Perfil
-                </label>
-                <UploadWidget
-                  onUpload={onUpload}
-                  style={{ width: "50px", height: "50px" }}
-                />
-                <br />
-                {userData.image && (
-                  <div className="uploadedImage">
-                    <img src={userData.image} alt="Uploaded" width="30%" />
-                  </div>
-                )}
-              </div>
-            </div>
-          )}
-          <button className={`button w-100 mb-3 ${styles.button}`} disabled={isComplete}>{childProps.button}</button>
+          <button
+            className={`button w-100 mb-3 ${styles.button}`}
+            disabled={isComplete}
+          >
+            {childProps.button}
+          </button>
           <div className="w-100">
             <GoogleLogin
               className={`mb-3 w-100 ${styles.buttonGoogle}`}
@@ -309,7 +352,9 @@ export default function LoginWidget(props) {
       </div>
       <div className="text-center mb-5">
         <p className={styles.fColor}>{childProps.message}</p>
-          <Link to={childProps.anchorPath}><span>{childProps.accountAnchor}</span></Link>
+        <Link to={childProps.anchorPath}>
+          <span>{childProps.accountAnchor}</span>
+        </Link>
       </div>
       <ModalRolSelector />
     </div>

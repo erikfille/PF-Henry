@@ -18,26 +18,34 @@ const postProvedorRoutes = require("./routes/Proveedores/postProveedor");
 const getProveedorRoutes = require("./routes/Proveedores/getProveedor.js");
 const createMascotaRoutes = require("./routes/createMascota.js");
 const compraDetailRoutes = require("./routes/ordenDeCompra.js");
-const modifyingProductosRoutes = require("./routes/Productos/modifyingProducto.js")
-const searchProductosRoutes = require("./routes/Productos/searchProducto.js")
-const modifyingProveedorRoutes = require("./routes/Proveedores/putProveedor")
-const createComentarioResenaRoute = require("./routes/comentariosResenas")
-const especieRoutes = require("./routes/especies")
-const nodeMailerRoutes = require("./routes/nodeMailerRoute")
-const mercadoPagoRoutes = require ("./routes/mercadoPago")
-const comprasRoutes = require ("./routes/comprasUsuario.js")
-const historialRoutes = require("./routes/historialAnimal.js")
+const modifyingProductosRoutes = require("./routes/Productos/modifyingProducto.js");
+const searchProductosRoutes = require("./routes/Productos/searchProducto.js");
+const modifyingProveedorRoutes = require("./routes/Proveedores/putProveedor");
+const createComentarioResenaRoute = require("./routes/comentariosResenas");
+const especieRoutes = require("./routes/especies");
+const nodeMailerRoutes = require("./routes/nodeMailerRoute");
+const mercadoPagoRoutes = require("./routes/mercadoPago");
+const comprasRoutes = require("./routes/comprasUsuario.js");
+const historialRoutes = require("./routes/historialAnimal.js");
 const productoCompradoRoutes = require("./routes/Productos/productoComprado");
 const validacionTokenRoutes = require("./routes/validacionToken.js");
 const activeProductosRoutes = require("./routes/Productos/activeProducts.js");
 const contactoFormRoutes = require("./routes/contactoForm.js");
 
-const port = process.env.PORT
+const port = process.env.PORT;
 
+// Production
+// const init = async () => {
+//   const server = new hapi.Server({
+//     port: port,
+//     host: "0.0.0.0",
+//   });
+
+// Development
 const init = async () => {
   const server = new hapi.Server({
-    port: port,
-    host: "0.0.0.0",
+    port: 3000,
+    host: "localhost",
   });
 
   await server.register({
@@ -47,7 +55,6 @@ const init = async () => {
       origins: ["*"],
     },
   });
-
 
   // Creamos una función para validar el token JWT
   const validateToken = async (decoded, request) => {
@@ -136,17 +143,15 @@ const init = async () => {
   server.route(searchProductosRoutes);
   server.route(modifyingProveedorRoutes);
   server.route(createComentarioResenaRoute);
-  server.route(especieRoutes)
-  server.route(nodeMailerRoutes)
-  server.route(mercadoPagoRoutes)
-  server.route(comprasRoutes)
-  server.route(historialRoutes)
-  server.route(productoCompradoRoutes)
-  server.route(validacionTokenRoutes)
-  server.route(activeProductosRoutes)
-  server.route(contactoFormRoutes)
-
-
+  server.route(especieRoutes);
+  server.route(nodeMailerRoutes);
+  server.route(mercadoPagoRoutes);
+  server.route(comprasRoutes);
+  server.route(historialRoutes);
+  server.route(productoCompradoRoutes);
+  server.route(validacionTokenRoutes);
+  server.route(activeProductosRoutes);
+  server.route(contactoFormRoutes);
 
   await server.start();
   console.log(`el servidor esta corriendo en ${server.info.uri}`);
