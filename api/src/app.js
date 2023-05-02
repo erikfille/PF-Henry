@@ -35,18 +35,18 @@ const contactoFormRoutes = require("./routes/contactoForm.js");
 const port = process.env.PORT;
 
 // Production
-// const init = async () => {
-//   const server = new hapi.Server({
-//     port: port,
-//     host: "0.0.0.0",
-//   });
-
-// Development
 const init = async () => {
   const server = new hapi.Server({
-    port: 3000,
-    host: "localhost",
+    port: port,
+    host: "0.0.0.0",
   });
+
+// Development
+// const init = async () => {
+//   const server = new hapi.Server({
+//     port: 3000,
+//     host: "localhost",
+//   });
 
   await server.register({
     plugin: HapiCors,
