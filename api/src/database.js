@@ -9,3 +9,4 @@ mongoose.connect("mongodb://mongo:Zj4zIGBVGZqdee6mK3WO@containers-us-west-204.ra
 .then(() => console.log("la base de datos esta conectada"))
     .catch(err => console.log(err))
     
+
