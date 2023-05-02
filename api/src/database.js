@@ -20,4 +20,3 @@ mongoose
 //   })
 //   .then(() => console.log("la base de datos esta conectada"))
 //   .catch((err) => console.log(err));
-    
