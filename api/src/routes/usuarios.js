@@ -42,13 +42,14 @@ const usuariosRoutes = [
 
         // Crear un nuevo usuario
         const hashedPassword = await bcrypt.hash(password, 10);
+        const rolPorDefecto = await Rol.findOne({ nombre: 'customer' });
         const user = new Usuario({
           name,
           surname,
           email,
           password: hashedPassword,
           image,
-          rol: rolEncontrado ? rolEncontrado._id : null,
+          rol: rolPorDefecto 
         });
 
         if (user.image === "") {
@@ -160,16 +161,26 @@ const usuariosRoutes = [
           // Buscar el usuario por su email.
           const usuario = await Usuario.findOne({ email }).populate("rol");
 
+          
+
           // si no encuentra el email, lo creamos y guardamos en la base de datos.
           if (!usuario) {
             const hashedPassword = await bcrypt.hash(password, 10);
+            const rolPorDefecto = await Rol.findOne({ nombre: 'customer' });
             const user = new Usuario({
               name,
               surname,
               email,
               password: hashedPassword,
               image,
+              rol: rolPorDefecto 
             });
+    
+            if (user.image === "") {
+              // Si es un string vacío, asignamos el valor por defecto
+              user.image =
+                "https://st.depositphotos.com/1146092/3960/i/950/depositphotos_39605893-stock-photo-silly-computer-dog.jpg";
+            }
             await user.save();
             // Crear un token JWT
             const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
