@@ -13,6 +13,7 @@
 .container {
 	background-color: var(--body_background);
 	margin-top: 60px;
+	margin-bottom: 60px;
 }
 
 .buttonGoogle:hover {

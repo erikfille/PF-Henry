@@ -9,13 +9,13 @@ import { BiLogOut } from "react-icons/bi";
 import { useLogin } from "../../../hooks/useAuth";
 import logo from "../../../assets/logo.png";
 
-const Sidebar = () => {
-
+const Sidebar = (props) => {
+  const { show, setShow } = props
   const [logoutUser] = useLogin((state) => [state.logoutUser]);
 
   return (
     <>
-      <NavLink to="/">
+      <NavLink to="/" onClick={() => setShow(!show)}>
         <div className="logo-container d-flex align-items-center mt-5 ms-5 gap-15">
           <h1 className={`${style.h1} fw-bold mb-0`}>PetsAmerica</h1>
           <img className={style.imgLogo} src={logo} alt="logo" />
@@ -27,6 +27,7 @@ const Sidebar = () => {
           <NavLink
             to="/adminDashboard/users"
             className={({ isActive }) => (isActive ? style.active : style.link)}
+            onClick={() => setShow(!show)}
           >
             Usuarios
           </NavLink>
@@ -45,6 +46,7 @@ const Sidebar = () => {
           <NavLink
             to="/adminDashboard/products"
             className={({ isActive }) => (isActive ? style.active : style.link)}
+            onClick={() => setShow(!show)}
           >
             Productos
           </NavLink>
@@ -54,6 +56,7 @@ const Sidebar = () => {
           <NavLink
             to="/adminDashboard/categories"
             className={({ isActive }) => (isActive ? style.active : style.link)}
+            onClick={() => setShow(!show)}
           >
             Categorías
           </NavLink>
@@ -63,6 +66,7 @@ const Sidebar = () => {
           <NavLink
             to="/adminDashboard/animals"
             className={({ isActive }) => (isActive ? style.active : style.link)}
+            onClick={() => setShow(!show)}
           >
             Animales
           </NavLink>

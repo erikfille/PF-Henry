@@ -8,7 +8,7 @@
     height: 40px;
 }
 
-.link, 
+.link,
 .h1 {
     color: var(--body_color);
     font-weight: 600;
@@ -36,4 +36,40 @@
     background-color: transparent;
     font-weight: 600;
     color: var(--body_color);
+}
+
+.menuButton {
+  position: absolute;
+  font-size: 1.5rem;
+  display: none;
+}
+
+@media screen and (max-width: 992px) {
+  .sidebarContainer {
+    position: absolute;
+    transform: translateX(-20rem);
+    transition: all 0.4s ease-in-out;
+    z-index: 50;
+  }
+
+  .menuButton {
+    display: block;
+    top: 1rem;
+    left: 1rem;
+    z-index: 100;
+    cursor: pointer;
+  }
+
+  .showSidebar {
+    position: absolute;
+    transform: translateX(0rem);
+    background-color: var(--body_background);
+    height: 100vh;
+    width: 19rem;
+    z-index: 50;
+    transition: all 0.4s ease-in-out;
+    -webkit-box-shadow: 10px 0px 30px 0px rgba(0,0,0,0.5);
+    -moz-box-shadow: 10px 0px 30px 0px rgba(0,0,0,0.5);
+    box-shadow: 10px 0px 30px 0px rgba(0,0,0,0.5);
+  }
 }

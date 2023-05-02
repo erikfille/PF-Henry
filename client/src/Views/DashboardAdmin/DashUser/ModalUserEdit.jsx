@@ -97,7 +97,7 @@ export default function ModalUserEdit() {
 
   return (
     <div
-      className={`${style.modalContainer} px-3 py-4 position-fixed top-50 start-50 translate-middle col-sm-12 col-md-8`}
+      className={`${style.modalContainer} px-3 py-4 position-fixed top-50 start-50 translate-middle col-11 col-sm-10 col-md-8`}
       style={{ display: isOpen ? "block" : "none" }}
     >
       <div className="d-flex justify-content-center align-items-center">
