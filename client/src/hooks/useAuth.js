@@ -165,12 +165,13 @@ export const useLogin = create((set, get) => ({
         }
       }
     } catch (err) {
-      modal(
-        "¡Ups... algo ha fallado!",
-        err.response.data.message,
-        logoutUser,
-        []
-      );
+      // modal(
+      //   "¡Ups... algo ha fallado!",
+      //   err.response.data.message,
+      //   logoutUser,
+      //   []
+      // );
+      console.log(err)
     }
   },
   setModal: () => {
