@@ -249,7 +249,6 @@ export default function ModalUserEdit() {
                 </label>
                 <UploadWidget
                   onUpload={onUpload}
-                  style={{ width: "50px", height: "50px" }}
                 />
                 <br />
                 {editedUser.image && (
