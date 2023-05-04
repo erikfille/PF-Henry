@@ -291,7 +291,6 @@ const usuariosRoutes = [
       try {
         // Buscar el usuario por su id
         const usuario = await Usuario.findById(id);
-        // console.log(usuario);
         // Si el usuario no existe, devolver un error
         if (!usuario) {
           return h.response({ error: "El usuario no existe" }).code(404);

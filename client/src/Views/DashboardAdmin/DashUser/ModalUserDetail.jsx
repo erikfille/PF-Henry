@@ -29,7 +29,6 @@ export default function ModalUserDetail() {
 
   useEffect(() => {
     setProducts(userBuyedProducts);
-    console.log(userBuyedProducts);
   }, [userBuyedProducts]);
 
   useEffect(() => {

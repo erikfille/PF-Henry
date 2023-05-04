@@ -56,7 +56,6 @@ export default function LoginWidget(props) {
   }, []);
 
   const onSuccess = async (response) => {
-    // console.log("Google User", response.profileObj)
     // Esto mando al loguear por google.
     // Se verifica el mail y la contraseña y si no existen en la db, se crea el usuario y se devuelve, sin el rol.
     let user = {

@@ -168,7 +168,6 @@ export const useProduct = create((set, get) => ({
   },
   updateStock: async (cartProducts) => {
     let promisifiedUpdate = [];
-    console.log(cartProducts)
     cartProducts.forEach((p) => {
       if(p.stock !== null) {
         promisifiedUpdate.push(
@@ -626,7 +625,6 @@ export const useAdmin = create((set, get) => ({
   modifyProvider: async (newUser) => {
     const { getAdminProviders } = get();
     try {
-      // console.log(newUser);
       // await axios.post("/crearCategoria", newUser);
       // await getAdminCategories();
     } catch (err) {
