@@ -21,7 +21,6 @@ export default function ProductReviews(props) {
 
   useEffect(() => {
     const localUser = JSON.parse(localStorage.getItem("user")) 
-    console.log(localUser)
     setUser(localUser);
   }, []);
 

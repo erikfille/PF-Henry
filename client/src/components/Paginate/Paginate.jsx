@@ -12,8 +12,6 @@ export default function Paginate () {
     ]
   );
 
-  console.log(storePage)
-
   return (
     <div>
       <button

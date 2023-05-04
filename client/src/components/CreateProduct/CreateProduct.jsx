@@ -59,14 +59,11 @@ export default function CreateProduct() {
         };
       });
     setServicesCategories(services);
-    console.log(products, services);
-    console.log(productData.tipo);
   }, [productData.tipo]);
 
   async function createProduct(data) {
     try {
       const response = await axios.post(`/crearProducto`, data);
-      console.log(response);
     } catch (err) {
       window.alert(err.error);
     }
@@ -86,7 +83,6 @@ export default function CreateProduct() {
   }
 
   function handleSelectChange(e) {
-    console.log(productData.tipo);
     let selected;
     if (typeof e === "object" && e.length) {
       selected = e.map((el) => ({ ...el, value: el.value.split(".")[0] }));
@@ -106,8 +102,6 @@ export default function CreateProduct() {
 
   async function handleSubmit(e) {
     e.preventDefault();
-    // getProveedor()
-    console.log(productData);
 
     let newProduct = {};
     newProduct.titulo = productData.titulo;

@@ -13,8 +13,6 @@ const validacionTokenRoutes = [
             // Verificar el token
             const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
 
-            console.log(decodedToken);
-
         // verifica que el id del decodedToken.id se corresponda con algun usuario, y chequea:
         // - Si el usuario existe
         // - Si el usuario esta habilitado (status: 1)

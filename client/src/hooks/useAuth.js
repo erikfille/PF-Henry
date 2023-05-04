@@ -9,10 +9,8 @@ export const useLogin = create((set, get) => ({
     const { receiveToken, logoutUser } = get();
     const modal = useModal.getState().setModalInfo;
 
-    // console.log(userData);
     try {
       let response = await axios.post("/users", userData);
-      // console.log(response);
       set((state) => ({ user: response.data.user }));
       receiveToken(response.data.user.token, response.data.user);
     } catch (err) {
@@ -30,7 +28,6 @@ export const useLogin = create((set, get) => ({
 
     try {
       let response = await axios.post("/users/GoogleLogin", userData);
-      // console.log("Post a Users: ", response.data);
       set((state) => ({ user: response.data.user }));
       if (!response.data.user.rol) {
         setModal();
@@ -41,7 +38,7 @@ export const useLogin = create((set, get) => ({
       console.log(err);
       modal(
         "¡Ups... algo ha fallado!",
-        err.response.data.message,
+        err.response.data.error,
         logoutUser,
         []
       );
@@ -66,13 +63,12 @@ export const useLogin = create((set, get) => ({
       - Contraseña Incorrecta: se avisa al usuario que la contraseña no coincide.
       */
       let response = await axios.post("/users/login", userData);
-      // console.log("Response Login Normal: ", response);
       set((state) => ({ user: response.data.user }));
       receiveToken(response.data.user.token, response.data.user);
     } catch (err) {
       modal(
         "¡Ups... algo ha fallado!",
-        err.response.data.message,
+        err.response.data.error,
         () => {},
         []
       );
@@ -93,13 +89,11 @@ export const useLogin = create((set, get) => ({
       let response = await axios.put(`/users/${user.id}/role`, { role: role });
       set((state) => ({ user: response.data }));
 
-      // console.log("user with role: ", response.data);
-
       receiveToken(token, response.data);
     } catch (err) {
       modal(
         "¡Ups... algo ha fallado!",
-        err.response.data.message,
+        err.response.data.error,
         () => {},
         []
       );
@@ -107,7 +101,6 @@ export const useLogin = create((set, get) => ({
   },
   receiveToken(token, user) {
     const { loginHi } = get();
-    // console.log("receiveToken: ", user);
     let userData = {
       id: user._id || user.id,
       name: user.name,
