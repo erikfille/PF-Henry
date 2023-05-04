@@ -73,7 +73,7 @@ export const useLogin = create((set, get) => ({
       modal(
         "¡Ups... algo ha fallado!",
         err.response.data.message,
-        logoutUser,
+        () => {},
         []
       );
     }
@@ -100,7 +100,7 @@ export const useLogin = create((set, get) => ({
       modal(
         "¡Ups... algo ha fallado!",
         err.response.data.message,
-        logoutUser,
+        () => {},
         []
       );
     }
@@ -140,7 +140,7 @@ export const useLogin = create((set, get) => ({
       window.location.assign("/tienda");
     }
   },
-  logoutUser() {
+  logoutUser: () => {
     localStorage.removeItem("token");
     localStorage.removeItem("user");
     document.cookie = "token=;expires=Thu, 01 Jan 1970 00:00:01 GMT;";
@@ -157,21 +157,14 @@ export const useLogin = create((set, get) => ({
       if (jwt) {
         // Si existe un token, lo envío a verificar al back
         let response = await axios.post("/validado", { token: jwt });
-
-        // console.log(response);
-
-        if (response.status !== 200) {
-          logoutUser();
-        }
       }
     } catch (err) {
-      // modal(
-      //   "¡Ups... algo ha fallado!",
-      //   err.response.data.message,
-      //   logoutUser,
-      //   []
-      // );
-      console.log(err)
+      modal(
+        "¡Ups... algo ha fallado!",
+        err.response.data.error,
+        logoutUser,
+        []
+      );
     }
   },
   setModal: () => {

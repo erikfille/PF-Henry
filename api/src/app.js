@@ -157,4 +157,9 @@ const init = async () => {
   console.log(`el servidor esta corriendo en ${server.info.uri}`);
 };
 
-init();
+try {
+  init();
+} catch (err) {
+  console.log(err);
+  init();
+}
