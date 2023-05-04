@@ -159,7 +159,6 @@ export const useLogin = create((set, get) => ({
         let response = await axios.post("/validado", { token: jwt });
       }
     } catch (err) {
-      console.log(err);
       modal(
         "¡Ups... algo ha fallado!",
         err.response.data.error,
