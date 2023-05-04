@@ -10,54 +10,62 @@ import Meta from "../../components/Meta/Meta";
 import styles from "./Login.module.css";
 
 export default function Login() {
-	const location = useLocation();
+  const location = useLocation();
 
-	const actualLocation = location.pathname;
+  const actualLocation = location.pathname;
 
-	let childProps = {};
+  let childProps = {};
 
-	if (location.pathname === "/login") {
-		childProps = {
-			type: "login",
-			subtitle: "Ingrese sus datos para acceder",
-			button: "Ingresar",
-			message: "¿No tienes cuenta?",
-			accountAnchor: "¡Crea una cuenta ahora mismo!",
-			anchorPath: "/signup",
-		};
-	}
+  if (location.pathname === "/login") {
+    childProps = {
+      type: "login",
+      subtitle: "Ingrese sus datos para acceder",
+      button: "Ingresar",
+      message: "¿No tienes cuenta?",
+      accountAnchor: "¡Crea una cuenta ahora mismo!",
+      anchorPath: "/signup",
+    };
+  }
 
-	if (location.pathname === "/signup") {
-		childProps = {
-			type: "signup",
-			subtitle: "Ingrese sus datos para registrarse",
-			button: "Registrate",
-			message: "¿Ya tienes cuenta?",
-			accountAnchor: "Ir al Login",
-			anchorPath: "/login",
-		};
-	}
+  if (location.pathname === "/signup") {
+    childProps = {
+      type: "signup",
+      subtitle: "Ingrese sus datos para registrarse",
+      button: "Registrate",
+      message: "¿Ya tienes cuenta?",
+      accountAnchor: "Ir al Login",
+      anchorPath: "/login",
+    };
+  }
 
-	return (
+  return (
     <>
       <Meta title={location.pathname === "/login" ? "Login" : "SignUp"} />
       <div className={styles.loginContainer}>
-		    <div className="row">
-		  		<div
-		  			className={`col-12 col-md-6 col-xl-7 d-flex justify-content-center align-items-center ${styles.formContainer} mt-4`}
-            style={{height: location.pathname === "/signup" ? '100%' : '100vh'}}>
-		  			<NavLink to="/">
-		  				<h1 className="fw-bold position-absolute top-0 start-0 m-4">PetsAmerica</h1>
-		  			</NavLink>
-		  			<LoginWidget childProps={childProps} />
-		  		</div>
-		  		<div
-		  			className={`col-6 col-md-6 col-xl-5 d-none d-md-flex position-relative ${styles.imgContainer}`}
-		  			style={{
-              backgroundImage: `url(${actualLocation === "/login" ? loginDog : signUpCat})`,
-		  			}}></div>
-		  	</div>
-		  </div>
+        <div className="row">
+          <div
+            className={`col-12 col-md-6 col-xl-7 d-flex justify-content-center align-items-center ${styles.formContainer} mt-4`}
+            style={{
+              height: location.pathname === "/signup" ? "100vh" : "100vh",
+            }}
+          >
+            <NavLink to="/">
+              <h1 className="fw-bold position-absolute top-0 start-0 m-4">
+                PetsAmerica
+              </h1>
+            </NavLink>
+            <LoginWidget childProps={childProps} />
+          </div>
+          <div
+            className={`col-6 col-md-6 col-xl-5 d-none d-md-flex position-relative ${styles.imgContainer}`}
+            style={{
+              backgroundImage: `url(${
+                actualLocation === "/login" ? loginDog : signUpCat
+              })`,
+            }}
+          ></div>
+        </div>
+      </div>
     </>
-	);
+  );
 }

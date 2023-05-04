@@ -1,5 +1,5 @@
 .formContainer {
-	background-color: var(--body_background);
+  background-color: var(--body_background);
 }
 
 .loginContainer {
@@ -8,29 +8,28 @@
 
 .imgContainer {
   overflow: hidden;
-	background-size: cover;
-	background-repeat: no-repeat;
-	background-position: center center;
-
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
 }
 
 .fColor {
-	color: var(--body_color);
-	font-size: 26px;
+  color: var(--body_color);
+  font-size: 26px;
 }
 
 .fColor:hover {
-	color: var(--color-0CC5BA);
+  color: var(--color-0CC5BA);
 }
 
 @media screen and (max-width: 700px) {
-	.fColor {
-		font-size: 12px;
-	}
+  .fColor {
+    font-size: 12px;
+  }
 }
 
 @media screen and (max-width: 992px) {
-	.fColor {
-		font-size: 12px;
-	}
+  .fColor {
+    font-size: 12px;
+  }
 }
